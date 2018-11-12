@@ -1,0 +1,32 @@
+﻿@section SampleHeading{
+    <span class="sampleName">ListBox / ToolTip</span>}
+@section ControlsSection{
+        <div class="control frame">
+            <div class="ctrllabel">Select a person</div>
+           @Html.EJ().ListBox("tooltip").Datasource((IEnumerable<EmployeeSpecialists>)ViewBag.datasource).ListBoxFields(df => df.Text("text").TooltipText("desig")).Height("250px").ClientSideEvents(evt => evt.Create("setheight"))
+        </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+    function setheight(){
+         if (document.body.firstElementChild.className =="htmljssamplebrowser material" ||"htmljssamplebrowser office-365"){
+             setTimeout(function () {
+                 var obj = $("#tooltip").ejListBox("instance");
+                obj._refreshScroller(); }, 500);
+                 }
+    }
+    </script>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .ctrllabel {            
+            padding: 5px 0px 12px 3px;
+            font-weight:500;
+        }
+
+        .e-ddl-popup {
+            margin: 0 auto;
+        }
+
+    </style>
+}

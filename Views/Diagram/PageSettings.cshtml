@@ -1,0 +1,215 @@
+﻿@section SampleHeading{ <span class="sampleName">Diagram / Page Settings</span>}
+@section StyleSection {
+    <style>
+        .row .cols-sample-area {
+            width: 67%;
+        }
+
+        .row .cols-prop-area {
+            width: 31%;
+        }
+    </style>
+}
+@section ControlsSection{
+    <div>
+        @Html.EJ().Diagram("PageSettings", ViewData["diagramModel"] as Syncfusion.JavaScript.DataVisualization.Models.DiagramProperties)
+    </div>
+}
+@section PropertiesSection{
+    <div id="sampleProperties">
+        <div class="prop-grid">
+            <div class="row">
+                <div class="col-md-3">
+                    <b>Page Settings</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Width
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().NumericTextbox("width").CssClass("pageWidth").Width("120px").Value(500).ClientSideEvents(s => s.Change("propertyChange"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Height
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().NumericTextbox("height").CssClass("pageHeight").Width("120px").Value(500).ClientSideEvents(s => s.Change("propertyChange"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Multiple Page
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().CheckBox("multiplepage").CssClass("multiplePage").Checked(true).ClientSideEvents(s => s.Change("propertyChange"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Border Width
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().NumericTextbox("borderwidth").CssClass("pageBorderWidth").Width("120px").Value(1).ClientSideEvents(s => s.Change("propertyChange"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Background Color
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().DropDownList("background").CssClass("pageBackgroundColor").Datasource((IEnumerable<DropDownData>)ViewData["DropDownSource"]).DropDownListFields(Df => Df.Text("text").Value("value")).Width("120px").Text("White").ClientSideEvents(eve => eve.Change("propertyChange"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Border Color
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().DropDownList("bordercolor").CssClass("pageBorderColor").Datasource((IEnumerable<DropDownData>)ViewData["DropDownSource"]).DropDownListFields(Df => Df.Text("text").Value("value")).Width("120px").Text("Black").ClientSideEvents(eve => eve.Change("propertyChange"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Margin
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().NumericTextbox("margin").CssClass("pageMargin").Width("120px").Value(20).ClientSideEvents(s => s.Change("propertyChange"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Page Break
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().CheckBox("pagebreak").CssClass("showPageBreak").Checked(true).ClientSideEvents(s => s.Change("propertyChange"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Orientation
+                </div>
+                <div class="col-md-3">
+                    @(Html.EJ().DropDownList("orientation").CssClass("pageOrientation").Datasource((IEnumerable<DropDownData>)ViewData["Orientation"]).DropDownListFields(Df => Df.Text("text").Value("value")).Text("Landscape").ClientSideEvents(eve => eve.Change("propertyChange")).Width("120px"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Boundary Constraints
+                </div>
+                <div class="col-md-3">
+                    @(Html.EJ().DropDownList("boundaryconstraints").CssClass("boundaryConstraints").Datasource((IEnumerable<DropDownData>)ViewData["Boundary"]).DropDownListFields(Df => Df.Text("text").Value("value")).Text("Diagram").ClientSideEvents(eve => eve.Change("propertyChange")).Width("120px"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <b>Snap Settings</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Snap
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().CheckBox("snaping").CssClass("enableSnapToObject").Checked(true).ClientSideEvents(s => s.Change("propertyChange"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Snap Angle
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().NumericTextbox("snapingangle").CssClass("snapAngle").Width("120px").Value(1).ClientSideEvents(s => s.Change("propertyChange"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Snap Distance
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().NumericTextbox("snapingdistance").CssClass("snapObjectDistance").Width("120px").Value(10).ClientSideEvents(s => s.Change("propertyChange"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Snap Constraints
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().DropDownList("snapconstraints").CssClass("snapConstraints").Datasource((IEnumerable<DropDownData>)ViewData["SnapDataSource"]).DropDownListFields(Df => Df.Text("text").Value("value")).Width("120px").Text("ShowLines").ClientSideEvents(eve => eve.Change("propertyChange"))
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $("#sampleProperties").ejPropertiesPanel();
+
+        function diagramCreate() {
+            var diagram = $("#PageSettings").ejDiagram("instance");
+            diagram.fitToPage();
+        }
+
+        function propertyChange(args) {
+            var option = {};
+            var isPageSettings = true;
+            switch (args.model.cssClass) {
+                case "pageHeight":
+                    option.pageHeight = args.value;
+                    break;
+                case "pageWidth":
+                    option.pageWidth = args.value;
+                    break;
+                case "multiplePage":
+                    option.multiplePage = args.isChecked;
+                    break;
+                case "pageBorderWidth":
+                    option.pageBorderWidth = args.value;
+                    break;
+                case "pageBackgroundColor":
+                    option.pageBackgroundColor = args.value;
+                    break;
+                case "pageBorderColor":
+                    option.pageBorderColor = args.value;
+                    break;
+                case "pageMargin":
+                    option.pageMargin = args.value;
+                    break;
+                case "showPageBreak":
+                    option.showPageBreak = args.isChecked;
+                    break;
+                case "pageOrientation":
+                    option.pageOrientation = args.value;
+                    break;
+                case "boundaryConstraints":
+                    option.boundaryConstraints = args.value;
+                    break;
+                case "enableSnapToObject":
+                    isPageSettings = false;
+                    option.enableSnapToObject = args.isChecked;
+                    break;
+                case "snapAngle":
+                    isPageSettings = false;
+                    option.snapAngle = args.value;
+                    break;
+                case "snapObjectDistance":
+                    isPageSettings = false;
+                    option.snapObjectDistance = args.value;
+                    break;
+                case "snapConstraints":
+                    isPageSettings = false;
+                    var snap = ej.datavisualization.Diagram.SnapConstraints[args.value];
+                    option.snapConstraints = snap;
+                    break;
+            }
+            if (option) {
+                if (isPageSettings) $("#PageSettings").ejDiagram({ pageSettings: option });
+                else $("#PageSettings").ejDiagram({ snapSettings: option });
+            }
+        }
+
+    </script>
+    <script src="@Url.Content("~/Scripts/DiagramScripts/DiagramCommon.js")"></script>
+}

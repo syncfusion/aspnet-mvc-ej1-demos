@@ -1,0 +1,119 @@
+﻿@section SampleHeading{<span class="sampleName"> TreeGrid / CheckboxSelection</span>}
+
+@section ControlsSection{
+
+    @(Html.EJ().TreeGrid("TreeGridContainer")
+             .ChildMapping("Children")
+             .TreeColumnIndex(1)
+             .IsResponsive(true)
+             .SelectionSettings(ss =>
+                   ss.SelectionType(TreeGridSelectionType.Checkbox)
+                   .SelectionMode(TreeGridSelectionMode.Row)
+                   .EnableSelectAll(true)
+                   .EnableHierarchySelection(true)
+                   )
+
+             .Columns(co =>
+               {
+                   co.Field("TaskId").HeaderText("Task Id").Width(70).Add();
+                   co.Field("TaskName").HeaderText("Task Name").ShowCheckbox(true).Add();
+                   co.Field("StartDate").HeaderText("Start Date").Add();
+                   co.Field("EndDate").HeaderText("End Date").Add();
+                   co.Field("Duration").HeaderText("Duration").Add();
+               }
+             )
+             .SizeSettings(ss => ss.Width("100%").Height("350px"))
+             .Datasource(ViewBag.datasource)
+    )
+}
+
+@section PropertiesSection{
+    <style>
+        .colwidth {
+            margin-left: 10px;
+        }
+    </style>
+    <div class="prop-grid">
+        <div class="row">
+            <div class="col-md-3">
+                Select All
+            </div>
+            <div class="col-md-3">
+                <div class="colwidth">
+                    @(Html.EJ().CheckBox("selectAll")
+                .Checked()
+                .ClientSideEvents(eve => { eve.Change("selectAll"); })
+                    )
+                </div>
+            </div>
+
+            <div class="col-md-3">
+                Hierarchy Selection
+            </div>
+            <div class="col-md-3">
+                <div class="colwidth">
+                    @(Html.EJ().CheckBox("hierarchySelection")
+                .Checked()
+                .ClientSideEvents(eve => { eve.Change("recursive"); })
+                    )
+                </div>
+            </div>
+            <div class="col-md-3">
+                Checkbox Column
+            </div>
+            <div class="col-md-3">
+                <div id="target1">
+                    <ul>
+                        <li>Default</li>
+                        <li>Task Id</li>
+                        <li>Task Name</li>
+                        <li>Start Date</li>
+                        <li>End Date</li>
+                        <li>Duration</li>
+                    </ul>
+                </div>
+                <div style="float:right;padding-bottom:5px; padding-left:1px;">
+                    <div class="colwidth">
+                        @(Html.EJ().DropDownList("type")
+                           .TargetID("target1")
+                           .Value("Task Name")
+                           .Text("Task Name")
+                           .ClientSideEvents(eve => eve.Change("checkboxSelection"))
+                           .Width("100px")
+                        )
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        function selectAll(args) {
+            var treeGridObject = $("#TreeGridContainer").data("ejTreeGrid"),
+                selectionSettings = {};
+            selectionSettings = { enableSelectAll: args.isChecked };
+            treeGridObject.option("selectionSettings", selectionSettings);
+        }
+        function recursive(args) {
+            var treeGridObject = $("#TreeGridContainer").data("ejTreeGrid"),
+                selectionSettings = {};
+            selectionSettings = { enableHierarchySelection: args.isChecked };
+            treeGridObject.option("selectionSettings", selectionSettings);
+        }
+        function checkboxSelection(args) {
+            var treeGridObject = $("#TreeGridContainer").data("ejTreeGrid");
+            if (args.value === "Default")
+                treeGridObject.updateCheckboxColumn();
+            else {
+                var column = treeGridObject.getColumnByHeaderText(args.value);
+                treeGridObject.updateCheckboxColumn(column.field);
+            }
+        }
+
+    </script>
+}

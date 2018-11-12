@@ -1,0 +1,95 @@
+﻿@section SampleHeading{ <span class="sampleName"> PivotClient / DeferUpdate WCF</span>}
+
+@using Syncfusion.JavaScript;
+@using Syncfusion.JavaScript.Olap;
+
+@section StyleSection{
+    <style>
+        .row .cols-sample-area {
+            width: 100%;
+            padding: 10px !important;
+            overflow: auto;
+        }
+
+        #PivotClient1 {
+            min-height: 275px;
+            min-width: 525px;
+        }
+
+        #CodeViewTab ul > li:first-child + li {
+            display: none;
+        }
+
+        .row .cols-prop-area {
+            min-height: 110px;
+            margin-top: 20px;
+            width: 20%;
+        }
+    </style>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        var pivotGrid;
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+            $("#deferUpdate").ejCheckBox({ size: "medium", checked: false, change: "refreshClient" });
+            deferUpdate = $('#deferUpdate').data("ejCheckBox");
+            pivotClient = $("#PivotClient1").data("ejPivotClient");
+        });
+        function refreshClient(args) {
+            $(pivotClient.element).html("");
+            pivotClient.model.enableDeferUpdate = deferUpdate.model.checked;
+            pivotClient._load();
+        }
+        function setChartProperties(args) {
+            this._pivotChart.model.load = "loadTheme";
+            if (args._successAction == undefined || args._successAction == "Filter") {
+                this._pivotChart.model.legend.rowCount = 2;
+                this._pivotChart.model.primaryXAxis = { title: { text: "Fiscal Year" }, labelRotation: 270 };
+                this._pivotChart.model.primaryYAxis = { title: { text: "Customer Count" } };
+            }
+        }
+        function Export(args) {
+            args.url = "ExportPivotClient";
+        }
+        function reportSettings(args) {
+            if (args.fetchReportSetting)
+                return args.fetchReportSetting.url = "../wcf/OlapClientService.svc";
+            else if (args.loadReportSetting)
+                return args.loadReportSetting.url = "../wcf/OlapClientService.svc";
+            else
+                return args.saveReportSetting.url = "../wcf/OlapClientService.svc";
+        }
+		window.loadPivotClientFrameTheme = function () {
+            window.setTimeout(function () {
+                var pivotClientElement = $("#PivotClient1").data("ejPivotClient");
+                pivotClientElement._load();
+            }, 500);
+        }
+    </script>
+}
+
+
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/ej.web.all.min.js")" type="text/javascript"></script>
+}
+@section ControlsSection{
+    @Html.EJ().Pivot().PivotClient("PivotClient1").Url(Url.Content("~/wcf/OlapClientService.svc")).EnableMemberEditorPaging(false).Title("OLAP Browser").ClientSideEvents(oEve => { oEve.RenderSuccess("setChartProperties").BeforeExport("Export").SaveReport("reportSettings").LoadReport("reportSettings").FetchReport("reportSettings"); })
+    <!--Tooltip labels can be localized here-->
+    <script id="tooltipTemplate" type="application/jsrender">
+        <div style="background:White; color:black; font-size:12px; font-weight:normal; border: 1px solid #4D4D4D; white-space: nowrap;border-radius: 2px; margin-right: 25px; min-width: 110px;padding-right: 5px; padding-left: 5px; padding-bottom: 2px ;width: auto; height: auto;">
+            <div>Measure(s) : {{:~Measures(#data)}}</div><div>Row : {{:~Row(#data)}}</div><div>Column : {{:~Column(#data)}}</div><div>Value : {{:~Value(#data)}}</div>
+        </div>
+    </script>
+}
+@section PropertiesSection{
+    <div class="prop-grid">
+        <table>
+            <tr>
+                <td style="width: 200px">
+                    <label for="deferUpdate" style="margin-right: 10px;margin-left:5px;">Defer Update :</label><input type="checkbox" id="deferUpdate" value="Video" />
+                </td>
+            </tr>
+        </table>
+    </div>
+}

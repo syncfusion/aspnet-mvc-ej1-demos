@@ -1,0 +1,26 @@
+﻿@section SampleHeading{<span class="sampleName">ColorPicker / DisplayInline </span>}
+@section ControlsSection{
+    <div class="frame">
+        <div id="col-md-3">Select a Color</div>
+        @Html.EJ().ColorPicker("inlinePicker").Value("#278787").TagName("div").ModelType(ModelType.Picker).DisplayInline(true).ClientSideEvents(events => events.Change("onChange"))
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        function onChange(args) {
+            $("#col-md-3").html("Color Value " + args.value + " is choosen");
+        }
+        $("#sampleProperties").ejPropertiesPanel();
+    </script>
+}
+@section StyleSection{
+    <style>
+        #col-md-3 {
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        .office-365 .frame {
+        width:325px;
+        }
+    </style>
+}

@@ -1,0 +1,256 @@
+﻿@using Syncfusion.JavaScript
+@using Syncfusion.MVC.EJ
+@using Syncfusion.JavaScript.DataVisualization
+@using Syncfusion.JavaScript.DataVisualization.Models
+
+@section SampleHeading{
+	<span class="sampleName">Map / Drill Down</span>
+	}
+@section ControlsSection{
+    @{
+            var datasource = ViewData["datasource"];
+            var mapSalesData = ViewData["mapSalesData"];
+            var randomcountriesData = ViewData["randomcountriesData"];          
+            var continentMapData = ViewData["continentMapdata"];
+            var continentSalesMapData = ViewData["continentSalesMapdata"];
+            var countriesRandomData = ViewData["countriesRandomData"];
+            var africaMapData = ViewData["africaMapdata"];
+            var asiaMapdata = ViewData["asiaMapdata"];
+            var europeMapdata = ViewData["europeMapdata"];
+            var northAmericaMapdata = ViewData["northAmericaMapdata"];
+            var oceaniaMapdata = ViewData["oceaniaMapdata"];
+            var southAmericaMapdata = ViewData["southAmericaMapdata"];
+            
+            
+     }
+	   <div  id="title" style="background-color: #FAFAF9;border-color: lightgray;margin-left:0px;border-width: 2px;opacity: 0.7;height: 60px;width:150px" >
+			<label style="color:Black;font-size:22px;margin:15px;margin-top:13px;margin-left:20px;margin-right:20px;height:25px;font-weight:Normal;">Sales Data</label>   
+       </div>
+	   <div id="button1" class="backLabel" onclick="ClickFunction()" style="left:350px;top:290px;width:85px;height:28px;border-radius: 16px;background-color:#0F77B7;">	   		
+			<img style="margin-left:15px;margin-top:6px;" src="../Images/map/backtext.png"/>			
+	   </div>	
+       <div style="min-height:465px;">
+          @(Html.EJ().Map("maps")
+          
+          .ClientSideEvents(eve =>
+          {
+              eve.OnRenderComplete("onLoad");
+              eve.ShapeSelected("OnDrilled");
+          })
+          
+         
+           
+            	
+           .ZoomSettings(zm=>
+               {
+                   zm.EnableZoom(false);
+               })
+            .EnableAnimation(true)
+            .Background("white")
+            .Layers(lr =>
+                    {                        
+                        lr.LayerType(LayerType.Geometry)
+                     .EnableMouseHover(true)
+                     .ShapeSettings(sp =>
+                     {
+                         sp.Stroke("black")
+                          .Fill("#C3E6ED")
+                          .HighlightColor("#63B7B7")
+                          .SelectionColor("#207BB2")
+                          .StrokeThickness(0.5);
+                     })
+                     .ShapeData(africaMapData).Add();
+                        lr.LayerType(LayerType.Geometry)
+                       .EnableSelection(true)
+                       .ShapeDataPath("name")
+                       .EnableMouseHover(true)
+                       .ShapePropertyPath("name")
+                       .ShowMapItems(false)
+                       .DataSource(datasource)
+                       .ShapeSettings(sp =>
+                       {
+                           sp.Fill("#C3E6ED")
+                           .StrokeThickness(0.5)
+                           .AutoFill(false)
+                           .Stroke("white")
+                           .HighlightColor("#63B7B7")
+                           .HighlightStroke("white")
+                           .ValuePath("name");
+                       })
+
+                       .ShapeData(continentMapData)
+                       .SubLayers(ssl =>
+                       {
+                           ssl.ShapeDataPath("country")
+                              .ShapePropertyPath("name")
+                              .MapItemsTemplate("labeltemplate")
+                              .ShowMapItems(true)
+                              .EnableMouseHover(true)
+                              .DataSource(countriesRandomData)
+                              .ShapeSettings(ss =>
+                              {
+                                  ss.Fill("#9FD0D3")
+                                    .StrokeThickness(0.2)
+                                    .Stroke("white")
+                                    .HighlightColor("#63B7B7");
+                              })
+                              .BubbleSettings(bs =>
+                              {
+                                  bs.ValuePath("Sales")
+								  .ShowBubble(true)                                  
+                                  .MinValue(20)
+                                  .MaxValue(30)
+                                  .Color("#379F64");
+                              })
+                              .ShapeData(continentSalesMapData).Add();
+                       }).Add();
+                        
+                        lr.LayerType(LayerType.Geometry)
+                      .EnableMouseHover(true)
+                      .ShapeSettings(sp =>
+                      {
+                          sp.Stroke("black")
+                           .Fill("#C3E6ED")
+                           .HighlightColor("#63B7B7")
+                           .SelectionColor("#207BB2")
+                           .StrokeThickness(0.5);
+                      })
+                      .ShapeData(asiaMapdata).Add();
+                        lr.LayerType(LayerType.Geometry)
+                        .EnableMouseHover(true)
+                        .ShapeSettings(sp =>
+                        {
+                            sp.Stroke("black")
+                            .Fill("#C3E6ED")
+                            .HighlightColor("#63B7B7")
+                            .SelectionColor("#207BB2")
+                            .StrokeThickness(0.5);
+                        })
+                        .ShapeData(europeMapdata).Add();
+
+                        lr.LayerType(LayerType.Geometry)
+                        .EnableMouseHover(true)
+                        .ShapeSettings(sp =>
+                        {
+                            sp.Stroke("black")
+                            .Fill("#C3E6ED")
+                            .HighlightColor("#63B7B7")
+                            .SelectionColor("#207BB2")
+                            .StrokeThickness(0.5);
+                        })
+                        .ShapeData(northAmericaMapdata).Add();
+
+
+                        lr.LayerType(LayerType.Geometry)
+                        .EnableMouseHover(true)
+                        .ShapeSettings(sp =>
+                        {
+                            sp.Stroke("black")
+                            .Fill("#C3E6ED")
+                            .HighlightColor("#63B7B7")
+                            .SelectionColor("#207BB2")
+                            .StrokeThickness(0.5);
+                        })
+                        .ShapeData(oceaniaMapdata).Add();
+
+                        lr.LayerType(LayerType.Geometry)
+                        .EnableMouseHover(true)
+                        .ShapeSettings(sp =>
+                        {
+                            sp.Stroke("black")
+                            .Fill("#C3E6ED")
+                            .HighlightColor("#63B7B7")
+                            .SelectionColor("#207BB2")
+                            .StrokeThickness(0.5);
+                        })
+                        .ShapeData(southAmericaMapdata).Add();
+                        
+             
+                      
+            })           
+   )
+           </div>
+
+                                       							
+     <script  id="labeltemplate" type="application/jsrender">          
+    
+	<div style="margin-top:-10px;margin-left:-1px;">
+	<table style="width:40px;">
+	<tr>
+	<td>
+   <label style="color:Black;font-size:14px;width:40px;text-wrap:normal;font-weight:normal;text-align:center;" id="Label4">{{:country}}</label>
+   </td>
+   </tr>
+   </table>
+   </div>
+   </script>
+}
+@section ScriptSection{
+ <script>
+     $(window).on('load', function () {
+         if (!window.SVGSVGElement) {
+             $("#maps").css("min-height", "500px");
+             $("#maps").ejMap("refresh");
+         }
+     });
+     
+     function ClickFunction(event) {
+         var button = document.getElementById("button1");
+         $(button).css('background-color', '#028DC4');
+         var mapObj = $("#maps").data("ejMap");
+         mapObj.model.enableAnimation = false;
+         mapObj.option("baseMapIndex", 1);
+         $(button).fadeOut(500);
+         var title = document.getElementById("title");
+         $(title).css("display", "block");
+
+     }
+     function onLoad() {
+         var button = document.getElementById("button1");
+         $(button).css("display", "none");
+         var title = document.getElementById("title");
+         $(title).css("display", "block");
+     }
+     function OnDrilled(event) {
+         if (event.model.baseMapIndex == 1) {
+             var mapObj = $("#maps").data("ejMap");
+             mapObj.model.enableAnimation = true;
+			 mapObj.model.layers[1].selectedItems=[];				   
+             mapObj.model.layers[1].subLayers[0].selectedItems=[];
+             if (event.originalEvent[0].data.continent == "Africa") {
+                 mapObj.option("baseMapIndex", 0);
+             }
+             else if (event.originalEvent[0].data.continent == "Asia") {
+                 mapObj.option("baseMapIndex", 2);
+             }
+             else if (event.originalEvent[0].data.continent == "Europe") {
+                 mapObj.option("baseMapIndex", 3);
+             }
+             else if (event.originalEvent[0].data.continent == "North America") {
+                 mapObj.option("baseMapIndex", 4);
+             }
+             else if (event.originalEvent[0].data.continent == "Oceania") {
+                 mapObj.option("baseMapIndex", 5);
+             }
+             else if (event.originalEvent[0].data.continent == "South America") {
+                 mapObj.option("baseMapIndex", 6);
+             }
+             var button = document.getElementById("button1");
+             $(button).css('background-color', '#0F77B7');
+             // $(button).css("display", "block");
+             $(button).fadeIn(500);
+             var title = document.getElementById("title");
+             $(title).css("display", "none");
+         }
+     }
+</script>
+}
+@section StyleSection
+{
+    <style type="text/css">
+    .backLabel:hover {
+        cursor:pointer;
+		
+     }
+    </style>
+}

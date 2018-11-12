@@ -1,0 +1,17 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Autocomplete / Autofill</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @{
+                Html.EJ()
+                    .Autocomplete("selectFlower")
+                    .Width("100%")
+                    .EnableAutoFill(true)
+                    .Datasource((IEnumerable<Flowers>)ViewBag.datasource)
+                    .WatermarkText("Select a flower")
+                    .Render();
+            }
+        </div>
+    </div>
+}

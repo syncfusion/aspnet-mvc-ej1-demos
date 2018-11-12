@@ -1,0 +1,115 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart / Live Chart </span>}
+
+@section ControlsSection{
+    <div style= "height:600px;">
+       @(Html.EJ().Chart("container").PrimaryXAxis(xaxis => xaxis.MajorGridLines(mj => mj.Visible(false)))
+             .PrimaryYAxis(yaxis => yaxis.Range(r => r.Min(0).Max(50).Interval(10)).MajorGridLines(mj => mj.Visible(true)))
+             .Series(ser =>
+             {
+                 ser.Type(SeriesType.Line).EnableAnimation(false).Opacity(0.8).Add();
+                 ser.Type(SeriesType.Line).EnableAnimation(false).Opacity(0.8).Add();
+             })
+             .Load("onchartload")
+             .EnableCanvasRendering(true)
+             .IsResponsive(true)
+             .Background("transparent")
+             .Size(sz => sz.Height("600"))
+             .Legend(lg => { lg.Visible(false).Position(LegendPosition.Right); }))
+    </div>
+}
+@section ScriptSection{
+<script>
+    var chartobj,
+      count = 0,
+      chartData = null,
+      chartData1 = null,
+      value = 10,
+      liveIntial = 0;
+      value1 = 15;
+    generateData();
+    function onchartload(sender) {
+        chartobj = this;
+        sender.model.series[0].points = chartData;
+        sender.model.series[1].points = chartData1;
+        window.setInterval(update, 40);
+    }
+
+
+    function generateData() {
+        var num = 100, data = [], data1 = [];;
+        for (liveIntial; liveIntial < num; liveIntial++) {
+            if (Math.random() > .5) {
+                if (value < 45)
+                    value += Math.random() * 2.0;
+                else
+                    value -= 2.0;
+
+
+                if (value1 < 40)
+                    value1 += Math.random() * 1.8;
+                else
+                    value1 -= 2.0;
+            }
+            else {
+                if (value > 5)
+                    value -= Math.random() * 2.0;
+                else
+                    value += 2.0;
+
+                if (value1 > 5)
+                    value1 -= Math.random() * 1.8;
+                else
+                    value1 += 2.0;
+            }
+            data[liveIntial] = {
+                x: liveIntial.toString(), y: value
+            };
+            data1[liveIntial] = {
+                x: liveIntial.toString(), y: value1 + 10
+            };
+        }
+        chartData = data;
+        chartData1 = data1;
+    };
+
+
+    function update() {
+        if (Math.random() > .5) {
+            if (value < 45)
+                value += Math.random() * 2.0;
+            else
+                value -= 2.0;
+
+
+            if (value1 < 40)
+                value1 += Math.random() * 1.8;
+            else
+                value1 -= 2.0;
+        }
+        else {
+            if (value > 5)
+                value -= Math.random() * 2.0;
+            else
+                value += 2.0;
+
+            if (value1 > 5)
+                value1 -= Math.random() * 1.8;
+            else
+                value1 += 2.0;
+        }
+        chartData.push({ x: liveIntial.toString(), y: value });
+        chartData1.push({ x: liveIntial.toString(), y: value1 + 10 });
+        liveIntial += 1;
+        chartData.shift();
+        chartData1.shift();
+        chartobj.model.series[0].points = chartData;
+        chartobj.model.series[1].points = chartData1;
+        $("#container").ejChart("redraw");
+    };
+    $("#controlarea").css("visibility", "visible");
+</script>
+}
+
+

@@ -1,0 +1,19 @@
+﻿@section SampleHeading{<span class="sampleName">ColorPicker / Default</span> }
+@section ControlsSection{
+    <div class="frame ">
+        <div class="control">
+            <div class="ctrllabel">
+                Choose a Color 
+            @Html.EJ().ColorPicker("colorPicker").Value("#278787")
+            </div>
+        </div>
+    </div>
+}
+@section StyleSection{
+
+    <style>
+        .frame .control {
+            margin-left: 40%;
+        }
+    </style>
+}

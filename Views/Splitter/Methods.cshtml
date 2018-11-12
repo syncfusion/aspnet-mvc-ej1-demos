@@ -1,0 +1,158 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Splitter / Methods</span>}
+@section ControlsSection{
+
+
+    @{Html.EJ().Splitter("outterSplitter").EnableAutoResize(true).PaneProperties(p =>
+               {
+                   p.Add().ContentTemplate(@<div>
+                       <div class="content"> 
+                        <h3 class="h3">Pane 1</h3> 
+                       </div>
+                   </div>).PaneSize("170").MinSize("30");
+                   p.Add().ContentTemplate(@<div>
+                    <div class="content"> 
+                        <h3 class="h3">Pane 2</h3> 
+                    </div>
+                </div>).MinSize("30");
+                   p.Add().ContentTemplate(@<div>
+                       <div class="content"> 
+                        <h3 class="h3">Pane 3</h3> 
+                    </div>
+                   </div>).PaneSize("170").MinSize("30");
+               }).Height("350").Width("100%").Render();}
+}
+
+@section PropertiesSection{
+<div class="row">
+    <div class="col-md-3">
+        Pane Index
+    </div>
+    <div class="col-md-3">
+        @Html.EJ().NumericTextbox("paneindex").Value("0").MinValue(0).MaxValue(2).Width("100%").ShowSpinButton(false)
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.EJ().Button("Button2").Text("Expand").CssClass("e-btn").ShowRoundedCorner(true).ClientSideEvents(e => e.Click("expandpane"))
+    </div>
+    <div class="col-md-3">
+        @Html.EJ().Button("Button1").Text("Collapse").CssClass("e-btn").ShowRoundedCorner(true).ClientSideEvents(e => e.Click("collapsepane"))
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <b>Add New Pane </b>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <span>Pane Index</span>
+    </div>
+    <div class="col-md-3">
+        @Html.EJ().NumericTextbox("index").Value("0").MinValue(0).MaxValue(2).Width("100%").ShowSpinButton(false)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <span>Pane Size</span>
+    </div>
+    <div class="col-md-3">
+        @Html.EJ().NumericTextbox("size").Value("20").MinValue(0).Width("100%").ShowSpinButton(false).ClientSideEvents(e=>e.Change("validate"))
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <span>Min Size</span>
+    </div>
+    <div class="col-md-3">
+        @Html.EJ().NumericTextbox("min").Value("20").MinValue(0).Width("100%").ShowSpinButton(false).ClientSideEvents(e=>e.FocusOut("validate"))
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <span>Max Size</span>
+    </div>
+    <div class="col-md-3">
+        @Html.EJ().NumericTextbox("max").Value("100").MinValue(0).Width("100%").ShowSpinButton(false).ClientSideEvents(e=>e.FocusOut("validate"))
+    </div>
+</div>
+<span id="error" style="color: red"></span>
+<div class="row">
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-3">
+        @Html.EJ().Button("add").Text("Add Pane").CssClass("e-btn").ShowRoundedCorner(true).ClientSideEvents(e => e.Click("add"))
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <b>Remove Pane </b>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        Remove Pane Index
+    </div>
+    <div class="col-md-3">
+        @Html.EJ().NumericTextbox("removepaneidx").Value("0").MinValue(0).MaxValue(2).Width("100%").ShowSpinButton(false)
+    </div>
+
+</div>
+<div class="row">
+    <div class="col-md-3">
+
+    </div>
+    <div class="col-md-3">
+        @Html.EJ().Button("remove").Text("Remove Pane").CssClass("e-btn").ShowRoundedCorner(true).ClientSideEvents(e => e.Click("removepane"))
+    </div>
+</div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        var splitterObj, i = 0;
+        function expandpane() {
+            splitterObj = $("#outterSplitter").data("ejSplitter");
+            splitterObj.expand(parseInt($('#paneindex').val()));
+        }
+        function collapsepane() {
+            splitterObj = $("#outterSplitter").data("ejSplitter");
+            splitterObj.collapse(parseInt($('#paneindex').val()));
+        }
+        function add() {
+            var property = {};
+	    splitterObj = $("#outterSplitter").data("ejSplitter");
+            property["paneSize"] = parseInt($('#size').val()) || 0;
+            property["minSize"] = parseInt($('#min').val()) || 0;
+            property["maxSize"] = parseInt($('#max').val()) || null;
+            splitterObj.addItem("<div class = 'content'> <h3 class='h3'> New Pane " + (i++) + "</h3>" + " </div>", property, parseInt($('#index').val()));
+            $("#removepaneidx, #index, #paneindex").ejNumericTextbox({ maxValue: splitterObj.panes.length - 1 });
+        }
+        function removepane() {
+            splitterObj = $("#outterSplitter").data("ejSplitter");
+            splitterObj.removeItem(parseInt($('#removepaneidx').val()));
+            $("#removepaneidx, #index, #paneindex").ejNumericTextbox({ maxValue: splitterObj.panes.length - 1 });
+        }
+        function validate() {
+            var panesize = $("#size").ejNumericTextbox("model.value");
+            var minsize = $("#min").ejNumericTextbox("model.value");
+            var maxsize = $("#max").ejNumericTextbox("model.value");
+            if (isNaN(panesize) || panesize < minsize || panesize > maxsize) {
+                $("#error").html("Please enter the Pane size based on min and max size");
+                $("#add").ejButton("disable");
+            }
+            else {
+                $("#error").html("");
+                $("#add").ejButton("enable");
+            }
+        }
+    </script>
+}
+@section StyleSection{
+    <link href="@Url.Content("~/Content/Samples/SplitMethods.css")" rel="stylesheet" />
+}

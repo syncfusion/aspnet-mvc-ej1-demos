@@ -1,0 +1,63 @@
+@section SampleHeading{
+    <span class="sampleName">ComboBox / Methods</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @{
+                Html.EJ()
+                    .ComboBox("selectFlower")
+                    .Width("100%")
+                    .Datasource((IEnumerable<Flowers>)ViewBag.datasource)
+                    .ComboBoxFields(e=>e.Text("text"))
+                    .Placeholder("Select a flower")
+                    .Render();
+            }
+        </div>
+    </div>
+}
+@section PropertiesSection{
+					<div class="row">
+                        <div class="col-md-3">
+                            Autofill
+                        </div>
+                        <div class="col-md-3">
+                            @Html.EJ().ToggleButton("chkAutofillbtn").Width("81px").DefaultText("Enable").ActiveText("Disable").ClientSideEvents(evt => evt.Change("onAutofill"))
+                        </div>
+                    </div>
+					<div class="row">
+                        <div class="col-md-3">
+                            Sorting
+                        </div>
+                        <div class="col-md-3">
+                            @Html.EJ().ToggleButton("chkSorting").Width("81px").DefaultText("Descending").ActiveText("Ascending").ClientSideEvents(evt => evt.Change("onSorting"))
+                        </div>
+					</div>
+}
+@section ScriptSection{
+    <script>
+			function onAutofill(args){
+			   var listObj = $('#selectFlower').ejComboBox("instance");
+				if (listObj.model) {
+					if (args.isChecked)
+						listObj.option({ autofill: false});
+					else
+						listObj.option({ autofill: true });
+				}
+			}
+			function onSorting(args){
+			var listObj = $('#selectFlower').ejComboBox("instance");
+				if (listObj.model) {
+					if (args.isChecked){
+						 listObj.option({sortOrder: 'Descending'			
+					});
+					}
+					else
+					{
+						listObj.option({sortOrder: 'Ascending'			
+					});
+					}
+			}
+			}
+			$(document).ready(function () { $("#sampleProperties").ejPropertiesPanel(); });
+    </script>
+}

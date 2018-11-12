@@ -1,0 +1,51 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Splitter / Default Functionalities</span>}
+
+@section ControlsSection{
+
+    @{Html.EJ().Splitter("outer").Height("400").Width("100%").EnableAutoResize(true).Orientation(Orientation.Vertical).PaneProperties(
+        p =>
+        {
+            p.Add().ContentTemplate(
+        @<div class="splitdiv" style="height: 100%">
+            @InnerSplitter()
+        </div>);
+
+            p.Add().ContentTemplate(
+        @<div class="cont">
+            Pane 3
+        </div>).PaneSize("80");
+
+        }).Render();}
+
+    @helper InnerSplitter()
+{
+        @Html.EJ().Splitter("inner").EnableAutoResize(true).PaneProperties(
+               p1 =>
+               {
+                   p1.Add().ContentTemplate(
+                    @<div class="cont">
+                        Pane 1
+                    </div>);
+                   p1.Add().ContentTemplate(
+                    @<div class="cont">
+                        Pane 2
+                    </div>);
+               }).Orientation(Orientation.Horizontal)
+    }
+
+
+
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .cont {
+            padding: 10px 0 0 10px;
+            text-align: center;
+        }
+
+        #inner {
+            border: 0 none;
+        }
+    </style>
+}

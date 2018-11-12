@@ -1,0 +1,41 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart / Waterfall Chart </span>}
+
+@section ControlsSection{
+    <div>
+  @(Html.EJ().Chart("container")
+        .PrimaryXAxis(pr => pr.LabelIntersectAction(LabelIntersectAction.Rotate45))
+        .PrimaryYAxis(pr => pr.LabelFormat("${value}M"))
+        .Series(sr =>
+            {
+                sr.Points(pt =>
+                    {
+                        pt.X("Income").Y(4711).Border(br => br.Color("#5D843A")).Add();
+                        pt.X("Marketing and sales").Y(-427).Add();
+                        pt.X("Research").Y(-588).Add();
+                        pt.X("Development").Y(-688).Add();
+                        pt.X("Other revenue").Y(1030).Border(br => br.Color("#5D843A")).Add();
+                        pt.X("Intermediate sum").ShowIntermediateSum(true).Border(br => br.Color("#2B557F")).Fill("#4E81BC").Add();
+                        pt.X("Administrative").Y(-780).Add();
+                        pt.X("Other expense").Y(-361).Add();
+                        pt.X("Income tax").Y(-695).Add();
+                        pt.X("Net profit").ShowTotalSum(true).Border(br => br.Color("#2B557F")).Fill("#4E81BC").Add();
+                    }).Fill("#C64E4A").PositiveFill("#93C952").Type(SeriesType.Waterfall).EnableAnimation(true)
+                    .Tooltip(tl=>tl.Visible(true))
+                    .Border(brdr => brdr.Color("#8E2827"))
+                    .Marker(mr=>mr.DataLabel(dl=>dl.Visible(true).TextPosition(TextPosition.Middle).EnableContrastColor(true).Font(fnt=>fnt.Size("13px").FontWeight(ChartFontWeight.Regular)))).Add();
+            })
+            
+            .Load("loadTheme")
+            .IsResponsive(true)
+            .Title(t => t.Text("Company Revenue and Profit"))
+            .Size(sz => sz.Height("600"))
+            .Legend(lg => { lg.Visible(false); })
+            )
+        
+    </div>
+    
+}
+
+

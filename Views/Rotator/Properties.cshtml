@@ -1,0 +1,201 @@
+﻿@section SampleHeading{<span class="sampleName">Rotator - API's</span> }
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().Rotator("sliderContent").Items(elements =>
+                             {
+                                 elements.Add().Caption("Nature").Url("../Images/rotator/nature.jpg");
+                                 elements.Add().Caption("Beautiful Bird").Url("../Images/rotator/bird.jpg");
+                                 elements.Add().Caption("Amazing Sculptures").Url("../Images/rotator/sculpture.jpg");
+                                 elements.Add().Caption("Sea-View").Url("../Images/rotator/seaview.jpg");
+                                 elements.Add().Caption("Snow Fall").Url("../Images/rotator/snowfall.jpg");
+                                 elements.Add().Caption("Credit Card").Url("../Images/rotator/card.jpg");
+                                 elements.Add().Caption("Colorful Night").Url("../Images/rotator/night.jpg");
+                             }).SlideWidth("33%").IsResponsive(true).SlideHeight("auto").FrameSpace("0px").DisplayItemCount("3")
+
+        </div>
+    </div>
+}
+<div id="display">
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+</div>
+<div id="move">
+    <ul>
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+</div>
+<div id="orient">
+    <ul>
+        <li>horizontal</li>
+        <li>vertical</li>
+    </ul>
+</div>
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Item Display
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("changeDisplay").Width("120px").TargetID("display").Value("3").ClientSideEvents(s => s.Change("onDisplayChange"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Item Move
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("itemMove").Width("120px").TargetID("move").SelectedItemIndex(0).ClientSideEvents(s => s.Change("onMoveChange"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            PagerPosition
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("changePager").Width("120px").Datasource((IEnumerable<LocalData>)ViewBag.datasource).DropDownListFields(t => t.Text("text").Value("value")).SelectedItemIndex(4).ClientSideEvents(s => s.Change("onPagerChange"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Animation
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("changeAnimation").Width("120px").Datasource((IEnumerable<LocalData>)ViewBag.animationsource).DropDownListFields(t => t.Text("text").Value("value")).SelectedItemIndex(0).ClientSideEvents(s => s.Change("onAnimationChange"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Orientation
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("changeOrientation").Width("120px").TargetID("orient").SelectedItemIndex(0).ClientSideEvents(s => s.Change("onOrientationChange"))
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">Show/Hide Pager</div>
+        <div class="col-md-3">
+
+            @Html.EJ().CheckBox("ChkPager").Checked(true).ClientSideEvents(s => s.Change("onPager"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">Enable/Disable</div>
+        <div class="col-md-3">
+
+            @Html.EJ().CheckBox("ChkEnable").Checked(true).ClientSideEvents(s => s.Change("EnableDisable"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Action
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3">
+
+            @Html.EJ().Button("previous").Size(ButtonSize.Small).Text("Previous").Width("120px").ClientSideEvents(s => s.Click("previous"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().Button("next").Size(ButtonSize.Small).Text("Next").Width("120px").ClientSideEvents(s => s.Click("next"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Current Index
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().Button("GetValue").Size(ButtonSize.Small).Text("Get Index").Width("120px").ClientSideEvents(s => s.Click("getValue"))
+        </div>
+    </div>
+
+}
+@section ScriptSection{
+
+    <script type="text/javascript">
+        var slideObj, dropObj;
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        $(function () {
+            first = [{ text: "1" }];
+            second = [{ text: "1" }, { text: "2" }];
+            third = [{ text: "1" }, { text: "2" }, { text: "3" }];
+        });
+        function onPagerChange(args) {
+            var slideObj = $("#sliderContent").data("ejRotator");
+            slideObj.option({ pagerPosition: args.value });
+        }
+        function onAnimationChange(args) {
+            var slideObj = $("#sliderContent").data("ejRotator");
+            slideObj.option({ animationType: args.value });
+        }
+        function onDisplayChange(args) {
+            var slideObj = $("#sliderContent").data("ejRotator");
+            var dropObj = $('#itemMove').data('ejDropDownList');
+            if (args.text == 1) {
+                dropObj.setModel({ dataSource: first, value: args.text });
+                slideObj.option({  displayItemsCount: args.text, navigateSteps: args.text })
+            }
+            else if (args.text == 2) {
+                dropObj.setModel({ dataSource: second, value: args.text });
+                slideObj.option({  displayItemsCount: args.text, navigateSteps: args.text })
+            }
+            else {
+                dropObj.setModel({ dataSource: third, value: args.text });
+                slideObj.option({  displayItemsCount: args.text, navigateSteps: args.text});
+            }
+        }
+        function onMoveChange(args) {
+            var slideObj = $("#sliderContent").data("ejRotator");
+            slideObj.option({ navigateSteps: args.text });
+        }
+        function onOrientationChange(args) {
+            var slideObj = $("#sliderContent").data("ejRotator");
+            slideObj.option({ orientation: args.text });
+        }
+
+        function onPager(args) {
+            var slideObj = $("#sliderContent").data("ejRotator");
+            slideObj.option({ showPager: args.isChecked });
+        };
+        function EnableDisable(args) {
+            var slideObj = $("#sliderContent").data("ejRotator");
+            if (args.isChecked)
+                slideObj.enable();
+            else
+                slideObj.disable();
+        };
+
+        function previous() {
+            var slideObj = $("#sliderContent").data("ejRotator");
+            slideObj.slidePrevious();
+        }
+        function next() {
+            var slideObj = $("#sliderContent").data("ejRotator");
+            slideObj.slideNext();
+        }
+        function getValue() {
+            var slideObj = $("#sliderContent").data("ejRotator");
+            alert("Current Slide Index : " + slideObj.getIndex());
+        }
+
+    </script>
+}
+@section StyleSection{
+    <link href="@Url.Content("~/Content/Samples/RotatorProperties.css")" rel="stylesheet" />
+}

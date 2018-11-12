@@ -1,0 +1,141 @@
+﻿@{
+    
+    ViewBag.Title = "Essential PdfViewer with CustomToolbar:Syncfusion";
+   
+}
+
+  
+ <p class="sam-desc">Essential PDF Viewer provides support for custom Toolbar. Instead of using the default toolbar in the PDF Viewer, the user can design their own toolbar using the available properties.</p>
+   
+    <table style="border:1px solid">
+        <tr>
+            <td style="border:1px solid">
+            <div id="Toolbardiv" style="width:1000px;height:26px;margin:5px;border:1px solid;background-color:#EAEAEA">
+
+                <div style="float:left;margin-left:15px">
+                    <input type="button" value="Print" id="Print" class="toolbaritem" style="width:45px"/>
+                </div>
+                <div class="PageNavigation">
+                    <input type="button" value="<<" id="FirstPage" class="toolbaritem" />                
+                </div>
+                <div class="PageNavigation">
+                    <input type="button" value="<" id="PreviousPage" class="toolbaritem" />
+                </div>
+
+                <div class="PageNavigation">
+                    <input type="text" id="currentPage" style="width:30px;margin-top:1px;height:17px" class="toolbaritem" />
+                    <span id="TotalPageCount"></span>
+                </div>
+
+                <div class="PageNavigation">
+                    <input type="button" value=">" id="NextPage" class="toolbaritem" />                
+                </div>
+                <div class="PageNavigation">
+                    <input type="button" value=">>" id="LastPage" class="toolbaritem" />                
+                </div>
+            </div>
+            <div id="update" style="padding:15px 5px 3px 5px;">
+                @Html.Partial("PdfToolbarPartialView")
+                    
+            </div>
+            </td>
+        </tr>
+    </table>
+
+
+@section StyleSection
+{  
+    <style type="text/css">
+    .PageNavigation
+    {
+        float:left;
+        padding:0 3px 3px 3px;
+    }
+    .toolbaritem
+    {        
+        height:25px;
+    }
+    </style>
+}
+
+@section ScriptSection
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var Page = 1;
+
+            $("#Print").bind("click", function () {
+                $("#PdfToolbar").sfPdfViewer("Print")
+            });
+
+
+            $("#FirstPage").bind("click", function () {
+                $("#PdfToolbar").sfPdfViewer("GotoPageIndex", 1);
+                $("#currentPage").val(1);
+
+                $("#NextPage").removeAttr("disabled");
+                $("#LastPage").removeAttr("disabled");
+
+                $("#PreviousPage").attr("disabled", "disabled");
+                $("#FirstPage").attr("disabled", "disabled");
+
+            });
+
+            $("#LastPage").bind("click", function () {
+                $("#PdfToolbar").sfPdfViewer("GotoPageIndex", $("#PdfToolbar").sfPdfViewer("GetTotalPageCount"));
+                $("#currentPage").val($("#PdfToolbar").sfPdfViewer("GetTotalPageCount"));
+
+                $("#NextPage").attr("disabled", "disabled");
+                $("#LastPage").attr("disabled", "disabled");
+
+                $("#PreviousPage").removeAttr("disabled");
+                $("#FirstPage").removeAttr("disabled");
+            });
+
+            $("#NextPage").bind("click", function () {
+                Page = ($("#PdfToolbar").sfPdfViewer("GetCurrentPage"));
+
+                if (Page + 1 <= ($("#PdfToolbar").sfPdfViewer("GetTotalPageCount"))) {
+                    $("#PdfToolbar").sfPdfViewer("GotoPageIndex", Page + 1);
+                    $("#currentPage").val(Page + 1);
+
+                    if (Page + 1 == ($("#PdfToolbar").sfPdfViewer("GetTotalPageCount"))) {
+                        $("#NextPage").attr("disabled", "disabled");
+                        $("#LastPage").attr("disabled", "disabled");
+                    }
+                    $("#PreviousPage").removeAttr("disabled");
+                    $("#FirstPage").removeAttr("disabled");
+
+                };
+            });
+            $("#PreviousPage").bind("click", function () {
+                Page = ($("#PdfToolbar").sfPdfViewer("GetCurrentPage"));
+
+
+
+                if (Page - 1 > 0) {
+                    $("#PdfToolbar").sfPdfViewer("GotoPageIndex", Page - 1);
+                    $("#currentPage").val(Page - 1);
+
+                    if (Page - 1 == 1) {
+                        $("#PreviousPage").attr("disabled", "disabled");
+                        $("#FirstPage").attr("disabled", "disabled");
+                    }
+                    $("#NextPage").removeAttr("disabled");
+                    $("#LastPage").removeAttr("disabled");
+                };
+
+            });
+
+        });
+
+        function initializeToolBar() {
+            var TotalPage = $("#PdfToolbar").sfPdfViewer("GetTotalPageCount");
+            var CurrentPage = $("#PdfToolbar").sfPdfViewer("GetCurrentPage");
+            $("#TotalPageCount").text(" / " + TotalPage).css("color", "black");
+            $("#currentPage").val(CurrentPage);
+        }
+        window.onload = initializeToolBar;
+
+    </script>
+}

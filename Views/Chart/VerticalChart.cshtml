@@ -1,0 +1,117 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart / VerticalChart </span>}
+
+@section ControlsSection{
+    <div style= "height:600px;">
+       @(Html.EJ().Chart("container")
+                     .ColumnDefinitions(Columndef => 
+                       { 
+                       Columndef.ColumnWidth(48).Unit("percentage").Add();
+                       Columndef.ColumnWidth(48).Unit("percentage").Add();
+                       })
+                     .RowDefinitions(Rowdef =>
+                       {
+                          Rowdef.RowHeight(100).LineColor("gray").LineWidth(0).Unit("percentage").Add();                        
+                       })
+                     .PrimaryXAxis(xaxis => xaxis.MajorGridLines(mj => mj.Visible(false)).Title(tit => tit.Text("Time(sec)")).ValueType(AxisValueType.Datetime).LabelFormat("mm:ss"))
+                     .PrimaryYAxis(yaxis => yaxis.MajorGridLines(mj => mj.Visible(false)).Range(r => r.Min(-15).Max(15).Interval(5)).PlotOffset(80).Title(tit => tit.Text("Velocity(m/s)")))
+                     .Axes(ax =>
+                       {
+                        ax.MajorGridLines(mg => mg.Visible(false)).ColumnIndex(1).PlotOffset(80)
+                         .AxisLine(als => als.Visible(false)).Range(ran => ran.Min(-15).Max(15).Interval(5)).Name("yAxis")
+                         .Title(tit => tit.Text("Velocity(m/s)")).Add();
+                       })
+                     .Series(ser =>
+                       {
+                         ser.Type(SeriesType.Line).EnableAnimation(false).Name("Indonesia").IsTransposed(true).Fill("#E46455").Opacity(0.8).Add();
+                         ser.Type(SeriesType.Line).EnableAnimation(false).Name("Japan").IsTransposed(true).Opacity(0.8).YAxisName("yAxis").Add();
+                       })
+                     .Load("onchartload")                    
+                     .IsResponsive(true)
+                     .Title(tt => tt.Text("Seismograph comparison of two countries"))
+                     .Background("transparent")
+                     .Size(sz => sz.Height("600"))
+                     .Legend(lg => { lg.Visible(true).Position(LegendPosition.Top); })
+        )
+            </div>
+}
+<script>
+    var chartobj;
+    var intervalId;
+    var count = 0;
+
+    function OnRefresh() {
+        count += 2;
+        AddPoint(chartobj.model.series[0], count);
+        AddPoint(chartobj.model.series[1], count);
+        $("#container").ejChart("redraw");
+    }
+
+    function onchartload(sender) {
+
+        for (var i = 11; i < 50; i = i + 1) {
+            AddPoint(sender.model.series[0], count);
+            AddPoint(sender.model.series[1], count);
+            count++;
+        }
+        chartobj = this;
+
+        intervalId = window.setInterval(OnRefresh, 10);
+    }
+
+    function AddPoint(series, count) {
+        if (series.points == undefined)
+            series.points = [];
+        series.points[series.points.length] = { x: new Date(2015, 8, 26, 08, 39, count), y: getRandomNum(series) };
+    }
+
+    function getRandomNum(series) {
+        var value;
+        if (count <= 50) {
+            if (series.name == "Indonesia")
+                value = Math.floor((Math.random() * (3 - (-3) + 1)) - 3);
+            else
+                value = Math.floor((Math.random() * (2 - (-2) + 1)) - 2);
+        }
+        else if (count <= 100) {
+            if (series.name == "Indonesia")
+                value = Math.floor((Math.random() * (9 - (-9) + 1)) - 9);
+            else
+                value = Math.floor((Math.random() * (9 - (-9) + 1)) - 9);
+
+        }
+        else if (count <= 150) {
+            if (series.name == "Indonesia")
+                value = Math.floor((Math.random() * (6 - (-7) + 1)) - 7);
+            else
+                value = Math.floor((Math.random() * (7 - (-6) + 1)) - 6);
+        }
+        else if (count <= 220) {
+            if (series.name == "Indonesia")
+                value = Math.floor((Math.random() * (2 - (-3) + 1)) - 3);
+            else
+                value = Math.floor((Math.random() * (3 - (-2) + 1)) - 2);
+        }
+        else if (count <= 270) {
+            if (series.name == "Indonesia")
+                value = Math.floor((Math.random() * (1 - (-2) + 1)) - 2);
+            else
+                value = Math.floor((Math.random() * (2 - (-2) + 1)) - 2);
+        }
+        else if (count <= 320) {
+            if (series.name == "Indonesia")
+                value = Math.floor((Math.random() * (0 - (0) + 1)) - 0);
+            else
+                value = Math.floor((Math.random() * (0 - (0) + 1)) - 0);
+        }
+        else {
+
+            clearInterval(intervalId);
+
+        }
+
+        return value;
+    }
+</script>
+

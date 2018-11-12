@@ -1,0 +1,38 @@
+﻿@section SampleHeading{<span class="sampleName"> Grid/Stacked Header</span>}
+@section ControlsSection{
+    @(Html.EJ().Grid<OrdersView>("StackedHeaderGrid")
+        .Datasource((IEnumerable<object>)ViewBag.datasource)
+        .ShowStackedHeader()
+        .StackedHeaderRows(row =>
+        {
+            row.StackedHeaderColumns(column =>
+            {
+                column.HeaderText("OrderDetails").Column(col =>
+                {
+                    col.Add("OrderID");
+                    col.Add("OrderDate");
+                    col.Add("Freight");
+                }).Add();
+                column.HeaderText("Ship Details").Column(col =>
+                {
+                    col.Add("ShipName");
+                    col.Add("ShipCity");
+                    col.Add("ShipCountry");
+                }).Add();
+            }).Add();
+        })
+        .AllowSorting()
+        .AllowReordering()
+        .AllowResizing()
+        .AllowPaging()
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(75).Add();
+            col.Field("OrderDate").HeaderText("Order Date").Width(80).Format("{0:MM/dd/yyyy}").Add();
+            col.Field("Freight").HeaderText("Freight").TextAlign(TextAlign.Right).Width(75).Format("{0:C}").Add();
+            col.Field("ShipName").HeaderText("Ship Name").TextAlign(TextAlign.Right).Width(80).Add();
+            col.Field("ShipCity").HeaderText("Ship City").Width(110).Add();
+            col.Field("ShipCountry").HeaderText("Ship Country").Width(110).Add();
+        }))
+
+}

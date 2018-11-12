@@ -1,0 +1,35 @@
+﻿@section SampleHeading{<span class="sampleName">TreeView / Checkbox</span> }
+@section ControlsSection{
+    <div style="width: 250px">
+        @(Html.EJ().TreeView("tree").Items(items =>
+                {
+                    items.Add().Text("Cricket").Expanded(true).Children(child =>
+                    {
+                        child.Add().Text("Princeton Club ");
+                        child.Add().Text("Harverd Club ");
+                        child.Add().Text("st.Columbia Club");
+                        child.Add().Text("Dartmouth Club");
+                        child.Add().Text("Middlebury Club");
+                    });
+                    items.Add().Text("Basketball").Children(child =>
+                    {
+                        child.Add().Text("AGE Halkida");
+                        child.Add().Text("Iraklio");
+                        child.Add().Text("Sporting Athens");
+                        child.Add().Text("Pagrati Athens");
+                        child.Add().Text("Lodon colney");
+
+                    });
+                    items.Add().Text("Football").Children(child =>
+                    {
+                        child.Add().Text("A.F.C Blackpool");
+                        child.Add().Text("A.F.C Emley");
+                        child.Add().Text("Bedford ");
+                        child.Add().Text("Farsley");
+                        child.Add().Text("Rangers");
+                    });
+
+                }).ShowCheckbox(true))
+
+    </div>
+}

@@ -1,0 +1,115 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Button / Split Buttons</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            <table>
+                <tr>
+                    <td>Split button Normal
+                    </td>
+                    <td class="btnsht">
+                        <div class="spltspan">
+                            @Html.EJ().SplitButton("spltbutton11").Text("Login").ShowRoundedCorner(true).Size(ButtonSize.Normal).ContentType(ContentType.ImageOnly).PrefixIcon("e-icon  e-uiLight e-login").Items(splititem =>
+                       {
+                           splititem.Add().Text("User");
+                           splititem.Add().Text("Guest");
+                           splititem.Add().Text("Admin");
+
+                       })
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Split button Mini
+                    </td>
+                    <td>
+                        @Html.EJ().SplitButton("spltbutton21").Text("Login").ShowRoundedCorner(true).Size(ButtonSize.Mini).Items(splititem =>
+                       {
+                           splititem.Add().Text("User");
+                           splititem.Add().Text("Guest");
+                           splititem.Add().Text("Admin");
+
+                       })
+                    </td>
+                </tr>
+                <tr>
+                    <td>Split button Small
+                    </td>
+                    <td class="btnsht">
+                        @Html.EJ().SplitButton("spltbutton31").Text("Login").ShowRoundedCorner(true).Size(ButtonSize.Small).Items(splititem =>
+                       {
+                           splititem.Add().Text("User");
+                           splititem.Add().Text("Guest");
+                           splititem.Add().Text("Admin");
+
+                       })
+                    </td>
+                </tr>
+                <tr>
+                    <td>Split button Medium
+                    </td>
+                    <td class="btnsht">
+                        @Html.EJ().SplitButton("spltbutton41").Text("Login").ShowRoundedCorner(true).Size(ButtonSize.Medium).Items(splititem =>
+                       {
+                           splititem.Add().Text("User");
+                           splititem.Add().Text("Guest");
+                           splititem.Add().Text("Admin");
+
+                       })
+                    </td>
+                </tr>
+                <tr>
+                    <td>Split button Large
+                    </td>
+                    <td class="btnsht">
+                        @Html.EJ().SplitButton("spltbutton51").Text("Login").ShowRoundedCorner(true).Size(ButtonSize.Large).ContentType(ContentType.TextAndImage).PrefixIcon("e-icon e-uiLight e-login").Items(splititem =>
+                       {
+                           splititem.Add().Text("User");
+                           splititem.Add().Text("Guest");
+                           splititem.Add().Text("Admin");
+
+                       })
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+}
+<div id="modeTarget">
+    <ul>
+        <li value="split">Split</li>
+        <li value="dropdown">Dropdown</li>
+    </ul>
+</div>
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            ButtonMode
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("btnmode").TargetID("modeTarget").Width("120px").SelectedItemIndex(0).ClientSideEvents(e => e.Change("onChange"))
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        function onChange(args) {
+            $(".e-splitbutton").ejSplitButton({ "buttonMode": args.value });
+        }
+    </script>
+}
+@section StyleSection{
+    <style>
+        .frame {
+            width: 50%;
+        }
+
+        .spltspan {
+            width: 50px;
+            padding-right: 100px;
+        }
+    </style>
+}

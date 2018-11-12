@@ -1,0 +1,77 @@
+﻿@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+
+@section SampleHeading{<span class="sampleName">TimePicker / Methods </span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().TimePicker("TimePick").ClientSideEvents(s => s.Close("onClose").Open("onOpen")).Width("100%")
+
+        </div>
+    </div>
+}
+
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EJ().ToggleButton("togbtn").Width("95px").DefaultText("Disable").ActiveText("Enable").ClientSideEvents(s => s.Click("changeState"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EJ().Button("gettime").Width("95px").Size(ButtonSize.Small).Text("Get Time").ClientSideEvents(s => s.Click("gettime"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EJ().Button("updatetime").Width("95px").Size(ButtonSize.Small).Text("Time Now").ClientSideEvents(s => s.Click("updatetime"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EJ().ToggleButton("showHide").Width("95px").DefaultText("Show").ActiveText("Hide").ClientSideEvents(s => s.Click("showhide"))
+        </div>
+    </div>
+   
+}
+@section ScriptSection{
+
+    <script type="text/javascript">
+        var timeObj, tgleBtn;
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+            timeObj = $('#TimePick').data("ejTimePicker");
+            tgleBtn = $("#showHide").data('ejToggleButton');
+            $(".e-togglebutton").mousedown(function (e) {
+                e.stopPropagation();
+            });
+        });
+        function onClose(e) {
+            tgleBtn.option('toggleState', false);
+        }
+        function onOpen(e) {
+            tgleBtn.option('toggleState', true);
+        }
+        function changeState(args) {
+            if (args.isChecked){
+                 timeObj.disable();
+                 tgleBtn.disable();
+            }
+            else{
+                 timeObj.enable();
+                 tgleBtn.enable();
+            }
+        }
+        function gettime(args) {
+            alert("Selected time is : " + timeObj.getValue());
+        }
+        function updatetime(args) {
+            timeObj.setCurrentTime();
+        }
+        function showhide(args) {
+            (args.isChecked) ? timeObj.show() : timeObj.hide();
+        }
+       
+    </script>
+}

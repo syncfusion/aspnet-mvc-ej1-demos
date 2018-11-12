@@ -1,0 +1,130 @@
+﻿@section SampleHeading{ <span class="sampleName">Dialog / Events</span>}
+
+@section ControlsSection{
+
+    @Html.EJ().Button("btnOpen").Text("Click to open dialog").ClientSideEvents(evt => evt.Click("onclick"))
+    <div class="control">
+        @{Html.EJ().Dialog("eventDialog").Title("Facebook").ContentTemplate(@<div>
+            Facebook is an online social networking service headquartered in Menlo Park, California. Its website was launched on February 4, 2004, <span>by Mark Zuckerberg with his Harvard College roommates and fellow students Eduardo Saverin, Andrew McCollum, Dustin Moskovitz and Chris Hughes.</span>The founders had initially limited the website's membership to Harvard students, but later expanded it to colleges in the Boston area, the Ivy League, and Stanford University. It gradually added support for students at various other universities and later to high-school students.
+        </div>).Target(".control").IsResponsive(true).ClientSideEvents(evt => evt.Create("onCreate").BeforeClose("onBeforeClose")
+    .Close("onDialogClose").BeforeOpen("onBeforeOpen").Open("onOpen").Drag("onDrag").DragStart("onDragStart").DragStop("onDragStop").Resize("onResize")
+    .ResizeStart("onResizeStart").ResizeStop("onResizeStop")).Render();}
+    </div>
+}
+<div id="dialogTarget">
+    <ul>
+        <li>beforeClose</li>
+        <li>close</li>
+        <li>beforeOpen</li>
+        <li>open</li>
+        <li>drag</li>
+        <li>dragStart</li>
+        <li>dragStop</li>
+        <li>resize</li>
+        <li>resizeStart</li>
+        <li>resizeStop</li>
+    </ul>
+</div>
+@section EventsDropdown{
+    @Html.EJ().DropDownList("selectControls_input").TargetID("dialogTarget").ShowCheckbox(true).CheckAll(true).ClientSideEvents(evt => evt.Change("evtpropscheckedevent"))
+}
+@section ScriptSection{
+    <script>
+        var dialogObj;
+        $(function () {
+            $(".e-dialog-icon,.e-icon e-close").click(function () {
+                $("#btnOpen").show();
+            });
+        });
+        $("#btnOpen").hide();
+        function onclick() {
+            $("#eventDialog").ejDialog("open");
+            $("#btnOpen").hide();
+        }
+
+        // Event wire and unwire
+        function evtpropscheckedevent(args) {
+            dialogObj = $("#eventDialog").data("ejDialog");
+            if (args.isChecked) {
+                switch (args.selectedText) {
+                    case "create": dialogObj.option(args.selectedText, "onCreate"); break;
+                    case "beforeClose": dialogObj.option(args.selectedText, "onBeforeClose"); break;
+                    case "close": dialogObj.option(args.selectedText, "onDialogClose"); break;
+                    case "beforeOpen": dialogObj.option(args.selectedText, "onBeforeOpen"); break;
+                    case "open": dialogObj.option(args.selectedText, "onOpen"); break;
+                    case "drag": dialogObj.option(args.selectedText, "onDrag"); break;
+                    case "dragStart": dialogObj.option(args.selectedText, "onDragStart"); break;
+                    case "dragStop": dialogObj.option(args.selectedText, "onDragStop"); break;
+                    case "resize": dialogObj.option(args.selectedText, "onResize"); break;
+                    case "resizeStart": dialogObj.option(args.selectedText, "onResizeStart"); break;
+                    case "resizeStop": dialogObj.option(args.selectedText, "onResizeStop"); break;
+                }
+            }
+            else dialogObj.option(args.selectedText, null);
+        }
+
+        function onCreate(args) {
+            jQuery.addEventLog("Dialog has been <span class='eventTitle'>created</span>.");
+        }
+        function onBeforeClose(args) {
+            jQuery.addEventLog("<span class='eventTitle'>BeforeClose</span> event is fired for Dialog.");
+        }
+        function onDialogClose(args) {
+            jQuery.addEventLog("Dialog is <span class='eventTitle'>closed</span>.");
+        }
+        function onBeforeOpen(args) {
+            jQuery.addEventLog("<span class='eventTitle'>BeforeOpen</span> event is fired for Dialog.");
+        }
+        function onOpen(args) {
+            jQuery.addEventLog("Dialog is <span class='eventTitle'>opened</span>.");
+        }
+        function onDrag(args) {
+            jQuery.addEventLog("Dialog is being <span class='eventTitle'>dragged</span>.");
+        }
+        function onDragStart(args) {
+            jQuery.addEventLog("Dialog dragging has been <span class='eventTitle'>started</span>.");
+        }
+        function onDragStop(args) {
+            jQuery.addEventLog("Dialog dragging has been <span class='eventTitle'>stopped</span>.");
+        }
+        function onResize(args) {
+            jQuery.addEventLog("Dialog is being <span class='eventTitle'>resized</span>.");
+        }
+        function onResizeStart(args) {
+            jQuery.addEventLog("Dialog resizing has been <span class='eventTitle'>started</span>.");
+        }
+        function onResizeStop(args) {
+            jQuery.addEventLog("Dialog resizing has been <span class='eventTitle'>stopped</span>.");
+        }
+        function onClear() {
+            jQuery.clearEventLog();
+        }
+
+    </script>
+}
+@section StyleSection{
+    <style class="cssStyles">
+        #eventDialog span {
+            font-weight: 600;
+        }
+
+        .control {
+            height: 500px;
+        }    
+
+        .row .cols-prop-area {
+            height: 500px;
+        }
+
+        .row .cols-sample-area{
+            position: relative;
+            overflow: auto;
+        }
+        #eventDialog {
+            text-align: justify;
+        }
+        .htmljssamplebrowser:not(.material):(.office-365) #eventDialog {
+            padding: 10px;
+        }
+    </style>
+}

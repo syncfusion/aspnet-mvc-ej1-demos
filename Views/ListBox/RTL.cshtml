@@ -1,0 +1,34 @@
+﻿@section SampleHeading{
+    <span class="sampleName">ListBox / Rtl</span>}
+@section ControlsSection{
+    <div class="control frame">
+        <div class="ctrllabel">
+            Select a country
+        </div>
+        @Html.EJ().ListBox("countrylist").Datasource((IEnumerable<Countries>)ViewBag.datasource).ListBoxFields(f => f.Text("country")).EnableRTL(true).ClientSideEvents(evt => evt.Create("setheight"))
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+    function setheight(){
+         if (document.body.firstElementChild.className =="htmljssamplebrowser material" ||"htmljssamplebrowser office-365"){
+             setTimeout(function () {
+                 var obj = $("#countrylist").ejListBox("instance");
+                obj._refreshScroller(); }, 500);
+                 }
+    }
+    </script>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .ctrllabel {
+            padding: 5px 0px 12px 3px;
+            font-weight: 600;
+        }
+
+        .e-ddl-popup {
+            margin: 0 auto;
+        }
+
+    </style>
+}

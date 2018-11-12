@@ -1,0 +1,70 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart / StackingBar100 Chart </span>}
+
+@section ControlsSection{
+    <div>
+  @(Html.EJ().Chart("container")
+        .PrimaryXAxis(pr => pr.Title(tl => tl.Text("Year")).Range(ra => ra.Max(2015).Min(2006).Interval(1)).LabelRotation(45))
+        .PrimaryYAxis(pr => pr.Title(tl => tl.Text("Sales Percentage(%)")))
+        .CommonSeriesOptions(cr => cr.Type(SeriesType.StackingBar100).EnableAnimation(true)
+        .Tooltip(tooltip => tooltip.Visible(true).Format("#series.name# <br/> X :  #point.x# <br/> Y :  #point.y#  <br/>Percentage :  #point.percentage# %")))
+        .Series(sr =>
+            {
+                sr.Points(pt =>
+                {
+                    pt.X("2007").Y(453).Add();
+                    pt.X("2008").Y(354).Add();
+                    pt.X("2009").Y(282).Add();
+                    pt.X("2010").Y(321).Add();
+                    pt.X("2011").Y(333).Add();
+                    pt.X("2012").Y(352).Add();
+                    pt.X("2013").Y(403).Add();
+                    pt.X("2014").Y(421).Add();
+                }).Name("John").Fill("#1ABC9C").Add();
+                sr.Points(pt =>
+                {
+                    pt.X("2007").Y(876).Add();
+                    pt.X("2008").Y(564).Add();
+                    pt.X("2009").Y(242).Add();
+                    pt.X("2010").Y(121).Add();
+                    pt.X("2011").Y(343).Add();
+                    pt.X("2012").Y(451).Add();
+                    pt.X("2013").Y(203).Add();
+                    pt.X("2014").Y(431).Add();
+                }).Name("Andrew").Fill("#3498DB").Add();
+                sr.Points(pt =>
+                {
+                    pt.X("2007").Y(356).Add();
+                    pt.X("2008").Y(876).Add();
+                    pt.X("2009").Y(898).Add();
+                    pt.X("2010").Y(567).Add();
+                    pt.X("2011").Y(456).Add();
+                    pt.X("2012").Y(345).Add();
+                    pt.X("2013").Y(543).Add();
+                    pt.X("2014").Y(654).Add();
+                }).Name("Thomas").Fill("#34495E").Opacity(0.7).Add();
+                sr.Points(pt =>
+                {
+                    pt.X("2007").Y(122).Add();
+                    pt.X("2008").Y(444).Add();
+                    pt.X("2009").Y(222).Add();
+                    pt.X("2010").Y(231).Add();
+                    pt.X("2011").Y(122).Add();
+                    pt.X("2012").Y(333).Add();
+                    pt.X("2013").Y(354).Add();
+                    pt.X("2014").Y(100).Add();
+                }).Name("Hendry").Fill("#00FFFF").Add();
+            })
+
+        .IsResponsive(true)
+        .Load("loadTheme")
+        .Title(title => title.Text("Sales by year"))
+        .Size(sz => sz.Height("600"))
+        .Legend(lg => { lg.Visible(true).Position(LegendPosition.Right).Alignment(Syncfusion.JavaScript.DataVisualization.TextAlignment.Near); })
+        )
+        <script>
+            $("#controlarea").css("visibility", "visible");
+        </script>
+    </div>
+}

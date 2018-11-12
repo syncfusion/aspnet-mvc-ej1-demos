@@ -1,0 +1,52 @@
+﻿@section SampleHeading{
+    <span class="sampleName">ListBox / Cascading</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="row">
+            <div class="contents">
+                <span class="txt">Select group</span>
+                @Html.EJ().ListBox("groupsList").Datasource((IEnumerable<groups>)ViewBag.datasource).ListBoxFields(df => df.Value("parentId")).CascadeTo("countryList").ClientSideEvents(evt => evt.Create("setheight"))
+
+            </div>
+            <div class="contents col-sm-offset-2">
+                <span class="txt">Select country</span>
+                @Html.EJ().ListBox("countryList").Datasource((IEnumerable<Countries>)ViewBag.datasource1).LoadDataOnInit(false)
+            </div>
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+    function setheight(){
+         if (document.body.firstElementChild.className =="htmljssamplebrowser material" ||"htmljssamplebrowser office-365"){
+             setTimeout(function () {
+                 var obj = $("#groupsList").ejListBox("instance");
+                obj._refreshScroller(); }, 500);
+                 }
+    }
+    </script>
+}
+@section StyleSection{
+    <style class="cssStyles">
+        .txt {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .contents {
+            padding-left: 36px;
+            position: relative;
+            margin: 0 auto;
+            float: left;
+        }
+
+        .content-container-fluid .row {
+            margin: 0;
+        }
+
+        .frame {
+            width: 500px;
+        }
+    </style>
+}

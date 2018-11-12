@@ -1,0 +1,62 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Schedule / Templates</span>}
+@section ControlsSection{
+    @(Html.EJ().Schedule("Schedule1")
+        .Width("100%")
+        .Height("525px")
+        .CurrentDate(new DateTime(2017,6,5))
+        .CurrentView(CurrentView.Month)
+        .AppointmentSettings(fields => fields.Datasource((IEnumerable)ViewBag.datasource)
+            .Id("Id")
+            .Subject("Subject")
+            .StartTime("StartTime")
+            .EndTime("EndTime")
+            .Description("Description")
+            .AllDay("AllDay")
+            .Recurrence("Recurrence")
+            .RecurrenceRule("RecurrenceRule"))
+        .AppointmentTemplateId("#MyTemplate")
+        )
+    <style>
+        .e-agendaappointment img {
+            background-color: #f9920b;
+            width: 40px;
+            height: 40px;
+        }
+    </style>
+}
+@section ScriptSection{
+    <script id="MyTemplate" type="text/x-jsrender">
+        <div style="height: 100%">
+            <div style="float: left; width: 50px;height: 40px">
+                {{:~format(StartTime)}}
+            </div>
+            <div>
+                <div>{{:Subject}}</div>
+            </div>
+        </div>
+    </script>
+    <script>
+        function _getImages(date) {
+            switch (new Date(date).getDay()) {
+                case 0:
+                    return "<img src='../images/schedule/cake.png'/>";
+                case 1:
+                    return "<img src='../images/schedule/basketball.png'/>";
+                case 2:
+                    return "<img src='../images/schedule/rugby.png'/>";
+                case 3:
+                    return "<img src='../images/schedule/guitar.png'/>";
+                case 4:
+                    return "<img src='../images/schedule/music.png'/>";
+                case 5:
+                    return "<img src='../images/schedule/doctor.png'/>";
+                case 6:
+                    return "<img src='../images/schedule/beach.png'/>";
+                default:
+                    return null;
+            }
+        }
+        $.views.helpers({ format: _getImages });
+    </script>
+}

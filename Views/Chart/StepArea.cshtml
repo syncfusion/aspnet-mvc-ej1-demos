@@ -1,0 +1,42 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart / StepArea Chart </span>}
+
+@section ControlsSection{
+    <div>
+  @(Html.EJ().Chart("container")
+        .PrimaryXAxis(pr => pr.Title(tl => tl.Text("Year")))
+        .PrimaryYAxis(pr => pr.Title(tl => tl.Text("Production(billion kWh)")).LabelFormat("{value}B")
+        .RangePadding(ChartRangePadding.Normal))
+        .CommonSeriesOptions(cr => cr.Type(SeriesType.StepArea).EnableAnimation(true)
+        .Marker(mr => mr.Shape(ChartShape.Circle).Size(sz => sz.Height(12).Width(12)).Visible(true)))
+        .Series(sr =>
+            {
+                sr.Points(pt =>
+                    {
+                        pt.X("2000").Y(416).Add();
+                        pt.X("2001").Y(490).Add();
+                        pt.X("2002").Y(470).Add();
+                        pt.X("2003").Y(500).Add();
+                        pt.X("2004").Y(449).Add();
+                        pt.X("2005").Y(470).Add();
+                        pt.X("2006").Y(437).Add();
+                        pt.X("2007").Y(458).Add();
+                        pt.X("2008").Y(500).Add();
+                        pt.X("2009").Y(473).Add();
+                        pt.X("2010").Y(520).Add();
+                        pt.X("2011").Y(509).Add();
+                    }).Name("Brazil").Border(st => st.Color("Transparent")).Opacity(0.5).Fill("#69D2E7").Add();
+            })
+        .IsResponsive(true)
+        .Load("loadTheme")
+        .Title(title => title.Text("Electricity- Production"))
+        .Size(sz => sz.Height("600"))
+        .Legend(lg => { lg.Visible(true); })
+        )
+        <script>
+            $("#controlarea").css("visibility", "visible");
+        </script>
+
+    </div>
+}

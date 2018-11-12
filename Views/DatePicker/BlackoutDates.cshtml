@@ -1,0 +1,21 @@
+﻿@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName"> DatePicker / BlackoutDates</span> }
+
+@{
+    List<object> blackoutDates = new List<object>();
+    blackoutDates.Add(new DateTime(2018, 5, 10));
+    blackoutDates.Add(new DateTime(2018, 5, 15));
+    blackoutDates.Add(new DateTime(2018, 5, 20));
+    blackoutDates.Add(new DateTime(2018, 5, 22));
+    blackoutDates.Add(new DateTime(2018, 6, 12));
+    blackoutDates.Add(new DateTime(2018, 6, 24));
+}
+@section ControlsSection{
+    <div class="frame ">
+        <div class="control">
+            @Html.EJ().DatePicker("DatePick").Value("5/18/2018").BlackoutDates(blackoutDates).Width("100%")
+        </div>
+    </div>
+}

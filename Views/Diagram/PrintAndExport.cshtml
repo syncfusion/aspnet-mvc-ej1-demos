@@ -1,0 +1,86 @@
+﻿
+@section SampleHeading{
+    <span class="sampleName"> Diagram / Print And Export </span>
+}
+@section ControlsSection{
+<style rel="stylesheet">
+    .e-toolbar > .e-horizontal .e-hover, .e-toolbar > .e-vertical > .e-hover,
+    .e-toolbar > .e-horizontal .e-active, .e-toolbar > .e-vertical > .e-active {
+        background: transparent;
+        border-color: transparent;
+    }
+
+    .e-toolbar > .e-horizontal > .e-active > div {
+        color: black;
+    }
+    .e-btn.e-select {
+            background: #fcfcfc;
+            color: #333;
+            border-color: #cecece;
+        } 
+</style>
+    <div id="ToolbarItem" class="e-toolbar e-js e-widget e-toolbarspan" style="margin-left:-1px; background-color: #ebeced; border-bottom-color: #bbbbbb; border-top-style: none; border-left-style: none; border-right-style: none">
+    <ul id="toolblock3" class="toolblock3rightBorderVisible">
+        <li><div style="padding:5px;">Export As Image:</div></li>
+        <li id="button1">
+            <div style="padding-right:5px;padding-top:3px;">
+                @Html.EJ().SplitButton("exportasimg").ShowRoundedCorner(true).TargetID("options").Text("JPG").Width("120px").ClientSideEvents(e => e.Click("btnimgclick").ItemSelected("btnimgitemselected")).Items(splititem =>
+                        {
+                            splititem.Add().Text("JPG").ID("jpg");
+                            splititem.Add().Text("PNG").ID("png");
+                            splititem.Add().Text("BMP").ID("bmp");
+                        })
+            </div>
+        </li>
+        <li id="button2">
+            <div style="padding-right:2px;padding-top:3px; margin-left: 3px">
+                @Html.EJ().Button("exportassvg").ShowRoundedCorner(true).Height("30px").Width("120px").Text("Export As SVG").ClientSideEvents(e => e.Click("btnsvgclick"))
+            </div>
+        </li>
+        <li id="button3">
+            <div style="padding-right:2px;padding-top:3px; margin-left: 3px">
+                @Html.EJ().Button("print").ShowRoundedCorner(true).Height("30px").Text("Print").ClientSideEvents(e => e.Click("btnprintclick"))
+            </div>
+        </li>
+
+    </ul>
+</div>
+<div>
+    @Html.EJ().Toolbar("ToolbarItem").ClientSideEvents(e => e.Click("onItemclick")).Width("700px").Height("33px")
+
+</div>
+
+    <div>
+        @Html.EJ().Toolbar("ToolbarItem").Width("700px").Height("43px")
+    </div>
+    <div>
+        @Html.EJ().Diagram("PrintAndExport", ViewData["diagramModel"] as Syncfusion.JavaScript.DataVisualization.Models.DiagramProperties)
+    </div>
+}
+
+@section ScriptSection{
+    <script type="text/javascript">
+        function btnimgclick(args) {
+            var diagram = $("#PrintAndExport").ejDiagram("instance");
+            diagram.exportDiagram({ format: args.model.text });
+        }
+        function btnimgitemselected(args) {
+            $("#exportasimg").ejSplitButton({ text: args.ID });
+            var diagram = $("#PrintAndExport").ejDiagram("instance");
+            diagram.exportDiagram({ format: args.ID });
+        }
+        function btnsvgclick(args) {
+            var diagram = $("#PrintAndExport").ejDiagram("instance");
+            diagram.exportDiagram({
+                fileName: "diagram",
+                mode: "download",
+                format: "svg"
+            });
+        }
+        function btnprintclick(args) {
+            var diagram = $("#PrintAndExport").ejDiagram("instance");
+            diagram.print();
+        }
+    </script>
+}
+

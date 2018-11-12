@@ -1,0 +1,21 @@
+﻿@section SampleHeading{<span class="sampleName"> Grid/Grouping/Default Functionalities</span>}
+@section ControlsSection{
+    @(Html.EJ().Grid<EditableOrder>("Grouping")
+        .Datasource((IEnumerable<object>)ViewBag.datasource)
+        .AllowGrouping()
+        .AllowSorting()
+        .AllowPaging()
+
+                .GroupSettings(group => { group.GroupedColumns(col => { col.Add("ShipCountry"); }).EnableDropAreaAnimation(false); })
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(65).Add();
+            col.Field("CustomerID").HeaderText("Customer ID").Width(90).Add();
+            col.Field("ShipCity").HeaderText("Ship City").Width(90).Add();
+            col.Field("ShipCountry").HeaderText("Ship Country").Width(90).Add();
+            col.Field("EmployeeID").HeaderText("Employee ID").TextAlign(TextAlign.Right).Width(90).Add();
+            col.Field("Verified").HeaderText("Verified").Width(70).Add();
+            col.Field("OrderDate").HeaderText("Order Date").TextAlign(TextAlign.Right).Format("{0:MM/dd/yy}").Width(90).Add();
+        })
+    )
+}

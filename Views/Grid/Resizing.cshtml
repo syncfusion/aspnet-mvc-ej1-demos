@@ -1,0 +1,24 @@
+﻿@section SampleHeading{<span class="sampleName"> Grid/Columns/Resize</span>}
+@section ControlsSection{
+    @(Html.EJ().Grid<EditableOrder>("Resizing")
+        .Datasource((IEnumerable<object>)ViewBag.datasource)
+        .AllowPaging()
+        .AllowResizing()
+        .AllowScrolling()
+        .PageSettings(page=>page.PageSize(15))
+        .ScrollSettings(scroll => { scroll.Width(650).Height(400); })
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(90).Add();
+            col.Field("CustomerID").HeaderText("Customer ID").Width(100).Add();
+            col.Field("EmployeeID").HeaderText("Employee ID").TextAlign(TextAlign.Right).Width(100).Add();
+            col.Field("Freight").HeaderText("Freight").TextAlign(TextAlign.Right).Width(75).Format("{0:C}").Add();
+            col.Field("ShipCity").HeaderText("Ship City").Width(110).Add();
+            col.Field("ShipName").HeaderText("Ship Name").Width(170).Add();
+            col.Field("OrderDate").HeaderText("Order Date").TextAlign(TextAlign.Right).Width(100).Format("{0:MM/dd/yyyy}").Add();
+            col.Field("ShipCountry").HeaderText("Ship Country").Width(110).Add();
+            col.Field("ShipPostalCode").HeaderText("Ship Postal Code").TextAlign(TextAlign.Right).Width(140).Add();
+            col.Field("Verified").HeaderText("Verified").Width(100).Add();
+        })
+    )
+}

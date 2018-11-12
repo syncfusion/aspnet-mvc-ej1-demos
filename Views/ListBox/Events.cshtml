@@ -1,0 +1,107 @@
+﻿@section SampleHeading{
+    <span class="sampleName">ListBox / Events</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="row">
+            <div class="ctrllabel">
+                Select a country
+            </div>
+            <div class="contents">                
+                @Html.EJ().ListBox("selectCountry2").Datasource((IEnumerable<Countries>)ViewBag.datasource).ListBoxFields(df => df.Text("country").Value("country")).ClientSideEvents(e => e.Create("Oncreate").ItemDrag("OnitemDrag").ItemDragStart("OnitemDragStart").ItemDragStop("OnitemDragStop").ItemDrop("OnitemDropped").Select("Onselected").Change("OnselectIndexchange")).AllowMultiSelection(true).AllowDragAndDrop(true).ClientSideEvents(evt => evt.Create("setheight"))
+            </div>
+            <div class="contents col-sm-offset-2">
+                @Html.EJ().ListBox("selectCountry1").AllowMultiSelection(true).AllowDragAndDrop(true)
+            </div>
+        </div>
+    </div>
+}
+@section EventsDropdown{
+    @Html.EJ().DropDownList("selectControls_input").ShowCheckbox(true).TargetID("evntname").Width("160px").CheckAll(true).ClientSideEvents(e => e.Change("evtpropscheckedevent"))
+    <div id="evntname">
+        <ul>
+            <li>create</li>
+            <li>change</li>
+            <li>select</li>
+            <li>itemDragStart</li>
+            <li>itemDrag</li>
+            <li>itemDragStop</li>
+            <li>itemDrop</li>
+        </ul>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        var target;
+
+        function Oncreate(args) {
+            jQuery.addEventLog("<span class='eventTitle'>Create</span> has been fired");
+        }
+        function OnselectIndexchange(args) {
+            jQuery.addEventLog("<span class='eventTitle'>Change</span> has been fired");
+        }
+        function Onselected(args) {
+            jQuery.addEventLog("<span class='eventTitle'>Select</span> has been fired");
+        }
+        function OnitemDragStart(args) {
+            jQuery.addEventLog("<span class='eventTitle'>ItemDragStart</span> has been fired");
+        }
+        function OnitemDrag(args) {
+            jQuery.addEventLog("<span class='eventTitle'>ItemDrag</span> has been fired");
+        }
+        function OnitemDragStop(args) {
+            jQuery.addEventLog("<span class='eventTitle'>ItemDragStop</span> has been fired");
+        }
+        function OnitemDropped(args) {
+            jQuery.addEventLog("<span class='eventTitle'>ItemDrop</span> has been fired");
+        }
+        function onClear() {
+            jQuery.clearEventLog();
+        }
+        $(".evtbtn").appendTo("div .prop-grid.content");
+        function evtpropscheckedevent(args) {
+            var target = $('#selectCountry2').data("ejListBox");
+            if (args.isChecked) {
+                switch (args.selectedText) {
+                    case "create": target.option(args.selectedText, "Oncreate"); break;
+                    case "change": target.option(args.selectedText, "OnselectIndexchange"); break;
+                    case "select": target.option(args.selectedText, "Onselected"); break;
+                    case "itemDragStart": target.option(args.selectedText, "OnitemDragStart"); break;
+                    case "itemDrag": target.option(args.selectedText, "OnitemDrag"); break;
+                    case "itemDragStop": target.option(args.selectedText, "OnitemDragStop"); break;
+                    case "itemDrop": target.option(args.selectedText, "OnitemDropped"); break;
+                }
+            }
+            else {
+                target.option(args.selectedText, null);
+            }
+        }
+        function setheight() {
+            if (document.body.firstElementChild.className == "htmljssamplebrowser material" || "htmljssamplebrowser office-365") {
+                setTimeout(function () {
+                    var obj = $("#selectCountry2").ejListBox("instance");
+                    obj._refreshScroller();
+                }, 500);
+            }
+        }
+    </script>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .ctrllabel {
+            padding: 0px 0px 12px 36px;
+            font-weight: 600;
+        }
+
+        .contents {
+            padding-left: 36px;
+            padding-top:5px;
+            position: relative;
+            margin: 0 auto;
+            float: left;
+        }
+
+        .frame {
+            width: 500px;
+        }
+    </style>
+}

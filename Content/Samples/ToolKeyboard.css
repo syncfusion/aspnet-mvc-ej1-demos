@@ -1,0 +1,66 @@
+﻿.darktheme .cols-sample-area .e-tooltxt > div {
+    background-image: url('../../Images/toolbar/playerd.png');
+}
+
+.cols-sample-area .e-tooltxt > div {
+    display: block;
+    background-image: url('../../Images/toolbar/playerl.png');
+    height: 32px;
+    width: 32px;
+    background-repeat: no-repeat;
+    list-style: none outside none;
+}
+
+.e-tooltxt:hover .e-spriteimg, .darktheme .cols-sample-area .e-tooltxt:hover .e-spriteimg {
+    background-image: url('../../Images/toolbar/playerh.png');
+}
+
+
+.Back {
+    background-position: 0px 0px;
+}
+
+.End {
+    background-position: -42px 0px;
+}
+
+.FastForward {
+    background-position: -84px 0px;
+}
+
+.Pause {
+    background-position: -126px 0px;
+}
+
+.Play {
+    background-position: -168px 0px;
+}
+
+.Stop {
+    background-position: -210px 0px;
+}
+
+.PlayOnce {
+    background-position: -252px 0px;
+}
+
+.RepeatAll {
+    background-position: -294px 0px;
+}
+
+.playerSkew {
+    background-position: -336px 0px;
+}
+
+.Back1 {
+    background-position: -378px 0px;
+}
+
+.FastForward1 {
+    background-position: -420px 0px;
+}
+
+.frame {
+    width: 60%;
+
+}

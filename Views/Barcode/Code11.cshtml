@@ -1,0 +1,17 @@
+﻿@section SampleHeading{ <span class="sampleName">Barcode / QR Barcode</span>}
+
+@section ControlsSection{
+
+    <div>
+        <div>
+            @Html.EJ().Barcode("11Barcode").Text("01234567").SymbologyType(BarcodeSymbolType.Code11).DisplayText(true).QuietZone(qz=> {qz.All(30);})
+        </div>
+    </div>
+    <script>
+    
+    </script>
+}
+@section StyleSection{
+
+}
+

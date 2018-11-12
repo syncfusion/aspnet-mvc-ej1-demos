@@ -1,0 +1,11 @@
+﻿@section SampleHeading{ <span class="sampleName">Tab / AjaxContent</span>}
+
+@section ControlsSection{
+    <div class="controlframe">
+    @{Html.EJ().Tab("ajaxTab").Items(data =>
+           {
+               data.Add().ID("asp.netMvc").Text("ASP.NET MVC").Url("../Content/samplecontent/gridcontent.html");
+               data.Add().ID("wpf").Text("WPF").Url("../Content/samplecontent/wpfcontent.html");
+           }).AjaxSettings(ajax => ajax.ContentType("html").DataType("html").Async(true)).Render();}
+</div>
+}

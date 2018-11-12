@@ -1,0 +1,63 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart / StepLine Chart </span>}
+
+@section ControlsSection{
+    <div>
+  @(Html.EJ().Chart("container")
+        .PrimaryXAxis(pr => pr.Range(ra => ra.Min(2005).Max(2012).Interval(1)).Title(tl => tl.Text("Year")))
+        .PrimaryYAxis(pr => pr.Range(ra => ra.Min(360).Max(600).Interval(30)).Title(tl => tl.Text("Intensity (g/kWh)")))
+        .CommonSeriesOptions(cr => cr.Type(SeriesType.StepLine).EnableAnimation(true)
+        .Marker(mr => mr.Shape(ChartShape.Circle).Size(sz => sz.Height(12).Width(12)).Visible(true))
+        .Border(st => st.Width(2)).Tooltip(tt => tt.Visible(true).Format("#series.name# <br/> #point.x# : #point.y#  (g/kWh)")))
+        .Series(sr =>
+            {
+                sr.Points(pt =>
+                    {
+                        pt.X("2006").Y(378).Add();
+                        pt.X("2007").Y(416).Add();
+                        pt.X("2008").Y(404).Add();
+                        pt.X("2009").Y(390).Add();
+                        pt.X("2010").Y(376).Add();
+                        pt.X("2011").Y(365).Add();
+                    }).Name("USA").Add();
+
+                sr.Points(pt =>
+                {
+                    pt.X("2006").Y(463).Add();
+                    pt.X("2007").Y(449).Add();
+                    pt.X("2008").Y(458).Add();
+                    pt.X("2009").Y(450).Add();
+                    pt.X("2010").Y(425).Add();
+                    pt.X("2011").Y(430).Add();
+                }).Name("UK").Add();
+                sr.Points(pt =>
+                {
+                    pt.X("2006").Y(519).Add();
+                    pt.X("2007").Y(508).Add();
+                    pt.X("2008").Y(502).Add();
+                    pt.X("2009").Y(495).Add();
+                    pt.X("2010").Y(485).Add();
+                    pt.X("2011").Y(470).Add();
+                }).Name("Korea").Add();
+                sr.Points(pt =>
+                {
+                    pt.X("2006").Y(570).Add();
+                    pt.X("2007").Y(579).Add();
+                    pt.X("2008").Y(563).Add();
+                    pt.X("2009").Y(550).Add();
+                    pt.X("2010").Y(545).Add();
+                    pt.X("2011").Y(525).Add();
+                }).Name("Japan").Add();
+            })
+        .IsResponsive(true)
+        .Load("loadTheme")
+        .Title(title => title.Text("CO2 - Intensity Analysis"))
+        .Size(sz => sz.Height("600"))
+        .Legend(lg => { lg.Visible(true); })
+        )
+        <script>
+            $("#controlarea").css("visibility", "visible");
+        </script>
+    </div>
+}

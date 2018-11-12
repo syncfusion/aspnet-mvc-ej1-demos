@@ -1,0 +1,97 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Splitter / Events</span>}
+@section ControlsSection{
+
+
+    @{Html.EJ().Splitter("outer").Height("350").Width("100%").EnableAutoResize(true).ClientSideEvents(gs => gs.BeforeExpandCollapse("oncollapse").Resize("onresize").Create("oncreate")).Orientation(Orientation.Vertical).PaneProperties(
+        p =>
+        {
+            p.Add().ContentTemplate(
+        @<div class="splitdiv" style="height: 100%">
+            @InnerSplitter()
+        </div>)
+        .PaneSize("80");
+            p.Add().ContentTemplate(
+        @<div class="cont">
+            Pane 3
+        </div>);
+        }).Render();}
+    @helper InnerSplitter()
+{
+        @Html.EJ().Splitter("inner").EnableAutoResize(true).PaneProperties(
+            p1 =>
+            {
+                p1.Add().ContentTemplate(
+                    @<div class="cont">
+                        Pane 1
+                    </div>);
+                p1.Add().ContentTemplate(
+                    @<div class="cont">
+                        Pane 2
+                    </div>);
+            }).Orientation(Orientation.Horizontal).ClientSideEvents(cs => cs.BeforeExpandCollapse("oncollapse").Resize("onresize").Create("oncreate"))
+    }
+
+}
+@section EventsDropdown{
+    @Html.EJ().DropDownList("selectControls_input").TargetID("evntname").ShowCheckbox(true).CheckAll(true).ClientSideEvents(e => e.Change("evtpropscheckedevent"))
+    <div id="evntname">
+        <ul>
+            <li>beforeExpandCollapse</li>
+            <li>resize</li>
+        </ul>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        var splitterOutter, splitterInner;
+        $(function () {
+            splitterOutter = $("#outer").data("ejSplitter");
+            splitterInner = $("#inner").data("ejSplitter");
+        });
+
+        function evtpropscheckedevent(args) {
+            if (args.isChecked) {
+                switch (args.selectedText) {
+                    case "beforeExpandCollapse":
+                        splitterOutter.option(args.selectedValue, "oncollapse");
+                        splitterInner.option(args.selectedValue, "oncollapse");
+                        break;
+                    case "resize":
+                        splitterOutter.option(args.selectedValue, "onresize");
+                        splitterInner.option(args.selectedValue, "onresize");
+                        break;
+                }
+            }
+            else {
+                splitterOutter.option(args.selectedText, null);
+                splitterInner.option(args.selectedText, null);
+            }
+        }
+
+        function oncreate(args) {
+            jQuery.addEventLog(this.element[0].id + " has been <span class='eventTitle'>created</span>.");
+        }
+        function oncollapse(args) {
+            jQuery.addEventLog("pane" + args.collapsed.index + " has been <span class='eventTitle'>collapsed</span> and " +
+            args.expanded.index + " has been <span class='eventTitle'>expanded</span>.");
+        }
+        function onresize(args) {
+            jQuery.addEventLog(this.element[0].id + " splitter has been <span class='eventTitle'>resized</span>.");
+        }
+        function onClear() {
+            $("#EventLog").html("");
+        }
+    </script>
+}
+@section StyleSection{
+    <style type="text/css">
+        #inner {
+            border: 0 none;
+        }
+
+        .cont {
+            padding: 10px 0 0 10px;
+        }
+    </style>
+}

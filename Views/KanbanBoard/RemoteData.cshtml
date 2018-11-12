@@ -1,0 +1,26 @@
+@section SampleHeading{
+    <span class="sampleName">RemoteData</span>
+}
+@using Syncfusion.JavaScript.Models;
+    @section ControlsSection{
+    @(Html.EJ().Kanban("Kanban")
+                   .DataSource(d => d.URL("//js.syncfusion.com/demos/ejServices/Wcf/Northwind.svc/Tasks").CrossDomain(true))
+                   .Columns(col =>
+                   {
+                       col.HeaderText("Backlog").Key("Open").Add();
+                       col.HeaderText("In Progress").Key("InProgress").Add();
+                       col.HeaderText("Testing").Key("Testing").Add();
+                       col.HeaderText("Done").Key("Close").Add();
+                   })
+                  .AllowTitle(true)
+                  .AllowSelection(false)
+                  .KeyField("Status")
+                  .Fields(field =>
+                  {
+                      field.Content("Summary")
+                           .Tag("Tags")
+                           .PrimaryKey("Id");
+                  })
+    )
+
+}

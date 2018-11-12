@@ -1,0 +1,44 @@
+﻿@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.de-DE.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.fr-FR.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.vi-VN.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.zh-CN.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName">TimePicker / Localization </span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().TimePicker("TimePick").Locale("zh-CN").TimeFormat("h:mm tt").Width("100%")
+
+        </div>
+    </div>
+}
+<div id="droplist">
+    <ul>
+        <li>en-US</li>
+        <li>vi-VN</li>
+        <li>zh-CN</li>
+    </ul>
+</div>
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Select Culture
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("drop").TargetID("droplist").Width("100px").SelectedItemIndex(2).ClientSideEvents(s => s.Change("onchange"))
+        </div>
+    </div>
+
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        function onchange(args) {
+            var timeobject = $("#TimePick").data("ejTimePicker");
+            timeobject.option({ "locale": args.text }); timeobject.option({ "timeFormat": "h:mm tt" });
+        }
+        $("#sampleProperties").ejPropertiesPanel();
+    </script>
+}
+

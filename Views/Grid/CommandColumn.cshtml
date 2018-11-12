@@ -1,0 +1,49 @@
+﻿@using Syncfusion.JavaScript.Models
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+   
+}
+@section SampleHeading{<span class="sampleName"> Grid/Edting/Command Column</span>}
+@section ControlsSection{
+    @(Html.EJ().Grid<EditableOrder>("CommandGrid")
+        .Datasource(ds => ds.Json((IEnumerable<object>)ViewBag.dataSource).UpdateURL("CommandUpdate").RemoveURL("CommandDelete").Adaptor(AdaptorType.RemoteSaveAdaptor))
+        .AllowPaging()
+        .EnableAutoSaveOnSelectionChange(false)
+        .PageSettings(page => { page.PageSize(10); })
+        .EnableRowHover(false)
+        .EditSettings(edit => { edit.AllowDeleting().AllowEditing().AllowEditOnDblClick(false); })
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(75).Add();
+            col.Field("EmployeeID").HeaderText("Employee ID").TextAlign(TextAlign.Right).EditType(EditingType.NumericEdit).ValidationRules(v => v.AddRule("number", true)).Width(90).Add();
+            col.Field("Freight").HeaderText("Freight").TextAlign(TextAlign.Right).EditType(EditingType.NumericEdit).Width(75).Format("{0:C}").NumericEditOptions(new EditorProperties() { DecimalPlaces = 2 }).ValidationRules(v => v.AddRule("range", "[0,1000]")).Add();
+            col.Field("ShipCity").HeaderText("Ship City").Width(90).ValidationRules(v=> v.AddRule("required",true)).Add();
+            col.Field("ShipCountry").HeaderText("Ship Country").Width(90).Add();
+            col.Field("Verified").HeaderText("Verified").EditType(EditingType.BooleanEdit).Width(75).Add();
+            col.HeaderText("Manage Records").Commands(command =>
+            {
+                command.Type(UnboundType.Edit)
+                       .ButtonOptions(new Syncfusion.JavaScript.Models.ButtonProperties()
+                       {
+                           Text = "Edit"
+                       }).Add();
+                command.Type(UnboundType.Delete)
+                       .ButtonOptions(new Syncfusion.JavaScript.Models.ButtonProperties()
+                        {
+                            Text = "Delete"
+                        }).Add();
+                command.Type(UnboundType.Save)
+                       .ButtonOptions(new Syncfusion.JavaScript.Models.ButtonProperties()
+                        {
+                            Text = "Save"
+                        }).Add();
+                command.Type(UnboundType.Cancel)
+                       .ButtonOptions(new Syncfusion.JavaScript.Models.ButtonProperties()
+                        {
+                            Text = "Cancel"
+                        }).Add();
+            }).IsUnbound(true).Width(130).Add();
+        })
+    )
+}

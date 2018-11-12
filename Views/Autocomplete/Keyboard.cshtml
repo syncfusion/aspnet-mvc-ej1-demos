@@ -1,0 +1,71 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Autocomplete / Keyboard Interaction</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @{
+                Html.EJ()
+                    .Autocomplete("keyboard")
+                    .Datasource((IEnumerable<Languages>)ViewBag.datasource)
+                    .Width("100%")
+                    .WatermarkText("Choose skills")
+                    .MultiSelectMode(MultiSelectModeTypes.Delimiter)
+                    .Render();
+            }
+        </div>
+    </div>
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Alt + j
+        </div>
+        <div class="col-md-3">
+            Focuses the control
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Up
+        </div>
+        <div class="col-md-3">
+            Moves to previous item
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Down
+        </div>
+        <div class="col-md-3">
+            Moves to next item
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Enter
+        </div>
+        <div class="col-md-3">
+            Selects the focused item
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Esc
+        </div>
+        <div class="col-md-3">
+            Closes the popup
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript" class="jsScript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+            $(document).on("keydown", function (e) {
+                if (e.altKey && e.keyCode === 74) { // j- key code.
+                    $("#keyboard").focus();
+                }
+            });
+        });
+    </script>
+}

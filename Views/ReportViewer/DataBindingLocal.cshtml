@@ -1,0 +1,23 @@
+﻿@section SampleHeading{ <span class="sampleName">ReportViewer/DataBindingLocal</span>}
+
+@using Syncfusion.JavaScript
+@using Syncfusion.MVC.EJ
+
+@section StyleSection{
+    <style>
+        #reportviewer {
+            min-height: 650px;
+            min-width: 100%;
+        }
+    </style>
+}
+@section ControlsSection{
+   <div style="width:100%">
+
+
+       @(Html.EJ().ReportViewer("reportviewer")
+              .ProcessingMode(Syncfusion.JavaScript.ReportViewerEnums.ProcessingMode.Local).ReportPath("~/App_Data/Reports/IndicatorReport.rdlc")
+              .ReportServiceUrl(VirtualPathUtility.ToAbsolute("~/api/RDLCReport")).ReportLoaded("onReportLoaded").DataSources(ds => { ds.Name("DataSet1").Value(ViewData["bill_2013"]).Add(); ds.Name("DataSet2").Value(ViewData["bill_2012"]).Add(); ds.Name("DataSet3").Value(ViewData["bill_desc"]).Add(); })
+       )
+    </div>
+}

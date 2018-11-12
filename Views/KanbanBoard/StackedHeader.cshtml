@@ -1,0 +1,36 @@
+@section SampleHeading{
+    <span class="sampleName">StackedHeader</span>
+}
+@using Syncfusion.JavaScript.Models;
+@section ControlsSection{
+    @(Html.EJ().Kanban("Kanban")
+                   .DataSource((IEnumerable<object>)ViewBag.datasource)
+                   .Columns(col =>
+                   {
+                       col.HeaderText("Backlog").Key("Open").Width(80).Add();
+                       col.HeaderText("Validated").Key("Validate").Width(80).Add();
+                       col.HeaderText("In Progress").Key("InProgress").Width(80).Add();
+                       col.HeaderText("Testing").Key("Testing").Width(80).Add();
+                       col.HeaderText("Done").Key("Close").Width(70).Add();
+                   })
+                  .AllowTitle(true)
+                  .AllowSelection(false)
+                  .KeyField("Status")
+                  .Fields(field =>
+                  {
+                      field.Color("Type")
+                           .Content("Summary")
+                           .PrimaryKey("Id")
+                           .ImageUrl("ImgUrl");
+                  })
+                   .StackedHeaderRows(rows =>
+                      {
+                          rows.StackedHeaderColumns(colums =>
+                          {
+                              colums.HeaderText("Unresolved").Column("Backlog,Validated,In Progress").Add();
+                              colums.HeaderText("Resolved").Column("Testing,Done").Add();
+                          }).Add();
+                      })
+    )
+
+}

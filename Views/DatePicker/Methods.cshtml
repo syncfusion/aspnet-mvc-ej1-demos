@@ -1,0 +1,70 @@
+﻿@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName">DatePicker/Methods</span> }
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().DatePicker("datepick").Value("5/28/2018").ClientSideEvents(s => s.Open("dpOpen").Close("dpClose")).Width("100%")
+        </div>
+    </div>
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">Show / Hide</div>
+        <div class="col-md-3">
+            @Html.EJ().CheckBox("chkShowHide").ClientSideEvents(s => s.Change("onShowHide"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">Enable / disable</div>
+        <div class="col-md-3">
+            @Html.EJ().CheckBox("enableDisable").Checked(true).ClientSideEvents(s1 => s1.Change("EnableDisable"))
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        var dateobject, chckobject, temp = false, id = "";
+        $(function () {
+            // declaration
+            dateobject = $("#datepick").data("ejDatePicker");
+            chckobject = $("#chkShowHide").data("ejCheckBox");
+        });
+        function dpOpen(args) {
+            chckobject.setModel({ checked: true });
+        };
+        function dpClose(args) {
+            chckobject.setModel({ checked: false });
+            temp = true;
+        };
+        function onShowHide(args) {
+            if (args.isChecked) {
+                if (id == "ejchkShowHide" && temp) {
+                    chckobject.setModel({ checked: false });
+                    temp = false;
+                }
+                else
+                    dateobject.show();
+            }
+            else
+                dateobject.hide();
+        };
+        function EnableDisable(args) {
+            if (args.isChecked) {
+                dateobject.enable();
+                chckobject.enable();
+            } else {
+                dateobject.disable();
+                chckobject.disable();
+            }
+        };
+        $(document).on('click', function (event) {
+            var ele = event.target;
+            var ele1 = $(ele).parents("#ejchkShowHide");
+            var ele2 = $(ele).parents("#datepick-img");
+            id = (ele1.length == 1 || ele2.length == 1) ? "ejchkShowHide" : "";
+        });
+        $("#sampleProperties").ejPropertiesPanel();
+    </script>
+}

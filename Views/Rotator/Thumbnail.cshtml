@@ -1,0 +1,20 @@
+﻿@section SampleHeading{<span class="sampleName">Rotator - Thumbnail</span> }
+@section ControlsSection{
+    <div class="frame">
+        @Html.EJ().Rotator("sliderContent").Datasource((IEnumerable<localdata>)ViewBag.datasource).RotatorFields(t => t.Text("text").Url("url")).SlideWidth("100%").SlideHeight("300px").ShowPlayButton(false).AllowKeyboardNavigation(true).ShowPlayButton(true).ShowThumbnail(true).IsResponsive(true)
+    </div>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .frame {
+            width: 100%;
+            box-sizing : border-box;
+        }
+
+        #sliderContent > li > img {
+            width: 100%;
+            height: 300px;
+        }
+    </style>
+}
+

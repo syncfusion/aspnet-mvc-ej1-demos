@@ -1,0 +1,167 @@
+﻿@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/excanvas.min.js")"></script>
+    }
+@section SampleHeading{
+	<span class="sampleName">Range</span>
+	}
+
+
+
+@section ControlsSection{
+ <div align="center">
+ @(Html.EJ().CircularGauge("circulargaugerange")
+                .BackgroundColor("transparent").EnableAnimation(false)
+                     .IsResponsive(true)
+                    .ClientSideEvents(cli=>cli.Load("loadGaugeTheme"))
+                .Scales(sc =>
+                {
+                    sc.Radius(130)
+                    .PointerCap(cap=>cap.Radius(10))
+                    .Minimum(0)
+                    .Maximum(120)
+                    .MajorIntervalValue(20)
+                    .MinorIntervalValue(10)
+                    .ShowScaleBar(true)
+                    .Size(1)
+                    .ShowRanges(true)
+                    .Ranges(ran =>
+                    {
+                        ran.Size(5).DistanceFromScale(-30).StartValue(0).EndValue(50).Add();
+                        ran.Size(5).DistanceFromScale(-30).StartValue(50).EndValue(100).BackgroundColor(ConsoleColor.Red.ToString()).Border(bor=>bor.Color(ConsoleColor.Red.ToString())).Add();
+                        ran.Size(5).DistanceFromScale(-30).StartValue(100).EndValue(120).BackgroundColor(ConsoleColor.Yellow.ToString()).Border(bor=>bor.Color(ConsoleColor.Yellow.ToString())).Add();
+                    })
+                    .Pointers(po =>
+                    {
+                        po.Value(60)
+                        .Length(90)
+                        .Width(8)
+                        .ShowBackNeedle(true)
+                        .BackNeedleLength(15).Add();
+                    }).Add();
+                })
+                .Radius(140)
+                .Height(360)
+                .Width(500)
+                )
+</div>
+}
+
+
+
+@section PropertiesSection{
+
+<div class="row">
+                        <div class="col-md-3">
+                            Range Size
+                        </div>
+                        <div class="col-md-3 aligntop">
+                           @(Html.EJ().Slider("rangesize").SliderType(SlideType.MinRange).Value("7").Height("10").Width("120").MinValue(2).MaxValue(12).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange").Slide("onchange"); }))
+                        </div>
+                        <div class="col-md-3">
+                            Range Distance
+                        </div>
+                        <div class="col-md-3 aligntop">
+                           @(Html.EJ().Slider("distancefromscale").SliderType(SlideType.MinRange).Value("-28").Height("10").Width("120").MinValue(-30).MaxValue(0).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange").Slide("onchange"); }))
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            Pointer Value
+                        </div>
+                        <div class="col-md-3 aligntop">
+                           @(Html.EJ().Slider("pointervalue").SliderType(SlideType.MinRange).Value("60").Height("10").Width("120").MinValue(0).MaxValue(120).EnableAnimation(true).ClientSideEvents(events => { events.Change("pointerchange"); }))
+                        </div>
+                        <div class="col-md-3">
+                            Select Range
+                        </div>
+                        <div class="col-md-3">
+                            @(Html.EJ().DropDownList("rangeid").Datasource((IEnumerable<MVCSampleBrowser.Models.CircularGauge.Ranges>)ViewBag.datasource).DropDownListFields(df => df.ID("Range").Text("Range").Value("Range")).SelectedItemIndex(0).Width("120").ClientSideEvents(cli => { cli.Select("onchange1"); }))
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            Start Value
+                        </div>
+                        <div class="col-md-3" style="margin-top:8px;">
+                           @(Html.EJ().Slider("startvalue").SliderType(SlideType.MinRange).Value("0").Height("10").Width("120").MinValue(0).MaxValue(50).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange"); }))
+                        </div>
+                        <div class="col-md-3">
+                            End Value
+                        </div>
+                        <div class="col-md-3 aligntop">
+                           @(Html.EJ().Slider("endvalue").SliderType(SlideType.MinRange).Value("50").Height("10").Width("120").MinValue(0).MaxValue(120).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange"); }))
+                        </div>
+
+                    </div>
+}
+
+
+@section StyleSection{
+
+    <style>
+        .col-md-3 .e-ddl .e-input {
+            line-height:20px;
+        }
+    </style>
+}
+
+
+    <script>
+        $(document).ready(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        function pointerchange(args) {
+            var pointerg = $("#circulargaugerange").data("ejCircularGauge");
+            pointerg.setPointerValue(0,0,args.value);
+        }
+
+        function onchange1(args) {
+            var startslide = $("#startvalue").data("ejSlider");
+            var endslide = $("#endvalue").data("ejSlider");
+            var gaugestart = $("#circulargaugerange").data("ejCircularGauge");
+
+            if (args.text == "Range1") {
+                startslide.setModel({ maxValue: gaugestart.model.scales[0].ranges[0].startValue, value: gaugestart.model.scales[0].ranges[0].startValue });
+                endslide.setModel({ minValue: gaugestart.model.scales[0].ranges[0].endValue, value: gaugestart.model.scales[0].ranges[0].endValue });
+            }
+            else if (args.text == "Range2") {
+                startslide.setModel({ maxValue: gaugestart.model.scales[0].ranges[1].endValue, value: gaugestart.model.scales[0].ranges[1].startValue });
+                endslide.setModel({ minValue: gaugestart.model.scales[0].ranges[1].startValue, value: gaugestart.model.scales[0].ranges[1].endValue });
+            }
+            else if (args.text == "Range3") {
+                startslide.setModel({ maxValue: gaugestart.model.scales[0].ranges[2].endValue, value: gaugestart.model.scales[0].ranges[2].startValue });
+                endslide.setModel({ minValue: gaugestart.model.scales[0].ranges[2].startValue, value: gaugestart.model.scales[0].ranges[2].endValue });
+            }
+        }
+
+        function onchange(args) {
+            var rangetarget = $("#rangeid").data("ejDropDownList");
+            var target1 = $("#circulargaugerange").data("ejCircularGauge");
+                var endslide = $("#endvalue").data("ejSlider");
+                var startslide = $("#startvalue").data("ejSlider");
+                if (args.id == "startvalue") {
+                    endslide.setModel({ minValue: args.value });
+                    target1.setRangeStartValue(0, rangetarget.selectedIndexValue, args.value);
+                }
+                else if (args.id == "endvalue") {
+                    startslide.setModel({ maxValue: args.value });
+                    target1.setRangeEndValue(0, rangetarget.selectedIndexValue, args.value);
+                }
+                if (args.id == "rangesize") {
+                    for (var i = 0; i <= 2; i++) {
+                        target1.setRangeSize(0, i, args.value);
+                    }
+                }
+                else if (args.id == "distancefromscale") {
+                    for (var j = 0; j <= 2; j++) {
+                        target1.setRangeDistanceFromScale(0, j, args.value);
+                    }
+                }
+        }
+        
+    </script>
+
+
+

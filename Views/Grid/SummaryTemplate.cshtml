@@ -1,0 +1,66 @@
+﻿@section SampleHeading{<span class="sampleName"> Grid/Summary/Summary Template</span>}
+@section ControlsSection{
+
+    @(Html.EJ().Grid<OrdersView>("Summary")
+          .Datasource((IEnumerable<object>)ViewBag.datasource)
+          .ShowSummary()
+          .AllowPaging()
+          .SummaryRow(row =>
+          {
+              row
+                  .SummaryColumns(col =>
+                  {
+                      col.SummaryType(SummaryType.Sum)
+                         .DisplayColumn("Freight")
+                         .DataMember("Freight")
+                         .Template("#summaryTemplate")
+                         .Format("{0:C}")
+                         .Add();
+                  }).Add();
+          })
+          .Columns(col =>
+          {
+              col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(80).Add();
+              col.Field("CustomerID").HeaderText("Customer ID").TextAlign(TextAlign.Left).Width(80).Add();
+              col.Field("EmployeeID").HeaderText("Employee ID").TextAlign(TextAlign.Right).Width(80).Add();
+              col.Field("Freight").HeaderText("Freight").TextAlign(TextAlign.Right).Width(80).Format("{0:C}").Add();
+              col.Field("ShipCity").HeaderText("ShipCity").Width(90).Add();
+          }).ClientSideEvents(eve => { eve.ActionComplete("complete"); })
+          .ClientSideEvents(eve => { eve.DataBound("complete"); })
+    )
+
+}
+<script id="summaryTemplate" type="text/x-jsrender">
+    <input type="text" id="summaryType" />
+    <div style="padding-top:5px;text-align:center"> : {{:summaryValue}}</div>
+    <div id="typeList">
+        <ul>
+            <li value="sum">Sum</li>
+            <li value="average">Average</li>
+            <li value="count">Count</li>
+            <li value="minimum">Minimum</li>
+            <li value="maximum">Maximum</li>
+        </ul>
+    </div>
+</script>
+<script type="text/javascript">
+    var selectedText = null;
+    function complete(args) {
+        if (args.requestType == "refresh" || args.type == "dataBound" || args.requestType == "paging") {
+            $("#summaryType").ejDropDownList({
+                targetID: "typeList",
+                change: "change",
+                value: ej.isNullOrUndefined(selectedText) ? "sum" : selectedText,
+                htmlAttributes: { style: "float:left;width:100px" }
+            });
+        }
+    }
+    function change(args) {
+        selectedText = args.selectedValue;
+        var gridObj = $("#Summary").ejGrid("instance");
+        var summaryColumn = gridObj.model.summaryRows[0].summaryColumns[0];
+        summaryColumn.summaryType = selectedText;
+        summaryColumn.format = selectedText == "count" ? "{0:N0}" : "{0:C2}";
+        gridObj.refreshContent();
+    }
+</script>

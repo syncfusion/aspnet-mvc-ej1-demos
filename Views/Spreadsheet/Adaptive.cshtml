@@ -1,0 +1,67 @@
+﻿@section SampleHeading{<span class="sampleName"> Spreadsheet/Adaptive</span>}
+@section ControlsSection{
+    <div id="resMode" class="emulatortap">
+        <div class="sample-container">
+            <iframe id="sample" frameborder="0" tabindex="1" style="height: 364px;width: 616px" src='../Spreadsheet/AdaptiveSpreadsheet'></iframe>
+        </div>
+    </div>
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Mode
+        </div>
+        <div class="col-md-3">
+            <select id="columnName" class="e-ddl" data-bind="value: field">
+                <option value="320x494">Mobile Mode</option>
+                <option value="614x364" selected="selected">Tablet Mode</option>
+                <option value="1000x444">Desktop Mode</option>
+            </select>
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            var browser = ej.Grid.prototype.getBrowserDetails();
+            $("#sampleProperties").ejPropertiesPanel();
+            var dropDownSlectedValue = $("#columnName option:selected").text();
+            $("#columnName").ejDropDownList({ width: "120", change: "dropdownChange", text: dropDownSlectedValue });
+        });
+        window.loadGridFrameTheme = function () {
+            var iframe = document.getElementById('sample');
+            iframe.contentWindow.postMessage("theme_" + window.theme, iframe.src);
+        }
+        function dropdownChange(args) {
+            var str = args.selectedValue;
+            if (args.text == "Mobile Mode") {
+                var iframe = document.getElementById('sample');
+                iframe.contentWindow.postMessage("mobile", iframe.src);
+                $("#sample").parents().find("#resMode").removeClass("emulatortap").addClass("emulatordesk");
+                $("#sample").css("width", str.split("x")[0]).css("height", str.split("x")[1]).css("margin-left", "");
+                $(".cols-prop-area").css("width", "").css("min-height", "").css("margin-left", "");
+                $(".cols-sample-area").css("width", "72.956%");
+                $('#mobilview').css("display", "block");                
+            }
+
+            else if (args.text == "Tablet Mode") {
+                var browser = ej.browserInfo();
+                document.getElementById("sample").contentDocument.location.reload();
+                $("#sample").parents().find("#resMode").removeClass("emulatordesk").addClass("emulatortap");
+                $("#sample").css("width", str.split("x")[0]).css("height", str.split("x")[1]);
+                $(".cols-prop-area").css("width", "").css("min-height", "").css("margin-left", "");
+                $(".cols-sample-area").css("width", "72.956%");
+                $('#mobilview').css('display', "none");
+            }
+            else {
+                var iframe = document.getElementById('sample');
+                iframe.contentWindow.postMessage("desktop", iframe.src);
+                $("#sample").parents().find("#resMode").removeClass("emulatortap").removeClass("emulatordesk");
+                $("#sample").css("width", "100%").css("height", str.split("x")[1]);
+                $(".cols-prop-area").css("width", "99%").css("min-height", "200px").css("margin-left", "0px");
+                $(".cols-sample-area").css("width", "99%");
+                $('#mobilview').css("display", "none");
+            }
+        }
+    </script>
+}

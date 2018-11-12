@@ -1,0 +1,127 @@
+﻿@section SampleHeading{<span class="sampleName"> TreeGrid/Default</span>}
+@section ControlsSection{
+
+
+    @(Html.EJ().TreeGrid("TreeGridContainer")
+             .ChildMapping("Children")
+             .AllowKeyboardNavigation(true)
+             .TreeColumnIndex(1)
+             .IsResponsive(true)
+             .Columns(co =>
+               {
+                   co.Field("TaskId").HeaderText("Task Id").Width(45).Add();
+                   co.Field("TaskName").HeaderText("Task Name").Add();
+                   co.Field("StartDate").HeaderText("Start Date").Add();
+                   co.Field("EndDate").HeaderText("End Date").Add();
+                   co.Field("Duration").HeaderText("Duration").Add();
+                   co.Field("Progress").HeaderText("Progress").Add();
+               }
+             )
+             .EditSettings(edit =>
+               {
+                   edit.AllowEditing(true);
+                   edit.AllowAdding(true);
+                   edit.AllowDeleting(true);
+                   edit.EditMode(TreeGridEditMode.CellEditing);
+                   edit.RowPosition(TreeGridRowPosition.AboveSelectedRow);
+               })                 
+             .SizeSettings(ss => ss.Width("100%").Height("450px"))
+             .Datasource(ViewBag.datasource)
+    )
+}
+@section PropertiesSection{
+    <div id="sampleProperties">
+        <div class="prop-grid">
+            <div class="row">
+                <div class="col-md-3 colwidth">
+                    <b>Keys</b>
+                </div>
+                <div class="col-md-3 colwidth">
+                    <b>Description</b>
+                </div>
+                <div class="col-md-3 colwidth">
+                    <b>Alt + j </b>
+                </div>
+                <div class="col-md-3 colwidth">
+                    Focus
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 colwidth">
+                    <b>Home</b>
+                </div>
+                <div class="col-md-3 colwidth">
+                    <p>First row selection</p>
+                </div>
+                <div class="col-md-3 colwidth">
+                    <b>End</b>
+                </div>
+                <div class="col-md-3 colwidth">
+                    Last row selection
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 colwidth">
+                    <b>F2</b>
+                </div>
+                <div class="col-md-3 colwidth">
+                    Cell edit
+                </div>
+                <div class="col-md-3 colwidth">
+                    <b>Enter</b>
+                </div>
+                <div class="col-md-3 colwidth">
+                    Save request
+                </div>
+                <div class="col-md-3 colwidth">
+                    <b>Delete</b>
+                </div>
+                <div class="col-md-3 colwidth">
+                    Delete row
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 colwidth">
+                    <b>Ctrl + Down arrow</b>
+                </div>
+                <div class="col-md-3 colwidth">
+                    Expand all
+                </div>
+                <div class="col-md-3 colwidth">
+                    <b>Ctrl + Up arrow</b>
+                </div>
+                <div class="col-md-3 colwidth">
+                    Collapse all
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 colwidth">
+                    <b>Left arrow</b>
+                </div>
+                <div class="col-md-3 colwidth">
+                    Collapse the selected row
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 colwidth">
+                    <b>Right arrow</b>
+                </div>
+                <div class="col-md-3 colwidth">
+                    Expand the selected row
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        $(document).on("keydown", function (e) {
+            if (e.altKey && e.keyCode === 74) { // j- key code.
+                $("#TreeGridContainer").focus();
+            }
+        });
+    </script>
+}

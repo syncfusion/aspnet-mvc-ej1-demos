@@ -1,0 +1,24 @@
+@section SampleHeading{<span class="sampleName">DateRangePicker / DateTimeRange</span> }
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().DateRangePicker("DateRange").Value("05/28/2018-06/27/2018").EnableTimePicker(true).Width("100%")
+        </div>
+    </div>
+}
+@section StyleSection{
+    <style>
+        .control {
+            width: 100%;
+        }
+
+        .frame{
+            width: 75%;
+        }
+
+        .control .e-daterangewidget {
+            width: 225px;
+            margin: auto;
+        }
+    </style>
+}

@@ -1,0 +1,64 @@
+@section SampleHeading{
+    <span class="sampleName">HeaderTemplate</span>
+}
+@using Syncfusion.JavaScript.Models;
+    @section ControlsSection{
+    @(Html.EJ().Kanban("Kanban")
+                   .DataSource((IEnumerable<object>)ViewBag.datasource)
+                   .Columns(col =>
+                   {
+                       col.HeaderText("Backlog").Key("Open").HeaderTemplate("#column1").Add();
+                       col.HeaderText("In Progress").Key("InProgress").HeaderTemplate("#column2").Add();
+                       col.HeaderText("Testing").Key("Testing").HeaderTemplate("#column3").Add();
+                       col.HeaderText("Done").Key("Close").HeaderTemplate("#column4").Add();
+                   })
+                  .AllowTitle(true)
+                  .AllowSelection(false)
+                  .KeyField("Status")
+                  .Fields(field =>
+                  {
+                      field.Color("Type")
+                           .Content("Summary")
+                           .ImageUrl("ImgUrl")
+                           .PrimaryKey("Id");
+                           
+                  })
+    )
+
+}
+@section StyleSection{
+    <style type="text/css">
+      .e-backlog,.e-inprogress,.e-testing,.e-done {
+         font-size: 16px;
+         padding-right: 5px;
+		 display: inline-block;
+     }
+       .e-backlog:before{
+	       content: "\e807";
+	   }
+	   .e-inprogress:before{
+	   content: "\e808";
+	   }
+	   .e-testing:before{
+	   content:"\e809";
+	   }
+	   .e-done:before{
+	   content: "\e80a";
+	   }		  
+    </style>
+}
+@section ScriptSection{
+    <script id="column1" type="text/x-jsrender">
+        <span class="e-backlog e-icon"></span> Backlog
+</script>
+    <script id="column2" type="text/x-jsrender">
+        <span class="e-inprogress e-icon"></span>In Progress
+</script>
+<script id="column3" type="text/x-jsrender">
+    <span class="e-testing e-icon"></span>In Progress
+</script>
+<script id="column4" type="text/x-jsrender">
+    <span class="e-done e-icon"></span>Done
+</script>
+
+}

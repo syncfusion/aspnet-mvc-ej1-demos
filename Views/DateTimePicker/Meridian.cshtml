@@ -1,0 +1,23 @@
+﻿@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName">DateTimePicker / Meridian</span> }
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().DateTimePicker("DateTime").Value("05/28/2018 2:47 AM").DateTimePickerDrillDown(e => e.Enabled(true).Interval(5).ShowMeridian(true)).Width("100%")
+
+        </div>
+    </div>
+}
+@section StyleSection{
+    <style>
+        .control {
+            width: 210px;
+        }
+
+            .control .e-datetime-wrap {
+                width: 175px;
+            }
+    </style>
+}

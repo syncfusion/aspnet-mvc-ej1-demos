@@ -1,0 +1,24 @@
+﻿@section SampleHeading{ <span class="sampleName">ProgressBar / Default</span>}
+
+@section ControlsSection{
+
+    <div class="imgframe controlframe">
+        <div class="control">
+            <span class="txt">Water Purification</span>
+            @Html.EJ().ProgressBar("defaultBar").Value(45).Height("20px").ClientSideEvents(evt => evt.Create("oncreate"))
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script>
+        var progress;
+        $(document).ready(function () {
+            progress = $("#defaultBar").data("ejProgressBar");
+            progress.setModel({ text: progress.getPercentage() + " %" });
+        });
+    </script>
+}
+@section StyleSection{
+    <link href="@Url.Content("~/Content/Samples/ProgressDefault.css")" rel="stylesheet" />
+}
+

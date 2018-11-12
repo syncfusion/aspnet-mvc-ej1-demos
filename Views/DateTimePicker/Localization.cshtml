@@ -1,0 +1,70 @@
+﻿@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.de-DE.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.fr-FR.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.vi-VN.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.zh-CN.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName">DateTimePicker / Localization </span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().DateTimePicker("dateTime").Width("180px").Locale("en-US").Value("05/28/2018 2:47 AM").Width("100%")
+
+        </div>
+    </div>
+}
+<div id="culture">
+    <ul>
+        <li>en-US</li>
+        <li>vi-VN</li>
+        <li>zh-CN</li>
+    </ul>
+</div>
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Select Culture
+        </div>
+        <div class="col-md-3">
+
+            @Html.EJ().DropDownList("drop").TargetID("culture").Width("100px").SelectedItemIndex(0).ClientSideEvents(s => s.Change("onCultureChange"))
+
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        function onCultureChange(args) {
+            var dateTimeobject = $("#dateTime").data("ejDateTimePicker");
+            var texts = {};
+            var placeholder;
+            if (args.text == "en-US") {
+                texts = { today: "Today", timeNow: "Time Now", done: "Done", timeTitle: "Time" };
+                placeholder = "Select datetime";
+            }
+            else if (args.text == "vi-VN") {
+                texts = { today: "hôm nay", timeNow: "Bây giờ là", done: "được rồi", timeTitle: "thời gian" };
+                placeholder = "Chọn ngày giờ";
+            }
+            else if (args.text == "zh-CN") {
+                texts = { today: "今天", timeNow: "現在時間", done: "做过", timeTitle: "时间" };
+                placeholder = "选择日期时间";
+            }
+
+            dateTimeobject.setModel({ "locale": args.text, buttonText: texts, watermarkText: placeholder });
+        }
+        $("#sampleProperties").ejPropertiesPanel();
+    </script>
+}
+@section StyleSection{
+    <style>
+        .control {
+            width: 210px;
+        }
+
+            .control .e-datetime-wrap {
+                width: 175px;
+            }
+    </style>
+}

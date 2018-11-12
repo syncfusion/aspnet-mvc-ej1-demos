@@ -1,0 +1,17 @@
+﻿@section SampleHeading{
+    <span class="sampleName">ComboBox / Data Bining - Local Data</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @{
+                Html.EJ()
+                    .ComboBox("selectState")
+                    .Width("100%")
+                    .Datasource((IEnumerable<States>)ViewBag.datasource)
+                    .ComboBoxFields(f => f.Text("countryName").Value("index"))
+                    .Placeholder("Select a state")
+                    .Render();
+            }
+        </div>
+    </div>
+}

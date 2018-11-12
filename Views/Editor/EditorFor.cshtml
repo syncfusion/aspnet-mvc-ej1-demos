@@ -1,0 +1,94 @@
+﻿@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+@model MVCSampleBrowser.Models.EditorValue
+@section SampleHeading{<span class="sampleName">Editor / EditorFor </span>}
+@section ControlsSection{
+
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+
+ <div class="frame">
+     <div class="row">
+            <div class="col-xs-6 col-sm-5">
+                            <span>Numeric TextBox</span>
+                        </div>
+            <div class="col-xs-6 col-sm-4">
+                             @(Html.EJ().NumericTextBoxFor(model => model.number,
+                                         (Syncfusion.JavaScript.Models.EditorProperties)ViewData["editmodel"]).Width("100%"))
+                                @Html.ValidationMessageFor(model => model.number)
+                        </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-5">
+                            <span>Percentage TextBox</span>
+                       </div>
+            <div class="col-xs-6 col-sm-4">
+                          @Html.EJ().PercentTextBoxFor(model => model.percent,
+                                         (Syncfusion.JavaScript.Models.EditorProperties)ViewData["editmodel"]).Width("100%")
+                                @Html.ValidationMessageFor(model => model.percent)
+
+                        </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-5">
+                            <span>Currency TextBox</span>
+                        </div>
+            <div class="col-xs-6 col-sm-4">
+                              @Html.EJ().CurrencyTextBoxFor(model => model.currency,
+                                          (Syncfusion.JavaScript.Models.EditorProperties)ViewData["editmodel"]).Width("100%")
+                                @Html.ValidationMessageFor(model => model.currency)
+                        </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-5">
+                            <span>Mask Edit</span>
+                        </div>
+            <div class="col-xs-6 col-sm-4">
+                 @Html.EJ().MaskEditTextBoxFor(model => model.mask,
+                                          (Syncfusion.JavaScript.Models.MaskEditProperties)ViewData["MaskModel"]).Width("100%")
+                                @Html.ValidationMessageFor(model => model.mask)
+
+                        </div>
+        </div>
+         <div class="row">
+              <div class="col-xs-6 col-sm-3"></div>
+              <div class="col-xs-6 col-sm-3 paybill">
+
+                 @Html.EJ().Button("btn").Size(ButtonSize.Small).Text("PayBill").Type(ButtonType.Submit)
+            </div>
+        </div>
+    </div>      
+    }
+}
+@section StyleSection{
+
+    <style>
+        .frame {
+            width: 40%;
+            margin:0 auto;
+        }
+
+        .editors {
+            max-width: 400px;
+        }
+
+            .editors span {
+                display: block;
+                width: 130px;
+                font-size: larger;
+            }
+
+        .ctrllabel {
+            padding-bottom: 3px;
+        }
+                 .col-xs-6.col-sm-5 {
+            margin-top: 10px;
+        }
+       .col-xs-6.col-sm-4 ,.col-xs-6.col-sm-3{
+            padding-top: 7px;
+        }
+    </style>
+}

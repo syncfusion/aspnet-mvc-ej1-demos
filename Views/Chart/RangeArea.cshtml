@@ -1,0 +1,61 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart / Range Area Chart </span>}
+
+@section ControlsSection{
+    <div>
+  @(Html.EJ().Chart("container")
+        .ChartArea(ar => ar.Border(b => b.Color("transparent")))
+        .PrimaryXAxis(prx =>
+        {
+            prx.Title(tl => { tl.Text("Year"); }).MajorGridLines(mj => { mj.Visible(false); })
+                .ValueType(AxisValueType.Datetime);
+        })
+        .PrimaryYAxis(pry => { pry.Title(tl => { tl.Text("Gold Price in Billion U.S.Dollars"); }); })
+        .Series(sr =>
+        {
+            sr.Type(SeriesType.RangeArea).Name("Gold value").EnableAnimation(true)
+              .Border(br => { br.Width(1).Color("Indigo"); }).Fill("Indigo").Opacity(0.5).Add();
+        })
+        .Load("onchartload")
+        .IsResponsive(true)
+        .Size(sz => sz.Height("600"))
+        .Title(title => title.Text("World Gold Price"))
+        .Legend(lg => { lg.Visible(true); })
+        .Zooming(zm => { zm.EnableMouseWheel(true).Enable(true); })
+         )
+    </div>
+}
+<script type="text/javascript">
+    function onchartload(sender) {
+        loadTheme(sender);
+        var data = GetData();
+        sender.model.series[0].dataSource = data.Open;
+        sender.model.series[0].xName = "XValue";
+        sender.model.series[0].high = "High";
+        sender.model.series[0].low = "Low";
+    }
+    function GetData() {
+        var series1 = [];
+        var value = 70;
+        var value1 = 50;
+        for (var i = 1; i < 1000; i++) {
+            if (Math.random() > .5) {
+                value += Math.random();
+
+            } else {
+                value -= Math.random();
+
+            }
+            var point1 = { XValue: new Date(1930, i + 2, i), High: value, Low: value + 20 };
+            series1.push(point1);
+        }
+        var data = { Open: series1 };
+        return data;
+    }
+    $("#controlarea").css("visibility", "visible");
+</script>
+
+
+
+

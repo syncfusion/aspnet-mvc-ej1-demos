@@ -1,0 +1,300 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Range Navigator / Custom Range</span>}
+
+@section ScriptSection
+{
+    <script type="text/x-jsrender" id="leftlight">
+          <div style="width:28px;height:20px;background-color: transparent;">
+		     <img id="Img1" src="../images/rangenavigator/Left.png"  />
+		  </div>
+	</script>
+	<script type="text/x-jsrender" id="rightlight">
+          <div style="width:20px;height:20px;background-color: transparent;">
+		     <img id="Img1" src="../images/rangenavigator/Right.png"  />
+		  </div>
+	</script>
+	<script type="text/x-jsrender" id="leftdark">
+          <div style="width:28px;height:20px;background-color: transparent;">
+		     <img id="Img1" src="../images/rangenavigator/LeftDark.png"  />
+		  </div>
+	</script>
+	<script type="text/x-jsrender" id="rightdark">
+          <div style="width:20px;height:20px;background-color: transparent;">
+		     <img id="Img1" src="../images/rangenavigator/RightDark.png"  />
+		  </div>
+	</script>
+	<script type="text/x-jsrender" id="rectlight">
+           <div style="width:8px;height:36px;background-color: #41d335;border: 2px ridge dimgray;"></div>
+	</script>
+	<script type="text/x-jsrender" id="rectdark">
+           <div style="width:8px;height:36px;background-color: #41d335;border: 2px ridge white;"></div>
+	</script>
+    <script type="text/javascript" language="javascript">
+        var data;
+        function GetData() {
+            var series1 = [];
+            var series2 = [];
+            var value = 100;
+            var value1 = 120;
+            series1.push({ XValue: new Date(2010, 0, 1), YValue: 5 });
+            series1.push({ XValue: new Date(2010, 0, 20), YValue: 5 });
+            series1.push({ XValue: new Date(2010, 0, 40), YValue: 20 });
+            series1.push({ XValue: new Date(2010, 0, 80), YValue: 15 });
+            series1.push({ XValue: new Date(2010, 0, 100), YValue: 20 });
+            series1.push({ XValue: new Date(2010, 0, 120), YValue: 15 });
+            series1.push({ XValue: new Date(2010, 0, 140), YValue: 15 });
+            series1.push({ XValue: new Date(2010, 0, 160), YValue: 30 });
+            series1.push({ XValue: new Date(2010, 0, 180), YValue: 20 });
+            series1.push({ XValue: new Date(2010, 0, 200), YValue: 25 });
+            series1.push({ XValue: new Date(2010, 0, 220), YValue: 15 });
+            series1.push({ XValue: new Date(2010, 0, 240), YValue: 20 });
+            series1.push({ XValue: new Date(2010, 0, 260), YValue: 15 });
+            series1.push({ XValue: new Date(2010, 0, 280), YValue: 25 });
+            series1.push({ XValue: new Date(2010, 0, 300), YValue: 5 });
+            series1.push({ XValue: new Date(2010, 0, 320), YValue: 35 });
+            series1.push({ XValue: new Date(2010, 0, 340), YValue: 25 });
+            series1.push({ XValue: new Date(2010, 0, 363), YValue: 15 });
+            series1.push({ XValue: new Date(2011, 0, 1), YValue: 5 });
+            series1.push({ XValue: new Date(2011, 0, 20), YValue: 5 });
+            series1.push({ XValue: new Date(2011, 0, 40), YValue: 20 });
+            series1.push({ XValue: new Date(2011, 0, 80), YValue: 15 });
+            series1.push({ XValue: new Date(2011, 0, 100), YValue: 20 });
+            series1.push({ XValue: new Date(2011, 0, 120), YValue: 15 });
+            series1.push({ XValue: new Date(2011, 0, 140), YValue: 15 });
+            series1.push({ XValue: new Date(2011, 0, 160), YValue: 30 });
+            series1.push({ XValue: new Date(2011, 0, 180), YValue: 20 });
+            series1.push({ XValue: new Date(2011, 0, 200), YValue: 25 });
+            series1.push({ XValue: new Date(2011, 0, 220), YValue: 15 });
+            series1.push({ XValue: new Date(2011, 0, 240), YValue: 20 });
+            series1.push({ XValue: new Date(2011, 0, 260), YValue: 15 });
+            series1.push({ XValue: new Date(2011, 0, 280), YValue: 25 });
+            series1.push({ XValue: new Date(2011, 0, 300), YValue: 5 });
+            series1.push({ XValue: new Date(2011, 0, 320), YValue: 35 });
+            series1.push({ XValue: new Date(2011, 0, 340), YValue: 25 });
+            series1.push({ XValue: new Date(2012, 0, 60), YValue: 15 });
+            series2.push({ XValue: new Date(2010, 0, 1), YValue: 5 });
+            series2.push({ XValue: new Date(2010, 0, 20), YValue: 15 });
+            series2.push({ XValue: new Date(2010, 0, 40), YValue: 20 });
+            series2.push({ XValue: new Date(2010, 0, 80), YValue: 25 });
+            series2.push({ XValue: new Date(2010, 0, 100), YValue: 20 });
+            series2.push({ XValue: new Date(2010, 0, 120), YValue: 35 });
+            series2.push({ XValue: new Date(2010, 0, 140), YValue: 15 });
+            series2.push({ XValue: new Date(2010, 0, 160), YValue: 30 });
+            series2.push({ XValue: new Date(2010, 0, 180), YValue: 10 });
+            series2.push({ XValue: new Date(2010, 0, 200), YValue: 35 });
+            series2.push({ XValue: new Date(2010, 0, 220), YValue: 25 });
+            series2.push({ XValue: new Date(2010, 0, 240), YValue: 10 });
+            series2.push({ XValue: new Date(2010, 0, 260), YValue: 25 });
+            series2.push({ XValue: new Date(2010, 0, 280), YValue: 35 });
+            series2.push({ XValue: new Date(2010, 0, 300), YValue: 15 });
+            series2.push({ XValue: new Date(2010, 0, 320), YValue: 25 });
+            series2.push({ XValue: new Date(2010, 0, 340), YValue: 35 });
+            series2.push({ XValue: new Date(2010, 0, 363), YValue: 25 });
+            series2.push({ XValue: new Date(2011, 0, 1), YValue: 35 });
+            series2.push({ XValue: new Date(2011, 0, 20), YValue: 15 });
+            series2.push({ XValue: new Date(2011, 0, 40), YValue: 20 });
+            series2.push({ XValue: new Date(2011, 0, 80), YValue: 25 });
+            series2.push({ XValue: new Date(2011, 0, 100), YValue: 20 });
+            series2.push({ XValue: new Date(2011, 0, 120), YValue: 35 });
+            series2.push({ XValue: new Date(2011, 0, 140), YValue: 15 });
+            series2.push({ XValue: new Date(2011, 0, 160), YValue: 30 });
+            series2.push({ XValue: new Date(2011, 0, 180), YValue: 10 });
+            series2.push({ XValue: new Date(2011, 0, 200), YValue: 35 });
+            series2.push({ XValue: new Date(2011, 0, 220), YValue: 25 });
+            series2.push({ XValue: new Date(2011, 0, 240), YValue: 10 });
+            series2.push({ XValue: new Date(2011, 0, 260), YValue: 25 });
+            series2.push({ XValue: new Date(2011, 0, 280), YValue: 35 });
+            series2.push({ XValue: new Date(2011, 0, 300), YValue: 15 });
+            series2.push({ XValue: new Date(2011, 0, 320), YValue: 25 });
+            series2.push({ XValue: new Date(2011, 0, 340), YValue: 35 });
+            series2.push({ XValue: new Date(2012, 0, 60), YValue: 25 });
+            data = { Open: series1, Close: series2 };
+            return data;
+        }
+        function loadingdata(sender) {
+            data = GetData();
+            sender.model.series[0].dataSource = data.Close;
+            sender.model.series[0].xName = "XValue";
+            sender.model.series[0].yName = "YValue";
+            sender.model.series[1].dataSource = data.Open;
+            sender.model.series[1].xName = "XValue";
+            sender.model.series[1].yName = "YValue";
+        }
+        function loadingtheme(sender) {
+            sender.model.navigatorStyleSettings.border.dashArray = sender.model._size.width - 30 + " " + sender.model._size.height;
+            var theme = window.theme;
+            if (theme) {
+                switch (theme) {
+                    case "flatdark":
+                    case "azuredark":
+                    case "limedark":
+                    case "saffrondark":
+                        theme = "flatdark";
+                        break;
+                    case "gradient":
+                    case "gradientazure":
+                    case "gradientlime":
+                    case "gradientsaffron":
+                        theme = "flatlight";
+                        break;
+                    case "gradientdark":
+                    case "gradientazuredark":
+                    case "gradientlimedark":
+                    case "gradientsaffrondark":
+                        theme = "gradientdark";
+                        break;
+                    default:
+                        theme = "flatlight";
+                        break;
+                }
+            }
+            var leftThumb = sender.model.navigatorStyleSettings.leftThumbTemplate;
+            var rightThub = sender.model.navigatorStyleSettings.rightThumbTemplate;
+            if (theme == "flatlight") {
+               
+                if (leftThumb == "rectlight" || leftThumb == "rectdark") {
+                    sender.model.navigatorStyleSettings.leftThumbTemplate = "rectlight";
+                    sender.model.navigatorStyleSettings.rightThumbTemplate = "rectlight";
+                }
+                else {
+                    sender.model.navigatorStyleSettings.leftThumbTemplate = "leftlight";
+                    sender.model.navigatorStyleSettings.rightThumbTemplate = "rightlight";
+                }
+                sender.model.navigatorStyleSettings.border.color = "black";
+                sender.model.navigatorStyleSettings.thumbColor = "white";
+                sender.model.navigatorStyleSettings.unselectedRegionColor = "white";
+                sender.model.navigatorStyleSettings.thumbStroke = "black";
+                sender.model.labelSettings.higherLevel.style.font.color = "black";
+                sender.model.labelSettings.lowerLevel.style.font.color = "black";
+                sender.model.labelSettings.higherLevel.gridLineStyle.color = "black";
+                sender.model.labelSettings.lowerLevel.gridLineStyle.color = "black";
+            }
+            else {
+                if (leftThumb == "rectlight" || leftThumb == "rectdark") {
+                    sender.model.navigatorStyleSettings.leftThumbTemplate = "rectdark";
+                    sender.model.navigatorStyleSettings.rightThumbTemplate = "rectdark";
+                }
+                else {
+                    sender.model.navigatorStyleSettings.leftThumbTemplate = "leftdark";
+                    sender.model.navigatorStyleSettings.rightThumbTemplate = "rightdark";
+                }
+                sender.model.navigatorStyleSettings.border.color = "white";
+                sender.model.navigatorStyleSettings.thumbColor = "black";
+                sender.model.navigatorStyleSettings.unselectedRegionColor = "black";
+                sender.model.navigatorStyleSettings.thumbStroke = "white";
+                sender.model.labelSettings.higherLevel.style.font.color = "white";
+                sender.model.labelSettings.lowerLevel.style.font.color = "white";
+                sender.model.labelSettings.higherLevel.gridLineStyle.color = "white";
+                sender.model.labelSettings.lowerLevel.gridLineStyle.color = "white";
+            }
+        }
+        function onchartloaded(sender) {
+            var chartobj = $("#container").data("ejChart");
+
+            if (chartobj != null) {
+                chartobj.model.primaryXAxis.zoomPosition = sender.zoomPosition;
+                chartobj.model.primaryXAxis.zoomFactor = sender.zoomFactor;
+            }
+            $("#container").ejChart("redraw");
+        }
+        $("#controlarea").css("visibility", "visible");
+    </script>
+}
+@section ControlsSection{
+    <div>
+        <br />
+        <br />
+        <br />
+        @(Html.EJ().RangeNavigator("rangecustomtheme")
+              .EnableDeferredUpdate(true)
+              .Padding("15px")
+              .SelectedRangeSettings(ra => ra.Start("2010/7/1").End("2011/4/1"))
+              .AllowSnapping(true)
+              .IsResponsive(true)
+              .ValueType(RangeNavigatorValueType.Datetime)
+              .TooltipSettings(tl => tl.Visible(true).LabelFormat("MM/dd/yyyy").BackgroundColor("gray").TooltipDisplayMode("ondemand")
+              .Font(fn => fn.Color("white").Family("Segoe UI").Style(RangeNavigatorFontStyle.Normal).Size("12px")
+              .Opacity(1).Weight(RangeNavigatorFontWeight.Regular)))
+              .Series(sr =>
+                  {
+                      sr.Name("Product A").EnableAnimation(false).Type(SeriesType.Area).Fill("#45eded").Opacity(1)
+                        .Border(b => b.Color("transparent").Width(2)).Add();
+                      sr.Name("Product B").EnableAnimation(false).Type(SeriesType.Area).Fill("#41d335").Opacity(1)
+                        .Border(b => b.Color("transparent").Width(2)).Add();
+                  })
+              .LabelSettings(ls =>ls.HigherLevel(hl =>hl.LabelPlacement(RangeNavigatorLabelPlacement.Inside).IntervalType(NavigatorIntervalType.Years)
+                                                        .GridLineStyle(gs => gs.Color("black").Width(1)
+                                                        .DashArray("17 5 0"))
+                                                        .Style(lst => lst.HorizontalAlignment(HorizontalAlignment.Left)
+                                                        .Font(f => f.Color("black")
+                                                        .Style(RangeNavigatorFontStyle.Normal).Opacity(1)
+                                                        .Weight(RangeNavigatorFontWeight.Regular)
+                                                        .Family("Segoe UI").Size("13px"))))
+                                     .LowerLevel(ll =>ll.LabelPlacement(RangeNavigatorLabelPlacement.Inside).GridLineStyle(gs => gs.Color("black").Width(1)
+                                                        .DashArray("0 13 5"))
+                                                        .IntervalType(NavigatorIntervalType.Quarters)
+                                                        .Style(lst => lst
+                                                        .HorizontalAlignment(HorizontalAlignment.Middle)
+                                                        .Font(f => f.Color("black").Style(RangeNavigatorFontStyle.Normal)
+                                                        .Opacity(1).Weight(RangeNavigatorFontWeight.Regular)
+                                                        .Family("Segoe UI").Size("12px"))))
+              )
+              .ValueAxisSettings(va => va.RangePadding("none").MajorGridLines(mg => mg.Visible(false))
+              .Range(r => r.Min(0).Max(50).Interval(10)))
+              .NavigatorStyleSettings(ns => ns.Border(br => br.Color("black").Width(3)).LeftThumbTemplate("rectlight")
+              .RightThumbTemplate("rectlight").Background("transparent").UnselectedRegionColor("white").ThumbColor("white")
+              .MajorGridLineStyle(mr => mr.Color("transparent").Visible(true))
+              .MinorGridLineStyle(mi => mi.Color("transparent").Visible(true)))
+              .Load("loadingdata")
+              .Loaded("loadingtheme")
+              )
+    
+        <br />
+        <br />
+        <br />
+        @(Html.EJ().RangeNavigator("rangecustomtheme2")
+              .EnableDeferredUpdate(true)
+              .Padding("15px")
+              .SelectedRangeSettings(ra => ra.Start("2011/1/1").End("2011/10/1"))
+              .AllowSnapping(true)
+              .IsResponsive(true)
+              .ValueType(RangeNavigatorValueType.Datetime)
+              .TooltipSettings(tl => tl.Visible(true).LabelFormat("MM/dd/yyyy").BackgroundColor("gray").TooltipDisplayMode("ondemand")
+              .Font(fn => fn.Color("white").Family("Segoe UI").Style(RangeNavigatorFontStyle.Normal).Size("12px").Opacity(1)
+              .Weight(RangeNavigatorFontWeight.Regular)))
+              .Series(sr =>
+                  {
+                      sr.Name("Product A").EnableAnimation(false).Type(SeriesType.Area).Fill("#4EC9DD").Opacity(1)
+                        .Border(b => b.Color("transparent").Width(2)).Add();
+                      sr.Name("Product B").EnableAnimation(false).Type(SeriesType.Area).Fill("#DD4A4A").Opacity(1)
+                        .Border(b => b.Color("transparent").Width(2)).Add();
+                  })
+              .LabelSettings(ls =>ls.HigherLevel(hl =>hl.LabelPlacement(RangeNavigatorLabelPlacement.Inside).IntervalType(NavigatorIntervalType.Years)
+                                                        .GridLineStyle(gs => gs.Color("black").Width(1).DashArray("17 5 0"))
+                                                        .Style(lst => lst.HorizontalAlignment(HorizontalAlignment.Left)
+                                                        .Font(f => f.Color("black").Style(RangeNavigatorFontStyle.Normal)
+                                                        .Opacity(1).Weight(RangeNavigatorFontWeight.Regular)
+                                                        .Family("Segoe UI").Size("13px"))))
+                                                        .LowerLevel(ll =>ll.LabelPlacement(RangeNavigatorLabelPlacement.Inside)
+                                                                           .GridLineStyle(gs => gs.Color("black").Width(1)
+                                                                           .DashArray("0 13 5"))
+                                                                           .IntervalType(NavigatorIntervalType.Quarters)
+                                                                           .Style(lst => lst
+                                                                           .HorizontalAlignment(HorizontalAlignment.Middle)
+                                                                           .Font(f => f.Color("black")
+                                                                           .Style(RangeNavigatorFontStyle.Normal)
+                                                                           .Opacity(1).Weight(RangeNavigatorFontWeight.Regular)
+                                                                           .Family("Segoe UI").Size("12px"))))
+              )
+              .ValueAxisSettings(va => va.RangePadding("none").MajorGridLines(mg => mg.Visible(false))
+              .Range(r => r.Min(0).Max(50).Interval(10)))
+              .NavigatorStyleSettings(ns => ns.Border(br => br.Color("black").Width(3)).LeftThumbTemplate("leftlight")
+              .RightThumbTemplate("rightlight").Background("transparent").UnselectedRegionColor("white").ThumbColor("white")
+              .MajorGridLineStyle(mr => mr.Color("transparent").Visible(true))
+              .MinorGridLineStyle(mi => mi.Color("transparent").Visible(true)))
+              .Load("loadingdata")
+              .Loaded("loadingtheme")
+              )
+    </div>
+}

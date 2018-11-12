@@ -1,0 +1,57 @@
+﻿@section SampleHeading{<span class="sampleName"> Schedule / RecurrenceEditor</span>}
+
+@section ControlsSection{
+    <div class="content-container-fluid">
+        <div class="row">
+            <div class="cols-sample-area" style="border: none;">
+                <div style="margin: 0 15%;">
+                    @(Html.EJ().RecurrenceEditor("RecurrenceEditor").SelectedRecurrenceType(2).RecurrenceEditorClientSideEvents(evt => evt.Create("onCreate")))
+                    <button onclick="closerecurrence()" id="donerecur1" class='recurbutton' style="margin-left: 30%;">Generate Rule</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="recurrenceAlert" style="display: none">
+        <form id="token">
+            <table width="100%" cellpadding="5">
+                <tbody>
+                    <tr>
+                        <td colspan="2">
+                            <div id="ruleText"></div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </form>
+        <div style="padding-top: 10px;">
+            <button id="btncancel" style="margin: 0 40%;">Close</button>
+        </div>
+    </div>
+}
+<script>
+    $(function () {
+        $("#donerecur1").ejButton({ width: '155px', height: '35px', showRoundedCorner: true });
+        $("#btncancel").ejButton({ showRoundedCorner: true, size: "mini", click: "close" });
+        $("#recurrenceAlert").ejDialog({ width: "auto", height: "auto", position: { X: 500, Y: 300 }, showOnInit: false, enableModal: true, title: "Recurrence Rule", enableResize: false, allowKeyboardNavigation: false, close: "close" });
+        $("#RecurrenceEditor").after($("#donerecur1"));
+        $("#RecurrenceEditor").css({ border: "1px solid #c3c3c3", padding: "5px", marginBottom: "15px", width: "550px" });
+    });
+    function closerecurrence() {
+        $("#recurrenceAlert").ejDialog("open");
+        var obj = $(".e-recurrenceeditor").data("ejRecurrenceEditor")
+        obj.getRecurrenceRule();
+        $("#recurrenceAlert").find("#ruleText").html(obj._recRule);
+
+    }
+    function onCreate() {
+        $("#RecurrenceEditor_recurrenceType").ejDropDownList({ select: "drppopupshow" });
+    }
+    function drppopupshow(args) {
+        var obj = $("#donerecur1").data("ejButton");
+        if (args.itemId == 0) obj.disable();
+        else obj.enable();
+    }
+    function close() {
+        $("#recurrenceAlert").ejDialog("close");
+    }
+</script>

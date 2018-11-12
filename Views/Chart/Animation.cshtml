@@ -1,0 +1,174 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart / Animation </span>}
+
+@section ControlsSection{
+    <div id="Tooltip" style="display: none;">
+        <div id="icon">
+            <div id="airplaneicon">
+            </div>
+        </div>
+        <div id="value">
+            <div>
+                <label id="no-of-airports">
+                    &nbsp;#point.y#
+                </label>
+                <label id="airport">
+                    Airports
+                </label>
+            </div>
+        </div>
+    </div>
+
+    @(Html.EJ().Chart("Chart1")
+       .PrimaryXAxis(pr => pr.Title(tl => tl.Text("Countries")).LabelIntersectAction(LabelIntersectAction.Trim))
+            .PrimaryYAxis(yaxis => yaxis.Title(tit => tit.Text("No of airports")))
+            .CommonSeriesOptions(cm => cm.EnableAnimation(true).Type(SeriesType.Spline).DrawType(DrawType.Column)
+            .Tooltip(tooltip => tooltip.Visible(true).Template("Tooltip"))
+            .Marker(mr=>mr.Shape(ChartShape.Circle).Visible(true).Size(sz=>sz.Height(10).Width(10))))
+            .Series(sr =>
+                {
+                    sr.Points(pt =>
+                        {
+                            pt.X("Australia").Y(480).Size(1.8).Add();
+                            pt.X("China").Y(507).Size(2).Add();
+                            pt.X("France").Y(464).Size(1.7).Add();
+                            pt.X("Germany").Y(539).Size(2.4).Add();
+                            pt.X("India").Y(346).Size(1).Add();
+                            pt.X("Indonesia").Y(663).Size(3).Add();
+                            pt.X("Saudi Arabia").Y(214).Size(0.6).Add();
+                            pt.X("South Africa").Y(566).Size(2.6).Add();
+                            pt.X("United Kingdom").Y(460).Size(1.7).Add();
+                            pt.X("Venezuela").Y(444).Size(1.6).Add();
+                        }).Name("Airports").Fill("#5e35b1").Add();
+                })
+            .Title(title => title.Text("Total number of Airports in various countries"))
+            .IsResponsive(true)
+            .Load("loadTheme")
+            .Size(sz => sz.Height("600").Width("700"))
+            .Legend(lg => { lg.Visible(false); })
+    )
+}
+@section StyleSection{
+<style>
+    label {
+        margin-bottom: -25px !important;
+        text-align: center !important;
+    }
+
+    .tooltipDiv {
+        background-color: #E94649;
+        color: white;
+        width: 130px;
+    }
+
+    #Tooltip > div:first-child {
+        float: left;
+    }
+
+    #Tooltip #value {
+        float: right;
+        height: 50px;
+        width: 60px;
+    }
+
+        #Tooltip #value > div {
+            margin: 5px 5px 5px 5px;
+        }
+
+    #Tooltip #no-of-airports {
+        font-size: 20px;
+        font-family: segoe ui;
+        padding-left: 2px;
+		color: #ffffff;
+    }
+
+    #Tooltip #airport {
+        font-size: 12px;
+        font-family: segoe ui;
+		color: #ffffff;
+    }
+
+    #airplaneicon {		
+        background-image: url("../images/chart/airplane.png");
+        height: 60px;
+        width: 60px;
+        background-repeat: no-repeat;
+    }
+</style>
+
+}
+@section PropertiesSection
+{
+   <div class="prop-grid">
+    <div class="row">
+        <div class="col-md-3">
+            Series Type
+        </div>
+        <div class="col-md-3">
+            <select name="selectIndex" autocomplete="off" id="seriestype">
+                <option value="spline">Spline</option>
+                <option value="area">Area</option>
+                <option value="column">Column</option>
+                <option value="bar">Bar</option>
+                <option value="scatter">Scatter</option>
+                <option value="bubble">Bubble</option>
+                <option value="pie">Pie</option>
+                <option value="doughnut">Doughnut</option>
+                <option value="polar">Polar</option>
+            </select>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Series Animation
+        </div>
+        <div class="col-md-3 aligntop">
+            <input type="checkbox" checked="checked" id="series" />
+        </div>
+    </div>
+    <div class="row">
+           <div class="col-md-3">
+               Animation Duration
+           </div>
+           <div class="col-md-3 aligntop">
+               @Html.EJ().NumericTextbox("duration").GroupSeparator("").Value(2000).Width("85px").MinValue(0).MaxValue(5000).IncrementStep(500).ClientSideEvents(s => s.Change("animationDuration"))
+           </div>
+    </div>   
+</div>
+}
+@section ScriptSection
+{
+    <script>
+
+        $('#seriestype').change(function () {
+            var chart = $("#Chart1").ejChart('instance');
+            var type = $('#seriestype')[0].value;
+            chart.model.series[0].type = type;
+            if (type == 'column' || type == "bar" || type == "bubble" || type == "polar")
+                chart.model.series[0].marker.visible = false;
+            else
+                chart.model.series[0].marker.visible = true;
+            chart.redraw();
+        });
+
+        $('#series').change(function () {
+            var chart = $("#Chart1").ejChart("instance");
+            chart.model.series[0].enableAnimation = $('#series').is(":checked");
+            if ($('#series').is(":checked"))
+                chart.animate();
+        });
+
+       function animationDuration(sender) {
+            var chart = $("#Chart1").ejChart("instance");
+            chart.model.series[0].animationDuration = parseInt(sender.value);
+            chart.animate();
+        }
+
+        $("#sampleProperties").ejPropertiesPanel();
+
+
+    </script>
+}
+
+

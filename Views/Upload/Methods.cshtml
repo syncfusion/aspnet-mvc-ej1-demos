@@ -1,0 +1,64 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Upload / Methods</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            <div class="posupload">
+                @Html.EJ().Uploadbox("UploadMethods").SaveUrl(@Url.Action("SaveMethods")).RemoveUrl(@Url.Action("RemoveMethods"))
+               
+            </div>
+        </div>
+    </div>
+}
+@section StyleSection{
+    <style class="cssStyles">
+        #UploadMethods {
+            margin: 0 auto;
+        }
+    </style>
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-6">Enable / Disable</div>
+        <div class="col-md-6">
+            @Html.EJ().ToggleButton("btnchkunchk").Size(ButtonSize.Normal).DefaultText("Disable").ActiveText("Enable").Width("110px").ClientSideEvents(e => e.Change("onCheckUncheckAll"))
+        </div>
+    </div>
+<div class="row">
+    <div class="col-md-6">Multiple Files Selection</div>
+    <div class="col-md-6">
+       @Html.EJ().CheckBox("check1").ClientSideEvents(e => e.Change("OnCheck")).Checked(true)
+    </div>
+</div>
+
+
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        var target;
+
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+          
+            target = $("#UploadMethods").data("ejUploadbox");
+        });
+       
+        function onCheckUncheckAll(args) {
+          
+            if (args.isChecked)
+
+                target.disable();
+            else
+                target.enable();
+        }
+        function OnCheck(args) {
+            
+            if (args.isChecked) {
+                target.setModel({ multipleFilesSelection: true });
+            } else {
+                target.setModel({ multipleFilesSelection: false });
+            }
+
+        }
+    </script>
+}

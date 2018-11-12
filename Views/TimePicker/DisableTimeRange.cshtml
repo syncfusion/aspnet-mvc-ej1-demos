@@ -1,0 +1,22 @@
+﻿@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+
+@section SampleHeading{<span class="sampleName">TimePicker / Default </span>}
+
+@model  Syncfusion.JavaScript.Models.TimePickerProperties
+
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().TimePicker("TimePick",Model)
+        </div>
+    </div>
+    <style>
+        .office-365 .e-timewidget{
+            width:100%
+        }
+        </style>
+}
+
+

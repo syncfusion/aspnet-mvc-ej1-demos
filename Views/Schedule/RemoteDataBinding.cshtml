@@ -1,0 +1,20 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Schedule / Remote DataBinding</span>}
+@section ControlsSection{
+        @(Html.EJ().Schedule("Schedule1")
+        .Width("100%")
+        .Height("525px")
+        .TimeZone("UTC -05:00")
+        .CurrentDate(new DateTime(2017,6,5))
+        .ReadOnly(true)
+            .AppointmentSettings(fields => fields.Datasource(d => d.URL("//js.syncfusion.com/demos/ejServices/api/Schedule/LoadData").CrossDomain(true))
+            .Id("Id")
+            .Subject("Subject")
+            .StartTime("StartTime")
+            .EndTime("EndTime")
+            .Description("Description")
+            .AllDay("AllDay")
+            .Recurrence("Recurrence")
+            .RecurrenceRule("RecurrenceRule"))
+        )
+}

@@ -1,0 +1,93 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section ScriptReferenceSection{
+    <script src="~/Scripts/cultures/ej.culture.en-US.min.js"></script>
+    <script src="~/Scripts/cultures/ej.culture.fr-FR.min.js"></script>
+    <script src="~/Scripts/cultures/ej.culture.vi-VN.min.js"></script>
+}
+
+@section SampleHeading{<span class="sampleName">Chart / Chart Customization/ Localization </span>}
+
+@section ControlsSection{
+    <div id="target1">
+        <ul>
+            <li>en-US</li>
+            <li>vi-VN</li>
+            <li>fr-FR</li>
+        </ul>
+    </div>
+   @(Html.EJ().Chart("container")
+         .PrimaryXAxis(xaxis => xaxis.LabelFormat("dddd").ValueType(AxisValueType.Category))
+         .PrimaryYAxis(yaxis => yaxis.Title(tit => tit.Text("Open and Click Rate(%)"))
+         .Range(ra => ra.Min(0).Max(50).Interval(10)).RangePadding(ChartRangePadding.Additional))
+         .Series(sr =>
+                      {
+                          sr.Name("Open").Type(SeriesType.Bar).Tooltip(tl => tl.Visible(true)).Marker(mr => mr.DataLabel(db => db.Visible(true).EnableContrastColor(true).Offset(3).TextPosition(TextPosition.Top))).Add();
+                          sr.Name("Click").Type(SeriesType.Bar).Tooltip(tl => tl.Visible(true)).Marker(mr => mr.DataLabel(db => db.Visible(true).EnableContrastColor(true).Offset(3).TextPosition(TextPosition.Top))).Add();
+                      })
+         .Load("onchartload")
+         .DisplayTextRendering("OndataLabel")
+         .CommonSeriesOptions(cr => cr.EnableAnimation(true))
+         .IsResponsive(true)
+         .Locale("en-US")
+         .Title(tt => tt.Text("Metrics Based on Day of the Week"))
+         .Size(sz => sz.Height("600"))
+         .Legend(lg => lg.Visible(true).Position(LegendPosition.Right)
+         .Alignment(Syncfusion.JavaScript.DataVisualization.TextAlignment.Near))
+            )
+}
+@section PropertiesSection
+{
+    <label>
+        Localization
+    </label>
+    @Html.EJ().DropDownList("opt1").TargetID("target1").SelectedItemIndex(0).ClientSideEvents(s => s.Create("localization").Change("localization"))
+    <br />
+}
+@section ScriptSection
+{
+    <script>
+        $("#controlarea").css("visibility", "visible");
+        function localization(sender) {
+            var cul = sender.selectedText;
+            $("#container").ejChart("option", { "model": { locale: cul } });
+        }
+        var data;
+        function onchartload(sender) {
+            loadTheme(sender);
+            data = GetData();
+            sender.model.series[0].dataSource = data.Ser1;
+            sender.model.series[0].xName = "x";
+            sender.model.series[0].yName = "y";
+            sender.model.series[1].dataSource = data.Ser2;
+            sender.model.series[1].xName = "x";
+            sender.model.series[1].yName = "y";
+        }
+        function GetData() {
+            var series1 = [];
+            var series2 = [];
+            var value = 100;
+            var value1 = 120;
+            series1.push({ x: new Date(2000, 03, 10), y: 33.85 });
+            series1.push({ x: new Date(2000, 03, 11), y: 32.77 });
+            series1.push({ x: new Date(2000, 03, 12), y: 33.97 });
+            series1.push({ x: new Date(2000, 03, 13), y: 32.96 });
+            series1.push({ x: new Date(2000, 03, 14), y: 35.19 });
+            series2.push({ x: new Date(2000, 03, 10), y: 18.52 });
+            series2.push({ x: new Date(2000, 03, 11), y: 18.96 });
+            series2.push({ x: new Date(2000, 03, 12), y: 19.85 });
+            series2.push({ x: new Date(2000, 03, 13), y: 19.72 });
+            series2.push({ x: new Date(2000, 03, 14), y: 19.24 });
+            data = { Ser1: series1, Ser2: series2 };
+            return data;
+        }
+        function OndataLabel(sender) {
+            sender.data.text = sender.data.text + "%";
+            sender.data.location.x = sender.data.location.x + 8;
+        }
+
+        $("#sampleProperties").ejPropertiesPanel();
+    </script>
+}
+
+

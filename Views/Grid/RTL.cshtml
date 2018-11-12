@@ -1,0 +1,71 @@
+﻿@using Syncfusion.JavaScript.Models
+@section SampleHeading{<span class="sampleName"> Grid/RTL</span>}
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+	<script src="@Url.Content("~/Scripts/messages_ar.js")"></script>
+
+}
+@section ControlsSection{
+    @(Html.EJ().Grid<OrdersView>("RTL")
+        .Datasource((IEnumerable<object>)ViewBag.datasource)
+        .EnableRTL()
+        .AllowGrouping()
+        .AllowFiltering()
+        .AllowSorting()
+        .AllowPaging()
+        .Locale("ar-AE")
+        .EditSettings(edit => { edit.AllowEditing().AllowDeleting().AllowAdding(); })
+        .ToolbarSettings(toolbar =>
+        {
+            toolbar.ShowToolbar()
+                    .ToolbarItems(items =>
+                    {
+                        items.AddTool(ToolBarItems.Add);
+                        items.AddTool(ToolBarItems.Edit);
+                        items.AddTool(ToolBarItems.Delete);
+                        items.AddTool(ToolBarItems.Update);
+                        items.AddTool(ToolBarItems.Cancel);
+                    });
+        })
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).ValidationRules(v => v.AddRule("required", true).AddRule("number", true)).Width(75).Add();
+            col.Field("CustomerID").HeaderText("Customer ID").Width(80).ValidationRules(v => v.AddRule("required", true).AddRule("minlength", 3)).Add();
+            col.Field("EmployeeID").HeaderText("Employee ID").TextAlign(TextAlign.Right).Width(75).EditType(EditingType.DropdownEdit).Add();
+            col.Field("Freight").HeaderText("Freight").TextAlign(TextAlign.Right).Width(75).Format("{0:C}").EditType(EditingType.NumericEdit).NumericEditOptions(new EditorProperties() { DecimalPlaces = 2 }).ValidationRules(v => v.AddRule("range", "[0,1000]")).Add();
+            col.Field("ShipCity").HeaderText("Ship City").Width(110).Add();
+        })
+        )
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        ej.Grid.Locale["ar-AE"] = {
+            EmptyRecord: "لا توجد سجلات للعرض",
+            GroupDropArea: "اسحب رأس العمود هنا إلى مجموعة أعمدة لها",
+            DeleteOperationAlert: "لا توجد سجلات اختيارها لعملية الحذف",
+            EditOperationAlert: "لا توجد سجلات اختيارها لعملية تحرير",
+            SaveButton: "حفظ",
+            CancelButton: "إلغاء",
+            EditFormTitle: "تفاصيل",
+			FilterbarTitle: "الصورة خلية شريط تصفية",
+            GroupCaptionFormat: "سلع",
+            Add: "إضافة",
+            Edit: "تحرير",
+            Update: "التحديث",
+            Cancel: "إلغاء",
+            Delete: "حذف",
+            UnGroup: "انقر هنا لفك تجميع"
+        };
+
+        ej.Pager.Locale["ar-AE"] = {
+            pagerInfo: "{0} من {1} صفحة ({2} سلعة)",
+            firstPageTooltip: "انتقل إلى الصفحة الأولى",
+            lastPageTooltip: "انتقل إلى الصفحة الأخيرة",
+            nextPageTooltip: "انتقل إلى الصفحة التالية",
+            previousPageTooltip: "انتقل إلى الصفحة السابقة",
+            nextPagerTooltip: "الذهاب إلى بيجر المقبل",
+            previousPagerTooltip: "الذهاب إلى بيجر السابقة"
+        };
+    </script>
+}

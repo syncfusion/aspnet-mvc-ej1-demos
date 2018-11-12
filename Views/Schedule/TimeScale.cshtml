@@ -1,0 +1,92 @@
+﻿
+@section SampleHeading{<span class="sampleName"> Schedule / TimeScale</span>}
+@section ControlsSection{
+<div>
+        @(Html.EJ().Schedule("Schedule1")
+        .Width("100%")
+        .Height("525px")
+        .CurrentDate(new DateTime(2017,6,5))
+        .TimeScale(f=>f.minorSlotCount(5).majorSlot(60).minorSlotTemplateId(null).majorSlotTemplateId(null))
+        .AppointmentSettings(fields => fields.Datasource((IEnumerable)ViewBag.datasource)
+            .Id("Id")
+            .Subject("Subject")
+            .StartTime("StartTime")
+            .EndTime("EndTime")
+            .Description("Description")
+            .AllDay("AllDay")
+            .Recurrence("Recurrence")
+            .RecurrenceRule("RecurrenceRule"))
+        )
+</div>
+}
+<div id="minorslotvalues">
+        <ul>
+        <li value="1">1</li>
+        <li value="2">2</li>
+        <li value="3">3</li>
+        <li value="4">4</li>
+        <li value="5">5</li>
+        <li value="6">6</li>
+        <li value="7">7</li>
+        <li value="8">8</li>
+        <li value="9">9</li>
+        <li value="10">10</li>
+    </ul>
+    </div>
+<div id="majorslotvalues">
+     <ul>
+        <li value="60">60</li>
+        <li value="30">30</li>
+        <li value="20">20</li>
+        <li value="10">10</li>
+        <li value="12">12</li>
+        <li value="120">120</li>
+        <li value="240">240</li>
+        <li value="480">480</li>
+        <li value="6">6</li>
+        <li value="5">5</li>
+    </ul>
+    </div>
+@section PropertiesSection{
+   
+    <div class="row">
+        <div class="col-md-3">
+            Minor Slot Count
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("minorSlot").TargetID("minorslotvalues").Width("100px").SelectedItemIndex(4)
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            Major Slot
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("majorSlot").TargetID("majorslotvalues").Width("100px").SelectedItemIndex(0)
+        </div>
+    </div>
+ 	<br/>
+<div class="row">
+    <div class="col-md-3">
+        @Html.EJ().Button("submit").Text("Submit").ClientSideEvents(evt => evt.Click("ChangeTime"))
+    </div>
+</div>	
+}
+@section ScriptSection{
+    <script>
+      var schObj;
+        $(document).ready(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+          schObj = $("#Schedule1").data("ejSchedule");
+        });
+        function ChangeTime(args) {
+            $("#Schedule1").ejSchedule({
+                timeScale: {
+                    minorSlotCount: parseInt($("#minorSlot").val()),
+                    majorSlot: parseInt($("#majorSlot").val())
+                }
+                });
+        }
+    </script>
+}

@@ -1,0 +1,179 @@
+﻿@section SampleHeading{<span class="sampleName">ColorPicker / Keyboard</span> }
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            <div class="element">
+                Colorpicker with Navigation
+            @Html.EJ().ColorPicker("colorPicker").Value("#278787").ToolIcon("e-icon e-font")
+            </div>
+        </div>
+        <b></b>
+    </div>
+}
+@section PropertiesSection{
+<span>
+        <center>KeyBoard Support</center>
+    </span>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            Alt+J
+        </div>
+        <div class="col-md-3">
+            Focus the Control
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Enter
+        </div>
+        <div class="col-md-3">
+            Open or Close the Popup / Choose the current color
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            Esc
+        </div>
+        <div class="col-md-3">
+            Close the popup
+        </div>
+    </div>
+    <div class="row">
+        <span>
+            <center>Color Picker</center>
+        </span>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            Tab
+        </div>
+        <div class="col-md-3">
+            Choose the next element
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            Down
+        </div>
+        <div class="col-md-3">
+            Decrease the brightness
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            Up
+        </div>
+        <div class="col-md-3">
+            Increase the brightness 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Left
+        </div>
+        <div class="col-md-3">
+            Decrease the staturation 
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            Right
+        </div>
+        <div class="col-md-3">
+            Increase the staturation
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <span>
+            <center>Color Palette</center>
+        </span>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            Down
+        </div>
+        <div class="col-md-3">
+            Move to downwards cell
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            Up
+        </div>
+        <div class="col-md-3">
+            Move to upwards cell
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Left
+        </div>
+        <div class="col-md-3">
+            Move to previous cell
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Right
+        </div>
+        <div class="col-md-3">
+            Move to next cell
+        </div>
+    </div>
+    <div class="row">
+        <span>
+            <center>Slider Only</center>
+        </span>
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-md-3">
+            Home
+        </div>
+        <div class="col-md-3">
+            Downwards to value 0
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            End
+        </div>
+        <div class="col-md-3">
+            Upwards to value  100
+        </div>
+    </div>
+
+}
+@section ScriptSection{
+<script type="text/javascript">
+    $(function () {
+        $("#sampleProperties").ejPropertiesPanel();
+        $(document).on("keydown", function (e) {
+            if (e.altKey && e.keyCode === 74) { // j- key code.
+                $("#colorPickerWrapper").focus();
+            }
+        });
+    });
+    </script>
+}
+@section StyleSection{
+<style>
+    .frame .control {
+        margin-left: 40%;
+    }
+    .e-colorwidget .e-tool .e-fontcolor-icon:before {
+        content: "\e632";
+        font-size: 15px;
+    }
+
+</style>
+}

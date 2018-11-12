@@ -1,0 +1,17 @@
+﻿@section SampleHeading{<span class="sampleName"> Grid/Rows/Row Hover</span>}
+@section ControlsSection{
+    @(Html.EJ().Grid<OrdersView>("Rowhover")
+        .Datasource((IEnumerable<object>)ViewBag.datasource)
+        .AllowPaging()
+        .EnableRowHover(true)
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(75).Add();
+            col.Field("CustomerID").HeaderText("Customer ID").Width(80).Add();
+            col.Field("EmployeeID").HeaderText("Employee ID").TextAlign(TextAlign.Right).Width(75).Add();
+            col.Field("Freight").HeaderText("Freight").TextAlign(TextAlign.Right).Width(75).Format("{0:C}").Add();
+            col.Field("OrderDate").HeaderText("Order Date").TextAlign(TextAlign.Right).Width(80).Format("{0:MM/dd/yyyy}").Add();
+            col.Field("ShipCity").HeaderText("Ship City").Width(110).Add();
+        })
+        )
+}

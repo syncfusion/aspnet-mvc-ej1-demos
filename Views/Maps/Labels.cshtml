@@ -1,0 +1,135 @@
+﻿@using Syncfusion.JavaScript
+@using Syncfusion.MVC.EJ
+@using Syncfusion.JavaScript.DataVisualization
+@using Syncfusion.JavaScript.DataVisualization.Models
+@section SampleHeading{
+	<span class="sampleName">Map / Labels</span>
+	}
+@section ControlsSection{
+   
+    
+         @{
+             var datasource = ViewData["datasource"];
+             var mapData = ViewData["mapdata"];
+         }
+   <div style="background-color: #FAFAF9;border-color: lightgray;border-width: 2px;opacity: 0.7;margin-left:0px;height: 60px;width:280px" >
+		<label style="color:Black;font-size:22px;margin:15px;margin-top:18px;margin-left:20px;margin-right:20px;height:25px;font-weight:Normal;">USA Population 2013</label>   
+   </div>
+   <div style="min-height:435px;">
+    @(Html.EJ().Map("maps")
+            .EnablePan(false)
+            .Layers(lr=>
+                    {
+                        lr.LayerType(LayerType.Geometry)
+                            .EnableMouseHover(true)
+                            .EnableSelection(true)
+                            .ShowTooltip(true)
+                            .TooltipTemplate("template")
+                            .ShapeDataPath("name")
+                            .LabelSettings(lb =>
+                            {
+                                lb.ShowLabels(true)
+                                .LabelPath("iso_3166_2")
+                                .EnableSmartLabel(true);
+
+                            })
+                            
+                            .ShapePropertyPath("name")
+                            .ShowMapItems(false)
+                            .DataSource(datasource)
+                            .ShapeSettings(ss =>
+                            {
+                                ss.AutoFill(false)
+                                .HighlightBorderWidth(1)
+                                .StrokeThickness(0.3)
+                                .Stroke("white")
+                                
+                                .HighlightColor("#DAD1CF")
+                                .HighlightStroke("#1A5D65")
+                                .ValuePath("population")
+                                .SelectionColor("#FFC200")
+                                .SelectionStroke("white")
+                                .SelectionStrokeWidth(2.5)
+                                .RangeColorMappings(cm =>
+                                    {
+                                        cm.From(500000).To(1000000).Color("#9BC585").Add();
+                                        cm.From(1000001).To(5000000).Color("#D2DB9A").Add();
+                                        cm.From(5000001).To(10000000).Color("#A4D4BF").Add();
+                                        cm.From(10000001).To(40000000).Color("#E0C68F").Add();
+                                        
+                                    });
+                            })
+                            .ShapeData(mapData).Add();
+                            })
+                            
+                        
+         )
+       </div>
+                         
+    <script  id="template" type="application/jsrender">
+		<div class="tip">				
+			<p class="small">
+                <label  style="color:white;font-size:11px;font-weight:normal;">State : {{:name}}</label>
+            </p>
+            <p class="big">
+				<label style="color:white;font-size:11px;font-weight:normal;">Count : {{:~parseDouble(population)}}</label>
+            </p>
+		</div>          
+    </script>       	           
+
+}
+@section ScriptSection{
+   <script>
+       $(window).on('load', function () {
+           if (!window.SVGSVGElement) {
+               $("#maps").css("min-height", "470px");
+               $("#maps").ejMap("refresh");
+           }
+       });
+    
+     $.views.helpers({
+         parseDouble: function (amount) {
+             var delimiter = ",";
+             var i = parseInt(amount);
+             if (isNaN(i)) { return ''; }
+             var origi = i;  // store original to check sign
+             i = Math.abs(i);
+             var minus = '';
+             if (origi < 0) { minus = '-'; } // sign based on original
+             var n = new String(i);
+             var a = [];
+             while (n.length > 3) {
+                 var nn = n.substr(n.length - 3);
+                 a.unshift(nn);
+                 n = n.substr(0, n.length - 3);
+             }
+             if (n.length > 0) { a.unshift(n); }
+             n = a.join(delimiter);
+             amount = minus + n;
+             return amount;
+         }
+     });
+       </script>
+       }
+@section StyleSection
+{
+   <style type="text/css">	 
+            p.small {line-height:70%;}
+            p.big {line-height:110%;}
+
+            .tip {
+                    border: 1px solid #4D4D4D;
+                    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+                    border-radius: 7px;
+                    margin-right: 25px;
+                    min-width: 110px;
+                    padding-top: 9px;
+                    padding-right: 10px;
+                    padding-left: 10px;
+                    width: auto;
+                    height: auto;
+                    background: #4D4D4D;
+                }
+
+	</style>
+}

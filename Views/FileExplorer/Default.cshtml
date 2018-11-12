@@ -1,0 +1,11 @@
+﻿@section SampleHeading{ <span class="sampleName">FileExplorer / Default</span>}
+
+@section ControlsSection{
+    @(Html.EJ().FileExplorer("fileExplorer").FileTypes("*.png, *.gif, *.jpg, *.jpeg, *.docx").Layout(LayoutType.Tile)
+               .Path("~/FileExplorerContent/").AjaxAction(@Url.Content("FileActionDefault")).Width("100%").IsResponsive(true)
+               .MinWidth("150px"))
+}
+
+
+
+

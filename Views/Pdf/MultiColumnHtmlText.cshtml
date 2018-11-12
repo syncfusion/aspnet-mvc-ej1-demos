@@ -1,0 +1,47 @@
+﻿
+
+@section SampleHeading{
+	<span class="sampleName">Drawing Text/Multi Column Html Text</span>
+	}
+
+@section ControlsSection{
+    @{Html.BeginForm("MultiColumnHTML", "Pdf", FormMethod.Post);
+      { 
+    <div class="Common">
+       <div style = "font-size: 17px;font-weight: 400;">
+			        This sample demonstrates drawing multi column HTML text in the PDF document. It supports basic HTML tags, refer to this  <a href="https://help.syncfusion.com/file-formats/pdf/working-with-text#adding-a-html-styled-text">section</a> for more details.This feature will be used to create newsletters and e-books.
+
+
+	</div>
+	<br/>
+        <div class="tablediv">
+        <div class="rowdiv">
+            <div class="celldiv">
+             <div style="border: solid 1px #EDEDED; padding: 5px 7px 5px 7px;">
+             <table width="100%">
+                        <tr>
+                            <td align="left" width="100%">
+                                 <input id="InsideBrowser" type="checkbox" name="InsideBrowser" value="Browser" />
+                <label for="Opentype">Open Document inside Browser</label>
+                            </td>
+                            <td align="right">
+                                   <input type="submit" class="Button" value="Create PDF" />
+                            </td>
+                        </tr>
+                    </table>
+               </div>
+                
+               
+            </div>
+        </div>
+        </div>
+		<br/>
+			<div style = "font-size: 17px;font-weight: 400;">
+		
+			Refer to this <a href="https://help.syncfusion.com/file-formats/pdf/converting-html-to-pdf">section</a> for more details about converting complex HTML with advanced CSS to PDF. 
+           </div>
+    </div>
+    Html.EndForm();
+      }}}
+
+

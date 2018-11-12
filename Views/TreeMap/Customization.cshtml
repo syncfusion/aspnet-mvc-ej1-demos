@@ -1,0 +1,42 @@
+﻿@using Syncfusion.JavaScript
+@using Syncfusion.MVC.EJ
+@using Syncfusion.JavaScript.DataVisualization
+@using Syncfusion.JavaScript.DataVisualization.Models
+
+@section SampleHeading{
+	<span class="sampleName">TreeMap / Customization</span>
+	}
+@section ControlsSection{
+    @{
+        var datasource = ViewData["medals"];
+		
+     }
+     <div>
+        <label style="color:gray;font-size:x-large;font-family:'Segoe UI';font-weight:normal;" id="Label2">US Olympic Medals FY2012</label>
+    </div>
+    <div style="min-height:380px">
+            @(Html.EJ().TreeMap("container")
+                .DataSource(datasource)
+                
+                .ColorValuePath("GoldMedals")
+                .WeightValuePath("TotalMedals")
+                    .LeafItemsSetting(lls =>
+                   {
+                       lls.ShowLabels(true)
+                           .ItemTemplate("imageTemplate")                                                      
+                           .LabelPath("GameName");
+                   })                   
+                .TreeMapUniColorMapping(cm =>
+                    {
+                       cm.Color("#D73028");
+                    })
+               )
+        </div>
+          <script id="imageTemplate" type="application/jsrender">
+            <div style="border:1px solid white;background:url({{:Data.GameImage}}) no-repeat center center;height:{{:ItemHeight}}px;width:{{:ItemWidth}}px;" />
+      </script>
+   
+    }
+@section ScriptSection{
+   
+}

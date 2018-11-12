@@ -1,0 +1,37 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Dropdownlist / Cascading</span>}
+@section ControlsSection{
+    <div class="frame">
+       <div class="row">
+                    <div class="col-xs-8 col-sm-4">
+            <span class="txt">Select Group</span>
+            @Html.EJ().DropDownList("groupsList").Datasource((IEnumerable<groups>)ViewBag.datasource).DropDownListFields(f => f.Value("parentId").Text("text")).CascadeTo("countryList").ClientSideEvents(e => e.Change("onChange")).WatermarkText("Select")
+         </div>
+                    <div class="col-xs-8 col-sm-4" >
+            <span class="txt">Select Country</span>
+            @Html.EJ().DropDownList("countryList").Datasource((IEnumerable<Countries>)ViewBag.datasource1).Enabled(false)
+        </div>
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        function onChange() {
+            var ctry = $('#countryList').data("ejDropDownList");
+            ctry.element.val("");
+        }
+    </script>
+}
+@section StyleSection{
+    <style class="cssStyles">
+        .frame {
+            height: 70px;
+            width: 50%;
+        }
+
+        .txt {
+            display: block;
+            margin-bottom: 12px;
+        }
+    </style>
+}

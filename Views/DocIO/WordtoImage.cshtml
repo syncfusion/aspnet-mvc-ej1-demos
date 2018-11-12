@@ -1,0 +1,79 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{ <span class="sampleName">Import and Export/Word to Image</span>}
+
+@section ControlsSection{
+
+@{ViewBag.Title="    Essential DocIO (Word) : Export, DOC to PDF, Conversion : Syncfusion";}
+
+    @{Html.BeginForm("WordtoImage", "DocIO", FormMethod.Post, new { enctype = "multipart/form-data" });
+
+        {
+            <div class="Common">
+                <div class="tablediv">
+                    <div class="rowdiv">
+                        This sample demonstrates how to convert Word document to Image using Essential DocIO.
+                    </div>
+                    &nbsp;
+                    <div class="rowdiv" style="border-width: 0.5px;border-style:solid; border-color: lightgray; padding: 1px 5px 7px 5px">
+                        Select Document
+                        <br />
+                        @Html.TextBox("file", "", new { type = "file", accept = ".doc,.docx,.rtf,.dot,.dotm,.dotx,docm,.xml" })
+                        <div class="rowdiv" style="margin-top: 10px">
+                            Click the button to view the generated Image being converted from Word document using Essential DocIO.
+                            <div class="celldiv" style="margin-top: 10px">
+                                Convert to:
+                                <input type="radio" id="rdButtonPng" name="Group1" value="PNG" style="margin-left: 7px" checked="checked" />
+                                <label for="rdButtonPng" data-toggle="tooltip" style="font-weight:normal" title="Saves the resultant image as PNG">
+                                    PNG
+                                </label>
+                                <input type="radio" id="rdButtonJpeg" name="Group1" value="JPEG" style="margin-left: 7px" />
+                                <label for="rdButtonJpeg" data-toggle="tooltip" style="font-weight:normal" title="Saves the resultant image as JPEG">
+                                    JPEG
+                                </label>
+                                <input type="radio" id="rdButtonBmp" name="Group1" value="BMP" style="margin-left: 7px" />
+                                <label for="rdButtonBmp" data-toggle="tooltip" style="font-weight:normal" title="Saves the resultant image as BMP">
+                                    BMP
+                                </label>
+                                <input type="radio" id="rdButtonEmf" name="Group1" value="EMF" style="margin-left: 7px" />
+                                <label for="rdButtonEmf" data-toggle="tooltip" style="font-weight:normal" title="Saves the resultant image as EMF">
+                                    EMF
+                                </label>
+                            </div>
+                            <div class="celldiv" style="margin-top: 8px">
+                                <input class="buttonStyle" type="submit" value="Convert to Image" style="width:150px;height:27px" />
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="rowdiv">
+                        DocIO provides support to render Word document from flow to fixed page model and export as Image. With this support to render Word document,
+                        <ul>
+                            <li>
+                                You can generate invoice and other reports as Image, starting from Word document.
+                            </li>
+                            <li>
+                                You can view or print the contents of Word document by converting as Image.
+                            </li>
+                            <li>
+                                You can save a page of the document as thumbnail image for reference.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="rowdiv" style="margin-top: 15px">
+                        More information about Word to Image conversion can be found in this
+                        <a href="https://help.syncfusion.com/file-formats/docio/conversion#rendering--converting-word-document-to-image">documentation</a>
+                        section.
+                    </div>
+                    <div class="text-danger">
+                        @ViewBag.Message
+                    </div>
+                </div>
+            </div>
+            Html.EndForm();
+        }}
+}
+@section StyleSection
+{
+
+}

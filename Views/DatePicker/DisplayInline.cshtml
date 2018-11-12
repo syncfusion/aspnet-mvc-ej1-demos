@@ -1,0 +1,42 @@
+﻿@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName">DatePicker / DisplayInline </span>}
+@section ControlsSection{
+    <div class="frame">
+        @Html.EJ().DatePicker("DatePick").TagName("div").DisplayInline(true).ShowFooter(false).ClientSideEvents(s => s.Select("onSelected"))
+        <div id="col-md-3">Select a date</div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        function onSelected(args) {
+            $("#col-md-3").html("Selected date : " + args.value);
+        }
+        $("#sampleProperties").ejPropertiesPanel();
+    </script>
+}
+@section StyleSection{
+    <style>
+        .darktheme .frame, .frame {
+            padding: 14px 0px 10px 0px;
+            width: 350px;
+        }
+        .e-datepicker.e-popup {
+            margin: 0 auto !important;
+        }
+        #col-md-3
+        {
+            margin-top:5px;
+             margin-left: 25px;
+        }   
+       @@media (max-width: 450px) and (min-width: 0px)
+{
+        .frame {
+            margin: 0 !important;
+         }
+}
+      
+    </style>
+
+}

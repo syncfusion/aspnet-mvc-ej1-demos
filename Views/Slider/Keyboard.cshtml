@@ -1,0 +1,84 @@
+﻿@section SampleHeading{ <span class="sampleName">Slider / Keyboard</span>}
+
+@section ControlsSection{
+
+    <div class="frame">
+        @Html.EJ().Slider("minSlider").SliderType(SlideType.MinRange).Value("20")
+        <br />
+        <br />
+        @Html.EJ().Slider("rangeSlider").SliderType(SlideType.Range).Values("40, 80")
+    </div>
+}
+@section PropertiesSection{
+
+    <div class="row">
+        <div class="col-md-3">
+         Alt + j
+        </div>
+        <div class="col-md-3">
+            Focuses the control
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+         Up / Right
+        </div>
+        <div class="col-md-3">
+            Increments the slider value
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+         Down / Left
+        </div>
+        <div class="col-md-3">
+            Decrements the slider value
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+         Home
+        </div>
+        <div class="col-md-3">
+            Moves to the start value
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+         End
+        </div>
+        <div class="col-md-3">
+            Moves to the end value
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+         Esc
+        </div>
+        <div class="col-md-3">
+            Focuses out from the handle
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script>
+        $(document).ready(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        $(document).on("keydown", function (e) {
+            if (e.altKey && e.keyCode === 74) { // j- key code.
+                $("#minSlider a")[0].focus();
+            }
+        });
+
+    </script>
+}
+@section StyleSection{
+    <style>
+        .cols-sample-area .frame {
+            width:50%
+        }
+    </style>
+}
+
+

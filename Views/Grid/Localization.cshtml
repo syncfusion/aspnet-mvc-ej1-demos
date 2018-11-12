@@ -1,0 +1,101 @@
+﻿@section SampleHeading{<span class="sampleName"> Grid/Localization</span>}
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.de-DE.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.es-ES.min.js")"></script>
+}
+@section ControlsSection{
+    @(Html.EJ().Grid<OrdersView>("Localization")
+        .Datasource((IEnumerable<object>)ViewBag.datasource)
+        .AllowGrouping()
+        .AllowPaging()
+        .Locale("de-DE")
+        .GroupSettings(group=>group.EnableDropAreaAnimation(false))
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(75).Add();
+            col.Field("CustomerID").HeaderText("Customer ID").Width(90).Add();
+            col.Field("EmployeeID").HeaderText("Employee ID").TextAlign(TextAlign.Right).Width(80).Add();
+            col.Field("Freight").HeaderText("Freight").TextAlign(TextAlign.Right).Width(75).Format("{0:C}").Add();
+            col.Field("ShipCity").HeaderText("Ship City").Width(90).Add();
+        })
+        )
+}
+@section PropertiesSection{
+    <div id="ddl">
+        <ul>
+            <li>English</li>
+            <li>Deutsch</li>
+            <li>Español</li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Selection Type
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().DropDownList("language")
+                .TargetID("ddl")
+                .SelectedItemIndex(1)
+                .ClientSideEvents(eve => eve.Change("onChange"))
+                .Width("120px")
+                )
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        function onChange(args) {
+            if (args.itemId == 0)
+                $("#Localization").ejGrid("model.locale", "en-US");
+            else if (args.itemId == 1)
+                $("#Localization").ejGrid("model.locale", "de-DE");
+            else
+                $("#Localization").ejGrid("model.locale", "es-ES");
+        }
+        ej.Grid.Locale["es-ES"] = {
+            EmptyRecord: "No hay registros que mostrar",
+            GroupDropArea: "Arrastre un encabezado de columna aquí",
+            DeleteOperationAlert: "No hay registros seleccionados para la operación de eliminación",
+            EditOperationAlert: "No hay registros seleccionados para la operación de edición",
+            SaveButton: "guardar",
+            CancelButton: "cancelar",
+            EditFormTitle: "Editar detalles de",
+            GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} artículos",
+            UnGroup: "Haga clic aquí para desagrupar"
+        };
+        ej.Pager.Locale["es-ES"] = {
+            pagerInfo: "{0} de {1} páginas ({2} artículos)",
+            firstPageTooltip: "Ir a la primera página",
+            lastPageTooltip: "Ir a la última página",
+            nextPageTooltip: "Ir a la página siguiente",
+            previousPageTooltip: "Ir a la página anterior",
+            nextPagerTooltip: "Ir al siguiente Pager",
+            previousPagerTooltip: "Ir a Pager anterior"
+        };
+
+        ej.Grid.Locale["de-DE"] = {
+            EmptyRecord: "Keine Aufzeichnungen angezeigt",
+            GroupDropArea: "Ziehen Sie eine Spaltenüberschrift hier",
+            DeleteOperationAlert: "Keine Einträge für Löschvorgang ausgewählt",
+            EditOperationAlert: "Keine Einträge für Bearbeiten Betrieb ausgewählt",
+            SaveButton: "Speichern",
+            CancelButton: "stornieren",
+            EditFormTitle: "Korrektur von",
+            GroupCaptionFormat: "{{:headerText}}: {{:key}} - {{:count}} Beiträge",
+            UnGroup: "Klicken Sie hier, um die Gruppierung aufheben"
+        };
+
+        ej.Pager.Locale["de-DE"] = {
+            pagerInfo: "{0} von {1} Seiten ({2} Beiträge)",
+            firstPageTooltip: "Zur ersten Seite",
+            lastPageTooltip: "Zur letzten Seite",
+            nextPageTooltip: "Zur nächsten Seite",
+            previousPageTooltip: "Zurück zur letzten Seite",
+            nextPagerTooltip: "Zum nächsten Pager",
+            previousPagerTooltip: "Zum vorherigen Pager"
+        };
+    </script>
+}

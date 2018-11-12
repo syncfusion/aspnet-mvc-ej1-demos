@@ -1,0 +1,108 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Range Navigator / Range Numeric Type</span>}
+
+@section ScriptSection
+{
+    <script type="text/javascript" language="javascript">
+        var data;
+        function onchartload(sender) {
+            loadTheme(sender);
+            sender.model.series[0].dataSource = data.Open;
+            sender.model.series[0].xName = "XValue";
+            sender.model.series[0].yName = "YValue";
+            sender.model.series[1].dataSource = data.Close;
+            sender.model.series[1].xName = "XValue";
+            sender.model.series[1].yName = "YValue";
+        }
+        function GetData() {
+            var series1 = [];
+            var series2 = [];
+            var value = 100;
+            var value1 = 120;
+            for (var i = 1; i < 351; i++) {
+                if (Math.random() > .5) {
+                    value += Math.random();
+                    value1 += Math.random();
+                } else {
+                    value -= Math.random();
+                    value1 -= Math.random();
+                }
+                var point1 = { XValue: i, YValue: value };
+                var point2 = { XValue: i, YValue: value1 };
+                series1.push(point1);
+                series2.push(point2);
+            }
+            data = { Open: series1, Close: series2 };
+            return data;
+        }
+        function loadingdata(sender) {
+            loadTheme(sender);
+            data = GetData();
+            sender.model.series[0].dataSource = data.Open;
+            sender.model.series[0].xName = "XValue";
+            sender.model.series[0].yName = "YValue";
+        }
+        var flag = false;
+        function onchartloaded(sender) {
+            if (!flag) {
+                flag = true;
+            } else {
+                var chartobj = $("#container").data("ejChart");
+
+                if (chartobj != null) {
+                    chartobj.model.primaryXAxis.zoomPosition = sender.zoomPosition;
+                    chartobj.model.primaryXAxis.zoomFactor = sender.zoomFactor;
+                }
+                $("#container").ejChart("redraw");
+            }
+        }
+        $("#controlarea").css("visibility", "visible");
+    </script>
+}
+@section ControlsSection{
+    <div>
+            @(Html.EJ().RangeNavigator("scrollcontent")
+                  .EnableDeferredUpdate(true)
+                  .Padding("15px")
+                  .SelectedRangeSettings(ra => ra.Start("100").End("250"))
+                  .RangePadding(RangePadding.Normal)
+                  .AllowSnapping(true)
+                  .IsResponsive(true)
+                  .ValueType(RangeNavigatorValueType.Numeric)
+                  .TooltipSettings(tl => tl.Visible(true).LabelFormat("dd/MM/yyyy").BackgroundColor("gray")
+                  .TooltipDisplayMode("ondemand").Font(fn => fn.Color("white").Family("Segoe UI")
+                  .Style(RangeNavigatorFontStyle.Normal).Size("12px").Opacity(1).Weight(RangeNavigatorFontWeight.Regular)))
+                  .Series(sr =>
+                      {
+                          sr.Name("Product A").EnableAnimation(false).Type(SeriesType.Line).Fill("#69D2E7").Add();
+                      })
+                  .EnableRTL(false)
+                  .NavigatorStyleSettings(ns => ns.Border(br => br.Color("transparent").Width(2)).Background("transparent")
+                  .SelectedRegionColor("lightgray").UnselectedRegionColor("gray").ThumbColor("black").ThumbRadius(13)
+                  .MajorGridLineStyle(mr => mr.Color("black").Visible(true)).MinorGridLineStyle(mi => mi.Color("black").Visible(true)))
+                  .Load("loadingdata")
+                  .RangeChanged("onchartloaded")
+                  )
+
+        @(Html.EJ().Chart("container")
+              .PrimaryXAxis(pr => pr.RangePadding(ChartRangePadding.None))
+              .PrimaryYAxis(pr => pr.Title(tl => tl.Text("Price ($)")).LabelFormat("${value}"))
+              .Crosshair(cr => cr.Visible(true).Type(CrosshairType.Trackball)
+              .Marker(mr => mr.Shape(ChartShape.Circle)
+              .Size(sz => sz.Height(9).Width(9)).Visible(true))
+              .Line(l => l.Color("transparent")))
+              .Series(sr =>
+              {
+                  sr.Type(SeriesType.Line).Name("Product X").EnableAnimation(true).Tooltip(to => to.Visible(true)
+                    .Format("#point.x#  : ej.format(#point.y#,n2)")).Width(2).Add();
+                  sr.Type(SeriesType.Line).Name("Product Y").EnableAnimation(true).Tooltip(to => to.Visible(true)
+                    .Format("#point.x#  : ej.format(#point.y#,n2)")).Width(2).Add();
+              })
+              .Load("onchartload")
+              .Title(title => title.Text("Stock Price Analysis"))
+              .Size(sz => sz.Height("400"))
+              .Legend(lg => lg.Visible(true))
+              )
+    </div>
+}

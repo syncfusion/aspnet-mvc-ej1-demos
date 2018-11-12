@@ -1,0 +1,56 @@
+﻿ @section SampleHeading{ <span class="sampleName">Diagram / DrillDown</span>}
+
+@section ControlsSection{
+    <div>
+        @Html.EJ().Diagram("Diagram1", ViewData["diagramModel"] as Syncfusion.JavaScript.DataVisualization.Models.DiagramProperties)
+    </div>
+    
+}
+
+@section ScriptSection{
+<!--Define tooltip template-->
+<script type="text/x-jsrender" id="mouseovertooltip">
+    <div style="background-color: white; color: black; white-space: nowrap; height: 20px">
+        <span style="padding: 5px;font-family:Segoe UI;font-size:14px"> {{:addInfo.toolvalue}} </span>
+    </div>
+</script>
+
+<script type="text/javascript">
+
+        function nodeTemplate1(diagram, node) {
+            node.source = node.Source;
+        }
+     
+        var state = true;
+        function click(args) {            
+            if (args && args.element.name === "Image1" && state) {
+                $.ajax({
+                    url: '@Url.Action("getData","Diagram")',
+                    type: "Post",
+                    dataType: "json",
+                    success: function (data) {
+                        $("#Diagram1").ejDiagram({
+                            layout: {
+                                type: "hierarchicaltree"
+                            },
+                            dataSourceSettings: {
+                                id: "Name",
+                                parent: "Function",
+                                dataSource: data
+                            },
+                            nodeTemplate: nodeTemplate1,
+                        });
+                        state = false;
+                    },
+                });
+            }
+        }
+
+        function doubleclick(args) {            
+            var diagram = $("#Diagram1").ejDiagram("instance");
+            if (args && args.element) {
+                diagram.updateNode(args.element.name, { isExpanded: !args.element.isExpanded })
+            }
+        }
+</script>
+}

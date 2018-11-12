@@ -1,0 +1,25 @@
+﻿@section SampleHeading{ <span class="sampleName">Slider / Scale</span>}
+
+@section ControlsSection{
+
+    <div class="frame">
+        <div class="txt">Default</div>
+        @Html.EJ().Slider("default").ShowScale(true).Value("40").MinValue(20).MaxValue(60)
+        <br />
+        <br />
+        <div class="txt">Range</div>
+        @Html.EJ().Slider("rangeSlider").SliderType(SlideType.Range).ShowSmallTicks(true).ShowScale(true).Values("20,40").MaxValue(50)
+    </div>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .frame {
+            width: 50%;
+        }
+
+        .txt {
+            font-size: 15px;
+            margin-bottom: 13px;
+        }
+    </style>
+}

@@ -1,0 +1,54 @@
+﻿@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+@section SampleHeading{
+    <span class="sampleName">DatePicker / DateRange</span> }
+@section ControlsSection{
+    <div class="frame">
+        <span class="acc">
+            <input type="text" id="autocomplete1" />
+        </span><span class="firstdp">
+            <span class="innerdp">
+                @Html.EJ().DatePicker("daterange1").DateFormat("MM/dd/yyyy").MinDate(DateTime.Now.AddDays(-7).GetDateTimeFormats()[5]).MaxDate(DateTime.Now.AddMonths(3).GetDateTimeFormats()[5]).Value(DateTime.Now.GetDateTimeFormats()[5]).ClientSideEvents(s => s.Select("selectedDate1")).Width("75%")
+            </span>
+
+        </span><span class="seconddp">
+            <span class="innerdp">
+                @Html.EJ().DatePicker("daterange2").DateFormat("MM/dd/yyyy").MinDate(DateTime.Now.GetDateTimeFormats()[5]).MaxDate(DateTime.Now.AddMonths(3).GetDateTimeFormats()[5]).Value(DateTime.Now.AddDays(7).GetDateTimeFormats()[5]).ClientSideEvents(s => s.Select("selectedDate2")).Width("75%")
+
+            </span>
+        </span>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        var maxDatepicker = null;
+        var minDatepicker = null;
+        $(function () {
+            // declaration
+            maxDatepicker = $("daterange1").data("ejDatePicker");
+            minDatepicker = $("daterange2").data("ejDatePicker");
+        });
+        function selectedDate1(sender) {
+            $(function () {
+                maxDatepicker = $("#daterange2").data("ejDatePicker");
+                minDatepicker1 = $("#daterange1").data("ejDatePicker");
+                maxDatepicker.setModel({ "minDate": new Date(sender.value) });
+                var curDate = new Date(sender.value);
+                maxDatepicker.setModel({ value: new Date(curDate.getFullYear(), curDate.getMonth(), curDate.getDate() + 7) });
+            });
+
+        }
+        function selectedDate2(sender) {
+            $(function () {
+                minDatepicker = $("#daterange1").data("ejDatePicker");
+                minDatepicker.setModel({ "maxDate": new Date(sender.value) });
+            });
+        }
+
+    </script>
+}
+@section StyleSection{
+    <link href="@Url.Content("~/Content/Samples/DatePickerDateRange.css")" rel="stylesheet" />
+}
+

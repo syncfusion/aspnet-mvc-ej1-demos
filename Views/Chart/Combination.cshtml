@@ -1,0 +1,52 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart / Combination Chart </span>}
+
+@section ControlsSection{
+    <div>
+        @(Html.EJ().Chart("container")
+        .PrimaryXAxis(xaxis => xaxis.Title(tit => tit.Text("Month")))
+        .PrimaryYAxis(yaxis => yaxis.Title(tit => tit.Text("Unit Sold")))
+        .Axes(ax =>
+            {
+                ax.MajorGridLines(mg => mg.Visible(false)).Orientation("vertical").OpposedPosition(true)
+                  .AxisLine(als => als.Visible(false)).Name("yAxis").LabelFormat("${value}").RangePadding(ChartRangePadding.Normal)
+                  .Title(tit => tit.Text("Total Transactions")).Add();
+            })
+        .Series(ser =>
+            {
+                ser.Name("Unit Sold").Type(SeriesType.Column).Fill("#69D2E7").Tooltip(s1Tooltip => s1Tooltip.Visible(true)
+                   .Format("#point.x# <br/> Unit Sold : #point.y# <br/>")).EnableAnimation(true).Points(po =>
+                    {
+                        po.X("Jan").Y(45).Add();
+                        po.X("Feb").Y(100).Add();
+                        po.X("Mar").Y(25).Add();
+                        po.X("Apr").Y(100).Add();
+                        po.X("May").Y(85).Add();
+                        po.X("June").Y(140).Add();
+                    }).Add();
+                ser.Name("Total Transaction").Type(SeriesType.Line).EnableAnimation(true).YAxisName("yAxis")
+                   .Tooltip(s2Tooltip => s2Tooltip.Visible(true)
+                   .Format("#point.x# <br/> Profit : #point.y# <br/>")).Border(st => st.Width(2)).Points(po =>
+                    {
+                        po.X("Jan").Y(1000).Add();
+                        po.X("Feb").Y(3000).Add();
+                        po.X("Mar").Y(1000).Add();
+                        po.X("Apr").Y(7000).Add();
+                        po.X("May").Y(5000).Add();
+                        po.X("June").Y(7000).Add();
+                    }).Marker(mk => mk.Visible(true).Shape(ChartShape.Circle).Size(si => si.Height(8).Width(8))).Add();
+            })
+        .Load("loadTheme")
+        .IsResponsive(true)
+        .Title(tt => tt.Text("Sales Report"))
+        .Size(si => si.Height("600"))
+        .Legend(l => l.Visible(true).Font(fn => fn.Size("15px")).Shape(ChartShape.SeriesType).Position(LegendPosition.Top)
+        .ItemStyle(it => it.Height(15).Width(15)))
+        )
+        <script>
+            $("#controlarea").css("visibility", "visible");
+        </script>
+    </div>
+}
+

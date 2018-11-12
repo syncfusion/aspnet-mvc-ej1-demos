@@ -1,0 +1,20 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Autocomplete / Grouping</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @{
+                Html.EJ()
+                    .Autocomplete("groupingCountry")
+                    .Datasource((IEnumerable<Countries>)ViewBag.datasource)
+                    .ItemsCount(7)
+                    .Width("100%")
+                    .FilterType(FilterOperatorType.Contains)
+                    .AutocompleteFields(fields => fields.GroupBy("category"))
+                    .HighlightSearch(true)
+                    .WatermarkText("Select a country")
+                    .Render();
+            }
+        </div>
+    </div>
+}

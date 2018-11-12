@@ -1,0 +1,120 @@
+﻿@section SampleHeading{<span class="sampleName">Gantt/Resource Histogram </span>}
+
+@section ControlsSection{
+    @(Html.EJ().Gantt("GanttContainer")
+            .TaskIdMapping("TaskID")
+            .TaskNameMapping("TaskName")
+            .StartDateMapping("StartDate")            
+            .DurationMapping("Duration")
+            .ProgressMapping("Progress")
+            .ScheduleStartDate("10/15/2017")
+            .TreeColumnIndex(1)
+            .ResourceInfoMapping("ResourceID")
+            .ResourceNameMapping("ResourceName")
+            .ResourceIdMapping("ResourceID")
+             .ChildMapping("SubTasks")
+            .ScheduleHeaderSettings(ss => { ss.ScheduleHeaderType(GanttScheduleHeaderType.Week).TimescaleUnitSize("150").UpdateTimescaleView(false); })
+            .SplitterPosition("15%")
+            .AllowGanttChartEditing(true)
+            .ShowTaskNames(true)
+            .IsResponsive(true)
+            .ViewType(GanttViewType.ProjectView)
+            .IncludeWeekend(false)
+            .EditSettings(edit =>
+            {
+                edit.AllowAdding(true);
+                edit.AllowDeleting(true);
+                edit.AllowEditing(true);
+                edit.AllowIndent(true);
+                edit.EditMode("cellEditing");
+            })
+            .IsResponsive(true)
+            .ToolbarSettings(toolbar =>
+            {
+                toolbar.ShowToolbar(true);
+                toolbar.ToolbarItems(new List<GanttToolBarItems>()
+        {
+            GanttToolBarItems.Add,
+            GanttToolBarItems.Search,
+            GanttToolBarItems.Edit,
+            GanttToolBarItems.Delete,
+            GanttToolBarItems.Update,
+            GanttToolBarItems.Cancel
+        });
+            })
+            .ClientSideEvents(cs => { cs.Load("ganttLoad").SplitterResized("splitterResized").ActionComplete("actionComplete"); })
+            .SizeSettings(ss => ss.Width("100%").Height("310px"))
+            .Resources(ViewBag.resources)
+            .Datasource(ViewBag.datasource)
+    )
+
+    @(Html.EJ().Gantt("HistoGanttContainer")
+        .ViewType(GanttViewType.HistogramView)
+        .TaskIdMapping("TaskID")
+        .TaskNameMapping("TaskName")
+        .StartDateMapping("StartDate")        
+        .DurationMapping("Duration")
+        .ProgressMapping("Progress")
+        .ChildMapping("SubTasks")
+        .ResourceInfoMapping("ResourceID")
+        .ResourceNameMapping("ResourceName")
+        .ResourceIdMapping("ResourceID")
+        .IncludeWeekend(false)
+        .ClientSideEvents(cs => { cs.Load("histoLoad").SplitterResized("splitterResized").ActionComplete("actionComplete"); })
+        .IsResponsive(true)
+        .ScheduleHeaderSettings(ss => { ss.ScheduleHeaderType(GanttScheduleHeaderType.Week).TimescaleUnitSize("150"); })
+        .SplitterPosition("15%")
+        .RowHeight(50)
+        .SizeSettings(ss => ss.Width("100%").Height("300px"))
+        .Resources(ViewBag.historesources)
+        .Datasource(ViewBag.histoData)                                
+    )
+}
+@section ScriptSection{
+    <script type="text/javascript">  
+        function ganttLoad(args) {
+            var ganttObject = $("#GanttContainer").data("ejGantt"),
+                        columns = ganttObject.getColumns();
+            columns[0].visible = columns[2].visible = columns[5].visible = false;
+            columns[6].visible = true;
+        }
+        
+        function histoLoad(args) {
+            this.isProjectViewData = true;
+        }
+
+        function splitterResized(args) {
+            if (args.isOnResize == false) return;
+            if (this._id == "GanttContainer") {
+                $("#HistoGanttContainer").ejGantt("setSplitterPosition", args.currentSplitterPosition);
+            } else if (this._id == "HistoGanttContainer") {
+                $("#GanttContainer").ejGantt("setSplitterPosition", args.currentSplitterPosition);
+            }
+        }
+        function actionComplete(args) {
+            if (args.requestType == "scroll" && args.scrollDirection == "horizontal") {
+                var scrollLeft = args.scrollLeft;
+                if (this._id == "GanttContainer" && !args.isScrollByMethod) {
+                    $("#HistoGanttContainer").ejGantt("setChartScrollLeft", scrollLeft);
+                } else if (this._id == "HistoGanttContainer" && !args.isScrollByMethod) {
+                    $("#GanttContainer").ejGantt("setChartScrollLeft", scrollLeft);
+                }
+            } else if (args.requestType == "recordUpdate") {
+                $("#HistoGanttContainer").ejGantt("updateHistogramTask", args.data, "update");
+                if (args.updatedRecords && args.updatedRecords.length > 0) {
+                    for (var count = 0; count < args.updatedRecords.length; count++) {
+                        $("#HistoGanttContainer").ejGantt("updateHistogramTask", args.updatedRecords[count], "update");
+                    }
+                }
+            } else if (args.requestType == "save" && args.modifiedRecord) {
+                $("#HistoGanttContainer").ejGantt("updateHistogramTask", args.modifiedRecord, "update");
+            }
+            else if (args.requestType == "save" && args.addedRecord) {
+                $("#HistoGanttContainer").ejGantt("updateHistogramTask", args.addedRecord, "add");
+            }
+            else if (args.requestType == "delete") {
+                $("#HistoGanttContainer").ejGantt("updateHistogramTask", args.data, "delete");
+            }
+        }
+    </script>
+}

@@ -1,0 +1,67 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Upload / File Input</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            <div class="posupload">
+                @Html.EJ().Uploadbox("UploadInput").ClientSideEvents(e =>e.Error("onError")).SaveUrl(@Url.Action("Save")).RemoveUrl(@Url.Action("Remove")).MultipleFilesSelection(true)
+            </div>
+        </div>
+    </div>
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Extensions:
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <input type="text" id="fileallow" class="tb6 ejinputtext" placeholder="Format" />
+        </div>
+        <div class="col-md-3">
+            <input type="button" class="e-btn" id="upbutton1" value="Allow" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <input type="text" id="filedeny" class="tb6 ejinputtext" placeholder="Format" />
+        </div>
+        <div class="col-md-3">
+            <input type="button" class="e-btn" id="upbutton2" value="Deny" />
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        var uploadobject;
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+            $("#upbutton1").ejButton({
+                click: "allowfiletype",
+            });
+            $("#upbutton2").ejButton({
+                click: "denyfiletype",
+            });
+
+        });
+        function allowfiletype() {
+            uploadobject = $("#UploadInput").data("ejUploadbox");
+            uploadobject.option('extensionsAllow', $("#fileallow").val());
+            uploadobject.option('extensionsDeny', "");
+            $("#filedeny").val('');
+        }
+        function denyfiletype() {
+            uploadobject = $("#UploadInput").data("ejUploadbox");
+            uploadobject.option('extensionsAllow', "");
+            uploadobject.option('extensionsDeny', $("#filedeny").val());
+            $("#fileallow").val('');
+        }
+        function onError(args) {
+            alert(args.error);
+        }
+    </script>
+}
+@section StyleSection{
+    <link href="@Url.Content("~/Content/Samples/UploadFileType.css")" rel="stylesheet" />
+}

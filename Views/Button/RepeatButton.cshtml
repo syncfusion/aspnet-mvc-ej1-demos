@@ -1,0 +1,35 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Button / Repeat Button</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            <table>
+                <tr>
+                     <td style="padding-left:40px">Repeat Button <br/> </br>
+                        @Html.EJ().Button("buttonnormal").Text("Click").Size(ButtonSize.Large).ShowRoundedCorner(true).RepeatButton(true).ClientSideEvents(e => e.Click("btnClick"))
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+}
+@section EventsDropDown{
+}
+@section ScriptSection{
+    <script type="text/javascript">
+
+        $(function () {
+
+            var btnObj = $("#buttonnormal").data("ejButton");
+
+        });
+
+        function btnClick(e, ui) {
+            jQuery.addEventLog("Repeat Button click<span class='eventTitle'> triggered. </span>");
+        }
+
+        function onClear() {
+            jQuery.clearEventLog();
+        }
+    </script>
+}

@@ -1,0 +1,171 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart / Chart Axes/ StripLine</span>}
+
+@section ControlsSection{
+    <div>
+    @(Html.EJ().Chart("container")
+          .ChartArea(ca => ca.Border(br => br.Color("#686868").Width(4).Opacity(1)))
+          .PrimaryXAxis(xaxis => xaxis.MajorGridLines(mg => mg.Visible(false)).Title(tit => tit.Text("Month")))
+          .PrimaryYAxis(yaxis => yaxis.Range(r => r.Min(10).Max(40).Interval(5)).LabelFormat("{value} C")
+          .AxisLine(al => al.Color("#808080")).Title(tit => tit.Text("Temperature in Celsius")).
+          StripLine(str =>
+          {
+              str.Start(30).End(40).Text("High Temperature").Visible(true).TextAlignment(StriplineTextAlignment.MiddleCenter)
+                 .Color("#0D97D4").Font(ft => ft.Size("18px").Color("White")).ZIndex(ChartZIndex.Behind).BorderWidth(0).Add();
+              str.Start(20).End(30).Text("Avg Temperature").Visible(true).TextAlignment(StriplineTextAlignment.MiddleCenter)
+                 .Color("#00AEFF").Font(ft => ft.Size("18px").Color("White")).ZIndex(ChartZIndex.Behind).BorderWidth(0).Add();
+              str.Start(10).End(20).Text("Low Temperature").Visible(true).TextAlignment(StriplineTextAlignment.MiddleCenter)
+                 .Color("#14B9FF").Font(ft => ft.Size("18px").Color("White")).ZIndex(ChartZIndex.Behind).BorderWidth(0).Add();
+          })
+          )
+          .Series(ser =>
+          {
+              ser.Name("Germany").Type(SeriesType.Line).Border(st => st.Width(4)).Fill("white").Tooltip(tooltip => tooltip.Visible(true)
+                 .Format("#point.x# : #point.y# ")).Points(po =>
+              {
+                  po.X("Jan").Y(28).Add();
+                  po.X("Feb").Y(27).Add();
+                  po.X("Mar").Y(33).Add();
+                  po.X("Apr").Y(36).Add();
+                  po.X("May").Y(28).Add();
+                  po.X("Jun").Y(30).Add();
+                  po.X("Jul").Y(31).Add();
+                  po.X("Aug").Y(27).Add();
+                  po.X("Sep").Y(30).Add();
+                  po.X("Oct").Y(20).Add();
+                  po.X("Nov").Y(15).Add();
+                  po.X("Dec").Y(17).Add();
+              })
+               .Width(4)
+               .Tooltip(to => to.Visible(true).Fill("white").Border(b => b.Color("black").Width(1)).Font(f => f.Color("black")))
+               .Marker(mk => mk.Visible(true).Shape(ChartShape.Circle).Border(st => st.Width(4)).Fill("black")
+               .Size(si => si.Height(12).Width(12))).Add();
+
+          })
+          .Title(title => title.Text("Weather Report"))
+          .Legend(lg => lg.Visible(false))
+          .Size(sz=>sz.Height("600"))
+          .Load("loadTheme")
+    )
+</div>
+  
+}
+@section PropertiesSection
+
+{
+ <div id="sampleProperties">
+    <div class="prop-grid">
+        <div class="row">
+            <div class="col-md-3">
+            StripLine Orientation:
+            </div>
+            <div class="col-md-4" style="width:100px;">
+                <select id="selectType">
+                    <option value="Horizontal">Horizontal</option>
+                    <option value="Vertical">Vertical</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+@section ScriptSection
+{
+    <script>
+        $("#controlarea").css("visibility", "visible");
+        $('#selectType').change(function () {
+            var option = $("#selectType option:selected").text();
+            if (option.toLowerCase() == "vertical") {
+                var chart = $("#container").ejChart("instance");
+                chart.model.primaryXAxis.labelPlacement = "betweenticks";
+                for (var i = 0; i <= 4; i++) {
+                    if (i == 3 || i == 4) {
+                        chart.model.primaryYAxis.stripLine[i] = {};
+                    }
+                    chart.model.primaryYAxis.stripLine[i].visible = false;
+                    chart.model.primaryXAxis.stripLine[i] = {};
+                    switch (i) {
+                        case 0:
+                            chart.model.primaryXAxis.stripLine[i].start = -1;
+                            chart.model.primaryXAxis.stripLine[i].end = 1.5;
+                            chart.model.primaryXAxis.stripLine[i].text = "Winter";
+                            chart.model.primaryXAxis.stripLine[i].color = "#1e88e5";
+                            break;
+                        case 1:
+                            chart.model.primaryXAxis.stripLine[i].start = 1.5;
+                            chart.model.primaryXAxis.stripLine[i].text = "Summer";
+                            chart.model.primaryXAxis.stripLine[i].end = 4.5;
+                            chart.model.primaryXAxis.stripLine[i].color = "#2196f3";
+                            break;
+                        case 2:
+                            chart.model.primaryXAxis.stripLine[i].start = 4.5;
+                            chart.model.primaryXAxis.stripLine[i].end = 7.5;
+                            chart.model.primaryXAxis.stripLine[i].text = "Spring";
+                            chart.model.primaryXAxis.stripLine[i].color = "#42a5f5";
+                            break;
+                        case 3:
+                            chart.model.primaryXAxis.stripLine[i].start = 7.5;
+                            chart.model.primaryXAxis.stripLine[i].end = 10.5;
+                            chart.model.primaryXAxis.stripLine[i].color = "#64b5f6";
+                            chart.model.primaryXAxis.stripLine[i].text = "Autumn";
+                            break;
+                        case 4:
+                            chart.model.primaryXAxis.stripLine[i].start = 10.5;
+                            chart.model.primaryXAxis.stripLine[i].end = 12;
+                            chart.model.primaryXAxis.stripLine[i].text = "Winter";
+                            chart.model.primaryXAxis.stripLine[i].color = "#1e88e5";
+                            break;
+                    }
+
+                    chart.model.primaryXAxis.stripLine[i].textAlignment = "middlecenter";
+                    chart.model.primaryXAxis.stripLine[i].font = {};
+                    chart.model.primaryXAxis.stripLine[i].font.size = "18px";
+                    chart.model.primaryXAxis.stripLine[i].font.color = "white";
+                    chart.model.primaryXAxis.stripLine[i].zIndex = "behind";
+                    chart.model.primaryXAxis.stripLine[i].borderWidth = 0;
+                    chart.model.primaryXAxis.stripLine[i].visible = true;
+                }
+                $("#container").ejChart("redraw");
+            }
+            else {
+                var chart = $("#container").ejChart("instance");
+                var text = ["High Temperature", "Average Temperature", "Low Temperature"];
+                var color = ["#0D97D4", "#00AEFF", "#14B9FF"]
+                for (var i = 0; i <= 3; i++) {
+                    chart.model.primaryXAxis.stripLine[i] = {};
+                    chart.model.primaryXAxis.stripLine[i].visible = false;
+                    if (i == 3) break;
+                    switch (i) {
+                        case 0:
+                            chart.model.primaryYAxis.stripLine[i].start = 30;
+                            chart.model.primaryYAxis.stripLine[i].end = 40;
+                            break;
+                        case 1:
+                            chart.model.primaryYAxis.stripLine[i].start = 20;
+                            chart.model.primaryYAxis.stripLine[i].end = 30;
+                            break;
+                        case 2:
+                            chart.model.primaryYAxis.stripLine[i].start = 10;
+                            chart.model.primaryYAxis.stripLine[i].end = 20;
+                            break;
+                    }
+                    chart.model.primaryYAxis.stripLine[i].text = text[i];
+                    chart.model.primaryYAxis.stripLine[i].textAlignment = "middlecenter";
+                    chart.model.primaryYAxis.stripLine[i].color = color[i];
+                    chart.model.primaryYAxis.stripLine[i].font = {};
+                    chart.model.primaryYAxis.stripLine[i].font.size = "18px";
+                    chart.model.primaryYAxis.stripLine[i].font.color = "white";
+                    chart.model.primaryYAxis.stripLine[i].zIndex = "behind";
+                    chart.model.primaryYAxis.stripLine[i].borderWidth = 0;
+                    chart.model.primaryYAxis.stripLine[i].visible = true;
+                }
+                $("#container").ejChart("redraw");
+            }
+
+        });
+        $("#sampleProperties").ejPropertiesPanel();
+</script>
+
+}

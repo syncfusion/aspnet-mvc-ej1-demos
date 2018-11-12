@@ -1,0 +1,65 @@
+﻿@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/excanvas.min.js")"></script>
+    }
+@section SampleHeading{
+	<span class="sampleName">Pointer Image</span>
+	}
+
+@section ControlsSection{
+ <div align="center" style="width:inherit;height:inherit;">  
+      @(Html.EJ().CircularGauge("circulargauge1").EnableAnimation(false).BackgroundColor("#e0e0e0")
+      .Width(700).Height(600).Radius(80).ClientSideEvents(cli=>cli.DrawLabels("drawLabels").DrawPointers("drawpointers"))
+      
+      .Scales(scl=>{
+          scl.ShowRanges(true).ShowScaleBar(false).ShowIndicators(true).ShowTicks(false).Radius(80).StartAngle(120).SweepAngle(300).MinorIntervalValue(10).MajorIntervalValue(10)
+              .Border(bor => bor.Width(0.5))
+              .CustomLabels(cbl =>
+              {
+                  cbl.Value("SPORTS").Color("#333333").Font(fon => fon.Size("24px").FontFamily("Segoe UI").FontStyle("Bold")).Position(pos => pos.X(350).Y(280)).Add();
+                  cbl.Value("Fans Ratio").Color("#333333").Font(fon => fon.Size("18px").FontFamily("Segoe UI")).Position(pos => pos.X(350).Y(310)).Add();
+                  cbl.Value("(in million)").Color("#333333").Font(fon => fon.Size("12px").FontFamily("Segoe UI")).Position(pos => pos.X(350).Y(330)).Add();
+              })
+              .Labels(lbl => { lbl.Color("transparent").Add(); })
+              .Ranges(rng =>
+              {
+                  rng.DistanceFromScale(-73).Placement(RangePlacement.Near).EndValue(80).StartValue(0).Size(40).BackgroundColor("#bc4b4b").Border(bor => bor.Color("#bc4b4b").Width(2)).Add();
+                  rng.DistanceFromScale(-132).Placement(RangePlacement.Near).EndValue(70).StartValue(0).Size(40).BackgroundColor("#21a56f").Border(bor => bor.Color("#21a56f").Width(2)).Add();
+                  rng.DistanceFromScale(-190).Placement(RangePlacement.Near).EndValue(90).StartValue(0).Size(40).BackgroundColor("#2bafbc").Border(bor => bor.Color("#2bafbc").Width(2)).Add();
+              })
+              .Pointers(poi =>
+              {
+                  poi.Type(PointerType.Marker).DistanceFromScale(10).MarkerType(MarkerType.Image).Value(80).Placement(PointerPlacement.Far).Length(43).Width(43).ImageUrl("../Content/images/gauge/golfball.png").Add();
+                  poi.Type(PointerType.Marker).DistanceFromScale(69).MarkerType(MarkerType.Image).Value(70).Placement(PointerPlacement.Far).Length(43).Width(43).ImageUrl("../Content/images/gauge/basketball.png").Add();
+                  poi.Type(PointerType.Marker).DistanceFromScale(127).MarkerType(MarkerType.Image).Value(90).Placement(PointerPlacement.Far).Length(43).Width(43).ImageUrl("../Content/images/gauge/football.png").Add();
+              })
+              .Indicators(ind => {
+                  ind.Height(10).Width(10).Type(IndicatorType.text).Position(pos => pos.X(0).Y(0)).StateRanges(sr => { sr.StartValue(0).EndValue(100).Text("").TextColor("#8c8c8c").Font(fon => fon.Size("12px")).Add(); }).Add();
+                  ind.Height(10).Width(10).Type(IndicatorType.text).Position(pos => pos.X(0).Y(0)).StateRanges(sr => { sr.StartValue(0).EndValue(100).Text("").TextColor("#8c8c8c").Font(fon => fon.Size("12px")).Add(); }).Add();
+                  ind.Height(10).Width(10).Type(IndicatorType.text).Position(pos => pos.X(0).Y(0)).StateRanges(sr => { sr.StartValue(0).EndValue(100).Text("").TextColor("#8c8c8c").Font(fon => fon.Size("12px")).Add(); }).Add();
+              })
+              .Add();
+          
+      
+      })
+                )
+</div>
+}
+
+
+
+
+ <script>
+     function drawLabels(args) {
+         if (args.pointerValue != 100 && args.pointerValue != 0)
+             args.style.textValue = "";
+     }
+     function drawpointers(args) {
+         var i = args.pointer.index;
+         args.model.scales[0].indicators[i].stateRanges[0].text = args.pointer.pointerValue.toString();
+         args.model.scales[0].indicators[i].position.x = args.position.startX + 20;
+         args.model.scales[0].indicators[i].position.y = args.position.startY + 50;
+     }
+
+    </script>
+
+

@@ -1,0 +1,96 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Captcha / SignUp Form </span>}
+@section ControlsSection{
+    @using (Html.BeginForm("SignUpForm", "Captcha", FormMethod.Post))
+    {
+        if ((bool)ViewBag.status)
+        {
+        <div class="frame" style="width: 350px">
+            <div class="control">
+                <table>
+                    <tr>
+                        <td>
+                            <h2>Thank you for registering.</h2>
+                            <br>
+                        </td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>  
+        }
+        else
+        {
+        <div class="frame" style="width: 500px">
+            <div class="control">
+                <table class="tableprop">
+                    <tr>
+                        <td><span class="NodeText">Enter Your Name</span>
+                        </td>
+                        <td>
+                            <input type="text" name="username" />
+                            @if (!(bool)ViewBag.NameStatus)
+                            {<span style="color: red">Invalid Value</span>}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="NodeText">Enter Your Password</span>
+                        </td>
+                        <td>
+                            <input type="password" name="password" />
+                            @if (!(bool)ViewBag.PasswordStatus)
+                            {<span style="color: red">Invalid Password</span>}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><span class="NodeText">Re-Enter Your Password</span>
+                        </td>
+                        <td>
+                            <input type="password" name="repassword" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            <div>
+                                @Html.EJ().Captcha("captcha").ShowRefreshButton(true).ShowAudioButton(true).EnableAutoValidation(true).RequestMapper(Url.Action("Refresh")).CustomErrorMessage("Invalid Captcha Please Try Again").TargetButton("submit")
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td>
+                            @Html.EJ().Button("submit").Size(ButtonSize.Large).Text("Submit").Type(ButtonType.Submit)
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <br />
+
+
+
+            </div>
+        </div>        
+        }
+
+    }
+
+}
+@section StyleSection{
+    <style>
+        .NodeText {
+            color: black;
+            font-size: 15px;
+        }
+		.darktheme .NodeText {
+            color: white;
+        }
+        .tableprop {
+            height: 285px;
+            margin-left: 25px;
+        }
+        .frame {
+            margin: 0 auto;
+        }
+    </style>
+}

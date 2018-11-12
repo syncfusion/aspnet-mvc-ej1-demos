@@ -1,0 +1,52 @@
+﻿@section SampleHeading{<span class="sampleName">Gantt/Column Chooser</span>}
+
+@section ControlsSection{
+    <div id="ganttsample3" style="width: 100%; height: 450px;">
+        @(Html.EJ().Gantt("ganttsample3")
+                   .TaskIdMapping("Id")
+                   .TaskNameMapping("Name")
+                   .StartDateMapping("StartDate")
+                   .DurationMapping("Duration")
+                   .ProgressMapping("PercentDone")
+                   .ScheduleStartDate("02/23/2017")
+                   .ScheduleEndDate("03/30/2017")
+                   .HighlightWeekends(true)
+                   .ChildMapping("Children")
+                   .AllowGanttChartEditing(false)
+                   .AllowSelection(true)
+                   .TreeColumnIndex(1)
+                   .IsResponsive(true)
+                   .AllowSorting(true)
+                   .AllowMultiSorting(true)
+                   .ShowColumnChooser(true)
+                   .ShowColumnOptions(true)
+                   .ColumnDialogFields(new List<GanttColumnDialogFields>() 
+                   {
+                        GanttColumnDialogFields.Field,
+                        GanttColumnDialogFields.HeaderText,
+                        GanttColumnDialogFields.EditType,
+                        GanttColumnDialogFields.Visible,
+                        GanttColumnDialogFields.Width,
+                        GanttColumnDialogFields.TextAlign
+                   })
+                   .EditSettings(edit =>
+                   {
+                       edit.AllowEditing(true);
+                       edit.AllowAdding(true);
+                       edit.AllowDeleting(true);
+                       edit.EditMode("cellEditing");
+                   })                                        
+                   .SplitterPosition("50%")
+                   .ClientSideEvents(cs => cs.Load("load"))
+                   .Datasource(ViewBag.datasource)
+        )
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        function load(args) {
+            var columns = this.getColumns();
+            columns[0].width = 100;
+        }
+    </script>
+}

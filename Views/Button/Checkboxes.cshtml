@@ -1,0 +1,72 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Button / Check Boxes</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            <div class="chkalign">
+                <br />
+                Hobbies
+                <br />
+                <br />
+                <table>
+                    <tr>
+                        <td class="chkrad">
+                            @Html.EJ().CheckBox("check1").CssClass("nodetext").Text("Music").Value("Music")
+                        </td>
+                        <td class="chkrad">
+                            @Html.EJ().CheckBox("Checkbox3").CssClass("nodetext").Text("Sports").Value("Sports")
+                        </td>
+                        <td class="chkrad">
+                            @Html.EJ().CheckBox("Checkbox4").CssClass("nodetext").Text("Bike Riding").Value("Bike Riding")
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <br />
+                Favorite Search Engines<br />
+                <br />
+                <table>
+                    <tr>
+                        <td class="chkrad">
+                            @Html.EJ().CheckBox("Checkbox1").CssClass("nodetext").Size(Size.Medium).Text("Google").Value("Google")
+                        </td>
+                        <td class="chkrad">
+                            @Html.EJ().CheckBox("Checkbox5").CssClass("nodetext").Size(Size.Medium).Text("Yahoo").Value("Yahoo")
+                        </td>
+                        <td class="chkrad">
+                            @Html.EJ().CheckBox("Checkbox6").CssClass("nodetext").Size(Size.Medium).Text("Bing").Value("Bing")
+                        </td>
+                    </tr>
+                </table>
+                <br />
+                <br />
+                Favorite Social networks<br />
+                <br />
+                <table>
+                    <tr>
+                        <td class="chkrad">
+                            @Html.EJ().CheckBox("Checkbox2").CssClass("nodetext").Size(Size.Medium).Text("Facebook").Value("Facebook").EnableTriState(true)
+                        </td>
+                        <td class="chkrad">
+                            @Html.EJ().CheckBox("Checkbox7").CssClass("nodetext").Size(Size.Medium).Text("GPlus").Value("GPlus").EnableTriState(true)
+                        </td>
+                        <td class="chkrad">
+                            @Html.EJ().CheckBox("Checkbox8").CssClass("nodetext").Size(Size.Medium).Text("Twitter").Value("Twitter").EnableTriState(true).CheckState(CheckState.Indeterminate)
+                        </td>
+                    </tr>
+                </table>
+                <br />
+            </div>
+        </div>
+    </div>
+}
+@section StyleSection{
+    <style>
+        .frame {
+            width: 50%;
+        }
+          .chkrad{
+            white-space:nowrap;
+        }
+    </style>
+}

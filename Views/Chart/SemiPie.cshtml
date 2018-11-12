@@ -1,0 +1,129 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart /Semi Pie Chart </span>}
+
+@section ControlsSection{
+    <div id="target1">
+        <ul>
+            <li>Doughnut</li>
+            <li>Pie</li>
+        </ul>
+    </div>
+    <div>
+        @(Html.EJ().Chart("container")
+              .Series(sr =>
+                          {
+                              sr.Points(pt =>
+                                     {
+                                         pt.X("Australia").Y(53.3).Text("Australia").Add();
+                                         pt.X("China").Y(55.7).Text("China").Add();
+                                         pt.X("India").Y(60.5).Text("India").Add();
+                                         pt.X("Japan").Y(12.5).Text("Japan").Add();
+                                         pt.X("South Africa").Y(79.4).Text("South Africa").Add();
+                                         pt.X("United Kingdom").Y(70.9).Text("United Kingdom").Add();
+                                         pt.X("United States").Y(45.0).Text("United States").Add();
+                                     }).LabelPosition(ChartLabelPosition.Outside).Border(bo => bo.Width(1).Color("white"))
+                                       .EnableSmartLabels(true).StartAngle(-90).EndAngle(90)
+                                       .Marker(mr =>
+                                       {
+                                           mr.DataLabel(db =>
+                                           {
+                                               db.Visible(true).EnableContrastColor(true).ConnectorLine(cl => cl.Color("black")
+                                                   .Type(ConnectorType.Line)).Shape(ChartShape.None).Font(fn => { fn.Size("14px"); });
+                                           });
+                                       })
+                                       .Name("Agricultural land").Type(SeriesType.Doughnut).Explode(true)
+                                       .Tooltip(tp => tp.Visible(true).Format("#point.x# : #point.y#%")).Add();
+
+                          })
+                .CommonSeriesOptions(cr => cr.EnableAnimation(false))
+                .Load("loadTheme")
+                .SeriesRendering("seriesRender")
+                .Title(title => title.Text("Agricultural land in 2011 (% of land area)"))
+                .IsResponsive(false)
+                .Size(sz => sz.Height("600"))
+                .Legend(lg => { lg.Visible(false); })
+        )
+        <script>
+            function seriesRender(sender) {
+                if (sender.model.theme == "flatdark" || sender.model.theme == "gradientdark" || sender.model.theme == "high-contrast-01")
+                    sender.data.series.marker.dataLabel.connectorLine.color = "white";
+            }
+        </script>
+    </div>
+
+}
+@section PropertiesSection{
+    <div id="sampleProperties">
+        <div class="prop-grid">
+            <div class="row">
+                <div class="col-md-3">
+                    Start Angle
+                </div>
+                <div class="col-md-3">
+                    <div id="startAngleSlider"></div>
+                </div>
+                <div class="col-md-3">
+                    End Angle
+                </div>
+                <div class="col-md-3">
+                    <div id="endAngleSlider"></div>
+                </div>
+                <div class="col-md-3">
+                    Series Type
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().DropDownList("opt1").TargetID("target1").SelectedItemIndex(0).Width("110").ClientSideEvents(s => s.Change("seriesChanged"))
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script>
+        $("#controlarea").css("visibility", "visible");
+        $('#startAngleSlider').ejSlider({
+            height: 16,
+            value: -90,
+            minValue: -360,
+            maxValue: 360,
+            incrementStep: 1,
+            change: "startAngleChange",
+        });
+        $('#endAngleSlider').ejSlider({
+            height: 16,
+            value: 90,
+            minValue: -360,
+            maxValue: 360,
+            incrementStep: 1,
+            change: "endAngleChange",
+
+        });
+        function startAngleChange(args) {
+            var chart = $("#container").ejChart("instance");
+            endAngle = $("#endAngleSlider a").attr("aria-label");
+            chart.model.series[0].startAngle = parseInt(args.value);
+            chart.model.series[0].endAngle = parseInt(endAngle);
+            chart.model.series[0].enableAnimation = false;
+            chart.redraw();
+        }
+        function endAngleChange(args) {
+            var chart = $("#container").ejChart("instance");
+            startAngle = $("#startAngleSlider a").attr("aria-label");
+            chart.model.series[0].startAngle = parseInt(startAngle);
+            chart.model.series[0].endAngle = parseInt(args.value);
+            chart.model.series[0].enableAnimation = false;
+            chart.redraw();
+        }
+        function seriesChanged(sender) {
+            var option = sender.selectedText;
+            var chart = $("#container").ejChart("instance");
+            chart.model.series[0].type = option.toLowerCase();
+            chart.model.series[0].enableAnimation = true;
+            chart.redraw();
+        }
+        $("#sampleProperties").ejPropertiesPanel();
+    </script>
+}
+
+

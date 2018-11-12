@@ -1,0 +1,92 @@
+﻿@section SampleHeading{<span class="sampleName"> Spreadsheet / Cell Type</span>}
+<link href="@Url.Content("~/Content/Samples/SpreadsheetStyles.css")" rel="stylesheet" />
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+}
+@section ControlsSection{
+    @(Html.EJ().Spreadsheet<object>("Spreadsheet")
+    .AllowFormulaBar(false)
+    .AllowCellType(true) 
+    .EnableContextMenu(false)   
+    .ScrollSettings(scroll =>
+    {
+        scroll.Height(450);
+    })
+    .ImportSettings(import =>
+    {
+        import.ImportMapper("Import");
+    })
+    .ExportSettings(export =>
+    {
+        export.ExcelUrl("ExcelExport");
+        export.CsvUrl("CsvExport");
+        export.PdfUrl("PdfExport");
+    })
+    .Sheets(sheet =>
+    {
+        sheet.Datasource((IEnumerable<object>)ViewBag.DataSource)
+        .Query("ej.Query().select(['ItemName', 'Amount'])")
+        .CellTypes(ctype =>
+        {
+            ctype.Range("F5").Setting(setting =>
+            {
+                setting.Type(CustomCellTypes.Button).BackgroundColor("yellow").Text("BUTTON");
+            }).Add();
+            ctype.Range("F7").Setting(setting =>
+            {
+                setting.Type(CustomCellTypes.CheckBox).IsChecked(true);
+            }).Add();
+            ctype.Range("F9").Setting(setting =>
+            {
+                setting.Type(CustomCellTypes.DatePicker);
+            }).Add();
+            ctype.Range("F3").Setting(setting =>
+            {
+                setting.Type(CustomCellTypes.DropDownList).DataSourceRange("A2:A11");
+            }).Add();
+            ctype.Range("H5").Setting(setting =>
+            {
+                setting.Type(CustomCellTypes.Button).Text("BUTTON").Color("brown");
+            }).Add();
+            ctype.Range("H7").Setting(setting =>
+            {
+                setting.Type(CustomCellTypes.CheckBox);
+            }).Add();
+            ctype.Range("H9").Setting(setting =>
+            {
+                setting.Type(CustomCellTypes.DatePicker).Value("2/12/2016");
+            }).Add();
+            ctype.Range("H3").Setting(setting =>
+            {
+                setting.Type(CustomCellTypes.DropDownList).DataSourceRange("B2:B11");
+            }).Add();
+        }).Add();
+    })
+    .ClientSideEvents(events => events.LoadComplete("loadComplete"))
+    )}
+
+@section ScriptSection{
+    <script type="text/javascript">
+        function loadComplete(args) {
+            var xlEdit = this.XLEdit, xlFormat = this.XLFormat;
+            if (!this.isImport) {
+                this.sheetRename("Cell Type");
+                this.setWidthToColumns([133, 93, 59, 59, 122, 142, 92, 142, 82]);
+                this.XLResize.setRowHeight(4, 27);
+                xlEdit.updateValue('E3', 'DropDown List');
+                xlEdit.updateValue('E5', 'Button');
+                xlEdit.updateValue('E7', 'Check Box');
+                xlEdit.updateValue('E9', 'Date Picker');
+                xlFormat.format({ "style": { "font-weight": "bold" } }, "A1:C1");
+                xlFormat.format({ "style": { "font-weight": "bold" } }, "E3:E9");
+                xlFormat.format({ "style": { "text-align": "left" } }, "H7");
+                this.mergeCells("E1:H1", true);
+                xlEdit.updateValue('E1', 'CELL TYPES'); 
+                xlFormat.format({ "style": { "font-weight": "bold", 'text-align': 'center' } }, "E1");
+                this.XLSelection.selectRange("A1");
+                $("#" + this._id + "_Ribbon").ejRibbon('instance').collapse();
+            }
+        }
+    </script>
+}

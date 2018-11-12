@@ -1,0 +1,103 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart / Chart Customization/ Tooltip Template </span>}
+
+@section ControlsSection{
+    <div id="Tooltip" style="display: none;">
+        <div id="icon">
+            <div id="grain"></div>
+        </div>
+        <div id="value">
+            <div>
+                <div id="efpercentage">#point.x#</div>
+                <div id="ef">#point.y#</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div>
+       @(Html.EJ().Chart("container")
+
+             .PrimaryXAxis(xaxis => xaxis.Range(rn => rn.Min(2001).Max(2013).Interval(1)).AxisLine(ax => ax.Color("#EFEFEF").Width(3))
+             .MajorGridLines(mj => mj.Visible(false)).MajorTickLines(mt => mt.Visible(false)).HidePartialLabels(true)
+             .Font(fn => fn.Color("White").Size("15px")))
+             .PrimaryYAxis(yaxis => yaxis.Title(tit => tit.Text("Billion Bushels").Font(fn => fn.Color("White").Size("20px")))
+             .Range(rn => rn.Min(1.50).Max(2.70).Interval(0.20)).AxisLine(ax => ax.Color("#EFEFEF").Width(2))
+             .MajorGridLines(mj => mj.Width(2).Color("#EFEFEF")).MajorTickLines(mt => mt.Visible(false)).Font(fn => fn.Color("White").Size("15px")))
+             .CommonSeriesOptions(cm => cm.Type(SeriesType.Line).EnableAnimation(true).Border(st => st.Color("White")).Fill("#333333")
+             .Marker(mr => mr.Visible(true).Fill("#C1272D").Border(sy => sy.Color("#333333").Width(2)).Size(sz => sz.Height(6).Width(6))))
+             .Series(sr =>
+                 {
+                     sr.Points(pt =>
+                         {
+                             pt.X("2002").Y(1.61).Add();
+                             pt.X("2003").Y(2.34).Add();
+                             pt.X("2004").Y(2.16).Add();
+                             pt.X("2005").Y(2.10).Add();
+                             pt.X("2006").Y(1.81).Add();
+                             pt.X("2007").Y(2.05).Add();
+                             pt.X("2008").Y(2.50).Add();
+                             pt.X("2009").Y(2.22).Add();
+                             pt.X("2010").Y(2.21).Add();
+                             pt.X("2011").Y(2.00).Add();
+                             pt.X("2012").Y(2.27).Add();
+                         }).Name("India").Tooltip(to => to.Visible(true).Template("Tooltip")).Add();
+
+                 })
+             .Load("loadTheme")
+             .IsResponsive(true)
+             .Title(title => title.Text("USA Wheat production").Font(tf => tf.Color("#333333")))
+             .BackGroundImageUrl("../images/chart/wheat.png")
+             .Size(sz => sz.Height("600"))
+             .Legend(lg => lg.Visible(false))
+             )
+        <script>
+            $("#controlarea").css("visibility", "visible");
+        </script>
+
+    </div>
+}
+@section StyleSection
+{
+    <style class="cssStyles">
+        .tooltipDivcontainer {
+            background-color: #C1272D !important;
+            color: white;
+            width: 100px;
+        }
+
+        #Tooltip > div:first-child {
+            float: left;
+        }
+
+        #Tooltip #value {
+            float: right;
+            height: 50px;
+            width: 50px;
+            background-color: #C1272D;
+        }
+
+        #Tooltip #value > div {
+                margin: 3px 5px 5px 5px;
+        }
+
+        #Tooltip #efpercentage {
+            font-size: 12px;
+            font-family: segoe ui;
+            color: #E7C554;
+        }
+
+        #Tooltip #ef {
+            font-size: 20px;
+            font-family: segoe ui;
+        }
+
+        #grain {
+            background-image: url("../images/chart/grain.png");
+            height: 50px;
+            width: 50px;
+            background-repeat: no-repeat;
+        }
+    </style>
+}

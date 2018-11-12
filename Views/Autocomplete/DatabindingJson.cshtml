@@ -1,0 +1,17 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Autocomplete / Data Bining - Local Data</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @{
+                Html.EJ()
+                    .Autocomplete("selectState")
+                    .Width("100%")
+                    .Datasource((IEnumerable<States>)ViewBag.datasource)
+                    .AutocompleteFields(f => f.Text("countryName").Key("index"))
+                    .WatermarkText("Select a state")
+                    .Render();
+            }
+        </div>
+    </div>
+}

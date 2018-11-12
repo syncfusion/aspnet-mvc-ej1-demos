@@ -1,0 +1,83 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Splitter / Orientation</span>}
+@section ControlsSection{
+
+
+    @{Html.EJ().Splitter("outer").Height("400").Width("100%").Orientation(Orientation.Vertical).EnableAutoResize(true).PaneProperties(
+    p =>
+    {
+        p.Add().ContentTemplate(
+            
+        @<div class="splitdiv" style="height: 100%">
+
+            @innerSplitter()
+
+        </div>);
+
+        p.Add().ContentTemplate(
+        @<div class="splitdiv">
+            Pane 3
+        </div>).PaneSize("70");
+    }).Render();}
+
+
+    @helper innerSplitter()
+{
+        @Html.EJ().Splitter("inner").EnableAutoResize(true).PaneProperties(p1 =>
+            {
+                p1.Add().ContentTemplate(
+                    @<div class="splitdiv">
+                        Pane 1
+                    </div>).PaneSize("80");
+                p1.Add().ContentTemplate(
+                    @<div class="splitdiv">
+                        Pane 2
+                    </div>).PaneSize("80");
+            }).Orientation(Orientation.Horizontal)
+    }
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Orientation
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("changeOrientation").TargetID("evntname").Width("120").SelectedItemIndex(0).ClientSideEvents(e => e.Change("onOrientationChange"))
+            <div id="evntname">
+                <ul>
+                    <li>Horizontal</li>
+                    <li>Vertical</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        var splitterOutter, splitterInner;
+
+        function onOrientationChange(args) {
+            splitterOutter = $("#outer").data("ejSplitter");
+            splitterInner = $("#inner").data("ejSplitter");
+            switch (args.selectedText) {
+                case "Vertical":
+                    splitterOutter.option("orientation", "horizontal");
+                    splitterInner.option("orientation", "vertical");
+                    break;
+                case "Horizontal":
+                    splitterOutter.option("orientation", "vertical");
+                    splitterInner.option("orientation", "horizontal");
+                    break;
+            }
+        }
+
+        $("#sampleProperties").ejPropertiesPanel();
+    </script>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        #inner {
+            border: 0 none;
+        }
+    </style>
+}

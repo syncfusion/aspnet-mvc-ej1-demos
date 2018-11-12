@@ -1,0 +1,17 @@
+﻿@section SampleHeading{ <span class="sampleName">Barcode / QR Barcode</span>}
+
+@section ControlsSection{
+
+    <div>
+        <div>
+            @Html.EJ().Barcode("39ExtBarcode").Text("SYNCFUSION").SymbologyType(BarcodeSymbolType.Code39Extended).DisplayText(true).QuietZone(qz=> {qz.All(30);})
+        </div>
+    </div>
+    <script>
+    
+    </script>
+}
+@section StyleSection{
+
+}
+

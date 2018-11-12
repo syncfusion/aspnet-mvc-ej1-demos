@@ -1,0 +1,100 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Menu / Template</span>}
+@section ControlsSection{
+<div class="controlframe" style="width: 376px;">
+    @Html.EJ().Menu("template").Items(items =>
+    {
+        items.Add().Text("Books").Children(child =>
+        {
+            child.Add().ContentTemplate(@<div class="temp temp1">
+        <span>BOOKS</span>
+        <ul>
+            <li><a>New Releases</a></li>
+            <li><a>Bestsellers</a></li>
+            <li><a>Upcoming</a></li>
+            <li><a>Box Sets</a></li>
+        </ul>
+        <ul>
+            <li><a>HTML Basics</a></li>
+            <li><a>JavaScript</a></li>
+            <li><a>JQuery</a></li>
+            <li><a>PHP Basics</a></li>
+        </ul>
+    </div>);
+        });
+        items.Add().Text("Cameras").Children(child =>
+        {
+            child.Add().ContentTemplate(@<div class="temp temp2">
+        <span>CAMERAS</span>
+        <ul>
+            <li><a>Point & Shoots</a></li>
+            <li><a>Digital SLR</a></li>
+            <li><a>Camcorders</a></li>
+            <li><a>Bestsellers</a></li>
+        </ul>
+        <ul>
+            <li><a>Still Camera</a></li>
+            <li><a>Digital Camera</a></li>
+            <li><a>Video Camera</a></li>
+            <li><a>Virtual Camera</a></li>
+        </ul>
+    </div>);
+        });
+        items.Add().Text("Movies").Children(child =>
+        {
+            child.Add().ContentTemplate(@<div class="temp temp3">
+        <span>MOVIES</span>
+        <ul>
+            <li><a>Genobili Actions</a></li>
+            <li><a>Jackie Rocks</a></li>
+            <li><a>Men In Blue</a></li>
+            <li><a>Human vs Alien</a></li>
+        </ul>
+        <ul>
+            <li><a>Million Dreams</a></li>
+            <li><a>Kung-fu</a></li>
+        </ul>
+    </div>);
+        });
+        items.Add().Text("Musics").Children(child =>
+        {
+            child.Add().ContentTemplate(@<div class="temp temp4">
+        <span>MUSICS</span>
+        <ul>
+            <li><a>New Releases</a></li>
+            <li><a>Bestsellers</a></li>
+            <li><a>Devotional</a></li>
+            <li><a>Sufi & Ghazal</a></li>
+        </ul>
+        <ul>
+            <li><a>Pop songs</a></li>
+            <li><a>Rock Music</a></li>
+        </ul>
+    </div>);
+        });
+        items.Add().Text("Gaming").Children(child =>
+        {
+            child.Add().ContentTemplate(@<div class="temp temp5">
+        <span>GAMING</span>
+        <ul>
+            <li><a>Upcoming</a></li>
+            <li><a>PC</a></li>
+            <li><a>PS Vista</a></li>
+            <li><a>PS3</a></li>
+            <li><a>XBox</a></li>
+            <li><a>Consoles</a></li>
+        </ul>
+        <ul>
+            <li><a>FIFA 2999</a></li>
+            <li><a>NBA Actions</a></li>
+            <li><a>Crick Champions</a></li>
+            <li><a>Carom legend</a></li>
+        </ul>
+    </div>);
+        });
+    })
+</div>
+}
+@section StyleSection{
+    <link href="@Url.Content("~/Content/Samples/MenuTemplate.css")" rel="stylesheet" />
+}

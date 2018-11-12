@@ -1,0 +1,16 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Autocomplete / Default Functionalities</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @{
+                Html.EJ()
+                    .Autocomplete("selectCar")
+                    .Width("100%")
+                    .Datasource((IEnumerable<CarsList>)ViewBag.datasource)
+                    .WatermarkText("Select a car")
+                    .Render();
+            }
+        </div>
+    </div>
+}

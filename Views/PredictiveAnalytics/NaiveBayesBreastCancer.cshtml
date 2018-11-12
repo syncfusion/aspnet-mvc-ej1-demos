@@ -1,0 +1,156 @@
+﻿@section SampleHeading{<span class="sampleName">Predictive Analytics / Breast Cancer</span>}
+
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/CodeMirror/codemirror.js")"></script>
+    <script src="@Url.Content("~/Scripts/CodeMirror/r.js")"></script>
+    <script src="@Url.Content("~/Scripts/CodeMirror/xml.js")"></script>
+}
+
+@section ControlsSection{
+
+    <div id="preLoader"></div>
+    <div class="content-container-fluid">
+        @(
+ Html.EJ().Tab("defaultTabs").Items(data =>
+ {
+ data.Add().ID("gridDiv").Text("Predicted Result").ContentTemplate(@<div>
+            @(Html.EJ().Grid<object>("resultGrid").Datasource(ds => ds.URL(@Url.Content("~/PredictiveAnalytics/GetBreastCancerData")).Adaptor("UrlAdaptor"))
+                            .IsResponsive(true)
+                            .AllowPaging(true).PageSettings(page => page.PageCount(3).PageSize(17))
+                            .AllowResizeToFit(true)
+                            .AllowResizing(true)
+                            .MinWidth(700)
+                            .AllowScrolling().ScrollSettings(scroll => { scroll.Height(350); })
+                            .ClientSideEvents(eve => eve.ActionComplete("actioncomplete"))
+                            .Columns(col =>
+                            {
+                                var inputColumns = ViewBag.InputColumns as List<string>;
+                                var outputColumns = ViewBag.OutputColumns as List<string>;
+                                var inputNumericColumns = ViewBag.InputNumericColumns as List<string>;
+                                var outputNumericColumns = ViewBag.OutputNumericColumns as List<string>;
+                                int inputCounter = 0;
+                                int outputCounter = 0;
+                                if (inputColumns != null)
+                                {
+                                    for (int i = 0; i < inputColumns.Count; i++)
+                                    {
+                                        for (int j = 0; j < inputNumericColumns.Count; j++)
+                                        {
+                                            if (inputColumns[i] == inputNumericColumns[j])
+                                            {
+                                                col.CssClass("numericColumnAlignment");
+                                                col.Field(inputColumns[i]).Add();
+                                                inputCounter++;
+                                            }
+                                        }
+                                        if (inputCounter == 0)
+                                        {
+                                            col.Field(inputColumns[i]).Add();
+                                        }
+                                        inputCounter = 0;
+                                    }
+                                    if (outputNumericColumns.Count != 0)
+                                    {
+                                        for (int j = 0; j < outputColumns.Count; j++)
+                                        {
+                                            for (int k = 0; k < outputNumericColumns.Count; k++)
+                                            {
+                                                if (outputColumns[j] == outputNumericColumns[k])
+                                                {
+                                                    col.CssClass("highlightNumericAlignment");
+                                                    col.Field(outputColumns[j]).Add();
+                                                    outputCounter++;
+                                                }
+                                            }
+                                            if (outputCounter == 0)
+                                            {
+                                                col.CssClass("predictedColumnColor");
+                                                col.Field(outputColumns[j]).Add();
+                                            }
+                                        }
+                                    }
+                                    else
+                                    {
+                                        foreach (var value in outputColumns)
+                                        {
+                                            col.CssClass("predictedColumnColor");
+                                            col.Field(value).Add();
+                                        }
+                                    }
+                                }
+                            }
+                            ))
+        </div>);
+        data.Add().ID("rCode").Text("R").ContentTemplate(@<div style="word-wrap: break-word; margin-top: -15px; padding-top: 15px;">
+            <textarea id="rScript">
+                            @ViewBag.RScript
+                        </textarea>
+        </div>);
+        data.Add().ID("pmml").Text("PMML").ContentTemplate(@<div style="word-wrap: break-word; margin-top: -15px; padding-top:15px;">
+            <textarea id="pmmlFile">
+                            @ViewBag.PMML
+                        </textarea>
+        </div>);
+ }).Height("550px"))
+    </div>
+    @Html.EJ().ScriptManager()
+}
+
+@section StyleSection{
+    <style>
+        .CodeMirror {
+            height: 450px !important;
+            border: 1px solid darkgray;
+        }
+
+        .CodeMirror-vscrollbar {
+            display: block !important;
+        }
+
+        .e-tab .e-content {
+            padding: 0px;
+        }
+
+        .predictedColumnColor {
+            background-color: #d6d3d1 !important;
+        }
+
+        .numericColumnAlignment {
+            text-align: right !important;
+        }
+
+        .highlightNumericAlignment {
+            background-color: #d6d3d1 !important;
+            text-align: right !important;
+        }
+         .e-grid .e-headercelldiv{
+	        text-overflow:unset !important;
+        }
+        .e-grid .e-textover .e-headercelldiv{
+	        text-overflow:unset !important;
+        }
+    </style>
+}
+
+@section ScriptSection{
+    <script type="text/javascript">
+        CodeMirror.fromTextArea(document.getElementById("rScript"), {
+            matchBrackets: true,
+            mode: "text/x-rsrc",
+            lineWrapping: true
+        });
+
+        CodeMirror.fromTextArea(document.getElementById("pmmlFile"), {
+            matchBrackets: true,
+            mode: "text/xml",
+            lineWrapping: true
+        });
+
+        $(window).resize(function () {
+            var gridObj = $("#resultGrid").ejGrid("instance")
+            scrolWidth = gridObj.model.scrollSettings.width / $(".cols-sample-area").width();
+            var scrollerwidth = Math.floor($(".cols-sample-area").width() * scrolWidth)
+            gridObj.option("model.scrollSettings", { width: scrollerwidth })
+        });
+    </script>
+}

@@ -1,0 +1,17 @@
+﻿@section SampleHeading{<span class="sampleName"> Grid/Filtering/Searching</span>}
+@section ControlsSection{
+    @(Html.EJ().Grid<EditableOrder>("Searching")
+        .Datasource((IEnumerable<object>)ViewBag.datasource)
+        .AllowPaging()
+        .ToolbarSettings(toolbar => { toolbar.ShowToolbar().ToolbarItems(items => { items.AddTool(ToolBarItems.Search); }); })
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(75).Add();
+            col.Field("CustomerID").HeaderText("Customer ID").Width(120).Add();
+            col.Field("EmployeeID").HeaderText("Employee ID").TextAlign(TextAlign.Right).Width(100).Add();
+            col.Field("Freight").HeaderText("Freight").TextAlign(TextAlign.Right).Width(100).Format("{0:C}").Add();
+            col.Field("ShipCity").HeaderText("Ship City").Width(120).Add();
+            col.Field("Verified").HeaderText("Verified").Width(120).Add();
+        })
+        )
+}

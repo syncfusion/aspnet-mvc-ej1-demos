@@ -1,0 +1,24 @@
+﻿@section SampleHeading{ <span class="sampleName">HeatMap / Cell Mapping</span>}
+
+@section ControlsSection{
+
+    <div style="border-width: 2px; opacity: 0.7; width: 290px; text-align: center;">
+        <label style="color: Black; font-size: 22px; height: 25px; font-weight: Normal;">Product Sales by Year</label><br />
+        <label style="color: Black; font-size: 22px; margin-top: -2px; height: 25px; font-weight: Normal;">(In Percentage)</label>
+    </div>
+    <br />
+    <div style="width: 100%; margin: 0 auto; text-align: center;">
+        <div>
+            @Html.EJ().HeatMap("heatmap", ViewData["HeatMapModel"] as Syncfusion.JavaScript.DataVisualization.Models.HeatMapProperties)
+        </div>
+        <div style="height: 15px; width: 100%;"></div>
+        <div>
+            @Html.EJ().HeatMapLegend("heatmapLegend", ViewData["HeatMapLegendModel"] as Syncfusion.JavaScript.DataVisualization.Models.HeatMapLegendProperties)
+        </div>
+    </div>
+    <style>
+        #heatmapLegend {
+            margin-left: 100px;
+        }
+    </style>
+}

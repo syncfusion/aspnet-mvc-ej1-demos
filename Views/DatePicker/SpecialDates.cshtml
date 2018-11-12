@@ -1,0 +1,55 @@
+﻿@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName">DatePicker / SpecialDates</span> }
+@section ControlsSection{
+    <div class="frame ">
+        <div class="control">
+            <span>Select Show Date </span>
+            @Html.EJ().DatePicker("DatePick").SpecialDates(p =>
+       {
+           p.Add().Date("5/8/2018").Tooltip("In Australia").IconClass("flags sprite-Australia");
+           p.Add().Date("5/21/2018").Tooltip("In France").IconClass("flags sprite-France");
+           p.Add().Date("5/17/2018").Tooltip("In USA").IconClass("flags sprite-USA");
+           p.Add().Date("6/15/2018").Tooltip("In Germany").IconClass("flags sprite-Germany");
+           p.Add().Date("4/22/2018").Tooltip("In India").IconClass("flags sprite-India");
+       }).Value("5/5/2018").Width("100%")
+
+        </div>
+    </div>
+}
+@section StyleSection{
+
+    <style>
+
+        .flags {
+            width: 16px !important;
+            background-image: url("../Images/tab/flags.png");
+            background-repeat: no-repeat;
+        }
+
+        .sprite-Australia {
+            background-position: 0 -2px;
+        }
+
+        .sprite-Germany {
+            background-position: 0 -398px;
+        }
+
+        .sprite-India {
+            background-position: -3px -462px;
+        }
+
+        .sprite-France {
+            background-position: 0px -331px;
+        }
+
+        .sprite-USA {
+            background-position: 0 -1121px;
+        }
+
+        .e-datepicker.e-calendar { /*change the width of the calender along with table cells*/
+            width: 24em;
+        }
+    </style>
+}

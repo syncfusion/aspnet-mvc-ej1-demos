@@ -1,0 +1,161 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart / Column Chart </span>}
+
+@section ControlsSection{
+<div id="target1">
+    <ul>
+        <li>rectangle</li>
+        <li>cylinder</li>
+    </ul>
+</div>
+    <div>
+  @(Html.EJ().Chart("container")
+        .PrimaryXAxis(pr => pr.Title(tl => tl.Text("Countries")))
+        .PrimaryYAxis(pr => pr.Range(ra => ra.Max(70).Min(0).Interval(10)).Title(tl => tl.Text("Medals")))
+        .CommonSeriesOptions(cr => cr.Type(SeriesType.Column).EnableAnimation(true).Marker(mr => mr.DataLabel(dt => dt.Visible(true).EnableContrastColor(true).ShowEdgeLabels(true)))
+        .Tooltip(tt => tt.Visible(true).Format("#point.x# : #point.y# #series.name# Medals")))
+        .Series(sr =>
+            {
+                sr.Points(pt =>
+                    {
+                        pt.X("USA").Y(50).Add();
+                        pt.X("China").Y(40).Add();
+                        pt.X("Japan").Y(70).Add();
+                        pt.X("Australia").Y(60).Add();
+                        pt.X("France").Y(50).Add();
+                        pt.X("Germany").Y(40).Add();
+                        pt.X("Italy").Y(40).Add();
+                        pt.X("Sweden").Y(30).Add();
+                    }).Name("Gold").Fill("rgba(135,206,235,1)").Add();
+                sr.Points(pt =>
+                {
+                    pt.X("USA").Y(70).Add();
+                    pt.X("China").Y(60).Add();
+                    pt.X("Japan").Y(60).Add();
+                    pt.X("Australia").Y(56).Add();
+                    pt.X("France").Y(45).Add();
+                    pt.X("Germany").Y(30).Add();
+                    pt.X("Italy").Y(35).Add();
+                    pt.X("Sweden").Y(25).Add();
+                }).Name("Silver").Fill("rgba(255,255,0,0.7)").Add();
+                sr.Points(pt =>
+                {
+                    pt.X("USA").Y(45).Add();
+                    pt.X("China").Y(55).Add();
+                    pt.X("Japan").Y(50).Add();
+                    pt.X("Australia").Y(40).Add();
+                    pt.X("France").Y(35).Add();
+                    pt.X("Germany").Y(22).Add();
+                    pt.X("Italy").Y(37).Add();
+                    pt.X("Sweden").Y(27).Add();
+                }).Name("Bronze").Fill("rgba(255,204,153,1)").Add();
+            })
+        .Load("loadTheme")
+        .IsResponsive(true)
+        .Title(t => t.Text("Olympic Medals"))
+        .Size(sz => sz.Height("600"))
+        .Legend(lg => { lg.Visible(true).Position(LegendPosition.Top); })
+        )
+        
+    </div>
+    
+}
+
+
+@section PropertiesSection
+
+{
+    <div id="sampleProperties">
+        <div class="prop-grid">
+            <div class="row">               
+                <div class="col-md-3" style="width:200px;">
+                    <input type="checkbox" id="sidebyside" name="sidebyside" checked> Side by Side Series Placement</br>       
+               </div>          
+            </div>
+            <div class="row">
+                <div class="col-md-3" style="width:200px;">
+                    <input type="checkbox" id="showOutsideLabels" name="outsideLabels" checked> Show Edge Labels <br />
+                </div>
+            </div>
+			<div class="row" style="margin: 10px 0;">
+						<div class="col-md-3">
+							  Column Width
+						</div>
+						<div class="col-md-3 aligntop">
+                            <input type="text" id="columnWidth" value="0.7" />
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							Coloumn Spacing
+						</div>
+						<div class="col-md-3 aligntop">
+                            <input type="text" id="columnSpacing" value="0" />
+						</div>
+					</div>
+            <div class="row" style="margin: 20px 0;">
+                <div class="col-md-3">
+                    Corner Radius
+                </div>
+                <div class="col-md-3 aligntop">
+                    <input type="text" id="cornerRadius" value="0" />
+                </div>
+            </div>
+            <div class="row" style="margin: 10px 0;">
+                <div class="col-md-3">
+                    Column Facet
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().DropDownList("opt1").TargetID("target1").SelectedItemIndex(0).Width("100").ClientSideEvents(s => s.Change("columnFacetChanged"))
+                </div>
+            </div>
+            </div>
+    </div>
+}
+
+@section ScriptSection
+{
+    <script>
+       
+		function changeColumnWidth(e) 
+		{
+			$('#container').ejChart('option', { commonSeriesOptions: { columnWidth: e.value } });
+		}
+		function changeColumnSpacing(e) 
+		{
+			$('#container').ejChart('option', { commonSeriesOptions: { columnSpacing: e.value } });
+		}
+		function columnFacetChanged(e) {
+		    $('#container').ejChart('option', { commonSeriesOptions: { columnFacet: e.value } });
+		}
+		function changecornerRadius(e) {
+		    $('#container').ejChart('option', { commonSeriesOptions: { cornerRadius: e.value } });
+		}
+        $('#sidebyside').click(function () {         
+            var chart = $("#container").ejChart("instance");
+            if ($("#sidebyside").is(":checked"))
+                chart.model.sideBySideSeriesPlacement = true;
+            else
+                chart.model.sideBySideSeriesPlacement = false;
+            chart.redraw();
+        });
+
+        $('#showOutsideLabels').change(function () {
+            $("#container").ejChart("option", { "commonSeriesOptions": { marker: { dataLabel: { showEdgeLabels: $('#showOutsideLabels').is(":checked") } } } });
+        });
+
+        $("#columnWidth").ejNumericTextbox({
+            value: 0.7, width: "70px", minValue: 0, maxValue: 1, incrementStep: 0.1, decimalPlaces: 1, change: "changeColumnWidth",
+        });
+
+        $("#columnSpacing").ejNumericTextbox({
+            value: 0, width: "70px", minValue: 0, maxValue: 1, incrementStep: 0.1, decimalPlaces: 1, change: "changeColumnSpacing"
+        });
+        $("#cornerRadius").ejNumericTextbox({
+            value: 0, width: "70px", minValue: 0, maxValue: 12, incrementStep: 1, decimalPlaces: 1, change: "changecornerRadius",
+        });
+        $("#sampleProperties").ejPropertiesPanel();
+        $("#controlarea").css("visibility", "visible");
+    </script>
+    }

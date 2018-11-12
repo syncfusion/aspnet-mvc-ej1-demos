@@ -1,0 +1,246 @@
+﻿@section SampleHeading{
+	<span class="sampleName">Import and Export / Html to PDF Sample</span>
+	}
+
+<script language="javascript" type="text/javascript">
+    function ConvertType(type) {
+        if (type == 'metafile') {
+            document.getElementById('chkPDFA').disabled = false;
+            document.getElementById('chkJavaScript').disabled = false;
+            document.getElementById('chktextBreak').disabled = false;
+            document.getElementById('chkHyperlink').disabled = false;
+            document.getElementById('chkImageBreak').disabled = false;
+            document.getElementById('chkPageBreak').disabled = false;
+            document.getElementById('chkTag').disabled = false;
+        }
+        else {
+            document.getElementById('chkPDFA').disabled = true;
+            document.getElementById('chkJavaScript').disabled = true;
+            document.getElementById('chktextBreak').disabled = true;
+            document.getElementById('chkHyperlink').disabled = true;
+            document.getElementById('chkImageBreak').disabled = true;
+            document.getElementById('chkPageBreak').disabled = true;
+            document.getElementById('chkTag').disabled = true;
+        }
+    }
+</script>
+@section ControlsSection{
+@{Html.BeginForm("HtmltoPDF", "Pdf", FormMethod.Post);
+  { 
+    <div class="Common">
+        <div class="tablediv">
+            <div class="sample-panel ui-tabs-panel ui-widget-content ui-corner-bottom" id="sample">
+                <div style = "font-size: 17px;font-weight: 400;">
+			       This sample demonstrates how to convert URL to PDF. Many customization options and <a href="https://www.syncfusion.com/products/file-formats/pdf/html-to-pdf">features</a>
+ are available in this conversion.
+
+	</div>
+	<br/>
+                <table width="100%" cellspacing="0" cellpadding="0" border="0" id="PanelTable">
+                    <tbody>
+                        <tr style="margin-top: 5px;">
+                            <td align="left">
+                                <div style="border: solid 1px #788DB3; line-height: 23px; padding: 10px; background-color: #EDF0F7;">
+                                    <span style="font-weight: bold;" id="label1">Source URL</span>
+                                    <input type="text" style="width: 75%; margin-left: 12px" id="TextBox1" value="http://www.google.com"
+                                        name="TextBox1">
+                                    <br>
+                                    <table width="100%">
+                                        <tbody>
+                                            <tr>
+                                                <td align="left">
+                                                    <span style="font-weight: bold;" id="label2">Convert To</span>
+                                                </td>
+                                                <td align="left">
+                                                    <span style="font-weight: bold;" id="label7">Document Standard</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td align="left" style="width: 50%">
+                                                    <div style="border: solid 1px #788DB3; padding: 10px; background-color: #EDF0F7;">
+                                                        <span id="RadioButtonList1"><span style="margin-right: 10px">
+                                                            <input type="radio" checked="checked" value="Metafile" onclick="ConvertType('metafile')"
+                                                                name="RadioButtonList1" id="RadioButtonList1_0"><label for="RadioButtonList1_0">Metafile</label></span><input
+                                                                    type="radio" onclick="ConvertType('bitmap')" value="Bitmap" name="RadioButtonList1"
+                                                                    id="RadioButtonList1_1"><label for="RadioButtonList1_1">Bitmap</label></span>
+                                                    </div>
+                                                </td>
+                                                <td align="left">
+                                                    <div style="border: solid 1px #788DB3; padding: 10px; background-color: #EDF0F7;">
+                                                        <span style="display: inline-block; width: 273px;">
+                                                            <input type="checkbox" checked="checked" name="chkPDFA" id="chkPDFA"><label for="chkPDFA">PDF/A1-B</label></span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table width="100%">
+                                        <tbody>
+                                            <tr>
+                                                <td align="left">
+                                                    <span style="font-weight: bold;" id="label8">Converter Options</span><br>
+                                                    <div style="border: solid 1px #788DB3; padding: 10px; background-color: #EDF0F7;">
+                                                        <table cellspacing="0" cellpadding="0" border="0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td valign="middle" align="left" style="padding-bottom: 10px">
+                                                                        <span style="display: inline-block; width: 165px; margin-left: 10px">
+                                                                            <input type="checkbox" name="chkJavaScript" id="chkJavaScript"><label for="chkJavaScript">Enable
+                                                                                JavaScript</label></span> <span style="display: inline-block; width: 165px;">
+                                                                                    <input type="checkbox" name="chktextBreak" id="chktextBreak"><label for="chktextBreak">Split
+                                                                                        TextLines</label></span> <span style="display: inline-block; width: 165px;">
+                                                                                            <input type="checkbox" checked="checked" name="chkHyperlink" id="chkHyperlink"><label
+                                                                                                for="chkHyperlink">Enable Hyperlinks</label></span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td valign="middle" align="left">
+                                                                        <span style="display: inline-block; width: 165px; margin-left: 10px">
+                                                                            <input type="radio" checked="checked" value="chkImageBreak" name="group1" id="chkImageBreak"><label
+                                                                                for="chkImageBreak">Split Images</label></span> <span style="display: inline-block;
+                                                                                    width: 165px;">
+                                                                                    <input type="radio" value="chkPageBreak" name="group1" id="chkPageBreak"><label for="chkPageBreak">Activate
+                                                                                        PageBreak</label></span>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table width="100%">
+                                        <tbody>
+                                            <tr>
+                                                <td align="left">
+                                                    <span style="font-weight: bold;" id="label9">Page Settings</span><br>
+                                                    <div style="border: solid 1px #788DB3; padding: 10px; background-color: #EDF0F7;">
+                                                        <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td valign="middle" align="left" style="padding-bottom: 10px; width: 50%;">
+                                                                        <span style="display: inline-block; width: 45%;" id="label3">Page Margins</span>
+                                                                        <select style="width: 45%;" id="DropDownList1" name="DropDownList1">
+                                                                            <option value="0" selected="selected">0</option>
+                                                                            <option value="1">1</option>
+                                                                            <option value="2">2</option>
+                                                                            <option value="3">3</option>
+                                                                            <option value="4">4</option>
+                                                                            <option value="5">5</option>
+                                                                            <option value="6">6</option>
+                                                                            <option value="7">7</option>
+                                                                            <option value="8">8</option>
+                                                                            <option value="9">9</option>
+                                                                            <option value="10">10</option>
+                                                                            <option value="11">11</option>
+                                                                            <option value="12">12</option>
+                                                                            <option value="13">13</option>
+                                                                            <option value="14">14</option>
+                                                                            <option value="15">15</option>
+                                                                            <option value="16">16</option>
+                                                                            <option value="17">17</option>
+                                                                            <option value="18">18</option>
+                                                                            <option value="19">19</option>
+                                                                            <option value="20">20</option>
+                                                                            <option value="21">21</option>
+                                                                            <option value="22">22</option>
+                                                                            <option value="23">23</option>
+                                                                            <option value="24">24</option>
+                                                                            <option value="25">25</option>
+                                                                            <option value="26">26</option>
+                                                                            <option value="27">27</option>
+                                                                            <option value="28">28</option>
+                                                                            <option value="29">29</option>
+                                                                            <option value="30">30</option>
+                                                                            <option value="31">31</option>
+                                                                            <option value="32">32</option>
+                                                                            <option value="33">33</option>
+                                                                            <option value="34">34</option>
+                                                                            <option value="35">35</option>
+                                                                            <option value="36">36</option>
+                                                                            <option value="37">37</option>
+                                                                            <option value="38">38</option>
+                                                                            <option value="39">39</option>
+                                                                            <option value="40">40</option>
+                                                                            <option value="41">41</option>
+                                                                            <option value="42">42</option>
+                                                                            <option value="43">43</option>
+                                                                            <option value="44">44</option>
+                                                                            <option value="45">45</option>
+                                                                            <option value="46">46</option>
+                                                                            <option value="47">47</option>
+                                                                            <option value="48">48</option>
+                                                                            <option value="49">49</option>
+                                                                            <option value="50">50</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td valign="middle" style="padding-left: 20px; width: 50%;">
+                                                                        <span style="margin-right: 5px;" id="label4">Orientation: </span><span id="RadioButtonList2">
+                                                                            <span style="margin-right: 10px">
+                                                                                <input type="radio" checked="checked" value="Portrait" name="RadioButtonList2" id="RadioButtonList2_0"><label
+                                                                                    for="RadioButtonList2_0">Portrait</label></span><input type="radio" value="Landscape"
+                                                                                        name="RadioButtonList2" id="RadioButtonList2_1"><label for="RadioButtonList2_1">Landscape</label></span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr style="width: 100%">
+                                                                    <td valign="middle" align="left" style="width: 50%;">
+                                                                        <span style="display: inline-block; width: 45%;" id="label5">Rotate</span>
+                                                                        <select style="width: 45%;" id="DropDownList2" name="DropDownList2">
+                                                                            <option value="RotateAngle0" selected="selected">RotateAngle0</option>
+                                                                            <option value="RotateAngle90">RotateAngle90</option>
+                                                                            <option value="RotateAngle180">RotateAngle180</option>
+                                                                            <option value="RotateAngle270">RotateAngle270</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td style="padding-left: 20px; width: 50%;">
+                                                                        <span style="margin-right: 20px">
+                                                                            <input type="checkbox" name="CheckBox2" id="CheckBox2"><label for="CheckBox2">Show Header</label></span>
+                                                                        <input type="checkbox" name="CheckBox3" id="CheckBox3"><label for="CheckBox3">Show Footer</label>
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <br>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <label class="rowdiv">
+                Click the button to view an PDF document generated by Essential PDF. Please note
+                that Adobe Reader or its equivalent is required to view the resultant document.</label>
+        </div>
+        <div class="rowdiv">
+            <div class="celldiv">
+                <div style="border: solid 1px #EDEDED; padding: 5px 70px 5px 7px;">
+                    <table width="107%">
+                        <tr>
+                            <td align="left" width="100%">
+                                <input id="InsideBrowser" type="checkbox" name="InsideBrowser" value="Browser" />
+                                <label for="Opentype">
+                                    Open Document inside Browser</label>
+                            </td>
+                            <td align="right">
+                                <input type="submit" class="Button" value="Create PDF" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+		<br/>
+			<div style = "font-size: 17px;font-weight: 400;">
+		
+		More information about the HTML to PDF document can be found in this documentation <a href="https://help.syncfusion.com/file-formats/pdf/converting-html-to-pdf">section.</a>
+
+           </div>
+    </div>
+      Html.EndForm();
+  }}}

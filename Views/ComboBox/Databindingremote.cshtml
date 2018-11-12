@@ -1,0 +1,18 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Autocomplete / Data Binding - Remote data</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @{
+                Html.EJ()
+                    .ComboBox("searchCustomer")
+                    .Datasource(d => d.URL("//js.syncfusion.com/ejServices/wcf/NorthWind.svc/").Offline(false).CrossDomain(true))
+                    .Query("ej.Query().from('Suppliers').select('SupplierID', 'ContactName')")
+                    .ComboBoxFields(f => f.Text("ContactName").Value("SupplierID"))
+                    .Width("100%")
+                    .Placeholder("Search a customer")
+                    .Render();
+            }
+        </div>
+    </div>
+}

@@ -1,0 +1,76 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart / User Interaction/ CrossHair </span>}
+
+@section ControlsSection{
+    <div>
+        @(Html.EJ().Chart("container")
+          .PrimaryXAxis(xaxis => xaxis.ValueType(AxisValueType.Datetime).LabelFormat(labelformat: "MMM/dd")
+          .CrosshairLabel(ch => ch.Visible(true))
+          .MajorGridLines(mj => mj.Visible(false)).Title(tit => tit.Text("Month")))
+          .PrimaryYAxis(yaxis => yaxis.LabelFormat("{value}F").CrosshairLabel(chY => chY.Visible(true))
+          .Range(rn => rn.Min(10).Max(90).Interval(10)).Title(tit => tit.Text("Temperature(Fahrenheit)")))
+          .Axes(ax =>
+          {
+              ax.MajorGridLines(mj => mj.Visible(false)).CrosshairLabel(chAxes => chAxes.Visible(true)).Orientation("horizontal")
+                .Name("xAxis1").ValueType(AxisValueType.Datetime).LabelRotation(90).Add();
+              ax.MajorGridLines(mj => mj.Visible(false)).LabelFormat("{value}mm").CrosshairLabel(seAxes => seAxes.Visible(true))
+                .Orientation("vertical").OpposedPosition(true).Range(rg => rg.Min(0).Max(150).Interval(20)).Name("yAxis")
+                .Title(tit => tit.Text("Rainfall")).Add();
+          })
+          .Series(ser =>
+          {
+              ser.Name("Temperature").Type(SeriesType.Line).Border(st => st.Width(1.5)).EnableAnimation(true).Add();
+              ser.Name("Rainfall").Type(SeriesType.Line).YAxisName("yAxis").XAxisName("xAxis1")
+                 .Border(st => st.Width(1.5)).EnableAnimation(true).Add();
+          })
+        .Crosshair(cr => cr.Visible(true).Type(CrosshairType.Crosshair))
+        .CommonSeriesOptions(cr => cr.EnableAnimation(true))
+        .Load("onchartload")
+        .IsResponsive(true)
+        .Title(title => title.Text("Weather Condition"))
+        .Size(sz => sz.Height("600"))
+        .Legend(lg => { lg.Visible(true); })
+        )
+    </div>
+}
+<script type="text/javascript">
+    function onchartload(sender) {
+        loadTheme(sender);
+        var data = GetData();
+        sender.model.series[1].dataSource = data.Open;
+        sender.model.series[1].xName = "XValue";
+        sender.model.series[1].yName = "YValue";
+        sender.model.series[0].dataSource = data.Close;
+        sender.model.series[0].xName = "XValue";
+        sender.model.series[0].yName = "YValue";
+    }
+    function GetData() {
+        var series1 = [];
+        var series2 = [];
+        var value = 100;
+        var value1 = 50;
+        for (var i = 1; i < 2000; i++) {
+            if (Math.random() > .5) {
+                value += Math.random();
+            } else {
+                value -= Math.random();
+            }
+            var point = { XValue: new Date(1900, i, 1), YValue: value };
+            series1.push(point);
+        }
+        for (var j = 1; j < 2000; j++) {
+            if (Math.random() > .5) {
+                value1 += Math.random();
+            } else {
+                value1 -= Math.random();
+            }
+            var point1 = { XValue: new Date(2000, 1, j), YValue: value1 };
+            series2.push(point1);
+        }
+        var data = { Open: series1, Close: series2 };
+        return data;
+    }
+    $("#controlarea").css("visibility", "visible");
+</script>
+

@@ -1,0 +1,37 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart / Chart Axes/ DataTime Axes </span>}
+
+@section ControlsSection{
+    @(Html.EJ().Chart("container")
+         .PrimaryXAxis(xaxis => xaxis.ValueType(AxisValueType.Datetime).LabelFormat("MMM-yyyy").Title(tit => tit.Text("Sales Across Years"))
+         .IntervalType(ChartIntervalType.Years).LabelFormat("MMM-yyyy")
+         .Range(ra => ra.Min(new DateTime(2000, 6, 1)).Max(new DateTime(2010, 6, 1)).Interval(1)))
+         .PrimaryYAxis(yaxis => yaxis.RangePadding(ChartRangePadding.Additional)
+         .LabelFormat("${value}").Title(tit => tit.Text("Sales Amount in millions(USD)")).Range(ra => ra.Min(10).Max(100).Interval(10)))
+         .Series(sr =>
+             {
+                 sr.Points(pt =>
+                     {
+                         pt.X("2000/ 06/ 11").Y(10).Add();
+                         pt.X("2002/ 03/ 07").Y(30).Add();
+                         pt.X("2004/ 03/ 06").Y(15).Add();
+                         pt.X("2006/ 03/ 30").Y(65).Add();
+                         pt.X("2008/ 03/ 08").Y(90).Add();
+                         pt.X("2010/ 03/ 08").Y(85).Add();
+
+                     }).Marker(mr => mr.Visible(true).Size(sz => sz.Height(10).Width(10)).Shape(ChartShape.Circle)).Name("Sales")
+                       .Type(SeriesType.Line).Border(st => st.Width(2)).Tooltip(tooltip => tooltip.Visible(true)
+                       .Format("Date : #point.x#  <br/> Profit : #point.y#")).Add();
+             })
+         .CommonSeriesOptions(cr => cr.EnableAnimation(true))
+         .Load("loadTheme")
+         .IsResponsive(true)
+         .Title(title => title.Text("Average Sales Comparsion"))
+         .Size(sz => sz.Height("600"))
+         .Legend(lg => lg.Visible(false))
+         )
+    <script>
+        $("#controlarea").css("visibility", "visible");
+    </script>
+}

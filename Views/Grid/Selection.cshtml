@@ -1,0 +1,117 @@
+﻿@section SampleHeading{<span class="sampleName"> Grid/Selection/Basic</span>}
+@section StyleSection{
+    <link href="~/Content/ejthemes/responsive-css/ejgrid.responsive.css" rel="stylesheet" />
+}
+@section ControlsSection{
+    @(Html.EJ().Grid<OrdersView>("RowSelection")
+        .Datasource((IEnumerable<object>)ViewBag.datasource)
+        .SelectionType(SelectionType.Multiple)
+        .AllowSelection()
+        .AllowPaging()
+        .EnableRowHover(false)
+        .IsResponsive(true)
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(100).Add();
+            col.Field("EmployeeID").HeaderText("Employee ID").TextAlign(TextAlign.Right).Width(100).Priority(2).Add();
+            col.Field("Freight").HeaderText("Freight").TextAlign(TextAlign.Right).Width(100).Format("{0:C}").Add();
+            col.Field("ShipCity").HeaderText("Ship City").Width(95).Priority(3).Add();
+            col.Field("ShipCountry").HeaderText("Ship Country").Width(95).Priority(4).Add();
+        })
+        .SelectionSettings(select=>select.EnableToggle())
+        )
+}
+@section PropertiesSection{
+    <div id="ddl1">
+        <ul>
+            <li>Single</li>
+            <li>Multiple</li>
+        </ul>
+    </div>
+    <div id="ddl2">
+        <ul>
+            <li>Row</li>
+            <li>Cell</li>
+            <li>Column</li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Selection Type
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().DropDownList("selection")
+                  .TargetID("ddl1")
+                  .SelectedItemIndex(1)
+                  .ClientSideEvents(eve => { eve.Change("onSelectionTypeChange"); })
+                  .Width("120px")
+                  )
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Selection Mode
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().DropDownList("selectionMode")
+                  .TargetID("ddl2")
+                  .SelectedItemIndex(0)
+                  .ClientSideEvents(eve => { eve.Change("onSelectionModeChange"); })
+                  .Width("120px")
+                  )
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Enable Toggle
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().CheckBox("enableToggle").Checked(true)
+              .ClientSideEvents(eve => { eve.Change("onClick"); })
+              )
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function() {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        
+       
+
+        function onSelectionTypeChange(args) {
+            var gridObj = $("#RowSelection").data("ejGrid");
+            if (gridObj != undefined) {
+                var columnName = args.text.toLowerCase();
+                var $grid = $("#RowSelection");
+                clearAllSelection($grid);
+                $grid.ejGrid({ selectionType: columnName });
+            }
+        }
+
+        function onSelectionModeChange(args) {
+            var gridObj = $("#RowSelection").data("ejGrid");
+            if (gridObj != undefined) {
+                var mode = args.text.toLowerCase();
+                var $grid = $("#RowSelection");
+                clearAllSelection($grid);
+                $grid.ejGrid({ selectionSettings: { selectionMode: [mode] } });
+            }
+        }
+
+        function onClick(args) {
+            var gridObj = $("#RowSelection").data("ejGrid");
+            if (gridObj != undefined) {
+                var $grid = $("#RowSelection");
+                clearAllSelection($grid);
+                $grid.ejGrid({ selectionSettings: { enableToggle: args.isChecked } });
+            }
+        }
+        function clearAllSelection(gridObj) {
+            gridObj.ejGrid("clearSelection");
+            gridObj.ejGrid("clearCellSelection");
+            gridObj.ejGrid("clearColumnSelection");
+        }
+    </script>
+}

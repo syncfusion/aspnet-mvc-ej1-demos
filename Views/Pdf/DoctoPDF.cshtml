@@ -1,0 +1,49 @@
+﻿
+@section SampleHeading{
+	<span class="sampleName">Import and Export / Doc to PDF Sample</span>
+	}
+
+
+@section ControlsSection{
+    @{Html.BeginForm("DoctoPDF", "Pdf", FormMethod.Post);
+      { 
+    <div class="Common">
+        <div class="tablediv">
+            <div style = "font-size: 17px;font-weight: 400;">
+			     This sample demonstrates how to convert word document to PDF. The Essential PDF supports customization in the conversion such as changing image quality, font embedding and more.
+
+	</div>
+	<br/>
+        
+        <div class="rowdiv">
+            <div class="celldiv">
+             <div style="border: solid 1px #EDEDED; padding: 5px 7px 5px 7px;">
+             <table width="100%">
+                        <tr>
+                            <td align="left" width="100%">
+                                 <input id="InsideBrowser" type="checkbox" name="InsideBrowser" value="Browser" />
+                                    <label for="Opentype">
+                                        Open Document inside Browser</label>
+                            </td>
+                            <td align="right">
+                                   <input type="submit" class="Button" value="Create PDF" />
+                            </td>
+                        </tr>
+                    </table>
+               </div>
+                
+               
+            </div>
+        </div>
+        </div>
+		<br/>
+			<div style = "font-size: 17px;font-weight: 400;">
+		
+				
+		More information about the Word to PDF conversion can be found in this documentation <a href="https://help.syncfusion.com/file-formats/pdf/working-with-document-conversions#converting-word-documents-to-pdf">section.</a>
+
+
+           </div>
+    </div>
+    Html.EndForm();
+      }}}

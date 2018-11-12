@@ -1,0 +1,101 @@
+﻿@section SampleHeading{<span class="sampleName">Gantt/ToolbarTemplate </span>}
+@section ScriptReferenceSection
+{
+    <style>
+        .HideBaseline:before {
+            content: "\e900";
+        }
+
+        .ShowBaseline:before {
+            content: "\e901";
+        }
+
+        .Reset:before {
+            content: "\e677";
+        }
+
+        .office-365 .HideBaseline:before {
+            content: "\e904";
+        }
+
+        .office-365 .ShowBaseline:before {
+            content: "\e903";
+        }
+    </style>
+}
+@section ControlsSection{
+    <div id="ToolbarTemplate" style="width: 100%; height: 450px">
+        @(Html.EJ().Gantt("ToolbarTemplate")
+                   .TaskIdMapping("Id")
+                   .TaskNameMapping("Name")
+                   .StartDateMapping("StartDate")
+                   .DurationMapping("Duration")
+                   .ProgressMapping("PercentDone")
+                   .ScheduleStartDate("10/25/2017")
+                   .ScheduleEndDate("11/30/2017")
+                   .DateFormat("MM/dd/yyyy")
+                   .HighlightWeekends(true)
+                   .ChildMapping("Children")
+                   .AllowSelection(true)
+                   .AllowGanttChartEditing(true)
+                   .AllowColumnResize(true)
+                   .BaselineStartDateMapping("BaselineStartDate")
+                   .BaselineEndDateMapping("BaselineEndDate")
+                   .RenderBaseline(true)
+                   .ToolbarSettings(toolbar =>
+                       {
+                           toolbar.ShowToolbar(true);
+                           toolbar.CustomToolbarItems(ct =>
+                               {
+                                   ct.Text("ShowBaseline").TooltipText("Show Baseline").Add();
+                                   ct.Text("Reset").TooltipText("Reset").Add();
+                               });                          
+                       })
+                   .IsResponsive(true)
+                   .EditSettings(es => es.AllowEditing(true).EditMode("cellEditing"))
+                   .ClientSideEvents(cs =>
+                   {
+                       cs.Load("load");
+                       cs.ToolbarClick("toolbarClick");
+                       cs.Create("create");
+                   })
+                   .SplitterSettings(ss => ss.Index(2))
+                   .Datasource(ViewBag.datasource)
+        )
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        var baselineData;
+        function load(args) {
+            var columns = this.getColumns(),
+                baseColumnIndex = columns.indexOf(ej.TreeGrid.getColumnByField(columns, "baselineStartDate")),
+                splicedColumns = columns.splice(baseColumnIndex, 2);
+            columns.splice(1, 0, splicedColumns[0], splicedColumns[1]);
+            columns[0].width = 100;
+        }
+        function toolbarClick(args) {
+            if (args.itemName == "Hide Baseline") {
+                $(args.currentTarget).find("a").removeClass("HideBaseline").addClass("ShowBaseline")
+                $(args.currentTarget).attr("data-content", "Show Baseline");
+                this.setModel({ "renderBaseline": true });
+            }
+            if (args.itemName == "Show Baseline") {
+                $(args.currentTarget).find("a").removeClass("ShowBaseline").addClass("HideBaseline")
+                $(args.currentTarget).attr("data-content", "Hide Baseline");
+                this.setModel({ "renderBaseline": false });
+            }
+            if (args.itemName == "Reset") {               
+                var refreshData = $.extend(true, [], baselineData);
+                if ($("#" + this._id + "_ShowBaseline").find("a").hasClass("HideBaseline")) {
+                    $("#" + this._id + "_ShowBaseline").find("a").removeClass("HideBaseline").addClass("ShowBaseline");
+                    $("#" + this._id + "_ShowBaseline").attr("data-content", "Show Baseline");
+                }
+                this.setModel({ "dataSource": refreshData, "renderBaseline": true });
+            }            
+        }
+        function create(args) {
+            baselineData = $.extend(true, [], args.model.dataSource);
+        }
+    </script>
+}

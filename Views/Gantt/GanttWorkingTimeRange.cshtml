@@ -1,0 +1,89 @@
+﻿@section SampleHeading{<span class="sampleName">Gantt/Working Time Range</span>}
+
+@section ControlsSection{
+    <div id="ganttworkingtimerange" style="width: 100%; height: 400px;">
+        @(Html.EJ().Gantt("ganttworkingtimerange")
+                   .TaskIdMapping("TaskID")
+                   .TaskNameMapping("TaskName")
+                   .StartDateMapping("StartDate")
+                   .DurationMapping("Duration")
+                   .ProgressMapping("Progress")
+                   .ScheduleStartDate("02/20/2017 12:00 AM")
+                   .ScheduleEndDate("02/22/2017 12:00 AM")
+                   .DateFormat("MM/dd/yyyy hh:mm tt")
+                   .HighlightWeekends(true)
+                   .TreeColumnIndex(0)
+                   .ChildMapping("Children")
+                   .AllowGanttChartEditing(false)
+                   .ClientSideEvents(cs=>cs.Load("onLoad"))
+                   .ScheduleHeaderSettings(sh => sh.ScheduleHeaderType(GanttScheduleHeaderType.Day))
+                   .Datasource(ViewBag.datasource)
+        )
+    </div>
+}
+@section PropertiesSection{
+    <div class="prop-grid">
+        <div class="row">
+            <div class="col-md-3">
+                Work Start Time
+            </div>
+            <div class="col-md-3">
+                @(Html.EJ().TimePicker("frompicker")
+                .Width("110")
+                .Value("08:00 AM")
+                .TimeFormat("hh:mm tt")
+                .ClientSideEvents(ce=>ce.Change("updateTime"))
+                )
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3">
+                Work End Time
+            </div>
+            <div class="col-md-3">
+                 @(Html.EJ().TimePicker("endpicker")
+                .Width("110")
+                .Value("05:00 PM")
+                .TimeFormat("hh:mm tt")
+                .ClientSideEvents(ce=>ce.Change("updateTime"))
+                )
+            </div>
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        function onLoad() {
+            window.ganttData = $.extend(true, [], this.dataSource());
+            var columns = this.getColumns();
+            columns[1].visible = false;
+            columns[0].width = 100;
+        }
+        var isTimeUpdated = false;
+        function updateTime() {
+            var ganttObj = $("#ganttworkingtimerange").ejGantt("instance"),
+                defaultDate = "08/08/2016",
+                startVal = $("#frompicker").ejTimePicker("model.value"),
+                endVal = $("#endpicker").ejTimePicker("model.value"),
+                startTime = ej.parseDate(defaultDate + " " + startVal, ganttObj.model.dateFormat),
+                endTime = ej.parseDate(defaultDate + " " + endVal, ganttObj.model.dateFormat);
+            /*Validate time value and update the time range*/
+            if (startTime.getTime() < endTime.getTime() && isTimeUpdated == false) {
+                var workingTime = [{ from: startVal, to: endVal }];
+                ganttObj.dataSource($.extend(true, [], window.ganttData));
+                ganttObj.option("dayWorkingTime", workingTime);
+                isTimeUpdated = false;
+            }
+            else {
+                isTimeUpdated = true;
+                $("#frompicker").ejTimePicker("model.value", ganttObj.model.dayWorkingTime[0].from);
+                $("#endpicker").ejTimePicker("model.value", ganttObj.model.dayWorkingTime[ganttObj.model.dayWorkingTime.length - 1].to);
+            }
+            isTimeUpdated = false;
+        }
+
+    </script>
+}

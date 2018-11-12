@@ -1,0 +1,78 @@
+﻿@section SampleHeading{ <span class="sampleName">PDF Viewer /Getting Started</span>}
+
+@section StyleSection{
+    <style>
+        #fileUpload {
+            display: block;
+            visibility: hidden;
+            width: 0;
+            height: 0;
+        }
+    </style>
+}
+
+@section ControlsSection{
+    
+    <div class="content-container-fluid">
+    <div class="cols-sample-area">
+        <div style="width:100%">
+            <div style="float:left; padding-bottom:5px; display:inline-flex;">
+                <input type="file" id="fileUpload">
+                @Html.EJ().Button("fileUploadButton").Text("Choose file from disk")
+            </div>
+            <div style="float:right; padding-bottom:5px; display:inline-flex;">
+
+                <label id="labelid">
+                    Select a PDF file to view:
+                </label>
+
+                <div>
+                    @Html.EJ().DropDownList("selectPDF").TargetID("pdfList").Width("100%").WatermarkText("Select a PDF").SelectedIndex(0).ClientSideEvents(events => events.Change("dropDownChange"))
+                    <div id="pdfList">
+                        <ul>
+                            <li>HTTP Succinctly</li>
+                            <li>ASP.NET MVC 4 Succinctly</li>
+                            <li>F# Succinctly</li>
+                            <li>GIS Succinctly</li>
+                            <li>Windows Store Apps Succinctly</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div style="width:100%;height:100%;padding-left: 10px;min-height: 680px;float:right">
+                @Html.EJ().PdfViewer("pdfviewer").ServiceUrl(VirtualPathUtility.ToAbsolute("~/api/PdfViewer")).PdfService(Syncfusion.JavaScript.PdfViewerEnums.PdfService.Local)
+            </div>
+        </div>
+    </div>
+</div>
+}
+@section ScriptReferenceSection{
+    <script type="text/javascript">
+        function dropDownChange(sender) {
+            var _filename = sender.value;
+            var _ejPdfViewer = $("#pdfviewer").data("ejPdfViewer");
+            _ejPdfViewer.load(_filename);
+        }
+        $(document).ready(function () {
+            document.getElementById('fileUpload').addEventListener('change', readFile, false);
+            $('#fileUploadButton').click(function () {
+                $('#fileUpload').click();
+            });
+        });
+        function readFile(evt) {
+            var uploadedFiles = evt.target.files;
+			if(uploadedFiles.length > 0) {
+				var uploadedFile = uploadedFiles[0];
+				var reader = new FileReader();
+				reader.readAsDataURL(uploadedFile);
+				reader.onload = function () {
+					var obj = $("#pdfviewer").data("ejPdfViewer");
+					var uploadedFileUrl = this.result;
+					obj.load(uploadedFileUrl);
+				}
+				this.value = null;
+			}
+        }
+    </script>
+}

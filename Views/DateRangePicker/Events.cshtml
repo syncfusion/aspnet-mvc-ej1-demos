@@ -1,0 +1,65 @@
+﻿@section SampleHeading{<span class="sampleName">DateRangePicker / Events </span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().DateRangePicker("dateRange").Value("05/28/2018-06/27/2018").ClientSideEvents(s => s.Create("oncreate").Open("onOpen").Select("ValChange").Close("onClose").Click("Click")).Width("100%")
+        </div>
+    </div>
+}
+<div id="target">
+    <ul>
+        <li>open</li>
+        <li>close</li>
+        <li>change</li>
+        <li>click</li>
+    </ul>
+</div>
+@section EventsDropdown{
+    @Html.EJ().DropDownList("selectControls_input").TargetID("target").CssClass("metroblue").ShowCheckbox(true).CheckAll(true).ClientSideEvents(s => s.Change("evtpropscheckedevent"))
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        function evtpropscheckedevent(args) {
+            var dateRangeObj = $("#dateRange").data("ejDateRangePicker");
+            if (args.isChecked) {
+                switch (args.selectedText) {
+                    case "change": dateRangeObj.option(args.selectedText, "ValChange"); break;
+                    case "open": dateRangeObj.option(args.selectedText, "onOpen"); break;
+                    case "close": dateRangeObj.option(args.selectedText, "onClose"); break;
+                    case "click": dateRangeObj.option(args.selectedText, "Click"); break;
+                }
+            }
+            else dateRangeObj.option(args.selectedText, null);
+        }
+        // Client side Events
+        function oncreate(args) {
+            jQuery.addEventLog("DateRangePicker has been <span class='eventTitle'> created</span>.");
+        }
+        function ValChange(args) {
+            jQuery.addEventLog("DateRangePicker value has been <span class='eventTitle'> changed</span> to " + args.value + ".</br>");
+        }
+        function onOpen(args) {
+            jQuery.addEventLog("DateRangePicker is in <span class='eventTitle'> Opened</span>");
+        }
+        function onClose(args) {
+            jQuery.addEventLog("DateRangePicker is out of <span class='eventTitle'> Closed</span>");
+        }
+        function Click(args) {
+            jQuery.addEventLog("DateRangePicker Date has been <span class='eventTitle'> Clicked</span>");
+        }
+        function onClear() {
+            jQuery.clearEventLog();
+        }
+    </script>
+}
+@section StyleSection{
+    <style>
+        .control {
+            width: 210px;
+        }
+
+        .control .e-daterange-wrap {
+            width: 225px;
+        }
+    </style>
+}

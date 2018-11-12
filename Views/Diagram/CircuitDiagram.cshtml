@@ -1,0 +1,22 @@
+﻿
+
+@section SampleHeading{ <span class="sampleName">Diagram / Circuit Diagram</span>}
+
+@section ControlsSection{
+    <div>
+        @Html.EJ().Diagram("Diagram1", ViewData["diagramModel"] as Syncfusion.JavaScript.DataVisualization.Models.DiagramProperties)
+    </div>
+}
+<script src="@Url.Content("~/Scripts/DiagramScripts/DiagramCommon.js")"></script>
+
+<style>
+    .svg-rotate-ie:hover
+    {
+        cursor: url("../../Content/ejthemes/common-images/diagram/Rotate.cur"),default;
+    }
+
+    .svg-rotate
+    {
+        cursor: url("../../Content/ejthemes/common-images/diagram/Rotate.cur"),default;
+    }
+</style>

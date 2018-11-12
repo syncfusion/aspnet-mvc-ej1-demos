@@ -1,0 +1,25 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Autocomplete / MultiColumn</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @{
+                Html.EJ()
+                    .Autocomplete("selectCar")
+                    .Width("100%")
+                    .WatermarkText("Select a order")
+                    .Datasource((IEnumerable<object>)ViewBag.datasource)
+                    .HighlightSearch(true)
+                    .ShowPopupButton(true)
+                    .MultiColumnSettings(obj => obj.Enable(true).Columns(obj1 =>
+                    {
+                        obj1.Field("OrderID").HeaderText("OrderID").Add();
+                        obj1.Field("EmployeeID").HeaderText("EmployeeID").Add();
+                        obj1.Field("CustomerID").HeaderText("CustomerID").Add();
+                        obj1.Field("ShipCity").HeaderText("ShipCity").Add();
+                    }).ShowHeader(true).StringFormat("{0} ({3}) ({1})"))
+                    .Render();
+            }
+        </div>
+    </div>
+}

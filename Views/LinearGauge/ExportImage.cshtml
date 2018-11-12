@@ -1,0 +1,106 @@
+﻿@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/excanvas.min.js")"></script>
+    }
+@section SampleHeading{
+	<span class="sampleName">Export Linear Guage</span>
+	}
+
+
+
+@section ControlsSection{
+<div id="linearframe" align="center">
+@(Html.EJ().LinearGauge("CoreExportLinearGauge").LabelColor("#8c8c8c").Width(500)
+    .IsResponsive(true)
+                    .ClientSideEvents(cli=>cli.Load("loadGaugeTheme"))
+                    .Scales(s =>
+                    {
+                        s.Width(4)
+                            .BackgroundColor("transparent")
+                         .Border(bor=>bor.Color("transparent").Width(0))
+                         .ShowRanges(true)
+                         .Length(310)
+                         .Position(pos => { pos.X(51).Y(50); })
+                         .MarkerPointers(mp => { mp.Value(50).Length(10).MarkerDistanceFromScale(8).Width(10).MarkerBackgroundColor("#4D4D4D").Border(bor=>bor.Color("4D4D4D")).Add(); })
+                         .Labels(lbl => { lbl.Font(fnt => { fnt.Size("11px").FontFamily("Segoe UI").FontStyle("bold"); }).DistanceFromScale(dfs=>dfs.X(-13)).Add(); })
+                         .BarPointers(barptr => { barptr.BarPointerValue(50).Width(4).BarPointerDistanceFromScale(8).BarPointerBackgroundColor("#6FAAB0").Add(); })
+                         .Ticks(tic => { tic.Type(TickType.MajorInterval).Width(1).Color("#8c8c8c").Add(); })
+                            .Ranges(rng =>
+                            {
+                                rng.EndValue(60).StartValue(0).RangeBackgroundColor("#F6B53F").Border(bor=>bor.Color("#F6B53F")).StartWidth(4).EndWidth(4).Add();
+                                rng.EndValue(100).StartValue(60).RangeBackgroundColor("#E94649").Border(bor=>bor.Color("#E94649")).StartWidth(4).EndWidth(4).Add();
+                            })
+                         .Add();
+                    }))
+</div>
+}
+
+
+
+@section PropertiesSection{
+
+                <div class="row">
+                        <div class="col-md-3">
+                            File Name
+                        </div>
+                        <div class="col-md-3 aligntop">
+                            <input type="text" id="txtFileName" class="ejinputtext" style="width:100px"/>
+                        </div>
+                        <div class="col-md-3">
+                            File Type
+                        </div>
+                        <div class="col-md-3 aligntop">
+                            @(Html.EJ().DropDownList("ddlFileType").Datasource((IEnumerable<MVCSampleBrowser.Models.CircularGauge.FileFormat>)ViewBag.datasource).DropDownListFields(df => df.ID("fileType").Text("fileType").Value("fileType")).SelectedItemIndex(1).Width("105"))
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            <input type="submit" value="Export Image" id="btnExportImage" />
+                        </div>
+                        </div>
+}
+
+
+@section StyleSection{
+
+    <style>
+        .col-md-3 .e-ddl .e-input {
+            line-height:20px;
+        }
+    </style>
+}
+
+
+@section ScriptSection{
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        $(function () {
+            $("#btnExportImage").ejButton({ width: "100px", click: "buttonclickevent", });
+        });
+        function buttonclickevent() {
+            var hit = false;
+            var fileName = $("#txtFileName").val().trim() == "" ? "LinearGauge" : $("#txtFileName").val();
+            var specialChars = '<>:"/\|?*';
+            for (i = 0; i < specialChars.length; i++) {
+                if (fileName.indexOf(specialChars[i]) > -1) {
+                    hit = true;
+                }
+            }
+            if (!hit) {
+                var fileFormat = $("#ddlFileType").ejDropDownList("option", "value");
+                var flag = $("#CoreExportLinearGauge").ejLinearGauge("exportImage", fileName, fileFormat);
+                if (!flag)
+                    alert("Sorry for the inconvenience. Export is currently not supported in Internet Explorer 9 and below version");
+            }
+            else
+                alert("Your file name contains illegal characters");
+        }
+        
+    </script>
+}
+
+
+

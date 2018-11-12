@@ -1,0 +1,73 @@
+﻿@section SampleHeading{<span class="sampleName"> Spreadsheet / Protect Sheet</span>}
+<link href="@Url.Content("~/Content/Samples/SpreadsheetStyles.css")" rel="stylesheet" />
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+}
+@section ControlsSection{
+    @(Html.EJ().Spreadsheet<object>("Spreadsheet")
+    .ColumnWidth(100)
+    .AllowFormulaBar(false)
+    .ShowRibbon(false)
+    .ScrollSettings(scroll =>
+    {
+        scroll.Height(450);
+    })
+    .Sheets(sheet =>
+    {
+        sheet.RangeSettings(range =>
+        {
+            range.Datasource((IEnumerable<object>)ViewBag.Datasource).Add();
+        }).Add();
+    })
+    .ClientSideEvents(events => events.LoadComplete("loadComplete"))
+    )
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            @(Html.EJ().Button("lockBtn")
+                .Size(ButtonSize.Small)
+                .ShowRoundedCorner(true)
+                .Width("105")
+                .Text("Lock Cell")
+                .ClientSideEvents(events => events.Click("lockcell"))
+            )
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().Button("UnlockBtn")
+                .Size(ButtonSize.Small)
+                .ShowRoundedCorner(true)
+                .Width("105")
+                .Text("Unlock Cell")
+                .ClientSideEvents(events => events.Click("unLockcell"))
+            )
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+
+        function loadComplete(args) {
+            xlObj = this;
+            this.XLFormat.format({ "style": { "font-weight": "bold", "vertical-align": "middle", "text-align": "center", "background-color": "#559ad9", "color": "#FFFFFF" } }, "A1:F1");
+            this.XLFormat.format({ type: "currency" }, "F2:F25");
+        }
+
+        function lockcell() {
+            xlObj.protectSheet(false);
+            xlObj.lockCells(xlObj.getSheet(xlObj.getActiveSheetIndex()).selectedRange, true);
+            xlObj.protectSheet(true);
+        }
+
+        function unLockcell() {
+            xlObj.protectSheet(false);
+            xlObj.lockCells(xlObj.getSheet(xlObj.getActiveSheetIndex()).selectedRange, false);
+            xlObj.protectSheet(true);
+        }
+
+    </script>
+}

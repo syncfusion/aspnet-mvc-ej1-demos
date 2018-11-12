@@ -1,0 +1,50 @@
+﻿
+
+@section SampleHeading{
+	<span class="sampleName">Working With Chart / Excel Data To Chart</span>
+	}
+
+
+    @section ControlsSection{
+    @{Html.BeginForm("ExcelDataToChart", "Presentation", FormMethod.Post);
+      { 
+    <div class="Common">
+       <div class="tablediv">
+            <div class="rowdiv">
+                <p>Essential Presentation library has support for creating a chart in a PowerPoint presentation from the data in an excel file. This will be helpful to import data from a database to PowerPoint presentation.</p>
+                <p>This sample demonstrates how to create a chart in a PowerPoint presentation, from the data in an existing excel file.</p>
+                    <br />
+                    <b>Features:</b>
+                    <br />                    
+                 <ul>
+                        <li>Create, edit and convert more than 80 chart types.</li>
+                        <li>Create custom charts by adding combinations from different chart types.</li>                        
+						<li>Convert individual chart in a PowerPoint slide to image.</li>                        
+						<li>Modify, include and remove chart elements like axes, label, legend and chart title.</li>                        
+						<li>Edit color for chart elements like chart area and plot area of an existing chart.</li>                        
+                 </ul>				
+             </div>	
+        </div>
+		<br />
+        <div class="tablediv">
+            <div class="rowdiv">
+                <div class="celldiv">
+                 <div style="border: solid 0px #EDEDED; padding: 5px 7px 5px 7px;">
+                    <table width="100%">
+                        <tr>
+                            <td align="left" width="100%">
+                                <label><input id="submit" type="submit" value="Create Presentation" /></label> 
+                            </td>
+                            
+                        </tr>
+                    </table>
+               </div>
+                                       
+                </div>
+            </div>
+        </div>
+    </div>
+    Html.EndForm();
+      }}}
+
+

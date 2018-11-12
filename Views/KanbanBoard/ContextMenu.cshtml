@@ -1,0 +1,63 @@
+@section SampleHeading{
+    <span class="sampleName">ContextMenu</span>
+}
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+}
+@using Syncfusion.JavaScript.Models;
+@section ControlsSection{
+    @(Html.EJ().Kanban("Kanban")
+                   .DataSource((IEnumerable<object>)ViewBag.datasource)
+                   .Columns(col =>
+                   {
+                       col.HeaderText("Backlog").Key("Open").Add();
+                       col.HeaderText("In Progress").Key("InProgress").Add();
+                       col.HeaderText("Testing").Key("Testing").Add();
+                       col.HeaderText("Done").Key("Close").Add();
+                   })
+                           .ContextMenuSettings(contextMenu =>
+                           {
+                               contextMenu.Enable(true);
+
+                           })
+                           .AllowScrolling(true)
+                          .ScrollSettings(sSettings => { sSettings.Width(900).Height(800); })
+                           .EditSettings(edit =>
+                                  {
+                                      edit.AllowAdding(true)
+                                          .AllowEditing(true)
+                                          .EditItems(e =>
+                                          {
+                                              e.Field("Id").ValidationRules(rule => { rule.AddRule("required", true).AddRule("number", true); }).Add();
+                                              e.Field("Status").EditType(KanbanEditingType.Dropdown).Add();
+                                              e.Field("Assignee").EditType(KanbanEditingType.Dropdown).Add();
+                                              e.Field("Estimate").EditType(KanbanEditingType.Numeric).NumericEditOptions(new EditorProperties() { DecimalPlaces = 2 }).ValidationRules(rule => { rule.AddRule("range", "[0,1000]"); }).Add();
+                                              e.Field("Summary").EditType(KanbanEditingType.TextArea).ValidationRules(rule => { rule.AddRule("required", true); }).Add();
+                                          }).EditMode(KanbanEditMode.Dialog);
+                                  })
+                  .AllowTitle(true)
+                  .AllowSelection(false)
+                  .KeyField("Status")
+                  .Fields(field =>
+                  {
+                      field.Color("Type")
+                           .Content("Summary")
+                           .ImageUrl("ImgUrl")
+                           .PrimaryKey("Id")
+                           .Tag("Tags")
+						   .Priority("RankId")
+                           .SwimlaneKey("Assignee");
+                  })
+                  .CardSettings(card =>
+                                  {
+                                      card.ColorMapping(color =>
+                                      {
+                                          color.Add("#cb2027", "Bug,Story")
+                                               .Add("#67ab47", "Improvement")
+                                               .Add("#fbae19", "Epic");
+
+                                      });
+                                  })
+    )
+}

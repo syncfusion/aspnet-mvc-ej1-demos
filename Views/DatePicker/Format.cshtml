@@ -1,0 +1,45 @@
+﻿@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName">DatePicker / Format</span> }
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().DatePicker("DatePick").Value("5/28/2018").DateFormat("MM/dd/yyyy").Width("100%")
+        </div>
+    </div>
+}
+
+<div id="droplist">
+    <ul>
+        <li>MM/dd/yyyy</li>
+        <li>d M, y</li>
+        <li>d MM, y</li>
+        <li>dddd, d MMMM, yy</li>
+        <li>yyyy-MM-dd</li>
+    </ul>
+</div>
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            <span>Select Format</span>
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("drop").TargetID("droplist").Width("120px").SelectedItemIndex(0).ClientSideEvents(s => s.Change("onchange"))
+
+        </div>
+    </div>
+
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        function onchange(args) {
+            var datebject = $("#DatePick").data("ejDatePicker");
+            datebject.setModel({ dateFormat: args.text });
+        }
+
+    </script>
+}

@@ -1,0 +1,41 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart / Data Binding/ Local Data </span>}
+
+@section ControlsSection{
+    <div>
+@(Html.EJ().Chart("container")      
+      .PrimaryXAxis(prx =>
+      {
+          prx.Title(tl => { tl.Text("Date"); }).MajorGridLines(mj => { mj.Visible(false); })
+              .ValueType(AxisValueType.Datetime);
+      })
+      .PrimaryYAxis(pry =>
+      {
+          pry.Title(tl => { tl.Text("Price ($)"); })
+              .LabelFormat("${value}");
+      })
+      .Crosshair(cr =>
+      {
+          cr.Visible(true).Type(CrosshairType.Trackball).Line(ln => ln.Color("transparent"))
+              .Marker(mr => { mr.Shape(ChartShape.Circle).Visible(true).Border(st => { st.Width(1); }); });
+      })
+      .Series(sr =>
+      {
+          sr.DataSource((List<ChartLocalData>)ViewBag.Series1).XName("XValue").YName("YValue").Type(SeriesType.Line).Name("Product X").EnableAnimation(true).Tooltip(tn => tn.Format("#point.x#  : ej.format(#point.y#,n2)")).Add();
+          sr.DataSource((List<ChartLocalData>)ViewBag.Series2).XName("XValue").YName("YValue").Type(SeriesType.Line).Name("Product Y").EnableAnimation(true).Tooltip(tn => tn.Format("#point.x#  : ej.format(#point.y#,n2)")).Add();
+      })
+      .Load("loadTheme")
+      .IsResponsive(true)
+      .Size(sz => sz.Height("600"))
+      .Title(title => title.Text("Stock price analysis"))
+      .Legend(lg => { lg.Visible(true); })
+ )
+    </div>
+}
+<script type="text/javascript">
+    $("#controlarea").css("visibility", "visible");
+</script>
+
+
+

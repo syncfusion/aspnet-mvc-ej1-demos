@@ -1,0 +1,75 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart / Chart Customization/ Symbols </span>}
+
+@section ControlsSection{
+    <div>
+   @(Html.EJ().Chart("container")
+         .PrimaryXAxis(xaxis => xaxis.RangePadding(ChartRangePadding.Additional).Title(tit => tit.Text("Year")))
+         .PrimaryYAxis(yaxis => yaxis.Range(rn => rn.Min(0).Max(3).Interval(0.5)).LabelFormat("{value}%")
+         .Title(tit => tit.Text("Inflation Rate(%)")))
+         .Series(sr =>
+                      {
+                          sr.Points(pt =>
+                          {
+                              pt.X("1950").Y(0.8).Add();
+                              pt.X("1955").Y(1.2).Add();
+                              pt.X("1960").Y(0.9).Add();
+                              pt.X("1965").Y(1).Add();
+                              pt.X("1970").Y(0.8).Add();
+                              pt.X("1975").Y(1).Add();
+                              pt.X("1980").Y(1.4).Add();
+                              pt.X("1985").Y(1.2).Add();
+                              pt.X("1990").Y(1.1).Add();
+                              pt.X("1995").Y(1.2).Add();
+                              pt.X("2000").Y(1.4).Add();
+                          }).Marker(mr => mr.Visible(true).Size(sz => sz.Height(15).Width(15)).Shape(ChartShape.Diamond))
+                             .Name("India").Type(SeriesType.Line).Border(st => st.Width(2)).Tooltip(to => to.Visible(true)
+                             .Format("#series.name# : #point.y# in #point.x#")).Add();
+
+                          sr.Points(pt =>
+                          {
+                              pt.X("1950").Y(1.4).Add();
+                              pt.X("1955").Y(1.7).Add();
+                              pt.X("1960").Y(1.5).Add();
+                              pt.X("1965").Y(1.6).Add();
+                              pt.X("1970").Y(1.4).Add();
+                              pt.X("1975").Y(1.8).Add();
+                              pt.X("1980").Y(1.7).Add();
+                              pt.X("1985").Y(1.9).Add();
+                              pt.X("1990").Y(1.7).Add();
+                              pt.X("1995").Y(1.8).Add();
+                              pt.X("2000").Y(2).Add();
+                          }).Marker(mr => mr.Visible(true).Size(sz => sz.Height(15).Width(15)).Shape(ChartShape.Triangle))
+                           .Name("China").Type(SeriesType.Line).Border(st => st.Width(2)).Tooltip(to => to.Visible(true)
+                           .Format("#series.name# : #point.y# in #point.x#")).Add();
+
+                          sr.Points(pt =>
+                          {
+                              pt.X("1950").Y(2).Add();
+                              pt.X("1955").Y(2.4).Add();
+                              pt.X("1960").Y(2.2).Add();
+                              pt.X("1965").Y(2.5).Add();
+                              pt.X("1970").Y(2.2).Add();
+                              pt.X("1975").Y(2.4).Add();
+                              pt.X("1980").Y(2).Add();
+                              pt.X("1985").Y(2.3).Add();
+                              pt.X("1990").Y(2).Add();
+                              pt.X("1995").Y(2.2).Add();
+                              pt.X("2000").Y(2.4).Add();
+                          }).Marker(mr => mr.Visible(true).Size(sz => sz.Height(15).Width(15)).Shape(ChartShape.Hexagon))
+                           .Name("Japan").Type(SeriesType.Line).Border(st => st.Width(2)).Tooltip(to => to.Visible(true)
+                           .Format("#series.name# : #point.y# in #point.x#")).Add();
+                      })
+            .Load("loadTheme")
+            .IsResponsive(true)
+            .Title(title => title.Text("Inflation Analysis"))
+            .Size(sz => sz.Height("600"))
+            .CommonSeriesOptions(cr => cr.EnableAnimation(true))
+            .Legend(lg => lg.Visible(true))
+            )
+        <script>
+            $("#controlarea").css("visibility", "visible");
+        </script>
+    </div>
+}

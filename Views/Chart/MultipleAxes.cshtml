@@ -1,0 +1,90 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart / Chart Axes/ Multiple Axes</span>}
+
+@section ControlsSection{
+    <div>
+     @(Html.EJ().Chart("container")
+           .RowDefinitions(Rowdef =>
+                               {
+                                   Rowdef.RowHeight(50).LineColor("gray").LineWidth(0).Unit("percentage").Add();
+                                   Rowdef.RowHeight(50).LineColor("#A8A8A8").LineWidth(1).Unit("percentage").Add();
+                               })
+          .PrimaryXAxis(xaxis => xaxis.Title(tit => tit.Text("Month")))
+          .PrimaryYAxis(yaxis => yaxis.Range(r => r.Min(0).Max(90).Interval(10)).LabelFormat("{value}F")
+          .AxisLine(al => al.Visible(false)).Title(tit => tit.Text("Temperature(Fahrenheit)")))
+          .Axes(ax =>
+                    {
+                        ax.MajorGridLines(mg => mg.Visible(false)).Orientation("vertical").RowIndex(1).OpposedPosition(true)
+                          .AxisLine(als => als.Visible(false)).Range(ran => ran.Min(25).Max(35).Interval(2)).Name("yAxis")
+                          .LabelFormat("{value}C").Title(tit => tit.Text("Temperature(Celsius)")).Add();
+                        ax.Orientation("vertical").HidePartialLabels(true).PlotOffset(20).RowIndex(1)
+                          .RangePadding(ChartRangePadding.Additional).MajorGridLines(mf => mf.Visible(true))
+                          .AxisLine(al => al.Visible(false)).Name("yAxis1").LabelFormat("{value}k")
+                          .Title(tit => tit.Text("Temperature(Kelvin)")).OpposedPosition(false).Add();
+                    })
+          .Series(ser =>
+                        {
+                            ser.Name("Germany").Type(SeriesType.Column).Fill("#69D2E7").Tooltip(tt => tt.Visible(true)
+                               .Format("#series.name#  <br/> #point.x# : #point.y#")).Points(po =>
+                                {
+                                    po.X("Jan").Y(15).Add();
+                                    po.X("Feb").Y(20).Add();
+                                    po.X("Mar").Y(35).Add();
+                                    po.X("Apr").Y(40).Add();
+                                    po.X("May").Y(80).Add();
+                                    po.X("Jun").Y(70).Add();
+                                    po.X("Jul").Y(65).Add();
+                                    po.X("Aug").Y(55).Add();
+                                    po.X("Sep").Y(50).Add();
+                                    po.X("Oct").Y(30).Add();
+                                    po.X("Nov").Y(35).Add();
+                                    po.X("Dec").Y(35).Add();
+                                }).Add();
+                            ser.Name("India").Type(SeriesType.Line).YAxisName("yAxis").Tooltip(tt => tt.Visible(true)
+                               .Format("#series.name#<br/>#point.x# : #point.y#")).Border(st => st.Width(2)).Points(po =>
+                                {
+                                    po.X("Jan").Y(33).Add();
+                                    po.X("Feb").Y(31).Add();
+                                    po.X("Mar").Y(30).Add();
+                                    po.X("Apr").Y(28).Add();
+                                    po.X("May").Y(29).Add();
+                                    po.X("Jun").Y(30).Add();
+                                    po.X("Jul").Y(33).Add();
+                                    po.X("Aug").Y(32).Add();
+                                    po.X("Sep").Y(34).Add();
+                                    po.X("Oct").Y(32).Add();
+                                    po.X("Nov").Y(32).Add();
+                                    po.X("Dec").Y(31).Add();
+
+                                }).Marker(mk => mk.Visible(true).Shape(ChartShape.Circle).Size(si => si.Height(6).Width(6))).Add();
+                            ser.Name("Canada").Type(SeriesType.Line).YAxisName("yAxis1").Tooltip(tl => tl.Visible(true)
+                               .Format(" #series.name#  <br/> #point.x# : #point.y#   ")).Border(st => st.Width(2)).Points(po =>
+                                {
+                                    po.X("Jan").Y(28).Add();
+                                    po.X("Feb").Y(28.3).Add();
+                                    po.X("Mar").Y(28.7).Add();
+                                    po.X("Apr").Y(29).Add();
+                                    po.X("May").Y(29.5).Add();
+                                    po.X("Jun").Y(29).Add();
+                                    po.X("Jul").Y(28.9).Add();
+                                    po.X("Aug").Y(28.4).Add();
+                                    po.X("Sep").Y(28.6).Add();
+                                    po.X("Oct").Y(28).Add();
+                                    po.X("Nov").Y(28.2).Add();
+                                    po.X("Dec").Y(28).Add();
+                                }).Marker(mk => mk.Visible(true).Shape(ChartShape.Circle).Size(si => si.Height(6).Width(6))).Add();
+
+                        })
+                          .Load("loadTheme")
+                          .CommonSeriesOptions(cr => cr.EnableAnimation(true))
+                          .IsResponsive(true)
+                          .Title(title => title.Text("Weather Report"))
+                          .Size(si => si.Height("600"))
+                          .Legend(l => l.Visible(true))
+                          )
+        <script>
+            $("#controlarea").css("visibility", "visible");
+        </script>
+    </div>
+}

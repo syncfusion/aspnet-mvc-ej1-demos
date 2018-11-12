@@ -1,0 +1,163 @@
+﻿@using Syncfusion.JavaScript.Models
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName"> Grid/Editing/Dialog Editing</span>}
+@section ControlsSection{
+    @(Html.EJ().Grid<OrdersView>("Editing")
+        .Datasource(ds => ds.Json((IEnumerable<object>)ViewBag.dataSource).CrudURL("CrudUrl").Adaptor(AdaptorType.RemoteSaveAdaptor))
+        .EnableAltRow()
+        .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Dialog); })
+        .AllowPaging()
+        .ClientSideEvents(e =>
+            {
+                e.ColumnDrag("d");
+            })
+        .ToolbarSettings(toolbar =>
+        {
+            toolbar.ShowToolbar().ToolbarItems(items =>
+            {
+                items.AddTool(ToolBarItems.Add);
+                items.AddTool(ToolBarItems.Edit);
+                items.AddTool(ToolBarItems.Delete);
+                items.AddTool(ToolBarItems.Update);
+                items.AddTool(ToolBarItems.Cancel);
+            });
+        })
+        
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).ValidationRules(v => v.AddRule("required", true).AddRule("number", true)).Width(90).Add();
+            col.Field("CustomerID").HeaderText("Customer ID").Width(90).ValidationRules(v => v.AddRule("required", true).AddRule("minlength", 3)).Add();
+            col.Field("Freight").HeaderText("Freight").TextAlign(TextAlign.Right).Width(75).EditType(EditingType.NumericEdit).Format("{0:C}").NumericEditOptions(new EditorProperties() { DecimalPlaces = 2 }).ValidationRules(v => v.AddRule("range", "[0,1000]")).Add();
+            col.Field("ShipCountry").HeaderText("Ship Country").EditType(EditingType.DropdownEdit).Width(85).Add();
+            col.Field("ShipCity").HeaderText("Ship City").Width(90).Add();
+        })
+        .ClientSideEvents(eve => { eve.ActionComplete("complete"); })
+        )
+}
+@section PropertiesSection{
+    <div id="ddl1">
+        <ul>
+            <li>Dialog Mode</li>
+            <li>Template Mode</li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Edit mode
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().DropDownList("editMode")
+                .TargetID("ddl1")
+                .Width("120px")
+                .SelectedItemIndex(0)
+                .ClientSideEvents(eve => { eve.Change("selectChange"); })
+                )
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/template" id="template">
+        <b>Order Details</b>
+        <table cellspacing="10">
+            <tr>
+                <td style="text-align: right;">Order ID
+                </td>
+                <td style="text-align: left">
+                    <input id="OrderID" name="OrderID" value="{{: OrderID}}" disabled="disabled" class="e-field e-ejinputtext valid e-disable"
+                        style="text-align: right; width: 116px; height: 28px" />
+                </td>
+                <td style="text-align: right;">Customer ID
+                </td>
+                <td style="text-align: left">
+                    <input id="CustomerID" name="CustomerID" value="{{: CustomerID}}" class="e-field e-ejinputtext valid"
+                        style="width: 116px; height: 28px" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right;">Freight
+                </td>
+                <td style="text-align: left">
+                    <input type="text" id="Freight" name="Freight" value="{{:Freight}}" />
+                </td>
+                <td style="text-align: right;">Ship Country
+                </td>
+                <td style="text-align: left">
+                    <select id="ShipCountry" name="ShipCountry">
+                        <option value="Argentina">Argentina</option>
+                        <option value="Austria">Austria</option>
+                        <option value="Belgium">Belgium</option>
+                        <option value="Brazil">Brazil</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Denmark">Denmark</option>
+                        <option value="Finland">Finland</option>
+                        <option value="France">France</option>
+                        <option value="Germany">Germany</option>
+                        <option value="Ireland">Ireland</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Mexico">Mexico</option>
+                        <option value="Norway">Norway</option>
+                        <option value="Poland">Poland</option>
+                        <option value="Portugal">Portugal</option>
+                        <option value="Spain">Spain</option>
+                        <option value="Sweden">Sweden</option>
+                        <option value="Switzerland">Switzerland</option>
+                        <option value="UK">UK</option>
+                        <option value="USA">USA</option>
+                        <option value="Venezuela">Venezuela</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right;">Ship City
+                </td>
+                <td style="text-align: left">
+                    <input id="ShipCity" name="ShipCity" value="{{: ShipCity}}" class="e-field e-ejinputtext valid"
+                        style="width: 116px; height: 28px" />
+                </td>
+                <td style="text-align: right;">Ship Name
+                </td>
+                <td style="text-align: left">
+                    <input id="ShipName" name="ShipName" value="{{: ShipName}}" class="e-field e-ejinputtext valid"
+                        style="width: 116px; height: 28px" />
+                </td>
+            </tr>
+            <tr>
+                <td style="text-align: right;">Ship Address
+                </td>
+                <td style="text-align: left">
+                    <textarea id="ShipAddress" name="ShipAddress" class="e-ejinputtext" value="{{: ShipAddress}}">{{: ShipAddress}}</textarea>
+                </td>
+            </tr>
+        </table>
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        function selectChange(args) {
+            var gridObj = $("#Editing").data("ejGrid");
+            if (gridObj != undefined) {
+                gridObj.clearSelection();
+                if (gridObj.model.isEdit)
+                    $("#Editing").ejGrid("cancelEdit");
+                if (args.itemId == 1)
+                    $("#Editing").ejGrid("option", { "editSettings": { editMode: "dialogTemplate", dialogEditorTemplateID: "#template" } });
+                else
+                    $("#Editing").ejGrid("option", { "editSettings": { editMode: "dialog" } });
+            }
+        }
+        function complete(args) {
+            if ((args.requestType == "beginedit" || args.requestType == "add") && args.model.editSettings.editMode == "dialogtemplate") {
+                $("#Freight").ejNumericTextbox({ value: parseFloat($("#Freight").val()), width: "116px", height: "28px", decimalPlaces: 2 });                
+                $("#ShipCountry").ejDropDownList({ width: '116px' });
+                if (args.requestType == "beginedit") {
+                    $("#OrderID").attr("disabled", "disabled");
+                    $("#ShipCountry").ejDropDownList("setSelectedValue", args.row.children().eq(3).text());
+                }
+            }
+        }
+    </script>
+}

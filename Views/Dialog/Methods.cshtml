@@ -1,0 +1,138 @@
+@section SampleHeading{ <span class="sampleName">Dialog / Methods</span>}
+
+@section ControlsSection{
+    <div class="control">
+        @{Html.EJ().Dialog("dialogAPI").Title("Northwind").ContentTemplate(@<div>
+            <p> Northwind is a privately held company that develops property management systems, as well as GDS/web based booking solutions for the hospitality industry.
+                     Maestro Enterprise Suite,<span> the company's flagship product, includes a variety of modules</span> which can be coordinated to comply with a hotel or hotel chain's requirements.
+                    </p>                 
+               <p> Maestro is a multi-platform system,<span> with over 10,000 users, allowing for optimized adaptibility </span> to single or multi-property businesses. </p>
+                  <p> Northwind's headquarters are based in Markham, Ontario, with sales and support offices located worldwide.</p>
+                     <p>
+        </div>).IsResponsive(true).Containment(".control").ClientSideEvents(evt => evt.Close("onDialogClose").Open("enableBtn")).Render();}
+    </div>
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EJ().Button("btnDialogOpen").Width("107px").Text("Open").ClientSideEvents(evt => evt.Click("onOpen"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EJ().Button("btnDialogClose").Width("107px").Text("Close").ClientSideEvents(evt => evt.Click("onClose"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EJ().ToggleButton("btnDialogMinimize").Width("107px").DefaultText("Minimize").ActiveText("Restore").ClientSideEvents(evt => evt.Change("onMinimize"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EJ().ToggleButton("btnDialogMaximize").Width("107px").DefaultText("Maximize").ActiveText("Restore").ClientSideEvents(evt => evt.Change("onMaximize"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EJ().ToggleButton("btnDialogCollapse").Width("107px").DefaultText("Collapse").ActiveText("Expand").ClientSideEvents(evt => evt.Change("onCollapse"))
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script>
+        var eDialog;
+        $(document).ready(function () {
+            eDialog = $("#dialogAPI").data("ejDialog");
+        });
+        function onDialogClose(args) {
+			$("#btnDialogClose").ejButton("disable");
+			$("#btnDialogOpen").ejButton("enable");
+            $("#btnDialogMinimize").ejToggleButton("disable");
+            $("#btnDialogMaximize").ejToggleButton("disable");
+            $("#btnDialogCollapse").ejToggleButton("disable");
+        }
+        function onclick() {
+            if (eDialog.model) {
+                $("#dialogAPI").ejDialog("open");
+            }
+        }
+        function onOpen() {
+            if (eDialog.model) {
+                eDialog.open();
+            }
+        }
+        function onClose() {
+		$("#btnDialogOpen").ejButton("enable");
+            eDialog.close();
+        }
+        function onMinimize(args) {
+            if (args.isChecked) {
+                if ($("#btnDialogMaximize").ejToggleButton("model.toggleState") == true)
+                    $("#btnDialogMaximize").ejToggleButton("model.toggleState", false);
+                eDialog.minimize();
+                $("#btnDialogMinimize").ejToggleButton("model.toggleState", true)
+                $("#btnDialogCollapse").ejToggleButton("disable");
+            }
+            else {
+                eDialog.restore();
+                $("#btnDialogCollapse").ejToggleButton("enable");
+                if ($("#btnDialogCollapse").ejToggleButton("model.toggleState") == true)
+                    $("#btnDialogCollapse").ejToggleButton("model.toggleState", false);
+            }
+        }
+        function onMaximize(args) {
+            if (args.isChecked) {
+                if ($("#btnDialogMinimize").ejToggleButton("model.toggleState") == true)
+                    $("#btnDialogMinimize").ejToggleButton("model.toggleState", false);
+                eDialog.maximize();
+                if ($("#btnDialogCollapse").ejToggleButton("model.toggleState") == true)
+                    $("#btnDialogCollapse").ejToggleButton("model.toggleState", false);
+            }
+            else {
+                eDialog.restore();
+                if ($("#btnDialogMinimize").ejToggleButton("model.toggleState") == true)
+                    $("#btnDialogMinimize").ejToggleButton("model.toggleState", false);
+                if ($("#btnDialogCollapse").ejToggleButton("model.toggleState") == true)
+                    $("#btnDialogCollapse").ejToggleButton("model.toggleState", false);
+            }
+            $("#btnDialogCollapse").ejToggleButton("enable");
+        }
+        function onCollapse(args) {
+            (args.isChecked) ? eDialog.collapse() : eDialog.expand();
+        }
+        function enableBtn(args) {
+			$("#btnDialogClose").ejButton("enable");
+		    $("#btnDialogOpen").ejButton("disable");
+            $("#btnDialogMinimize").ejToggleButton("enable");
+            $("#btnDialogMaximize").ejToggleButton("enable");
+            if(!eDialog._minimize)
+                $("#btnDialogCollapse").ejToggleButton("enable");
+        }
+        $(document).ready(function () { $("#sampleProperties").ejPropertiesPanel(); });
+    </script>
+}
+@section StyleSection{
+    <style class="cssStyles">
+        #dialogAPI span {
+            font-weight: 600;
+        }
+        .htmljssamplebrowser.material .control {
+            height:700px;
+        }
+        .control {
+            height: 515px;
+            position: relative;
+        }
+
+        .row .cols-prop-area {
+            height: 520px;
+        }
+        #dialogAPI {
+            text-align: justify;
+        }
+    .htmljssamplebrowser:not(.material):(.office-365) #dialogAPI{
+            padding: 10px;
+        }
+    </style>
+}

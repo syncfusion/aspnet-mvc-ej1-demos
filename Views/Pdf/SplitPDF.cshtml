@@ -1,0 +1,68 @@
+﻿
+
+@section SampleHeading{
+	<span class="sampleName">Modify Documents / SplitPDF Sample</span>
+	}
+
+    @section ControlsSection{
+    @{  using(Html.BeginForm("SplitPDF", "Pdf", FormMethod.Post,new { enctype = "multipart/form-data" }))
+    {
+    <div class="Common">
+       <div style = "font-size: 17px;font-weight: 400;">
+			        This sample demonstrates how to split the PDF pages into multiple PDF documents.
+
+	</div>
+	<br/>
+        <div id="errorlabel" value="error">
+            <p style="color: #FF0000;">
+                @Html.Label("", (string)ViewBag.lab)
+        </div>                
+            <div class="tablediv">
+            <div class="rowdiv">
+                <div class="celldiv">
+                 <div style="border: solid 1px #EDEDED; padding: 5px 5px 5px 5px;">
+                    <table>
+                        <tr>
+                            <td align="left" width="100%">                               
+                               <div>                                  
+                                   <input type="file" name="file" value="PDF document to split" accept="application/pdf" />                                                                   
+                               </div>                         
+                            </td>                                                    
+                        </tr>                        
+                        <tr>
+                            <td>      
+                                <br/>                         
+                                <label for="page index">Enter split page no</label>
+                                <input type="text" name="pageIndex" id="pageIndex" style="margin-left: 12px" value="1" width:70%" />
+                                <label ></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="left" width="100%">
+                                
+                                <input id="Checkbox1" type="checkbox" name="Browser" value="Browser" />
+                                <label for="Opentype">Open Document inside Browser</label> 
+                            </td>
+                            <td align="right">
+                                 <label><input id="submit" type="submit" value="Create PDF" /></label> 
+                            </td>
+                        </tr>
+                    </table>
+               </div>
+                                       
+                </div>
+            </div>
+        </div>
+		<br/>
+			<div style = "font-size: 17px;font-weight: 400;">
+		
+				
+		This feature will be used to split the necessary pages from the PDF document, split a large sized PDF into a smaller one and more.
+           </div>
+    </div>
+    Html.EndForm();
+      }}}
+
+
+
+

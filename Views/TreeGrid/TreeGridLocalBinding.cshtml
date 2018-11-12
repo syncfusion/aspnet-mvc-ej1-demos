@@ -1,0 +1,25 @@
+﻿@section SampleHeading{<span class="sampleName"> TreeGrid/Local Binding</span>}
+@section ControlsSection{
+
+    @(Html.EJ().TreeGrid("TreeGridContainer")
+       .ChildMapping("Children")
+       .TreeColumnIndex(1)
+       .IsResponsive(true)
+       .EditSettings(edit =>
+              {
+                  edit.AllowEditing(true);                 
+                  edit.EditMode(TreeGridEditMode.CellEditing);
+              })
+       .Columns(co =>
+           {
+               co.Field("TaskId").HeaderText("Task Id").EditType(TreeGridEditingType.Numeric).Width(45).Add();
+               co.Field("TaskName").HeaderText("Task Name").EditType(TreeGridEditingType.String).Add();
+               co.Field("StartDate").HeaderText("Start Date").EditType(TreeGridEditingType.Datepicker).Add();
+               co.Field("EndDate").HeaderText("End Date").EditType(TreeGridEditingType.Datepicker).Add();
+               co.Field("Duration").HeaderText("Duration").EditType(TreeGridEditingType.Numeric).Add();
+               co.Field("Progress").HeaderText("Progress").EditType(TreeGridEditingType.Numeric).Add();
+           }
+       )
+       .Datasource(ViewBag.datasource)
+    )
+}

@@ -1,0 +1,103 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart / MultiplePie Chart </span>}
+
+@section ControlsSection{
+    <div>
+
+    @(Html.EJ().Chart("container")
+          .Series(sr =>
+                    {
+                        sr.Points(pt =>
+                                       {
+                                           pt.X("Asia").Y(35.94).Text("Asia 35.94%").Fill("#E94649").Add();
+                                           pt.X("America").Y(8.91).Text("America 8.91%").Fill("#0FB954").Add();
+                                           pt.X("Europe").Y(2.88).Text("Europe 2.88%").Fill("#005277").Add();
+                                           pt.X("Africa").Y(6.06).Text("Africa 6.06%").Fill("#F6B53F").Add();
+                                       }).LabelPosition(ChartLabelPosition.Inside)
+                                      .PieCoefficient(0.6f).DoughnutSize(0.6f)
+                                       .EnableSmartLabels(true)
+                                          .Marker(mr =>
+                                          {
+                                              mr.DataLabel(db =>
+                                              {
+                                                  db.Visible(true).ConnectorLine(cl => cl.Color("black")
+                                                     .Type(ConnectorType.Bezier)).Shape(ChartShape.None)
+                                                     .EnableContrastColor(true);
+                                              });
+                                          }).Name("Continents").Add();
+                        sr.Points(pt =>
+                        {
+                            pt.X("China").Y(16.8).Text("China 16.8%").Fill("#E94649").Add();
+                            pt.X("India").Y(15.6).Text("India 15.6%").Fill("#E94649").Add();
+                            pt.X("Indonesia").Y(3.54).Text("Indonesia 3.54%").Fill("#E94649").Add();
+                            pt.X("US").Y(4.42).Text("US 4.42%").Fill("#0FB954").Add();
+                            pt.X("Brazil").Y(2.82).Text("Brazil 2.82%").Fill("#0FB954").Add();
+                            pt.X("Mexico").Y(1.67).Text("Mexico 1.67%").Fill("#0FB954").Add();
+                            pt.X("Germany").Y(1.11).Text("Germany 1.11%").Fill("#005277").Add();
+                            pt.X("France").Y(0.88).Text("France 0.88%").Fill("#005277").Add();
+                            pt.X("UK").Y(0.89).Text("UK 0.89%").Fill("#005277").Add();
+                            pt.X("Nigeria").Y(2.56).Text("Nigeria 2.56%").Fill("#F6B53F").Add();
+                            pt.X("Ethopia").Y(1.26).Text("Ethopia 1.26%").Fill("#F6B53F").Add();
+                            pt.X("Egypt").Y(2.24).Text("Egypt 2.24%").Fill("#F6B53F").Add();
+                        }).LabelPosition(ChartLabelPosition.Outside).Marker(mr =>
+                        {
+                            mr.DataLabel(db =>
+                            {
+                                db.Visible(true).EnableContrastColor(true).ConnectorLine(cl => cl.Color("black")
+                                   .Type(ConnectorType.Bezier)).Shape(ChartShape.None);
+
+                            });
+                        }).Name("Countries").Add();
+                    })
+            .CommonSeriesOptions(cr => cr.Type(SeriesType.Pie).Border(br => br.Color("white")))
+            .Load("loadTheme")
+            .Title(title => title.Text("List of Countries by Population"))
+            .IsResponsive(true)
+            .SeriesRendering("seriesRender")
+            .Size(sz => sz.Height("600"))
+            .Legend(lg => { lg.Visible(true); })
+    )
+</div>
+}
+
+@section PropertiesSection
+{
+    <div id="sampleProperties">
+        <div class="prop-grid">
+            <div class="row" style="margin: 10px 0;">
+                <div class="col-md-3">
+                    Series Type
+                </div>
+                <div class="col-md-3 aligntop">
+                    <select name="selectIndex" autocomplete="off" id="type">
+                        <option value="pie">Pie</option>
+                        <option value="doughnut">Doughnut</option>
+                    </select>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+}
+
+@section ScriptSection
+{
+    <script>
+
+        function seriesRender(sender) {
+            if (sender.model.theme == "flatdark" || sender.model.theme == "gradientdark" || sender.model.theme == "high-contrast-01")
+                sender.data.series.marker.dataLabel.connectorLine.color = "white";
+
+        }
+       
+        $('#type').change(function () {
+            $("#container").ejChart("option", { "commonSeriesOptions": { type: $('#type')[0].value } });
+
+        });
+        $("#sampleProperties").ejPropertiesPanel();
+    </script>
+}
+
+
+

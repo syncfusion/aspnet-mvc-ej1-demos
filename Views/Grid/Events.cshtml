@@ -1,0 +1,151 @@
+﻿@using Syncfusion.JavaScript.Models
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+
+}
+@section SampleHeading{<span class="sampleName"> Grid/Events</span>}
+@section ControlsSection{
+    @(Html.EJ().Grid<OrdersView>("Events")
+        .Datasource((IEnumerable<object>)ViewBag.dataSource)
+        .AllowSorting()
+        .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing(); })
+        .AllowGrouping()
+        .PageSettings(page => { page.PageSize(10); })
+        .AllowPaging()
+		.ToolbarSettings(toolbar =>
+        {
+            toolbar.ShowToolbar().ToolbarItems(items =>
+            {
+                items.AddTool(ToolBarItems.Add);
+                items.AddTool(ToolBarItems.Edit);
+                items.AddTool(ToolBarItems.Delete);
+                items.AddTool(ToolBarItems.Update);
+                items.AddTool(ToolBarItems.Cancel);
+            });
+        })
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(75).ValidationRules(v => v.AddRule("required", true).AddRule("number", true)).Add();
+            col.Field("CustomerID").HeaderText("Customer ID").Width(80).Add();
+            col.Field("EmployeeID").HeaderText("Employee ID").TextAlign(TextAlign.Right).Width(75).EditType(EditingType.DropdownEdit).Add();
+            col.Field("Freight").HeaderText("Freight").TextAlign(TextAlign.Right).Width(75).Format("{0:C}").EditType(EditingType.NumericEdit).NumericEditOptions(new EditorProperties() { DecimalPlaces = 2 }).ValidationRules(v => v.AddRule("range", "[0,1000]")).Add();
+            col.Field("ShipCity").HeaderText("Ship City").Width(110).Add();
+        })
+        .ClientSideEvents(eve =>
+        {
+            eve.Create("create");
+            eve.ActionBegin("actionBegin");
+            eve.ActionComplete("actionComplete");
+            eve.BeginEdit("beginEdit");
+            eve.EndEdit("endEdit");
+            eve.EndAdd("endAdd");
+            eve.EndDelete("endDelete");
+            eve.QueryCellInfo("queryCellInfo");
+            eve.RowDataBound("rowDataBound");
+            eve.RowSelecting("rowSelecting");
+            eve.RowSelected("rowSelected");
+            eve.ColumnDrag("columnDrag");
+            eve.ColumnDragStart("columnDragStart");
+            eve.ColumnDrop("columnDrop");
+            eve.RecordClick("recordClick");
+            eve.RecordDoubleClick("recordDoubleClick");
+            eve.RightClick("rightClick");
+        })
+        )
+}
+@section EventsDropDown{
+    <div id="ddl">
+    <ul>
+        <li>create</li>
+        <li>actionBegin</li>
+        <li>actionComplete</li>
+        <li>beginEdit</li>
+        <li>endEdit</li>
+        <li>endDelete</li>
+        <li>endAdd</li>
+        <li>queryCellInfo</li>
+        <li>rowDataBound</li>
+        <li>rowSelecting</li>
+        <li>rowSelected</li>
+        <li>columnDragStart</li>
+        <li>columnDrag</li>
+        <li>columnDrop</li>
+        <li>recordClick</li>
+        <li>recordDoubleClick</li>
+        <li>rightClick</li>
+    </ul>
+    </div>
+    @(Html.EJ().DropDownList("selectControls_input")
+          .TargetID("ddl")
+          .ClientSideEvents(eve => { eve.Change("evtpropscheckedevent").PopupShown("adjustpopupposition"); })
+          .ShowCheckbox()
+          .CheckAll()
+          )
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        function evtpropscheckedevent(args) {
+            var gridObj = $("#Events").data("ejGrid");
+            if (args.isChecked && gridObj != undefined)
+                gridObj.option(args.value, args.value);
+            else
+                gridObj.option(args.value, null);
+        }
+
+        function create(args) {
+            jQuery.addEventLog("Grid <span class='eventTitle'>create</span> event called");
+        }
+        function actionBegin(args) {
+            jQuery.addEventLog("Grid <span class='eventTitle'>actionBegin</span> event called");
+        }
+        function actionComplete(args) {
+            jQuery.addEventLog("Grid <span class='eventTitle'>actionComplete</span> event called");
+        }
+        function beginEdit(args) {
+            jQuery.addEventLog("Grid <span class='eventTitle'>beginEdit</span> event called");
+        }
+        function endEdit(args) {
+            jQuery.addEventLog("Grid <span class='eventTitle'>endEdit</span> event called");
+        }
+        function endAdd(args) {
+            jQuery.addEventLog("Grid <span class='eventTitle'>endAdd</span> event called");
+        }
+        function endDelete(args) {
+            jQuery.addEventLog("Grid <span class='eventTitle'>endDelete</span> event called");
+        }
+        function queryCellInfo(args) {
+            jQuery.addEventLog("Grid <span class='eventTitle'>queryCellInfo</span> event called");
+        }
+        function rowDataBound(args) {
+            jQuery.addEventLog("Grid <span class='eventTitle'>rowDataBound</span> event called");
+        }
+        function rowSelecting(args) {
+            jQuery.addEventLog("Grid <span class='eventTitle'>rowSelecting</span> event called");
+        }
+        function rowSelected(args) {
+            jQuery.addEventLog("Grid <span class='eventTitle'>rowSelected</span> event called");
+        }
+        function columnDragStart(args) {
+            jQuery.addEventLog("Grid <span class='eventTitle'>columnDragStart</span> event called");
+        }
+        function columnDrag(args) {
+            jQuery.addEventLog("Grid <span class='eventTitle'>columnDrag</span> event called");
+        }
+        function columnDrop(args) {
+            jQuery.addEventLog("Grid <span class='eventTitle'>columnDrop</span> event called");
+        }
+        function recordClick(args) {
+            jQuery.addEventLog("Grid <span class='eventTitle'>recordClick</span> event called");
+        }
+        function recordDoubleClick(args) {
+            jQuery.addEventLog("Grid <span class='eventTitle'>recordDoubleClick</span> event called");
+        }
+        function rightClick(args) {
+            jQuery.addEventLog("Grid <span class='eventTitle'>rightClick</span> event called");
+        }
+        function onClear() {
+            $("#EventLog").html("");
+        }
+    </script>
+}

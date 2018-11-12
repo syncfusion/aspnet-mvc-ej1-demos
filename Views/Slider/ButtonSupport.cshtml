@@ -1,0 +1,30 @@
+﻿@section SampleHeading{ <span class="sampleName">Slider / ButtonSupport</span>}
+
+@section ControlsSection{
+
+    <div class="frame">
+        <div class="rangetxt">Range</div>
+        @Html.EJ().Slider("rangeSlider").SliderType(SlideType.Range).Values("30,60").ShowButtons(true)
+        <br />
+        <br />
+        <div class="minrangetxt">Min-Range</div>
+        @Html.EJ().Slider("minSlider").SliderType(SlideType.MinRange).Value("40").ShowButtons(true).ShowScale(true).LargeStep(20).SmallStep(5).IncrementStep(5)
+    </div>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .frame {
+            width: 50%;
+        }
+
+        .minrangetxt {
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+
+        .rangetxt {
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+    </style>
+}

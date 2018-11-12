@@ -1,0 +1,95 @@
+﻿@section SampleHeading{ <span class="sampleName">Accordion / Events</span>}
+
+@section ControlsSection{ 
+    <div class="controlframe">
+    @{Html.EJ().Accordion("eventAccordion").Items(data =>
+               {
+                   data.Add().Text("ASP.NET").ContentTemplate(@<div>
+            Microsoft ASP.NET is a set of technologies in the Microsoft .NET Framework for building Web applications and XML Web services. ASP.NET pages execute on the server and generate markup such as HTML, WML, or XML that is sent to a desktop or mobile browser. ASP.NET pages use a compiled, event-driven programming model that improves performance and enables the separation of application logic and user interface.
+        </div>);
+                   data.Add().Text("ASP.NET MVC").ContentTemplate(@<div>
+            The Model-View-Controller (MVC) architectural pattern separates an application into three main components: the model, the view, and the controller. The ASP.NET MVC framework provides an alternative to the ASP.NET Web Forms pattern for creating Web applications. The ASP.NET MVC framework is a lightweight, highly testable presentation framework that (as with Web Forms-based applications) is integrated with existing ASP.NET features, such as master pages and membership-based authentication
+        </div>);
+                   data.Add().Text("Javascript").ContentTemplate(@<div></div>);
+
+
+               }).ClientSideEvents(evt => evt.Create("onCreate").AjaxError("onError").BeforeActivate("onBeforeActivate")
+    .Activate("onActivate").BeforeInActivate("onBeforeInActivate").InActivate("onInActivate").AjaxBeforeLoad("onBeforeLoad").AjaxLoad("onLoad").AjaxSuccess("onAjaxSuccess")).Render();}
+        </div>
+}
+<div id="dropTarget">
+    <ul>
+        <li>create</li>
+        <li>beforeActivate</li>
+        <li>activate</li>
+        <li>beforeInactivate</li>
+        <li>inActivate</li>
+        <li>ajaxBeforeLoad</li>
+        <li>ajaxLoad</li>
+        <li>ajaxSuccess</li>
+        <li>ajaxError</li>
+    </ul>
+</div>
+@section EventsDropdown{
+
+    @Html.EJ().DropDownList("selectControls_input").TargetID("dropTarget").ShowCheckbox(true).Width("160px").CheckAll(true).ClientSideEvents(dropEvt => dropEvt.Change("evtpropscheckedevent").PopupShown("adjustpopupposition"))
+}
+@section ScriptSection{
+    <script>
+        function onCreate(args) {
+			 if (window.location.hostname == "localhost")
+                this._headers[2].children[1].href = "../../Content/samplecontent/javascript.html";
+            else
+                this._headers[2].children[1].href = "../Content/samplecontent/javascript.html";
+            jQuery.addEventLog("Accordion has been <span class='eventTitle'>created</span>.");
+        }
+        function onBeforeActivate(args) {
+            if (!ej.isNullOrUndefined(args.activeIndex))
+                jQuery.addEventLog("<span class='eventTitle'>BeforeActiveClick</span> event is fired for Index " + args.activeIndex + ".");
+        }
+        function onActivate(args) {
+            if (!ej.isNullOrUndefined(args.activeIndex))
+                jQuery.addEventLog("<span class='eventTitle'>ActiveClick</span> event is fired for Index " + args.activeIndex + ".");
+        }
+        function onBeforeInActivate(args) {
+            if (!ej.isNullOrUndefined(args.inActiveIndex))
+                jQuery.addEventLog("Index " + args.inActiveIndex + " is on <span class='eventTitle'>BeforeInActive</span>.");
+        }
+        function onInActivate(args) {
+            if (!ej.isNullOrUndefined(args.inActiveIndex))
+                jQuery.addEventLog("Index " + args.inActiveIndex + " is on <span class='eventTitle'>inActive</span>.");
+        }
+        function onBeforeLoad(args) {
+            jQuery.addEventLog("<span class='eventTitle'>BeforeLoad</span> event is fired.");
+        }
+        function onLoad(args) {
+            jQuery.addEventLog("Ajax content is <span class='eventTitle'>loaded</span>.");
+        }
+        function onAjaxSuccess(args) {
+            jQuery.addEventLog("Ajax content is loaded <span class='eventTitle'>successfully</span>.");
+        }
+        function onError(args) {
+            jQuery.addEventLog("Ajax content is loaded with an <span class='eventTitle'>error</span>.");
+        }
+        function onClear() {
+            jQuery.clearEventLog();
+        }
+        function evtpropscheckedevent(args) {
+            acrdnObj = $("#eventAccordion").data("ejAccordion");
+            if (args.isChecked) {
+                switch (args.selectedText) {
+                    case "create": acrdnObj.option(args.selectedText, "onCreate"); break;
+                    case "beforeActivate": acrdnObj.option(args.selectedText, "onBeforeActivate"); break;
+                    case "activate": acrdnObj.option(args.selectedText, "onActivate"); break;
+                    case "beforeInactivate": acrdnObj.option(args.selectedText, "onBeforeInActivate"); break;
+                    case "inActivate": acrdnObj.option(args.selectedText, "onInActivate"); break;
+                    case "ajaxBeforeLoad": acrdnObj.option(args.selectedText, "onBeforeLoad"); break;
+                    case "ajaxLoad": acrdnObj.option(args.selectedText, "onLoad"); break;
+                    case "ajaxSuccess": acrdnObj.option(args.selectedText, "onAjaxSuccess"); break;
+                    case "ajaxError": acrdnObj.option(args.selectedText, "onError"); break;
+                }
+            }
+            else acrdnObj.option(args.selectedText, null);
+        }
+    </script>
+}

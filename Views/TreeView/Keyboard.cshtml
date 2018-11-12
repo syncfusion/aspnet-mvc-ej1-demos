@@ -1,0 +1,156 @@
+﻿@section SampleHeading{<span class="sampleName">TreeView / Keyboard </span>}
+@section ControlsSection{
+
+    <div style="width: 250px">
+        @(Html.EJ().TreeView("tree").Items(items =>
+                {
+                    items.Add().Text("Cricket").Expanded(true).Children(child =>
+                    {
+                        child.Add().Text("Princeton Club");
+                        child.Add().Text("Harvard Club");
+                        child.Add().Text("St.Columba's Club");
+                        child.Add().Text("Dartmouth Club");
+                        child.Add().Text("Middlebury Club");
+
+                    });
+                    items.Add().Text("Football").Children(child =>
+                    {
+                        child.Add().Text("A.F.C. Blackpool");
+                        child.Add().Text("A.F.C. Emley");
+                        child.Add().Text("Bedford");
+                        child.Add().Text("Celtic Nation");
+                        child.Add().Text("Farsley");
+                        child.Add().Text("Celtic Nation");
+                        child.Add().Text("London Colney");
+
+                    });
+                    items.Add().Text("Basketball").Children(child =>
+                    {
+                        child.Add().Text("AGE Halkida");
+                        child.Add().Text("Iraklio");
+                        child.Add().Text("Sporting Athens");
+                        child.Add().Text("Pagrati Athens");
+                    });
+                    items.Add().Text("Volleyball").Children(child =>
+                    {
+
+                        child.Add().Text("CV Elche");
+                        child.Add().Text("Jusan Canarias");
+                        child.Add().Text("Unicaja Arukasur");
+                        child.Add().Text("Voleibol Benidorm");
+
+                    });
+
+                }).ShowCheckbox(true).AllowEditing(true))
+
+
+    </div>
+}
+
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Alt + j
+        </div>
+        <div class="col-md-3">
+            Focus the control
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            F2
+        </div>
+        <div class="col-md-3">
+            Edit the node
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Delete
+        </div>
+        <div class="col-md-3">
+            Delete the node
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Down
+        </div>
+        <div class="col-md-3">
+            Traverse next node
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Up
+        </div>
+        <div class="col-md-3">
+            Traverse previous node
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Right
+        </div>
+        <div class="col-md-3">
+            Expand node / Traverse first child
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Left
+        </div>
+        <div class="col-md-3">
+            Collapse node
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Enter
+        </div>
+        <div class="col-md-3">
+            Select node
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Space
+        </div>
+        <div class="col-md-3">
+            Check / Uncheck node
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Home
+        </div>
+        <div class="col-md-3">
+            Traverse the first node in Tree
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            End
+        </div>
+        <div class="col-md-3">
+            Traverse the last node in tree
+        </div>
+    </div>    
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+            //Control focus key
+            $(document).on("keydown", function (e) {
+                if (e.altKey && e.keyCode === 74) {
+                    // j- key code.
+                    $(".e-treeview.e-js").focus();
+                }
+            });
+        });
+
+    </script>
+
+
+}

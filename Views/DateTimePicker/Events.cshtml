@@ -1,0 +1,63 @@
+﻿@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName">DateTimePicker / Events </span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().DateTimePicker("dateTime").Value("05/28/2018 2:47 AM").ClientSideEvents(s => s.Create("oncreate").Change("timeValChange").Open("onOpen").Close("onClose")).Width("100%")
+        </div>
+    </div>
+}
+<div id="target">
+    <ul>
+        <li>open</li>
+        <li>close</li>
+        <li>change</li>
+    </ul>
+</div>
+@section EventsDropdown{
+    @Html.EJ().DropDownList("selectControls_input").TargetID("target").CssClass("metroblue").ShowCheckbox(true).CheckAll(true).ClientSideEvents(s => s.Change("evtpropscheckedevent"))
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        function evtpropscheckedevent(args) {
+            var dateTimeObj = $("#dateTime").data("ejDateTimePicker");
+            if (args.isChecked) {
+                switch (args.selectedText) {
+                    case "change": dateTimeObj.option(args.selectedText, "timeValChange"); break;
+                    case "open": dateTimeObj.option(args.selectedText, "onOpen"); break;
+                    case "close": dateTimeObj.option(args.selectedText, "onClose"); break;
+                }
+            }
+            else dateTimeObj.option(args.selectedText, null);
+        }
+        // Client side Events
+        function oncreate(args) {
+            jQuery.addEventLog("Date TimePicker has been <span class='eventTitle'> created</span>.");
+        }
+        function timeValChange(args) {
+            jQuery.addEventLog("Date TimePicker value has been <span class='eventTitle'> changed</span> to " + args.value + ".</br>");
+        }
+        function onOpen(args) {
+            jQuery.addEventLog("Date TimePicker is in <span class='eventTitle'> Opened</span>");
+        }
+        function onClose(args) {
+            jQuery.addEventLog("Date TimePicker is out of <span class='eventTitle'> Closed</span>");
+        }
+        function onClear() {
+            jQuery.clearEventLog();
+        }
+    </script>
+}
+@section StyleSection{
+    <style>
+        .control {
+            width: 210px;
+        }
+
+            .control .e-datetime-wrap {
+                width: 175px;
+            }
+    </style>
+}

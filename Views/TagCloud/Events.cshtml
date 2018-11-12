@@ -1,0 +1,50 @@
+﻿@section SampleHeading{ <span class="sampleName">TagCloud / Events</span>}
+
+@section ControlsSection{
+<div class="controlframe" style="width: 350px;">
+    @Html.EJ().TagCloud("tagEvents").Datasource((IEnumerable<WebsiteCollection>)ViewBag.datasource).TagCloudFields(tag => tag.Text("text").Url("url").Frequency("frequency")).Title("Car Models").ClientSideEvents(evt => evt.Create("oncreate").MouseOver("onmouseover").MouseOut("onmouseout").Click("onclick"))
+    </div>
+}
+<div id="tagCloudTarget">
+    <ul>
+        <li>mouseover</li>
+        <li>mouseout</li>
+        <li>click</li>
+    </ul>
+</div>
+@section EventsDropdown{
+    @Html.EJ().DropDownList("selectControls_input").TargetID("tagCloudTarget").ShowCheckbox(true).CheckAll(true).ClientSideEvents(evt => evt.Change("evtpropscheckedevent").PopupShown("adjustpopupposition"))
+}
+@section ScriptSection{
+    <script>
+        function evtpropscheckedevent(args) {
+            tagObj = $("#tagEvents").data("ejTagCloud");
+            if (args.isChecked) {
+                switch (args.selectedText) {
+                    case "mouseover": tagObj.option(args.selectedText, "onmouseover"); break;
+                    case "mouseout": tagObj.option(args.selectedText, "onmouseout"); break;
+                    case "click": tagObj.option(args.selectedText, "onclick"); break;
+                }
+            }
+            else tagObj.option(args.selectedText, null);
+        }
+
+        function oncreate(args) {
+            jQuery.addEventLog("Tagcloud has been <span class='eventTitle'>created</span>.");
+        }
+        function onmouseover(args) {
+            jQuery.addEventLog("Mouse pointer is <span class='eventTitle'>hovered </span> on " + args.value + ".</br>");
+        }
+        function onmouseout(args) {
+            jQuery.addEventLog("Mouse pointer is <span class='eventTitle'>hovered away</span> from " + args.value + ".</br>");
+        }
+        function onclick(args) {
+            jQuery.addEventLog(args.value + " is <span class='eventTitle'>clicked</span>.</br>");
+        }
+        function onClear() {
+            $("#EventLog").html("");
+        }
+        $(document).ready(function () { $("#sampleProperties").ejPropertiesPanel(); });
+    </script>
+}
+

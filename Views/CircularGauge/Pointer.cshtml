@@ -1,0 +1,153 @@
+﻿@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/excanvas.min.js")"></script>
+    }
+@section SampleHeading{
+	<span class="sampleName">Pointer</span>
+	}
+
+@section ControlsSection{
+ <div align="center">
+ @(Html.EJ().CircularGauge("circulargaugepointer")
+                .BackgroundColor("transparent").EnableAnimation(false)
+                     .IsResponsive(true)
+                    .ClientSideEvents(cli=>cli.Load("loadGaugeTheme"))
+                .Scales(sc =>
+                {
+                    sc.Radius(130)
+                    .PointerCap(cap=>cap.Radius(10))
+                    .Minimum(0)
+                    .Maximum(120)
+                    .MajorIntervalValue(20)
+                    .MinorIntervalValue(10)
+                    .ShowScaleBar(true)
+                    .Size(1)
+                    .ShowRanges(true)
+                    .Ranges(ran =>
+                    {
+                        ran.Size(5).DistanceFromScale(-30).StartValue(0).EndValue(70).Add();
+                        ran.Size(5).DistanceFromScale(-30).StartValue(70).EndValue(110).BackgroundColor(ConsoleColor.Red.ToString()).Border(bor=>bor.Color(ConsoleColor.Red.ToString())).Add();
+                        ran.Size(5).DistanceFromScale(-30).StartValue(110).EndValue(120).BackgroundColor(ConsoleColor.Yellow.ToString()).Border(bor=>bor.Color(ConsoleColor.Yellow.ToString())).Add();
+                    })
+                    .Pointers(po =>
+                    {
+                        po.Value(60)
+                        .Length(90)
+                        .Width(8)
+                        .ShowBackNeedle(true)
+                        .BackNeedleLength(15).Add();
+                    }).Add();
+                })
+                .Radius(140)
+                .Height(360)
+                .Width(500)
+                )
+</div>
+}
+
+
+
+@section PropertiesSection{
+    <div class="row">
+                        <div class="col-md-3">
+                            Pointer Length
+                        </div>
+                        <div class="col-md-3 aligntop">
+                           @(Html.EJ().Slider("pointerlength").SliderType(SlideType.MinRange).Value("90").Height("10").Width("120").MinValue(50).MaxValue(100).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange").Slide("onchange"); }))
+                        </div>
+                        <div class="col-md-3">
+                            Pointer Width
+                        </div>
+                        <div class="col-md-3 aligntop">
+                           @(Html.EJ().Slider("pointerwidth").SliderType(SlideType.MinRange).Value("7").Height("10").Width("120").MinValue(2).MaxValue(14).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange").Slide("onchange"); }))
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            Needle Length
+                        </div>
+                        <div class="col-md-3 aligntop">
+                           @(Html.EJ().Slider("needlelength").SliderType(SlideType.MinRange).Value("19").Height("10").Width("120").MinValue(10).MaxValue(20).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange").Slide("onchange"); }))
+                        </div>
+                        <div class="col-md-3">
+                            Cap Radius
+                        </div>
+                        <div class="col-md-3 aligntop">
+                           @(Html.EJ().Slider("pointercapradius").SliderType(SlideType.MinRange).Value("12").Height("10").Width("120").MinValue(9).MaxValue(15).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange").Slide("onchange"); }))
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            Pointer Value
+                        </div>
+                        <div class="col-md-3 aligntop">
+                           @(Html.EJ().Slider("pointervalue").SliderType(SlideType.MinRange).Value("60").Height("10").Width("120").MinValue(0).MaxValue(120).EnableAnimation(true).ClientSideEvents(events => { events.Change("pointerchange"); }))
+                        </div>
+                        <div class="col-md-3">
+                            Needle Style
+                        </div>
+                        <div class="col-md-3" style="margin-top:4px;">
+                            @(Html.EJ().DropDownList("needleStyle").Datasource((IEnumerable<MVCSampleBrowser.Models.CircularGauge.NeedleStyle>)ViewBag.datasource).DropDownListFields(df => df.ID("Style").Text("Style").Value("Style")).SelectedItemIndex(0).Width("100").ClientSideEvents(cli => { cli.Select("onchange1"); }))
+                        </div>
+
+                    </div>
+}
+
+@section StyleSection{
+<style>
+        .col-md-3 .e-ddl .e-input {
+            line-height:20px;
+        }
+    </style>
+}
+
+
+ <script>
+     $(document).ready(function () {
+         $("#sampleProperties").ejPropertiesPanel();
+     });
+        function onchange(args) {
+            var circular = $("#circulargaugepointer").data("ejCircularGauge");
+            if (args.id == "pointerlength") {
+                circular.setPointerLength(0, 0, args.value);
+            }
+            else if (args.id == "pointerwidth") {
+                circular.setPointerWidth(0, 0, args.value);
+            }
+            else if (args.id == "needlelength") {
+                circular.setBackNeedleLength(0, 0, args.value);
+            }
+            else if (args.id == "pointercapradius") {
+                circular.setPointerCapRadius(0, args.value);
+            }
+        }
+
+        function onchange1(args) {
+            var circular = $("#circulargaugepointer").data("ejCircularGauge");
+            circular.setNeedleStyle(0, 0, args.text);
+        }
+
+        function pointerchange(args) {
+            var circular = $("#circulargaugepointer").data("ejCircularGauge");
+            var currentValue = circular.model.scales[0].pointers[0].value;
+            var handleValue = Math.round(args.value);
+            var timer = setInterval(function pointerchan() {
+                if (currentValue < handleValue) {
+                    currentValue = currentValue + 1;
+                    circular.setPointerValue(0, 0, currentValue);
+                }
+                else if (currentValue > handleValue) {
+                    currentValue = currentValue - 1;
+                    circular.setPointerValue(0, 0, currentValue);
+                }
+                else if (currentValue == handleValue) {
+                    window.clearInterval(timer);
+                }
+            }, 1);
+        }
+
+    </script>
+
+
+

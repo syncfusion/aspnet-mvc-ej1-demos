@@ -1,0 +1,54 @@
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.de-DE.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.fr-FR.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.vi-VN.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.zh-CN.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName">DatePicker / Localization</span> }
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().DatePicker("DatePick").Value("28/05/2018").Locale("fr-FR").Width("100%")
+        </div>
+    </div>
+}
+<div id="droplist">
+    <ul>
+        <li>en-US</li>
+        <li>vi-VN</li>
+        <li>fr-FR</li>
+    </ul>
+</div>
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            <span>Select Culture</span>
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("drop").TargetID("droplist").Width("110px").SelectedItemIndex(2).ClientSideEvents(s => s.Change("onchange"))
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        function onchange(args) {
+            var datebject = $("#DatePick").data("ejDatePicker");
+            datebject.setModel({ locale: args.text });
+        }
+
+        $("#sampleProperties").ejPropertiesPanel();
+
+        ej.DatePicker.Locale['fr-FR'] = {
+            watermarkText: "Sélectionner une date",
+            buttonText: "Aujourd'hui"
+        };
+        ej.DatePicker.Locale['vi-VN'] = {
+            watermarkText: "Chọn ngày",
+            buttonText: 'Hôm nay'
+        };
+
+    </script>
+}
+
+

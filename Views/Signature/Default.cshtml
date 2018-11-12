@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "Default";
+}
+
+@section SampleHeading{
+    <span class="sampleName">Signature / Default</span>}
+
+@section ControlsSection{
+
+    <div class="frame">
+        <div class="control">
+		 <h3>Sign here</h3>
+            @Html.EJ().Signature("sign").Height("400px").StrokeWidth(3).IsResponsive(true)
+        </div>
+    </div>
+
+}
+@section StyleSection{
+
+    <style type="text/css">
+        .frame {
+            width: 80%;
+        }
+    </style>
+}
+
+

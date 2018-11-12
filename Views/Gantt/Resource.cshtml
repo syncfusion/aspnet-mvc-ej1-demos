@@ -1,0 +1,70 @@
+﻿@section SampleHeading{<span class="sampleName">Gantt/Resource</span>}
+
+@section ControlsSection{
+
+    <div id="ganttsample6" style="width: 100%; height: 450px;">
+        @(Html.EJ().Gantt("ganttsample6")
+              .TaskIdMapping("Id")
+              .TaskNameMapping("Name")
+              .StartDateMapping("StartDate")
+              .DurationMapping("Duration")
+              .ProgressMapping("PercentDone")             
+              .SplitterPosition("54%")                        
+              .HighlightWeekends(true)              
+              .TreeColumnIndex(0)
+              .ChildMapping("Children")
+              .AllowSelection(true)
+              .AllowColumnResize(true)
+              .AllowGanttChartEditing(false)
+              .PredecessorMapping("Predecessor")
+              .ResourceInfoMapping("Resources")
+              .ResourceNameMapping("Name")
+              .ResourceIdMapping("Id")                                              
+              .IsResponsive(true)
+                       .ToolbarSettings(toolbar =>
+                           {
+                               toolbar.ShowToolbar(true);
+                               toolbar.ToolbarItems(new List<GanttToolBarItems>()
+                       {
+                           GanttToolBarItems.Add,
+                           GanttToolBarItems.Edit,
+                           GanttToolBarItems.Delete,
+                           GanttToolBarItems.Update,
+                           GanttToolBarItems.Cancel,
+                           GanttToolBarItems.Indent,
+                           GanttToolBarItems.Outdent,
+                           GanttToolBarItems.ExpandAll,
+                           GanttToolBarItems.CollapseAll,
+                                  });
+                           })
+                           .EditSettings(edit =>
+                           {
+                               edit.AllowEditing(true);
+                               edit.AllowAdding(true);
+                               edit.AllowDeleting(true);
+                               edit.AllowIndent(true);
+                               edit.EditMode("cellEditing");
+
+                           })     
+                           .ClientSideEvents(eve =>
+                              {
+                                  eve.Load("load");
+                              })                    
+              .Resources(ViewBag.resources)
+              .Datasource(ViewBag.datasource)
+        )
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        function load() {
+            var ganttObject = $("#ganttsample6").data("ejGantt"),
+               columns = ganttObject.getColumns();
+            columns[1].visible = columns[2].visible = columns[5].visible = columns[6].visible = false;
+            columns[7].visible = columns[8].visible = columns[9].visible = true;
+            columns[0].width = columns[3].width = columns[8].width = columns[9].width = 100;
+            columns[7].width = 75;
+            columns[4].width = 85;
+        }
+    </script>
+}

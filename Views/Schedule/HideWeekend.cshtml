@@ -1,0 +1,94 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Schedule / Hide Weekend</span>}
+@section ControlsSection{
+    @{List<string> view = new List<string>() { "Day", "Week", "Month", "Agenda" };}
+    @(Html.EJ().Schedule("Schedule1")
+        .Width("100%")
+        .Height("525px")
+        .Views(view)
+        .CurrentDate(new DateTime(2017, 6, 5))
+        .ShowWeekend(false)
+        .AppointmentSettings(fields => fields.Datasource((IEnumerable)ViewBag.datasource)
+            .Id("Id")
+            .Subject("Subject")
+            .StartTime("StartTime")
+            .EndTime("EndTime")
+            .Description("Description")
+            .AllDay("AllDay")
+            .Recurrence("Recurrence")
+            .RecurrenceRule("RecurrenceRule"))
+    )
+}
+
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">Non-Working Days</div>
+        <div class="col-md-3">
+            @Html.EJ().ToggleButton("showrhideweekends").Size(ButtonSize.Medium).ShowRoundedCorner(true).DefaultText("Show").ActiveText("Hide").ClientSideEvents(evt => evt.Change("onShowOrHideDays"))
+            <label for="showrhideweekends">Toggle</label>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-3">Orientation</div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("orientation").TargetID("orientationtype").Width("110px").SelectedIndex(0).ClientSideEvents(evt => evt.Change("onOrientationChange"))
+            <div id="orientationtype">
+                <ul>
+                    <li>Vertical</li>
+                    <li>Horizontal</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-3">Working Days</div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("workingdays").TargetID("weekdays").Width("110px").ShowCheckbox(true).ClientSideEvents(evt => evt.Change("onChangeWorkingDays")).SelectedIndices(new List<int> { 1, 2, 3, 4, 5 })
+            <div id="weekdays">
+                <ul>
+                    <li>Sunday</li>
+                    <li>Monday</li>
+                    <li>Tuesday</li>
+                    <li>Wednesday</li>
+                    <li>Thursday</li>
+                    <li>Friday</li>
+                    <li>Saturday</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+
+@section ScriptSection{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+
+        function onShowOrHideDays(args) {
+            $("#Schedule1").ejSchedule({ showWeekend: args.isChecked });
+        }
+
+        function onOrientationChange(args) {
+            $("#Schedule1").ejSchedule({ orientation: args.value.toLowerCase() });
+        }
+
+        function onChangeWorkingDays(args) {
+            var object = $('#workingdays').data("ejDropDownList");
+            var array = [], workweek = [];
+            var items = args.model.selectedItems.sort();
+            var element = object.listitems;
+            for (var i = 0; i < element.length; i++) {
+                list = element.get(i);
+                array.push(list.textContent);
+            }
+            for (var j = 0; j < items.length; j++) {
+                workweek.push(array[items[j]]);
+            }
+            $.unique(workweek);
+            $("#Schedule1").ejSchedule({ workWeek: workweek });
+        }
+    </script>
+}

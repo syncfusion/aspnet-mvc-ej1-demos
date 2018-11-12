@@ -1,0 +1,125 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Schedule / Tooltip</span>}
+@section ControlsSection{
+     @(Html.EJ().Schedule("Schedule1")
+              .Width("100%")
+              .Height("425px")
+              .CurrentDate(new DateTime(2017, 6, 5))
+              .TooltipSettings(pre => pre.Enable(true))
+              .Resources(res=> {
+                 res.Field("OwnerId").Title("Owner").Name("Owners").AllowMultiple(true)
+                .ResourceSettings(flds => flds.Datasource((IEnumerable)ViewBag.Owners).Text("text").Id("id").Color("color")).Add();
+                 })
+              .AppointmentSettings(fields => fields.Datasource((IEnumerable) ViewBag.datasource)
+                  .Id("Id")
+                  .Subject("Subject")
+                  .StartTime("StartTime")
+                  .EndTime("EndTime")
+                  .Description("Description")
+                  .AllDay("AllDay")
+                  .Recurrence("Recurrence")
+                  .RecurrenceRule("RecurrenceRule")
+                  .ResourceFields("OwnerId"))
+              )
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Enable Tooltip
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().CheckBox("tooltip").Checked(true).ClientSideEvents(eve => { eve.Change("onTooltip"); })
+        </div>
+    </div>
+	<div class="row">
+        <div class="col-md-3">
+           Enable Tooltip Template
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().CheckBox("tooltipTemplate").Checked(false).ClientSideEvents(eve => { eve.Change("onTooltipTemp"); })
+        </div>
+    </div>
+}
+@section ScriptSection{
+       @* Defing Tooltip Template*@
+	<script id="tooltipTemp" type="text/x-jsrender">
+		<div style="width:275px">
+           <div style='float:left;width:80px;'>{{:~format("1_"+OwnerId.toString())}}</div>
+		   <div>
+		        <div>
+					<div class="temphead" style="float:left;">Name:&nbsp;</div>
+					<div class="temp">{{:~format("2_"+OwnerId.toString())}}</div>
+				</div>
+				<div style="padding-top:3px;">
+					<div class="temphead" style="float:left;">Subject:&nbsp;</div>
+					<div class="temp">{{:Subject.length>0 ? Subject:"NoTitle"}}</div>
+				</div>
+				<div style="padding-top:3px">
+					<div class="temphead" style="float:left;">StartTime:&nbsp;</div>
+					<div class="temp">{{:StartTime.toLocaleString()}}</div>
+				</div>
+				<div style="padding-top:3px;padding-bottom:2px">
+					<div class="temphead" style="float:left;">EndTime:&nbsp;</div>
+					<div class="temp">{{:EndTime.toLocaleString()}}</div>
+				</div>
+		   </div>
+		</div>
+	</script>
+    <script>
+        var obj;
+        $(document).ready(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+            obj = $("#Schedule1").data("ejSchedule");
+        });
+        function _getResources(id) {
+            var resid = id.split("_");
+            switch (parseInt(resid[1])) {
+                case 1:
+                    if (parseInt(resid[0]) == 2)
+                        return "<div>Nancy<div>"
+                    else
+                        return "<img class='imgheight' src='../Content/images/Employees/3.png'/>";
+                    break;
+                case 3:
+                    if (parseInt(resid[0]) == 2)
+                        return "<div>Steven<div>"
+                    else
+                        return "<img class='imgheight' src='../Content/images/Employees/5.png'>";
+                case 5:
+                    if (parseInt(resid[0]) == 2)
+                        return "<div>Michael<div>"
+                    else
+                        return "<img class='imgheight' src='../Content/images/Employees/7.png'>";
+                default:
+                    return null;
+            }
+        }
+        $.views.helpers({ format: _getResources });
+        function onTooltip(args) {
+            if (args.isChecked)
+                $("#Schedule1").ejSchedule("option", "tooltipSettings.enable", true);
+            else
+                $("#Schedule1").ejSchedule("option", "tooltipSettings.enable", false);
+        }
+        function onTooltipTemp(args) {
+            if (args.isChecked)
+                $("#Schedule1").ejSchedule("option", "tooltipSettings.templateId", "#tooltipTemp");
+            else
+                $("#Schedule1").ejSchedule("option", "tooltipSettings.templateId", null);
+        }
+    </script>
+    <style>
+	 .imgheight{
+	    width:70px;
+	    height:72px;
+	 }
+	 .temp{
+	  padding-top:2px;
+	  font:12px Segoe UI SemiBold;
+	 }
+	 .temphead {
+	  font:13px Segoe UI;
+	  font-weight:bold;
+	 }
+	</style>
+}

@@ -1,0 +1,215 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section ScriptReferenceSection{
+    <script src="~/Scripts/onlinedata.js"></script>
+}
+
+@section SampleHeading{<span class="sampleName">RSI Indicator </span>}
+
+@section ControlsSection{
+    <div id="Tooltip" style="display: none; height: 125px; width: 125px; padding-top: 10px; padding-bottom: 10px">
+        <div align="center" style="font-weight: bold">
+            #point.x#
+        </div>
+        <table>
+            <tr>
+                <td>Open:
+                </td>
+                <td>$#point.open#
+                </td>
+            </tr>
+            <tr>
+                <td>High:
+                </td>
+                <td>$#point.high#
+                </td>
+            </tr>
+            <tr>
+                <td>Low:
+                </td>
+                <td>$#point.low#
+                </td>
+            </tr>
+            <tr>
+                <td>Close:
+                </td>
+                <td>$#point.close#
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+   @(Html.EJ().Chart("container")
+         .Axes(ax =>
+             {
+                 ax.Name("yAxis1").OpposedPosition(true).MajorGridLines(mg => mg.Visible(false)).Add();
+             })
+        .PrimaryXAxis(pr => pr.Title(tl => tl.Text("Date")).ValueType(AxisValueType.Datetime).LabelFormat("dd,MMM"))
+        .PrimaryYAxis(pr => pr.LabelFormat("${value}").Range(ra => ra.Min(55).Max(75).Interval(5)))
+        .Series(sr =>
+            {
+                sr.Name("Hilo").Type(SeriesType.HiloOpenClose).Tooltip(tool => tool.Visible(false)
+                  .Format("#point.x#<br/>Open : $#point.open#<br/>High : $#point.high#<br/>Low : $#point.low#<br/>Close : $#point.close#<br/>"))
+                  .EnableAnimation(true).Add();
+
+            })
+            .Crosshair(cr => cr.Visible(true).Type(CrosshairType.Trackball))
+            .Indicators(ind => ind.Type(ChartIndicatorType.RSI).SeriesName("Hilo").Period(14).YAxisName("yAxis1")
+                 .Fill("blue").Width(2).EnableAnimation(true)
+                 .Tooltip(tool => tool.Visible(false).Format("").Fill("transparent").Border(br => br.Color("transparent")))
+                 .UpperLine(ul => ul.Fill("red").Width(2))
+                 .LowerLine(ll => ll.Fill("green").Width(2))
+                 .Add())
+        .Load("chartLoad")
+        .TrackToolTip("track")
+        .CommonSeriesOptions(cr => cr.EnableAnimation(true))
+        .IsResponsive(true)
+        .Zooming(zm => zm.Enable(true))
+        .Title(title => title.Text("RSI Indicator"))
+        .Size(sz => sz.Height("600"))
+        .Legend(lg => { lg.Visible(false); })
+        )
+    </div>
+}
+@section PropertiesSection
+
+{
+    <div class="row">
+        <div class="col-md-3">
+            Period:
+        </div>
+        <div class="col-md-3 aligntop">
+            @Html.EJ().NumericTextbox("period").Value(14).Width("80px").MinValue(1).MaxValue(50).ClientSideEvents(s => s.Change("period"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Upper Line Stroke:
+        </div>
+        <div class="col-md-3 aligntop">
+            <select autocomplete="off" name="upperLine" id="upLine">
+                <option value="0">Red</option>
+                <option value="1">Yellow</option>
+                <option value="2">Green</option>
+                <option value="3">Blue</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            Signal Line Stroke:
+        </div>
+        <div class="col-md-3 aligntop">
+            <select name="signalLine" autocomplete="off" id="signalLine">
+                <option value="0">Blue</option>
+                <option value="1">Yellow</option>
+                <option value="2">Green</option>
+                <option value="3">Red</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            Lower Line Stroke:
+        </div>
+        <div class="col-md-3 aligntop">
+            <select name="lowLine" autocomplete="off" id="lowLine">
+                <option value="0">Green</option>
+                <option value="1">Yellow</option>
+                <option value="2">Red</option>
+                <option value="3">Blue</option>
+            </select>
+        </div>
+    </div>
+
+}
+@section ScriptSection
+{
+    <script type="text/javascript" language="javascript">
+        function track(sender) {
+            sender.data.Location.X = sender.data.Location.X + 1;
+            if (sender.data.Series.name == "Hilo") {
+                if (this.model.indicators[0].segment.length > 0) {
+                    if (this.model.indicators[0].segment[2].points[sender.data.pointIndex].y != null)
+                        sender.data.currentText = sender.data.currentText + "Signal Line " + " :" + "  $" +
+                            this.model.indicators[0].segment[2].points[sender.data.pointIndex].y.toFixed(2) + "<br/>" + "<br/>";
+                    else
+                        sender.data.currentText = sender.data.currentText + "Signal Line " + " :" + "  $" +
+                            this.model.indicators[0].segment[2].points[sender.data.pointIndex].y + "<br/>" + "<br/>";
+                }
+            }
+        }
+        $("#controlarea").css("visibility", "visible");
+
+        function chartLoad(sender) {
+            loadTheme(sender);
+            sender.model.series[0].dataSource = window.chartData;
+            sender.model.series[0].xName = "xDate";
+            sender.model.series[0].high = "High";
+            sender.model.series[0].low = "Low";
+            sender.model.series[0].open = "Open";
+            sender.model.series[0].close = "Close";
+        }
+        function period(sender) {
+            var chartObj = $("#container").ejChart("instance");
+            chartObj.model.indicators[0].period = parseInt(sender.value);
+            $("#container").ejChart("redraw");
+        }
+
+        function getColorValue(name) {
+            var val;
+            switch (name) {
+                case "Red":
+                    val = "#FF0000";
+                    break;
+                case "Green":
+                    val = "#009900";
+                    break;
+                case "Yellow":
+                    val = "#D8B213";
+                    break;
+                case "Blue":
+                    val = "#0000FF";
+                    break;
+            }
+            return val;
+        }
+        $('#upLine').change(function () {
+            var option = $("#upLine option:selected").text();
+            var chart = $("#container").ejChart("instance");
+            var value = getColorValue(option);
+            chart.model.indicators[0].upperLine.fill = value;
+            $("#container").ejChart("redraw");
+        });
+        $('#signalLine').change(function () {
+            var option = $("#signalLine option:selected").text();
+            var chart = $("#container").ejChart("instance");
+            var value = getColorValue(option);
+            chart.model.indicators[0].fill = value;
+            $("#container").ejChart("redraw");
+        });
+        $('#lowLine').change(function () {
+            var option = $("#lowLine option:selected").text();
+            var chart = $("#container").ejChart("instance");
+            var value = getColorValue(option);
+            chart.model.indicators[0].lowerLine.fill = value;
+            $("#container").ejChart("redraw");
+        });
+
+        $("#sampleProperties").ejPropertiesPanel();
+    </script>
+}
+
+@section StyleSection
+{<style class="cssStyles">
+     .tooltipDiv table, table th, table tr, table td {
+         border: 0px none;
+         margin: 0 auto;
+     }
+
+     .tooltipDiv {
+         border: 2px transparent;
+         color: white;
+     }
+
+     #Tooltip td {
+         color: white;
+     }
+ </style>
+}

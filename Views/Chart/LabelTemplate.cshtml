@@ -1,0 +1,106 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart / Chart Customization/ Label Template </span>}
+
+@section ControlsSection{
+    <div id="template">
+        <div id="left">
+            <img src="../images/chart/icon_investments.png" />
+        </div>
+        <div id="right">
+            <div id="point">#point.y#%</div>
+        </div>
+    </div>
+    <div>
+   @(Html.EJ().Chart("container")
+         .ChartArea(ch => ch.Border(br => br.Color("transparent")))
+         .PrimaryXAxis(xaxis =>xaxis.ValueType(AxisValueType.Category).Range(rn => rn.Min(2005).Max(2011).Interval(1)).Title(tit => tit.Text("Years")))
+         .PrimaryYAxis(yaxis => yaxis.Range(rn => rn.Min(15).Max(40).Interval(5)).Title(tit => tit.Text("Percentage"))
+         .LabelFormat("{value}%"))
+         .CommonSeriesOptions(cm => cm.Type(SeriesType.Spline).EnableAnimation(true).Tooltip(tt => tt.Visible(true))
+         .Marker(mr => mr.DataLabel(dt => dt.Opacity(0.9).EnableContrastColor(true)
+         .Border(b => b.Color("Black").Width(0.3)).Visible(true)).Size(sz => sz.Height(10).Width(10))))
+         .Series(sr =>
+                      {
+                          sr.Points(pt =>
+                          {
+                              pt.X("2005").Y(28.1).Add();
+                              pt.X("2006").Y(29.2).Add();
+                              pt.X("2007").Y(33.9).Add();
+                              pt.X("2008").Y(36).Add();
+                              pt.X("2009").Y(32.4).Add();
+                              pt.X("2010").Y(32).Add();
+                              pt.X("2011").Y(33).Add();
+                          }).Name("India").Fill("#8CC640").Marker(mr => mr.Visible(true).DataLabel(dt => dt.Visible(true)
+                            .Template("template"))).Add();
+
+                          sr.Points(pt =>
+                          {
+                              pt.X("2005").Y(21.8).Add();
+                              pt.X("2006").Y(21.8).Add();
+                              pt.X("2007").Y(24.9).Add();
+                              pt.X("2008").Y(28.5).Add();
+                              pt.X("2009").Y(27.2).Add();
+                              pt.X("2010").Y(23.4).Add();
+                              pt.X("2011").Y(23.4).Add();
+                          }).Fill("#CBA4C7").Name("Singapore").Marker(mr => mr.Visible(true).DataLabel(dt => dt.Visible(true).VerticalTextAlignment(Syncfusion.JavaScript.DataVisualization.TextAlignment.Far)
+                            .Shape(ChartShape.Rectangle).Font(fn => fn.Size("14px")))).Add();
+                          sr.Points(pt =>
+                          {
+                              pt.X("2005").Y(18.1).Add();
+                              pt.X("2006").Y(18.2).Add();
+                              pt.X("2007").Y(21).Add();
+                              pt.X("2008").Y(22.1).Add();
+                              pt.X("2009").Y(21.5).Add();
+                              pt.X("2010").Y(18.9).Add();
+                              pt.X("2011").Y(21.3).Add();
+                          }).Name("Russia").Marker(mr => mr.Visible(true).DataLabel(dt => dt.Visible(true).VerticalTextAlignment(Syncfusion.JavaScript.DataVisualization.TextAlignment.Far)
+                            .Shape(ChartShape.Rectangle).Font(fn => fn.Size("14px")))).Add();
+
+                      })
+            .Load("loadTheme")
+            .IsResponsive(true)
+            .Title(t => t.Text("Gross Investments"))
+            .Size(sz => sz.Height("600"))
+            .Legend(lg => lg.Visible(true))
+            )
+        <script>
+            $("#controlarea").css("visibility", "visible");
+        </script>
+    </div>
+}
+@section StyleSection
+{
+    <style>
+        #point {
+            font-family: segoe ui;
+            font-size: 16px;
+            color: black;
+        }
+
+        #left, #right {
+            float: left;
+        }
+
+        img {
+            height: 25px;
+            width: 30px;
+        }
+
+        #left {
+            background-color: #8CC640;
+        }
+
+        #right {
+            background-color: #C3C3C3;
+            height: 30px;
+            border-style: solid;
+            border-color: #8CC640;
+            border-width: 1px;
+        }
+
+        #template {
+            display: none;
+        }
+    </style>
+}

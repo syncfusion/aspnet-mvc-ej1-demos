@@ -1,0 +1,24 @@
+﻿@section SampleHeading{
+    <span class="sampleName">ListView / CheckList</span>}
+@section ControlsSection{
+        @Html.EJ().ListView("checklist").ShowHeader(false).Height(355).Width(400).EnableCheckMark(true).AllowScrolling(true).Items(items =>
+   {
+       items.Add().Text("Artwork");
+       items.Add().Text("Abstract");
+       items.Add().Text("2 Acrylic Mediums");
+       items.Add().Text("Creative Acrylic");
+       items.Add().Text("Modern Painting");
+       items.Add().Text("Canvas Art");
+       items.Add().Text("Black white");
+       items.Add().Text("Children");
+   }).ClientSideEvents(evt =>evt.LoadComplete("setheight"))
+}
+<script type="text/javascript">
+        function setheight () {
+            if (document.body.firstElementChild.className == "htmljssamplebrowser material"){
+                var obj = $("#checklist").ejListView("instance");
+                obj.option("_refreshScroller", true);
+                obj.option("height",380)
+                 }
+         };
+</script>

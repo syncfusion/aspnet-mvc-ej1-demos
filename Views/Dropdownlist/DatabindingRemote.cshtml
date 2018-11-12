@@ -1,0 +1,9 @@
+﻿@section SampleHeading{
+    <span class="sampleName">Dropdownlist / Data Binding - Remote data</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().DropDownList("customerList").Datasource(ds => ds.URL("//js.syncfusion.com/demos/ejServices/Wcf/Northwind.svc/").CrossDomain(true)).Query("ej.Query().from('Customers').take(6)").DropDownListFields(f => f.Text("CustomerID")).WatermarkText("Select a customer").Width("100%")
+        </div>
+    </div>
+}

@@ -1,0 +1,66 @@
+﻿@section SampleHeading{
+    <span class="sampleName">GroupButtons / RTL</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            <table>
+                <tr>
+                    <td class="btnsht">
+                        @Html.EJ().Button("buttonnormal").Text("Play").ShowRoundedCorner(true).Size(ButtonSize.Large).ContentType(ContentType.TextAndImage).ImagePosition(ImagePosition.ImageLeft).PrefixIcon("e-icon e-mediaplay").EnableRTL(true)
+
+                </td>
+                <td class="btnsht brtl">
+                    Button
+                </td>
+            </tr>
+            <tr>
+                <td class="btnsht">
+                    @Html.EJ().ToggleButton("TextOnly").ShowRoundedCorner(true).Size(ButtonSize.Large).ContentType(ContentType.TextAndImage).DefaultText("Play").ActiveText("Next").DefaultPrefixIcon("e-icon e-mediaplay").ActivePrefixIcon("e-icon e-medianext").EnableRTL(true)
+
+            </td>
+            <td class="btnsht brtl">
+                Toggle Button
+            </td>
+        </tr>
+        <tr>
+            <td class="btnsht">
+                @Html.EJ().SplitButton("splitbuttonnormal").Text("Play").ShowRoundedCorner(true).Size(ButtonSize.Large).ContentType(ContentType.TextAndImage).ImagePosition(ImagePosition.ImageLeft).PrefixIcon("e-icon e-mediaplay").TargetID("adminmenu").EnableRTL(true)
+
+        </td>
+        <td class="splttd btnsht brtl">
+            Split Button
+            <ul id="adminmenu">
+                <li><span>Pause</span></li>
+                <li><span>Next</span></li>
+                <li><span>Previous</span></li>
+            </ul>
+        </td>
+    </tr>
+    <tr>
+        <td class="btnsht">
+            @Html.EJ().GroupButton("GroupButton").Width("100%").Height("40px").GroupButtonMode(GroupButtonMode.RadioButton).EnableRTL(true).ShowRoundedCorner(true).Items(item =>
+                   {
+                       item.Add().Text("Next");
+                       item.Add().Text("Play");
+                       item.Add().Text("Previous");
+                   })
+            </td>
+            <td class="btnsht brtl">
+                Group Button
+            </td>
+        </tr>
+    </table>
+</div>
+</div>
+}
+@section StyleSection{
+    <style>
+        .frame {
+            width: 35%;
+        }
+
+        .brtl {
+            text-align: right;
+        }
+    </style>
+}

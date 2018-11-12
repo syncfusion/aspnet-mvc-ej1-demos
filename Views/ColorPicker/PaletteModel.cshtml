@@ -1,0 +1,20 @@
+﻿@section SampleHeading{<span class="sampleName">ColorPicker / Palette Model </span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            <div class="element">
+                Choose a Color 
+            @Html.EJ().ColorPicker("Palette").Value("#ba4").ModelType(ModelType.Palette)
+            </div>
+        </div>
+    </div>
+}
+
+@section StyleSection{
+    <style>
+        .frame .control {
+            margin-left: 40%;
+        }
+    </style>
+
+}
