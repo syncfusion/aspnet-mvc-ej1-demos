@@ -1,0 +1,16 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates a simple, mobile-friendly and responsive ASP.NET MVC DatePicker to select a date.">
+}
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName">DatePicker-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame ">
+        <div class="control">
+            @Html.EJ().DatePicker("DatePick").EnablePersistence(true).Value(ViewBag.datevalue).Width("100%")
+
+        </div>
+    </div>
+}
+

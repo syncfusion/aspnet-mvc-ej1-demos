@@ -1,0 +1,51 @@
+@section SampleHeading{
+    <span class="sampleName">KanbanBoard-Workflow-ASP.NET MVC-SYNCFUSION</span>}
+}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates the flow of cards and moving cards between the kanban columns in the Syncfusion ASP.NET MVC Kanban component.">
+}
+@using Syncfusion.JavaScript.Models;
+@section ControlsSection{
+    @(Html.EJ().Kanban("Kanban")
+                  .DataSource((IEnumerable<object>)ViewBag.dataSource)
+                  .Workflows(workflow =>
+                   {
+                       workflow.Key("Order").AllowedTransitions("Ready to Serve,Ready to Delivery").Add();
+                       workflow.Key("Ready to Serve").AllowedTransitions("Served").Add();
+                       workflow.Key("Ready to Delivery").AllowedTransitions("Delivered").Add();
+                   })
+                   .Columns(col =>
+                   {
+                       col.HeaderText("Order").Key("Order").AllowDrop(false).Add();
+                       col.HeaderText("Ready to Serve").Key("Ready to Serve").Add();
+                       col.HeaderText("Home Delivery").Key("Ready to Delivery").Add();
+                       col.HeaderText("Served or Delivered").Key("Delivered,Served").AllowDrag(false).Add();
+                   })
+                   .EnableTotalCount(true)
+                   .AllowToggleColumn(true)
+                  .AllowTitle(true)
+                  .KeyField("Category")
+                  .Fields(field =>
+                  {
+                      field.Color("Size")
+                           .Tag("Tags")
+                           .Title("Title")
+                           .Content("Description")
+                           .ImageUrl("ImageURL")
+                           .PrimaryKey("Id");
+
+                  })
+                            .CardSettings(colorMap =>
+                                   {
+                                       colorMap.ColorMapping(
+                                           col =>
+                                           {
+                                               col.Add("#cb2027", "Small");
+                                               col.Add("#6a5da8", "Large");
+                                               col.Add("#fbae19", "Medium");
+                                           });
+                                   })
+    )
+
+}
+

@@ -1,0 +1,60 @@
+@section SampleHeading{
+    <span class="sampleName">ListView-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to create sets of data items using the Syncfusion ASP.NET MVC ListView component.">
+}
+@section ControlsSection{
+    @{
+        @Html.EJ().ListView("locallistview").ShowHeader(true).HeaderTitle("Favorite").HeaderBackButtonText("Back").ShowHeaderBackButton(true).Width(400).ShowHeader(true).Height(300).ClientSideEvents(ce => ce.MouseDown("onmousedown")).Items(i =>
+            {
+                i.Add().Text("Discover Music").Children(child1 =>
+                {
+                    child1.Add().Text("Hot Singles");
+                    child1.Add().Text("Rising Artists");
+                    child1.Add().Text("Live Music");
+                    child1.Add().Text("Best of 2013 So Far");
+                });
+                i.Add().Text("Sales and Events").Children(child2 =>
+                    {
+                        child2.Add().Text("100 Albums - $5 Each");
+                        child2.Add().Text("Hip-Hop and R&B Sale");
+                        child2.Add().Text("CD Deals");
+                    });
+                i.Add().Text("Categories").Children(child3 =>
+                    {
+                        child3.Add().Text("Songs");
+                        child3.Add().Text("BestSelling Albums");
+                        child3.Add().Text("New Releases");
+                        child3.Add().Text("Bestselling Songs");
+                    });
+                i.Add().Text("Mp3 Albums").Children(child4 =>
+                {
+                    child4.Add().Text("Rock");
+                    child4.Add().Text("Gospel");
+                    child4.Add().Text("Latin Music");
+                    child4.Add().Text("Jazz");
+                });
+                i.Add().Text("More in Music").Children(child5 =>
+                    {
+                        child5.Add().Text("Music Trade-In");
+                        child5.Add().Text("Redeem a Gift Card");
+                        child5.Add().Text("Branded T-shirts");
+                        child5.Add().Text("Mobile MVC");
+                    });
+
+            });
+    }
+}
+
+@section ScriptSection{
+
+    <script>
+
+        function onmousedown(args) {
+            var listObj = $("#locallistview").ejListView("instance");
+            listObj.model.headerBackButtonText = args.text;
+        }
+
+    </script>
+}
+

@@ -1,0 +1,200 @@
+@section SampleHeading{
+    <span class="sampleName">Diagram-Model-ASP.NET MVC-SYNCFUSION</span>}
+}
+@section MetaTags{
+    <meta name="description" content="This sample demonstrates model’s behavior in the ASP.NET MVC diagram control.">
+}
+@section ControlsSection{
+    <div>
+        @Html.EJ().Diagram("diagram", ViewData["diagramModel"] as Syncfusion.JavaScript.DataVisualization.Models.DiagramProperties)
+    </div>
+}
+@section PropertiesSection{
+    <div id="sampleProperties">
+        <div class="prop-grid">
+            <div class="row">
+                <div class="col-md-6">
+                    <b>Model</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    Width
+                </div>
+                <div class="col-md-6">
+                    @Html.EJ().NumericTextbox("Width").Value(690).Width("110px").ClientSideEvents(s => s.Change("changeWidth"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    Height
+                </div>
+                <div class="col-md-6">
+                    @Html.EJ().NumericTextbox("Height").Width("110px").Value(500).ClientSideEvents(s => s.Change("changeHeight"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    Context Menu
+                </div>
+                <div class="col-md-6">
+                    @Html.EJ().CheckBox("contextMenu").Checked(true).ClientSideEvents(s => s.Change("context"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    Background Color
+                </div>
+                <div class="col-md-6">
+                    @Html.EJ().DropDownList("bgColor").TargetID("colorlistDiv").Text("None").Value("value").Width("110px").ClientSideEvents(s => s.Change("changeColor"))
+                    <div id="colorlistDiv">
+                        <ul>
+                            <li value="none">None</li>
+                            <li value="black">Black</li>
+                            <li value="whiteSmoke">White Smoke</li>
+                            <li value="white">White</li>
+                            <li value="goldenrod">Golden Rod</li>
+                            <li value="indigo">Indigo</li>
+                            <li value="chocolate">Chocolate</li>
+                            <li value="darkGoldenrod">Dark Golden Rod</li>
+                            <li value="firebrick">Fire Brick</li>
+                            <li value="darkRed">Dark Red</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    Bridge Direction
+                </div>
+                <div class="col-md-6">
+                    @Html.EJ().DropDownList("direction").TargetID("directionlistDiv").Text("Top").Value("value").Width("110px").ClientSideEvents(s => s.Change("changeDirection"))
+                    <div id="directionlistDiv">
+                        <ul>
+                            <li value="top">Top</li>
+                            <li value="bottom">Bottom</li>
+                            <li value="left">Left</li>
+                            <li value="right">Right</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    Constraints
+                </div>
+                <div class="col-md-6">
+                    @Html.EJ().DropDownList("constraints").SelectedItems(new List<int>() { 1,2,3,4 }).ShowCheckbox(true).Width("110px").TargetID("constraintsDiv").ClientSideEvents(s => s.Change("constraintschecked"))
+                    <div id="constraintsDiv">
+                        <ul>
+                            <li value="None">None</li>
+                            <li value="PageEditable">Page Editable</li>
+                            <li value="Zoomable">Zoom</li>
+                            <li value="Pannable">Pan</li>
+                            <li value="undoable">Undo</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6" style="width:126px;">
+                    <b>Background Image</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    Alignment
+                </div>
+                <div class="col-md-6">
+                    @Html.EJ().DropDownList("alignment").Width("110px").TargetID("AlignDiv").Text("xMinYMid").ClientSideEvents(s => s.Change("changeAlignment"))
+                    <div id="AlignDiv">
+                        <ul>
+                            <li value="xminymin">xMinYMin</li>
+                            <li value="xminymid">xMinYMid</li>
+                            <li value="xmaxymax">xMinYMax</li>
+                            <li value="xmidymin">xMidYMin</li>
+                            <li value="xmidymid">xMidYMid</li>
+                            <li value="xmidymax">xMidYMax</li>
+                            <li value="xmaxymin">xMaxYMin</li>
+                            <li value="xmaxymid">xMaxYMid</li>
+                            <li value="xmaxymax">xMaxYMax</li>
+                            <li value="none">none</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    Scale
+                </div>
+                <div class="col-md-6">
+                    @Html.EJ().DropDownList("scale").Width("110px").TargetID("ScaleDiv").Text("Meet").ClientSideEvents(s => s.Change("changeScale"))
+                    <div id="ScaleDiv">
+                        <ul>
+                            <li value="meet">Meet</li>
+                            <li value="slice">Slice</li>
+                            <li value="none">none</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+
+        $("#sampleProperties").ejPropertiesPanel();
+
+        function context(args) {
+            $("#diagram").ejDiagram({ enableContextMenu: args.isChecked });
+        }
+
+        function constraintschecked(args) {
+            var diagram = $("#diagram").ejDiagram("instance");
+            if (args.isChecked) {
+                if (args.value === "None")
+                    $("#diagram").ejDiagram({ constraints: ej.datavisualization.Diagram.DiagramConstraints.None });
+                else
+                    $("#diagram").ejDiagram({ constraints: ej.datavisualization.Diagram.DiagramConstraints.Default | ej.datavisualization.Diagram.DiagramConstraints[args.value] });
+            }
+            else {
+                if (args.value === "None")
+                    $("#diagram").ejDiagram({ constraints: ej.datavisualization.Diagram.DiagramConstraints.None });
+                else
+                    $("#diagram").ejDiagram({ constraints: ej.datavisualization.Diagram.DiagramConstraints.Default & ~ej.datavisualization.Diagram.DiagramConstraints[args.value] });
+            }
+        }
+
+        function changeDirection(args) {
+            $("#diagram").ejDiagram({
+                bridgeDirection: args.value
+            });
+        }
+
+        function changeColor(args) {
+            $("#diagram").ejDiagram({
+                backgroundColor: args.value
+            });
+        }
+
+        function changeWidth(args) {
+            $("#diagram").ejDiagram({ width: args.value });
+        }
+
+        function changeHeight(args) {
+            $("#diagram").ejDiagram({ height: args.value });
+        }
+
+        function changeAlignment(args) {
+            $("#diagram").ejDiagram({ backgroundImage: { alignment: args.value } });
+        }
+
+        function changeScale(args) {
+            $("#diagram").ejDiagram({ backgroundImage: { scale: args.value } });
+        }
+
+    </script>
+    <script src="@Url.Content("~/Scripts/DiagramScripts/DiagramCommon.js")"></script>
+}
+

@@ -1,0 +1,330 @@
+@section SampleHeading{
+    <span class="sampleName">Diagram-BPMN Editor-ASP.NET MVC-SYNCFUSION</span>}
+}
+@section MetaTags{
+    <meta name="description" content="This sample displays the ticket reservation system and its designed with ASP.NET MVC diagram’s built-in BPMN shapes feature.">
+}
+@section ControlsSection{
+
+    <div class="control_section">
+        <div class="symPalette_section">
+            <div id="symbolpalette">
+                @Html.EJ().SymbolPalette("symbolpalette", ViewData["symbolPaletteModel"] as Syncfusion.JavaScript.DataVisualization.Models.SymbolPaletteProperties)
+            </div>
+        </div>
+        <div class="middle_section"></div>
+        <div class="diagram_section">
+            @Html.EJ().Diagram("DiagramContent", ViewData["diagramModel"] as Syncfusion.JavaScript.DataVisualization.Models.DiagramProperties)
+        </div>
+    </div>
+}
+@section PropertiesSection{
+    <div id="sampleProperties">
+        <div class="prop-grid">
+
+
+            <div class="row" id="basic_shape_prop">
+                <div class="col-md-3 aligntop">
+                    Shapes
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().DropDownList("basic_shape").CssClass("basic_shape").TargetID("basic_shape_list").Value("Event").Width("100%").ClientSideEvents(s => s.Change("dropDownChanged"))
+                    <div id="basic_shape_list">
+                        <ul>
+                            <li value="Event">Event</li>
+                            <li value="Gateway">Gateway</li>
+                            <li value="Message">Message</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="BPMNEvents_prop">
+                <div class="col-md-3 aligntop">
+                    BPMNEvents
+                </div>
+                <div class="col-md-3">
+
+                    @Html.EJ().DropDownList("BPMNEvents").CssClass("BPMNEvents").TargetID("BPMNEvents_list").Value("Start").Width("100%").ClientSideEvents(s => s.Change("dropDownChanged"))
+                    <div id="BPMNEvents_list">
+                        <ul>
+
+                            <li value="Start">Start</li>
+                            <li value="Intermediate">Intermediate</li>
+                            <li value="End">End</li>
+                            <li value="NonInterruptingStart">NonInterruptingStart</li>
+                            <li value="NonInterruptingIntermediate">NonInterruptingIntermediate</li>
+                            <li value="ThrowingIntermediate">ThrowingIntermediate</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="BPMNTriggers_prop">
+                <div class="col-md-3 aligntop">
+                    BPMNTriggers
+                </div>
+                <div class="col-md-3">
+
+                    @Html.EJ().DropDownList("BPMNTriggers").CssClass("BPMNTriggers").TargetID("BPMNTriggers_list").Value("None").Width("100%").ClientSideEvents(s => s.Change("dropDownChanged"))
+                    <div id="BPMNTriggers_list">
+                        <ul>
+                            <li value="None">None</li>
+                            <li value="Message">Message</li>
+                            <li value="Timer">Timer</li>
+                            <li value="Escalation">Escalation</li>
+                            <li value="Link">Link</li>
+                            <li value="Error">Error</li>
+                            <li value="Compensation">Compensation</li>
+                            <li value="Signal">Signal</li>
+                            <li value="Multiple">Multiple</li>
+                            <li value="Parallel">Parallel</li>
+                            <li value="Cancel">Cancel</li>
+                            <li value="Conditional">Conditional</li>
+                            <li value="Terminate">Terminate</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="BPMNGateways_prop">
+                <div class="col-md-3 aligntop">
+                    BPMNGateway
+                </div>
+                <div class="col-md-3">
+
+                    @Html.EJ().DropDownList("BPMNGateways").CssClass("BPMNGateways").TargetID("BPMNGateways_list").Value("None").Width("100%").ClientSideEvents(s => s.Change("dropDownChanged"))
+                    <div id="BPMNGateways_list">
+                        <ul>
+
+                            <li value="None">None</li>
+                            <li value="Exclusive">Exclusive</li>
+                            <li value="Inclusive">Inclusive</li>
+                            <li value="Parallel">Parallel</li>
+                            <li value="Complex">Complex</li>
+                            <li value="EventBased">EventBased</li>
+                            <li value="ExclusiveEventBased">ExclusiveEventBased</li>
+                            <li value="ParallelEventBased">ParallelEventBased</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="BPMNDataObjects_prop">
+                <div class="col-md-3 aligntop">
+                    DataObjects
+                </div>
+                <div class="col-md-3">
+
+                    @Html.EJ().DropDownList("BPMNDataObjects").CssClass("BPMNDataObjects").TargetID("BPMNDataObjects_list").Value("None").Width("100%").ClientSideEvents(s => s.Change("dropDownChanged"))
+                    <div id="BPMNDataObjects_list">
+                        <ul>
+                            <li value="None">None</li>
+                            <li value="Input">Input</li>
+                            <li value="Output">Output</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="CompensationShape_prop">
+                <div class="col-md-3 aligntop">
+                    Compensation
+                </div>
+                <div class="col-md-3">
+
+                    @Html.EJ().DropDownList("CompensationShape").CssClass("CompensationShape").TargetID("CompensationShape_list").Value("None").Width("100%").ClientSideEvents(s => s.Change("dropDownChanged"))
+                    <div id="CompensationShape_list">
+                        <ul>
+                            <li value="None">None</li>
+                            <li value="Compensation">Compensation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="TaskCall_prop">
+                <div class="col-md-3 aligntop">
+                    Call
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().DropDownList("TaskCall").CssClass("TaskCall").TargetID("TaskCall_list").Value("None").Width("100%").ClientSideEvents(s => s.Change("dropDownChanged"))
+                    <div id="TaskCall_list">
+                        <ul>
+
+                            <li value="None">None</li>
+                            <li value="Call">Call</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" id="AddHoc_prop">
+                <div class="col-md-3 aligntop">
+                    AddHoc
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().DropDownList("AddHoc").CssClass("AddHoc").TargetID("AddHoc_list").Value("Event").Value("None").Width("100%").ClientSideEvents(s => s.Change("dropDownChanged"))
+                    <div id="AddHoc_list">
+                        <ul>
+                            <li value="None">None</li>
+                            <li value="Ad-Hoc">Ad-Hoc</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="BPMNCollection_prop">
+                <div class="col-md-3 aligntop">
+                    BPMNCollection
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().DropDownList("BPMNCollection").CssClass("BPMNCollection").TargetID("BPMNCollection_list").Value("None").Width("100%").ClientSideEvents(s => s.Change("dropDownChanged"))
+                    <div id="BPMNCollection_list">
+                        <ul>
+                            <li value="None">None</li>
+                            <li value="Collection">Collection</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="BPMNActivity_prop">
+                <div class="col-md-3 aligntop">
+                    BPMNActivity
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().DropDownList("BPMNActivity").CssClass("BPMNActivity").TargetID("BPMNActivity_list").Value("None").Width("100%").ClientSideEvents(s => s.Change("dropDownChanged"))
+                    <div id="BPMNActivity_list">
+                        <ul>
+                            <li value="None">None</li>
+                            <li value="Task">Task</li>
+                            <li value="SubProcess">SubProcess</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="BPMNLoops_prop">
+                <div class="col-md-3 aligntop">
+                    BPMNLoops
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().DropDownList("BPMNLoops").CssClass("BPMNLoops").TargetID("BPMNLoops_list").Value("None").Width("100%").ClientSideEvents(s => s.Change("dropDownChanged"))
+                    <div id="BPMNLoops_list">
+                        <ul>
+
+                            <li value="None">None</li>
+                            <li value="Standard">Standard</li>
+                            <li value="ParallelMultiInstance">ParallelMultiInstance</li>
+                            <li value="SequenceMultiInstance">SequenceMultiInstance</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="BPMNTasks_prop">
+                <div class="col-md-3 aligntop">
+                    BPMNTasks
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().DropDownList("BPMNTasks").CssClass("BPMNTasks").TargetID("BPMNTasks_list").Value("None").Width("100%").ClientSideEvents(s => s.Change("dropDownChanged"))
+                    <div id="BPMNTasks_list">
+                        <ul>
+                            <li value="None">None</li>
+                            <li value="Service">Service</li>
+                            <li value="Receive">Receive</li>
+                            <li value="Send">Send</li>
+                            <li value="InstantiatingReceive">InstantiatingReceive</li>
+                            <li value="Manual">Manual</li>
+                            <li value="BusinessRule">BusinessRule</li>
+                            <li value="User">User</li>
+                            <li value="Script">Script</li>
+                            <li value="Parallel">Parallel</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="BPMNSubProcess_prop">
+                <div class="col-md-3 aligntop">
+                    SubProcess
+                </div>
+                <div class="col-md-3">
+
+                    @Html.EJ().DropDownList("BPMNSubProcess").CssClass("BPMNSubProcess").TargetID("BPMNSubProcess_list").Value("None").Width("100%").ClientSideEvents(s => s.Change("dropDownChanged"))
+                    <div id="BPMNSubProcess_list">
+                        <ul>
+                            <li value="None">None</li>
+                            <li value="Transaction">Transaction</li>
+                            <li value="Event">Event</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="BPMNBoundary_prop">
+                <div class="col-md-3 aligntop">
+                    Boundary
+                </div>
+                <div class="col-md-3">
+
+                    @Html.EJ().DropDownList("BPMNBoundary").CssClass("BPMNBoundary").TargetID("BPMNBoundary_list").Value("Default").Width("100%").ClientSideEvents(s => s.Change("dropDownChanged"))
+                    <div id="BPMNBoundary_list">
+                        <ul>
+                            <li value="Default">Default</li>
+                            <li value="Call">Call</li>
+                            <li value="Event">Event</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="BPMNFlows_prop">
+                <div class="col-md-3 aligntop">
+                    BPMNFlows
+                </div>
+                <div class="col-md-3">
+                    @Html.EJ().DropDownList("BPMNFlows").CssClass("BPMNFlows").TargetID("BPMNFlows_list").Value("Top").Width("100%").ClientSideEvents(s => s.Change("dropDownChanged"))
+                    <div id="BPMNFlows_list">
+                        <ul>
+                            <li value="Top">Top</li>
+                            <li value="Left">Left</li>
+                            <li value="Right">Right</li>
+                            <li value="Bottom">Bottom   </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+}
+@section ScriptSection{ 
+    <script src="@Url.Content("~/Scripts/DiagramScripts/BPMNDiagram.js")"><></script>
+    <script src="@Url.Content("~/Scripts/DiagramScripts/DiagramCommon.js")"></script>
+}
+<style>
+    .control_section {
+        height: 600px;
+        width: 100%;
+        background-color: transparent;
+    }
+
+    .diagram_section {
+        width: calc(100% - 235px);
+        height: 100%;
+        float: left;
+    }
+
+    .middle_section {
+        float: left;
+        width: 5px;
+        height: 100%;
+    }
+
+    .symPalette_section {
+        width: 230px;
+        height: 100%;
+        float: left;
+    }
+
+    .row .cols-prop-area {
+        display: none;
+    }
+</style>
+

@@ -1,0 +1,49 @@
+@section MetaTags{
+    <meta name="description" content="This example shows how to set different time modes in the ASP.NET MVC Scheduler.">
+}
+@section SampleHeading{<span class="sampleName">Schedule-Time Mode-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+        @(Html.EJ().Schedule("Schedule1")
+        .Width("100%")
+        .Height("525px")
+        .CurrentDate(new DateTime(2017,6,5))
+        .TimeMode(Syncfusion.JavaScript.TimeMode.Hour12)
+        .AppointmentSettings(fields => fields.Datasource((IEnumerable)ViewBag.datasource)
+            .Id("Id")
+            .Subject("Subject")
+            .StartTime("StartTime")
+            .EndTime("EndTime")
+            .Description("Description")
+            .AllDay("AllDay")
+            .Recurrence("Recurrence")
+            .RecurrenceRule("RecurrenceRule"))
+        )
+}
+<div id="scheTarget">
+    <ul>
+        <li>12 Hours</li>
+        <li>24 Hours</li>
+    </ul>
+</div>
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Time Mode
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("timemode").TargetID("scheTarget").Width("120px").SelectedItemIndex(0).ClientSideEvents(evt => evt.Change("onChange"))
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script>
+        $(document).ready(function () { $("#sampleProperties").ejPropertiesPanel(); });
+        function onChange(args) {
+            if (args.text == "12 Hours")
+                $("#Schedule1").ejSchedule({ timeMode: "12" });
+            else if (args.text == "24 Hours")
+                $("#Schedule1").ejSchedule({ timeMode: "24" });
+        }
+    </script>
+}
+

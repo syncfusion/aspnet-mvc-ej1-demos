@@ -1,0 +1,652 @@
+@section SampleHeading{
+    <span class="sampleName">Ribbon-Custom Tool Tip-ASP.NET MVC-SYNCFUSION</span>
+}
+@using Syncfusion.JavaScript.Models;
+@using Syncfusion.JavaScript.Models;
+@section ControlsSection{
+    @(Html.EJ().Ribbon("defaultRibbon")
+     .Width("100%")
+     .ExpandPinSettings(exPin =>
+      {
+                 exPin.CustomToolTip(new CustomToolTip()
+                     {
+                       Title= "Collapse the Ribbon",
+                       Content= "<h6>Click the icon to collapse the Ribbon.</h6>"
+                     });
+     })
+     .CollapsePinSettings(colPin =>
+      {
+                 colPin.CustomToolTip(new CustomToolTip()
+                     {
+                        Title = "Pin the Ribbon",
+                        Content = "<h6>Keep it open while you work.</h6>"
+                     });
+     })
+     .ApplicationTab(apptab =>
+    {
+        apptab.Type(ApplicationTabType.Menu).MenuItemID("ribbonmenu").MenuSettings(new MenuProperties()
+               {
+                   OpenOnClick = false
+               });
+    })
+    .RibbonTabs(tab =>
+    {
+        tab.Id("home").Text("HOME").TabGroups(tabgrp =>
+        {
+
+            tabgrp.Text("Clipboard").AlignType(RibbonAlignType.Columns).EnableGroupExpander(true).GroupExpanderSettings(grpExp=>
+            {
+                grpExp.CustomToolTip(new CustomToolTip()
+                {
+                    Title = "Clipboard",
+                    Content = "<h6>Show a popup for the Clipboard group.</h6>"
+                });
+            }).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("paste").Text("Paste").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Paste the content.<br/><br/>Add content on the Clipboard to your document.</h6>",
+                        Title = "Paste",
+                        PrefixIcon = "e-pastetip"
+                    }).SplitButtonSettings(new SplitButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-ribbonpaste",
+                        TargetID = "pasteSplit",
+                        ArrowPosition = ArrowPosition.Bottom,
+                        ButtonMode = ButtonMode.Dropdown
+
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.SplitButton).Width("50px").Height("70px")).Add();
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("cut").Text("Cut").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Cut the content.</h6>",
+                        Title = "Cut",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        PrefixIcon = "e-icon e-ribbon e-ribboncut"
+
+                    }).Add();
+                    cntgrp.Id("copy").Text("Copy").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Copy the content.</h6>",
+                        Title = "Copy",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        PrefixIcon = "e-icon e-ribbon e-ribboncopy"
+
+                    }).Add();
+                    cntgrp.Id("clear").Text("Clear").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Clear the content.</h6>",
+                        Title = "Clear",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        PrefixIcon = "e-icon e-ribbon clearAll"
+
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("60px").Height("25px").IsBig(false)).Add();
+            }).Add();
+            tabgrp.Text("Font").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("fontfamily").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Change font family of the content.</h6>",
+                        Title = "FontFamily",
+                    }).DropdownSettings(new DropDownListProperties()
+                    {
+                        DataSource = (IEnumerable<FontFamily>)ViewBag.datasource,
+                        Text = "Segoe UI",
+                        Select = "executeAction",
+                        Width = "150px"
+                    }).Add();
+                    cntgrp.Id("fontsize").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Change font size of the content.</h6>",
+                        Title = "Font Size",
+                    }).DropdownSettings(new DropDownListProperties()
+                    {
+                        DataSource = (IEnumerable<FontPoint>)ViewBag.datasource1,
+                        Text = "1pt",
+                        Width = "65px"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.DropDownList).Height("28px")).Add();
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("bold").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Bold the content",
+                        Title = "Bold",
+                    }).Type(RibbonButtonType.ToggleButton).ToggleButtonSettings(new ToggleButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        DefaultText = "Bold",
+                        ActiveText = "Bold",
+                        DefaultPrefixIcon = "e-icon e-ribbon bold",
+                        ActivePrefixIcon = "e-icon e-ribbon bold",
+
+                    }).Add();
+                    cntgrp.Id("italic").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Italic the content",
+                        Title = "Italic",
+                    }).Type(RibbonButtonType.ToggleButton).ToggleButtonSettings(new ToggleButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        DefaultText = "Italic",
+                        ActiveText = "Italic",
+                        DefaultPrefixIcon = "e-icon e-ribbon e-ribbonitalic",
+                        ActivePrefixIcon = "e-icon e-ribbon e-ribbonitalic",
+
+                    }).Add();
+                    cntgrp.Id("underline").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Underline the content.</h6>",
+                        Title = "Underline",
+                    }).Type(RibbonButtonType.ToggleButton).ToggleButtonSettings(new ToggleButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        DefaultText = "Underline",
+                        ActiveText = "Underline",
+                        DefaultPrefixIcon = "e-icon e-ribbon e-ribbonunderline",
+                        ActivePrefixIcon = "e-icon e-ribbon e-ribbonunderline",
+
+                    }).Add();
+                    cntgrp.Id("strikethrough").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Strikethrough the content.</h6>",
+                        Title = "Strikethrough",
+                    }).Type(RibbonButtonType.ToggleButton).ToggleButtonSettings(new ToggleButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        DefaultText = "Strikethrough",
+                        ActiveText = "Strikethrough",
+                        DefaultPrefixIcon = "e-icon e-ribbon strikethrough",
+                        ActivePrefixIcon = "e-icon e-ribbon strikethrough",
+
+                    }).Add();
+                    cntgrp.Id("superscript").Text("Superscript").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Superscript the content.</h6>",
+                        Title = "Superscript",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-superscripticon",
+
+                    }).Add();
+                    cntgrp.Id("subscript").Text("Subscript").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Subscript the content.</h6>",
+                        Title = "Subscript",
+                    }).EnableSeparator(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-subscripticon",
+
+                    }).Add();
+                    cntgrp.Id("fontcolor").Text("Font Color").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Change the Font Color.</h6>",
+                        Title = "Font Color",
+                    }).Type(RibbonButtonType.Custom).ContentID("fontcolor").Add();
+                    cntgrp.Id("fillcolor").Text("Fill Color").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Change the Fill Color.</h6>",
+                        Title = "Fill Color",
+                    }).Type(RibbonButtonType.Custom).ContentID("fillcolor").Add();
+                }).ContentDefaults(df => df.IsBig(false)).Add();
+            }).Add();
+            tabgrp.Text("Alignment").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("bullet").Text("Bullet Format").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Apply the bullet format.</h6>",
+                        Title = "Bullet Format",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-bullet",
+
+                    }).Add();
+                    cntgrp.Id("number").Text("Number Format").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Apply the number format.</h6>",
+                        Title = "Number Format",
+                    }).EnableSeparator(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-numbericon",
+
+                    }).Add();
+                    cntgrp.Id("textindent").Text("Indent").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Apply the text indent.</h6>",
+                        Title = "Text Indent",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-indent",
+
+                    }).Add();
+                    cntgrp.Id("textoudent").Text("Outdent").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Apply the text outdent.</h6>",
+                        Title = "Text Outdent",
+                    }).EnableSeparator(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-outdent",
+
+                    }).Add();
+                    cntgrp.Id("sortascending").Text("Sort").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Sort the selected content in ascending order.</h6>",
+                        Title = "Sort Ascending",
+                    }).EnableSeparator(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-sort",
+
+                    }).Add();
+                    cntgrp.Id("border").Text("Border").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Apply the border.</h6>",
+                        Title = "Border",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-border",
+
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).IsBig(false)).Add();
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("alignleft").Text("JustifyLeft").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>JustifyLeft.</h6>",
+                        Title = "Justify Left",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon alignleft",
+
+                    }).Add();
+                    cntgrp.Id("aligncenter").Text("JustifyCenter").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>JustifyCenter.</h6>",
+                        Title = "Justify Center",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon aligncenter",
+
+                    }).Add();
+                    cntgrp.Id("alignright").Text("JustifyRight").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Justify Right.</h6>",
+                        Title = "JustifyRight",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon alignright",
+
+                    }).Add();
+                    cntgrp.Id("alignfull").Text("Justify").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Justify.</h6>",
+                        Title = "Justify",
+                    }).EnableSeparator(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon justify",
+
+                    }).Add();
+                    cntgrp.Id("uppercase").Text("Upper Case").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Upper Case.</h6>",
+                        Title = "UpperCase",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-uppercase",
+
+                    }).Add();
+                    cntgrp.Id("lowercase").Text("Lower Case").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>LowerCase.</h6>",
+                        Title = "Lower Case",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-lowercase",
+
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).IsBig(false)).Add();
+            }).Add();
+            tabgrp.Text("Actions").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("undo").Text("Undo").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Undo.</h6>",
+                        Title = "Undo",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-undo",
+
+                    }).Add();
+                    cntgrp.Id("redo").Text("Redo").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Redo.</h6>",
+                        Title = "Redo",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-redo",
+
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("40px").Height("70px")).Add();
+            }).Add();
+            tabgrp.Text("View").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("zoomin").Text("Zoom In").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>ZoomIn.</h6>",
+                        Title = "Zoom In",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-zoomin",
+
+                    }).Add();
+                    cntgrp.Id("zoomout").Text("Zoom Out").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>ZoomOut.</h6>",
+                        Title = "Zoom Out",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-zoomout",
+
+                    }).Add();
+                    cntgrp.Id("fullscreen").Text("Full Screen").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>FullScreen.</h6>",
+                        Title = "Full Screen",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-fullscreen",
+                        Width = "75px",
+
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("70px").Height("70px")).Add();
+            }).Add();
+        }).Add();
+        tab.Id("insert").Text("INSERT").TabGroups(tabgrp =>
+        {
+            tabgrp.Text("Tables").AlignType(RibbonAlignType.Columns).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("tables").Text("Tables").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Tables.</h6>",
+                        Title = "Tables",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-table",
+
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("50px").Height("70px")).Add();
+            }).Add();
+            tabgrp.Text("Illustrations").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("pictures").Text("Pictures").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Pictures.</h6>",
+                        Title = "Pictures",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-picture",
+
+                    }).Add();
+                    cntgrp.Id("videos").Text("Videos").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Videos.</h6>",
+                        Title = "Videos",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-video",
+
+                    }).Add();
+                    cntgrp.Id("shapes").Text("Shapes").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Shapes.</h6>",
+                        Title = "Shapes",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-shape",
+
+                    }).Add();
+                    cntgrp.Id("charts").Text("Charts").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Charts.</h6>",
+                        Title = "Charts",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-chart",
+
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("56px").Height("70px")).Add();
+            }).Add();
+            tabgrp.Text("Comments").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("comments").Text("Comments").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Comments.</h6>",
+                        Title = "Comments",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-comment",
+
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("70px").Height("70px")).Add();
+            }).Add();
+            tabgrp.Text("Text").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("text").Text("Text").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Text.</h6>",
+                        Title = "Text",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-text",
+                        Width = "50px"
+
+                    }).Add();
+                    cntgrp.Id("datetime").Text("Date Time").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>DateTime.</h6>",
+                        Title = "Date Time",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-datetimenew",
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("70px").Height("70px")).Add();
+            }).Add();
+            tabgrp.Text("Hyperlink").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("hyperlink").Text("Hyperlink").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Hyperlink.</h6>",
+                        Title = "Hyperlink",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-hyperlink",
+
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("70px").Height("70px")).Add();
+            }).Add();
+            tabgrp.Text("Equation").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("equation").Text("Equation").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Equation.</h6>",
+                        Title = "Equation",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-equation",
+
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("60px").Height("70px")).Add();
+            }).Add();
+            tabgrp.Text("Print Layout").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("printlayout").Text("Print Layout").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>PrintLayout.</h6>",
+                        Title = "Print Layout",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-printlayout"
+
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("80px").Height("70px")).Add();
+            }).Add();
+            tabgrp.Text("Save").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("print").Text("Print").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Print.</h6>",
+                        Title = "Print",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-print"
+
+                    }).Add();
+                    cntgrp.Id("save").Text("Save").CustomToolTip(new CustomToolTip()
+                    {
+                        Content = "<h6>Save.</h6>",
+                        Title = "Save",
+                    }).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-save"
+
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("50px").Height("70px")).Add();
+            }).Add();
+
+        }).Add();
+
+    }).ClientSideEvents(eve => eve.Create("createControl"))
+
+    )
+                    
+                <ul id="ribbonmenu">
+                    <li><a>FILE</a>
+                        <ul>
+                            <li><a>New</a></li>
+                            <li><a>Open</a></li>
+                            <li><a>Save</a></li>
+                            <li><a>Save As</a></li>
+                            <li><a>Print</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+            <ul id="pasteSplit">
+               <li><a>Paste</a></li>
+            </ul>
+           <input id="fontcolor"/>
+           <input id="fillcolor"/>
+}
+
+
+
+@section ScriptSection{
+   <script type="text/javascript">
+        function createControl(args) {
+            var ribbon = $("#defaultRibbon").data("ejRibbon");
+            $("#fontcolor").ejColorPicker({ value: "#FFFF00", modelType: "palette", cssClass: "e-ribbon", toolIcon: "e-fontcoloricon", select: colorHandler });
+            $("#fillcolor").ejColorPicker({ value: "#FF0000", modelType: "palette", cssClass: "e-ribbon", toolIcon: "e-fillcoloricon", select: colorHandler });
+        }
+        function colorHandler(args) {
+            (this._id.indexOf("fillcolor") != -1) ? $("#contenteditor").css('background-color', args.value) : document.execCommand('forecolor', false, args.value);
+        }
+    </script>
+
+}
+@section StyleSection{
+    <link href="~/Content/ejthemes/ribbon-css/ej.icons.css" rel="stylesheet" />
+    <style>
+        .e-pastetip{
+		   background-image: url("../Content/ejthemes/common-images/ribbon/paste.png");
+		   background-repeat:no-repeat;
+		   height:64px;
+		   width:64px
+          }
+    </style>
+}
+

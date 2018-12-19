@@ -1,0 +1,124 @@
+﻿@using MVCSampleBrowser.Areas.ShowCaseTab.Controllers
+@using Syncfusion.MVC.EJ
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/ejthemes/ej.widgets.core.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/ejthemes/flat-saffron/ej.theme.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/ejthemes/responsive-css/ej.responsive.css")" rel="stylesheet" type="text/css" />
+    <!--[if lt IE 9]>
+		<script src="@Url.Content("~/Scripts/jquery-1.11.3.min.js")"></script>
+		<![endif]-->
+    <!--[if gte IE 9]><!-->
+    <script src="@Url.Content("~/Scripts/jquery-2.1.4.min.js")"></script>
+    <!--<![endif]-->
+    <script src="@Url.Content("~/Scripts/jquery.globalize.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jsrender.min.js")" type="text/javascript"></script>
+   
+    <script src="@Url.Content("~/Scripts/ej.web.all.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/ZeroClipboard.js")"></script>
+    <link href="@Url.Content("~/Content/SourceTabFormatter.css")" rel="stylesheet" type="text/css" />
+      <style type="text/css">
+     /*Copy to clipboard CSS*/
+        .copycodeicon:before {
+            content: "\e743";
+        }
+
+        .copycodeicon {
+            font-size: 21px !important;
+            margin: 7px 9px 0 0 !important;
+        }
+
+        .copycodedown {
+            border: 1px solid #bbbcbb;
+            border-radius: 2px;
+            display: block;
+            height: 30px;
+            line-height: 2;
+            margin: 40px 0 10px 9px;
+            text-align: center;
+            width: 160px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .copycodedown.zeroclipboard-is-hover {
+            background-color: #f5f5f5;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    @RenderBody()
+    
+    @(Html.EJ().ScriptManager())
+      <script>
+          $(function () {
+              if ($("#CodeViewTab1").length > 0) {
+                  $("#CodeViewTab1").addClass("selectable");
+                  if (!$("#copyclipboard").length)
+                      $("<span>").attr("id", "copyclipboard").attr('title', 'Copy To Clipboard').addClass(" e-icon e-select copycodeicon copycode").appendTo($("#CodeViewTab1 .e-header"));
+                
+                  if (!$("#clipboard").length) {
+                      $("<div>").insertAfter($("#CodeViewTab1")).attr("id", "clipboard");
+                      $("<textarea>").attr("style", "display:none").attr("id", "copytextarea").appendTo($("#clipboard"));
+                      initiateCopyHandler();
+                  }
+                
+              }
+              //Copy to clipboard behavior 
+
+              if (!window.copytoclip) {
+                  copytoclip = {};
+              }
+              copytoclip.Selector = {};
+              copytoclip.Selector.getSelected = function () {
+                  var t = '';
+                  if (window.getSelection) {
+                      t = window.getSelection();
+                  } else if (document.getSelection) {
+                      t = document.getSelection();
+                  } else if (document.selection) {
+                      t = document.selection.createRange().text;
+                  }
+                  return t;
+              }
+              initiateCopyHandler();
+          });
+
+          function initiateCopyHandler(e) {
+              $('.copycode').on("mouseover", function () {
+                  $("#copytextarea").val(copytoclip.Selector.getSelected());
+              });
+              try {
+                  var client = new ZeroClipboard($('.copycode'));
+
+                  client.on('ready', function (event) {
+                      client.on('copy', function (event) {
+                          event.clipboardData.setData('text/plain', copycontent());
+                      });
+                  });
+
+                  client.on('error', function (event) {
+                      console.log('ZeroClipboard error of type "' + event.name + '": ' + event.message);
+                      ZeroClipboard.destroy();
+                  });
+
+                  function copycontent(e) {
+                      if ($("#copytextarea").val() == "" || $("#copytextarea").val() == null) {
+                          $("#copytextarea").val("");
+                          $("#CodeViewTab1 >div:visible").each(function () { $("#copytextarea").val($("#copytextarea").val() + $(this).text().replace("COPY TO CLIPBOARD", "").replace("initiateCopyHandler();", "")); });
+                      }
+                      return $("#copytextarea").val();
+                  }
+              }
+              catch (e) { }
+          }
+    </script>
+</body>
+</html>

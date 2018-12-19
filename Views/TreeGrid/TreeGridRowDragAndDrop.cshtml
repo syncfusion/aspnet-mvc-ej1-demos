@@ -1,0 +1,66 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates using drag-and-drop to reorder rows dynamically in the Syncfusion tree grid control.">
+}
+@section SampleHeading{<span class="sampleName">TreeGrid-Row Drag And Drop-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    @(Html.EJ().TreeGrid("TreeGridContainer")
+       .ChildMapping("Children")
+       .TreeColumnIndex(1)
+       .AllowSorting(true)
+       .AllowDragAndDrop(true)
+       .SelectionSettings(ss =>
+           ss.SelectionType(TreeGridSelectionType.Checkbox)
+           .EnableSelectAll(false))
+       .DragTooltip(tt =>
+       {
+           tt.ShowTooltip(true);
+
+       })
+       .Columns(co =>
+       {
+           co.Field("TaskId").HeaderText("Task Id").EditType(TreeGridEditingType.Numeric).Width(45).Add();
+           co.Field("TaskName").HeaderText("Task Name").EditType(TreeGridEditingType.String).FilterEditType(TreeGridFilterEditType.String).ShowCheckbox(true).Add();
+           co.Field("StartDate").HeaderText("Start Date").EditType(TreeGridEditingType.Datepicker).FilterEditType(TreeGridFilterEditType.Datepicker).Add();
+           co.Field("EndDate").HeaderText("End Date").EditType(TreeGridEditingType.Datepicker).FilterEditType(TreeGridFilterEditType.Datepicker).Add();
+           co.Field("Duration").HeaderText("Duration").EditType(TreeGridEditingType.Numeric).FilterEditType(TreeGridFilterEditType.Numeric).Add();
+           co.Field("Progress").HeaderText("Progress").EditType(TreeGridEditingType.Numeric).FilterEditType(TreeGridFilterEditType.Numeric).Add();
+       }
+       )
+       .SizeSettings(ss => ss.Width("100%").Height("350px"))
+       .IsResponsive(true)
+       .ClientSideEvents(eve =>
+       {
+           eve.RowDropActionBegin("rowDropActionBegin");
+           eve.RowDragStart("rowDragStart");
+       })
+       .EditSettings(edit =>
+       {
+           edit.AllowDeleting(false);
+       })
+       .Datasource(ViewBag.datasource)
+    )
+}
+@section ScriptSection{
+  <script type="text/javascript">
+    function rowDropActionBegin(args) {        
+        args.draggedRecords.filter(function (item) {
+            if (item.TaskName == "Item can't be Dropped") {
+                item.canDrop = false;
+            }
+        });
+    }
+    function rowDragStart(args) {
+        args.draggedRecords.filter(function (item) {
+            if (item.TaskName == "Item can't be Dragged") {
+                item.canDrag = false;
+            }
+        });
+    }
+</script>
+
+
+
+}
+
+
+

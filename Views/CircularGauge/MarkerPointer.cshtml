@@ -1,0 +1,189 @@
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/excanvas.min.js")"></script>
+}
+@section SampleHeading{
+    <span class="sampleName">CircularGauge-Marker Pointer-ASP.NET MVC-SYNCFUSION</span>
+}
+
+
+
+@section ControlsSection{
+    <div id="gradientFrame" align="center">
+        @(Html.EJ().CircularGauge("CoreCircularGauge").Width(500)
+                .IsResponsive(true)
+                  .BackgroundColor("transparent")
+                  .ClientSideEvents(cli => cli.DrawCustomLabel("drawCustomLabels").Load("loadGaugeTheme"))
+                  .EnableAnimation(false)
+                  .Value(55)
+                  .Frame(fr => fr.FrameType(Frame.HalfCircle).HalfCircleFrameStartAngle(180).HalfCircleFrameEndAngle(360))
+                  .Scales(sc =>
+                {
+                    sc.MajorIntervalValue(100)
+                      .SweepAngle(180)
+                      .StartAngle(180)
+                      .ShowRanges(true)
+                      .Ticks(tic => { tic.Color("transparent").Add(); })
+                      .CustomLabels(cl =>
+                       {
+                           cl.Value("").Color("#8c8c8c").Font(fon => fon.FontFamily("arial").FontStyle("bold").Size("25px")).Position(po => po.X(250).Y(200)).Add();
+                       })
+                    .Ranges(ran =>
+                    {
+                        ran.Size(40).StartValue(0).EndValue(50).BackgroundColor("#1B4279").Border(bor => bor.Color("#1B4279")).Add();
+                        ran.Size(40).StartValue(50).EndValue(100).BackgroundColor("#91B8F3").Border(bor => bor.Color("#91B8F3")).Add();
+                    })
+                    .Pointers(po =>
+                    {
+                        po.Type(PointerType.Marker)
+                        .MarkerType(MarkerType.Diamond)
+                        .Length(20)
+                        .Width(40)
+                        .DistanceFromScale(10)
+                        .BackgroundColor(ConsoleColor.Black.ToString())
+                        .PointerValueText(pov=>pov.ShowValue(true).Distance(-5).Opacity(1).Color("Red").autoAngle(false).Angle(0).Font(fo=>fo.Size("15px").FontFamily("Arial").FontStyle("Normal")))
+                        .Add();
+                    }).Add();
+                })
+                .Radius(100))
+    </div>
+}
+
+
+
+@section PropertiesSection{
+
+    <div class="row">
+        <div class="col-md-3">
+            Pointer Length
+        </div>
+        <div class="col-md-3 aligntop">
+            @(Html.EJ().Slider("pointerLength").SliderType(SlideType.MinRange).Value("40").Height("10").Width("120").MinValue(25).MaxValue(55).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange"); }))
+        </div>
+        <div class="col-md-3">
+            Pointer Width
+        </div>
+        <div class="col-md-3 aligntop">
+            @(Html.EJ().Slider("pointerWidth").SliderType(SlideType.MinRange).Value("30").Height("10").Width("120").MinValue(10).MaxValue(40).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange"); }))
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            Distance From Scale
+        </div>
+        <div class="col-md-3 aligntop">
+            @(Html.EJ().Slider("distanceFromScale").SliderType(SlideType.MinRange).Value("10").Height("10").Width("110").MinValue(-50).MaxValue(100).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange"); }))
+        </div>
+        <div class="col-md-3">
+            Animation Speed
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().Slider("animationSpeed").SliderType(SlideType.MinRange).Value("500").Height("10").Width("110").MinValue(100).MaxValue(1000).EnableAnimation(true).Enabled(false).ClientSideEvents(events => { events.Change("onchange"); }))
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            Enable Aniamtion
+        </div>
+        <div class="col-md-3" style="margin-top: 8px;">
+            @(Html.EJ().CheckBox("chkEnableAnimation").Checked(false).ClientSideEvents(events => { events.Change("onchange"); }))
+        </div>
+        <div class="col-md-3">
+            Pointer Value
+        </div>
+        <div class="col-md-3 aligntop">
+            @(Html.EJ().Slider("pointerValue").SliderType(SlideType.MinRange).Value("55").Height("10").Width("120").MinValue(0).MaxValue(100).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange"); }))
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Marker Type
+        </div>
+        <div class="col-md-3" style="margin-top: 8px;">
+            @(Html.EJ().DropDownList("markerType").TargetID("markerstyles").SelectedItemIndex(3).ClientSideEvents(cli => { cli.Select("onchange"); }))
+            <div id="markerstyles">
+                <ul>
+                    <li>rectangle</li>
+                    <li>trapezoid</li>
+                    <li>triangle</li>
+                    <li>diamond</li>
+                    <li>ellipse</li>
+                    <li>pentagon</li>
+                    <li>circle</li>
+                    <li>slider</li>
+                    <li>pointer</li>
+                    <li>wedge</li>
+                    <li>roundedrectangle</li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+}
+
+
+@section StyleSection{
+
+    <style>
+        .col-md-3 .e-ddl .e-input
+        {
+            line-height: 20px;
+        }       
+        #gradientFrame
+        {
+            background:none;
+        }
+    </style>
+}
+
+@section MetaTags{
+   <meta name="description" content="This sample demonstrates the marker pointer behavior of the Syncfusion ASP.NET Web Forms Circular gauge control.">
+}
+<script>
+    $(document).ready(function () {
+        $("#sampleProperties").ejPropertiesPanel();
+    });
+
+    function onchange(args) {
+        var marker = $("#CoreCircularGauge").data("ejCircularGauge");
+        if (args.type == "select") {
+            $("#CoreCircularGauge").ejCircularGauge("option", "scales", [{ pointers: [{ markerType: args.value }] }]);
+        }
+        else if (!ej.isNullOrUndefined(args.isChecked)) {
+            $("#animationSpeed").ejSlider("option", "enabled", args.isChecked);
+            $("#CoreCircularGauge").ejCircularGauge("option", "enableAnimation", args.isChecked);
+        }
+        else if (args.id == "pointerWidth") {
+            $("#CoreCircularGauge").ejCircularGauge("option", "scales", [{ pointers: [{ length: args.value }] }]);
+        }
+        else if (args.id == "pointerLength") {
+            $("#CoreCircularGauge").ejCircularGauge("option", "scales", [{ pointers: [{ width: args.value }] }]);
+        }
+        else if (args.id == "animationSpeed") {
+            $("#CoreCircularGauge").ejCircularGauge("option", "animationSpeed", args.value);
+        }
+        else if (args.id == "distanceFromScale") {
+            $("#CoreCircularGauge").ejCircularGauge("option", "scales", [{ pointers: [{ distanceFromScale: args.value }] }]);
+        }
+        else if (args.id == "pointerValue") {
+            marker.model.value = args.value;
+            marker.model.scales[0].pointers[0].value = args.value;
+            marker.model.scales[0].pointers[0]._value = args.value;
+            marker.refresh();
+           
+        }
+
+
+    }
+
+    function drawCustomLabels(args) {
+        args.style.textValue = args.model.scales[0].pointers[0].value.toFixed(2).toString();
+    }
+</script>
+
+
+
+

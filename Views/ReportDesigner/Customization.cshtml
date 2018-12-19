@@ -1,0 +1,219 @@
+@section SampleHeading{ <span class="sampleName">ReportDesigner-Toolbar Customization-ASP.NET MVC-SYNCFUSION</span>}
+
+@using Syncfusion.JavaScript
+@using Syncfusion.MVC.EJ
+
+@section StyleSection{
+    <style>
+        #rptdesigner, #rptviewer, .control {
+            min-height: 650px;
+            min-width: 100%;
+        }
+
+        #reportdesigner-btn-div {
+            width: 170px;
+        }
+
+        #reportviewer-editbutton,
+        #reportviewer-toolbarul,
+        #reportdesigner-toolbarul,
+        #reportviewer-edit-div {
+            float: right;
+        }
+
+        #reportviewer-editbutton,
+        #reportdesigner-savebutton,
+        #reportdesigner-backbutton {
+            margin-right: 5px;
+            margin-top: 4.5px;
+            margin-bottom: 5.5px;
+        }
+
+        #reportdesigner-savebutton,
+        #reportdesigner-backbutton,
+        #reportviewer-editbutton {
+            font-family: 'Segoe UI';
+            height: 26px;
+            width: 78px;
+            font-size: 11px;
+        }
+
+        .e-rptdesigner .e-rptdesigner-toolbarul,
+        .e-reportviewer-toolbarcontainer .e-reportviewer-toolbarul,
+        .e-rptdesigner .e-rptdesigner-sample-toolbarul,
+        .e-reportviewer-toolbarcontainer .e-reportviewer-sample-toolbarul {
+            display: inline-block;
+        }
+
+        .e-rptdesigner .e-rptdesigner-toolbarul-begin.e-separator,
+        .e-rptdesigner .e-rptdesigner-toolbarul-preview.e-separator,
+        .e-rptdesigner .e-rptdesigner-sample-toolbarul {
+            border-right: 0 none !important;
+        }
+    </style>
+}
+
+@section ScriptReferenceSection{
+    <script src="~/Scripts/CodeMirror/codemirror.js"></script>
+    <script src="~/Scripts/CodeMirror/show-hint.js"></script>
+    <script src="~/Scripts/CodeMirror/sql-hint.js"></script>
+    <script src="~/Scripts/CodeMirror/sql.js"></script>
+    <link href="~/Scripts/CodeMirror/codemirror.min.css" rel="stylesheet" />
+    <link href="~/Scripts/CodeMirror/show-hint.min.css" rel="stylesheet" />
+}
+
+@section ControlsSection{
+    <div>
+        <div id="viewerContainer" class="control">
+            @(Html.EJ().ReportViewer("rptViewer").ReportServiceUrl(VirtualPathUtility.ToAbsolute("~/api/ReportDesigner")).ReportPath("~/App_Data/ReportServer/Report/Catagory1/Website Visitor Analysis.rdl").ReportServerUrl("/").ToolbarRendering("renderViewerToolbar").ProcessingMode(Syncfusion.JavaScript.ReportViewerEnums.ProcessingMode.Remote))
+        </div>
+        <div id="designerContainer" style="display:none" class="control">
+            @(Html.EJ().ReportDesigner("rptDesigner").ServiceUrl(VirtualPathUtility.ToAbsolute("~/api/ReportDesigner")).Create("designerInitialization").ToolbarRendering("renderDesignerToolbar").ToolbarSettings(tb => tb.Items(Syncfusion.JavaScript.ReportDesignerEnums.ToolbarItems.All &
+        ~Syncfusion.JavaScript.ReportDesignerEnums.ToolbarItems.Preview & ~Syncfusion.JavaScript.ReportDesignerEnums.ToolbarItems.EditDesign &
+        ~Syncfusion.JavaScript.ReportDesignerEnums.ToolbarItems.New & ~Syncfusion.JavaScript.ReportDesignerEnums.ToolbarItems.Open &
+        ~Syncfusion.JavaScript.ReportDesignerEnums.ToolbarItems.Save)))
+        </div>
+    </div>
+}
+
+<script type="text/javascript">
+    @{ var isSupport = true; }
+
+    if ((ej.browserInfo().name === "msie" && Number(ej.browserInfo().version) < 9)) {
+        alert("ReportDesigner will not be supported in IE Version < 9");
+        @isSupport = false;
+    }
+
+    function designerInitialization(args) {
+        var designer = $('#rptDesigner').data('ejReportDesigner');
+        designer.openReport("/Catagory1/Website Visitor Analysis");
+    }
+
+    function showViewer() {
+        $("#designerContainer").css('display', 'none');
+        $("#viewerContainer").css('display', 'block');
+        $("#rptViewer").css('display', 'block');
+        $("#rptDesigner").css('display', 'none');
+        var viewer = $('#rptViewer').data('ejReportViewer');
+        viewer.reload();
+    }
+
+    function showDesigner() {
+        $('#rptViewer_loadingIndicator').data('ejWaitingPopup').hide();
+        $("#viewerContainer").css('display', 'none');
+        $("#rptViewer").css('display', 'none');
+        $("#rptDesigner").css('display', 'block');
+        $("#designerContainer").css('display', 'block');
+        var designer = $('#rptDesigner').data('ejReportDesigner');
+        if (designer) {
+            designer.openReport("/Catagory1/Website Visitor Analysis");
+            var waitingPopup = $('#rptDesigner_designAreaContainer').data('ejWaitingPopup');
+            waitingPopup.hide();
+        } else {
+            renderDesigner();
+        }
+    }
+
+    function saveReport() {
+        var designer = $('#rptDesigner').data('ejReportDesigner');
+        designer.saveReport();
+    }
+
+    function updateViewerHiddenList() {
+        if ($('#rptViewer_toolbarContainer_target').length > 0 && $('#rptViewer_toolbarContainer_hiddenlist').is(':visible')) {
+            $('#rptViewer_toolbarContainer_target').mousedown();
+        }
+    }
+
+    function updateDesignerHiddenList() {
+        if ($('#rptDesigner_toolBar_target').length > 0 && $('#rptDesigner_toolBar_hiddenlist').is(':visible')) {
+            $('#rptDesigner_toolBar_target').mousedown();
+        }
+    }
+
+    function cancelReport() {
+        var designer = $('#rptDesigner').data('ejReportDesigner');
+        updateDesignerHiddenList();
+        if (designer.hasReportChanges()) {
+            if (confirm("Changes you made may not be saved. Do you want back to Preview?")) {
+                showViewer();
+            } else {
+                return;
+            }
+        } else {
+            showViewer();
+        }
+    }
+
+    function renderViewerToolbar(args) {
+        var ulTag = $("<ul class='e-reportviewer-sample-toolbarul'/>");
+        ulTag.attr('id', 'reportviewer-toolbarul');
+        var divElement = $("<div/>");
+        divElement.attr('id', 'reportviewer-edit-div');
+        var editbutton = $("<button></button>");
+        editbutton.attr('id', 'reportviewer-editbutton');
+        divElement.append(editbutton);
+        ulTag.append(divElement);
+        args.target.append(ulTag);
+        editbutton.bind('click', $.proxy(editClick, this));
+        editbutton.ejButton({
+            size: "medium",
+            showRoundedCorner: true,
+            cssClass: 'e-primary',
+            contentType: "textandimage",
+            prefixIcon: "e-icon e-edit",
+            text: "Edit"
+
+        });
+        if (window.theme === 'office-365') {
+            $('#reportviewer-edit-div').css('padding-top', '8px');
+        }
+    }
+
+    function renderDesignerToolbar(args) {
+        var ulTag = $("<ul class='e-rptdesigner-sample-toolbarul'/>");
+        ulTag.attr('id', 'reportdesigner-toolbarul');
+        var divElement = $("<div/>");
+        divElement.attr('id', 'reportdesigner-btn-div');
+        var saveButton = $("<button></button>");
+        saveButton.attr('id', 'reportdesigner-savebutton');
+        var backButton = $("<button></button>");
+        backButton.attr('id', 'reportdesigner-backbutton');
+        divElement.append(saveButton);
+        divElement.append(backButton);
+        ulTag.append(divElement);
+        args.target.append(ulTag);
+        saveButton.bind('click', $.proxy(saveClick, this));
+        backButton.bind('click', $.proxy(cancelClick, this));
+        saveButton.ejButton({
+            size: "medium",
+            showRoundedCorner: true,
+            cssClass: 'e-primary',
+            contentType: "textandimage",
+            prefixIcon: "e-icon e-save",
+            text: 'Save'
+        });
+        backButton.ejButton({
+            size: "medium",
+            showRoundedCorner: true,
+            contentType: "textandimage",
+            prefixIcon: "e-icon e-undo",
+            text: 'Back'
+        });
+    }
+
+    function editClick(args) {
+        updateViewerHiddenList();
+        showDesigner();
+    }
+
+    function saveClick(args) {
+        updateDesignerHiddenList();
+        saveReport();
+    }
+
+    function cancelClick(args) {
+        cancelReport();
+    }
+</script>
+

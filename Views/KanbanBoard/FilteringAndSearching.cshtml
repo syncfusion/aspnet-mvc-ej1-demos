@@ -1,0 +1,38 @@
+@section SampleHeading{
+    <span class="sampleName">KanbanBoard-Filtering & Searching-ASP.NET MVC-SYNCFUSION</span>}
+}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to filter or search the collection of cards in the data source in the Syncfusion ASP.NET MVC Kanban component.">
+}
+@using Syncfusion.JavaScript.Models;
+    @section ControlsSection{
+    @(Html.EJ().Kanban("Kanban")
+                   .DataSource((IEnumerable<object>)ViewBag.datasource)
+                   .Columns(col =>
+                   {
+                       col.HeaderText("Backlog").Key("Open").Add();
+                       col.HeaderText("In Progress").Key("InProgress").Add();
+                       col.HeaderText("Testing").Key("Testing").Add();
+                       col.HeaderText("Done").Key("Close").Add();
+                   })
+                   .AllowSearching(true)
+                           .FilterSettings(filter =>
+                           {
+                               filter.Text("Janet Issues").Query("new ej.Query().where('Assignee', 'equal', 'Janet Leverling')").Description("Displays issues which matches the assignee as 'Janet Leverling").Add();
+                               filter.Text("Testing Issues").Query("new ej.Query().where('Status', 'equal', 'Testing')"). Description("Display the issues of 'Testing'" ).Add();
+                           })
+                  .AllowTitle(true)
+                  .AllowSelection(false)
+                  .KeyField("Status")
+                  .Fields(field =>
+                  {
+                      field.Color("Type")
+                           .Content("Summary")
+                           .ImageUrl("ImgUrl")
+                           .PrimaryKey("Id");
+                          
+                  })
+    )
+
+}
+

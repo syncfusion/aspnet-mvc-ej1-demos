@@ -1,0 +1,21 @@
+@section SampleHeading{
+    <span class="sampleName">Autocomplete-Databinding - Local Data-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This example demonstrates how to bind local data to the Syncfusion ASP.NET MVC Autocomplete component.">
+}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @{
+                Html.EJ()
+                    .Autocomplete("selectState")
+                    .Width("100%")
+                    .Datasource((IEnumerable<States>)ViewBag.datasource)
+                    .AutocompleteFields(f => f.Text("countryName").Key("index"))
+                    .WatermarkText("Select a state")
+                    .Render();
+            }
+        </div>
+    </div>
+}
+

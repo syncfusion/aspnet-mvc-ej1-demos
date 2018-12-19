@@ -1,0 +1,181 @@
+﻿
+@using Syncfusion.JavaScript;
+@using Syncfusion.JavaScript.DataVisualization;
+@using MVCSampleBrowser.Areas.OutlookAnalysis.Models;
+@{
+    Layout = "~/Areas/OutlookAnalysis/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Essential Studio for ASP.NET MVC : WebMail";
+}
+<body>
+    <div id="page" class="page">
+        <div class="main-header clear">
+            <div class="home-btn">
+                <span class="ej-icon-view-small-icons-01" style="margin-top:6px;font-size: 22px"></span>
+            </div>
+            <div style="float: left;margin: 6px 26px;">
+                <h1 class="text" style="font-size: 21px;font-size: 21px;font-weight: normal;margin-bottom: 0px;display: inline-block;max-width: 100%;margin-top: 3px;">Outlook Demo</h1>
+            </div>
+        </div>
+        <div class="content-container-fluid">
+            <div class="row">
+                <div class="sidebar">
+                    <div class="search">
+                        <div class="control">
+                            @(Html.EJ().Autocomplete("searchAuto").Width("100%").WatermarkText("Search Mail and People").Datasource((IEnumerable<OutlookData>)ViewBag.datasource).PopupHeight("200px").FilterType(FilterOperatorType.Contains))
+                            <span class="select"><span class="e-icon e-search"></span></span>
+                        </div>
+                        <div class="scrollContainer">
+                            <div class="treewrap">
+                                <div class="treeControl">
+                                    @(Html.EJ().TreeView("treeView").Template("#treeTemplate").TreeViewFields(s => s.Id("id").ParentId("pid").Text("name").HasChild("haschild").Expanded("expanded")).ClientSideEvents(e => e.Create("oncreate").NodeClick("nodeClick")))
+                                </div>
+                            </div>
+                            @(Html.EJ().Menu("treeviewMenu").OpenOnClick(false).MenuType(MenuType.ContextMenu).ContextMenuTarget("#treeView").Items(items =>
+                        {
+                            items.Add().Url("#").Text("Move down in list");
+                            items.Add().Url("#").Text("Remove from favorites all as read");
+                            items.Add().Url("#").Text("Empty folder");
+                            items.Add().Url("#").Text("Mark all as read");
+                        }))
+                        </div>
+                    </div>
+                </div>
+                <div style="position: absolute; top: 0px; right: auto; bottom: 0px; left: 214px; height: auto; width: 4px;">
+                    <div style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; height: auto; width: auto;border-left: 1px solid #e5e3e3;z-index: 3;">
+                    </div>
+                </div>
+                <div class="menuwrap">
+                    <div class="tool">
+                        <div style="background-color: #F4F9FD;">
+                            <div class="innerTool">
+                                @(Html.EJ().Menu("menujson").EnableSeparator(false).Width("100%").MenuFields(m => m.Id("id").ParentId("parentId").Text("text").SpriteCssClass("sprite")).ClientSideEvents(e => e.Click("menuClick")))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="restItem">
+                    <div style="position: absolute;top: 0px;right: 0px;bottom: 0px;left: 0px;height: auto;width: 360px;">
+                        <div class="newItem">
+                            <div style="position: absolute;left: 29px;overflow: hidden;white-space: nowrap;">
+                                <span id="ItemTitle" class="ItemTitle" style="font-size: 28px;font-weight: normal;">Inbox</span>
+                            </div>
+                        </div>
+                        <div class="listwrap">
+                            <div class="listscroller">
+                                <div style="position: relative;height: auto;">
+                                    <div style="position: absolute;width: 100%;bottom: auto;top: 0px;">
+                                        @(Html.EJ().ListView("templatelist").ShowHeader(true).HeaderTitle("Today").RenderTemplate(true).Height(254).Width(350).TemplateId("listTempData").ClientSideEvents(e => e.MouseDown("onMouseDown")))
+                                        @(Html.EJ().ListView("templatelist1").ShowHeader(true).HeaderTitle("Yesterday").RenderTemplate(true).Height(554).Width(350).TemplateId("listTempData").ClientSideEvents(e => e.MouseDown("onMouseDown")))
+                                        @(Html.EJ().Menu("listviewMenu").MenuType(MenuType.ContextMenu).ContextMenuTarget("#templatelist,#templatelist1").OpenOnClick(false).Items(items =>
+                                    {
+                                        items.Add().Url("#").Text("Reply");
+                                        items.Add().Url("#").Text("Reply All");
+                                        items.Add().Url("#").Text("Forward");
+                                        items.Add().Url("#").Text("Delete");
+                                        items.Add().Url("#").Text("Archive");
+                                        items.Add().Url("#").Text("Mark as unread");
+                                        items.Add().Url("#").Text("Pin");
+                                        items.Add().Url("#").Text("Flag");
+
+                                    }))
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="position: absolute; top: 0px; right: auto; bottom: 0px; left: 360px; height: auto; width: 4px;">
+                            <div style="position: absolute; top: 1px; right: 0px; bottom: 0px; left: 0px; height: auto; width: auto;border-left: 1px solid #e5e3e3;z-index: 3;">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="position: absolute;top: 42px;right: 0px;bottom: 0px;left: 578px;height: auto;width: 788px;">
+                    <div style="position: absolute;top: 0px;right: 0px;bottom: 0px;left: 0px;height: auto;width: auto;overflow-x: hidden;overflow-y: auto;">
+                        <div class="paneltxt">
+                            <span class="contentPanel" style="width:500px;height:200px;font-size: 13px">Select an item to view.</span>
+                        </div>
+                        <div id="iconAccordion">
+                            <div style="height:14px;">
+                                <div class="logos"></div>
+                                <div class="messageHeader">
+                                    <div id="sub"></div><br />
+                                    <div id="headDate">05/05/2016</div><div id="date"></div><br />
+                                    <div id="to"></div>
+                                </div>
+                            </div>
+                            <div id="accContent">
+                                <div style="margin: 24px 12px;">
+                                    <div style="float:left;">Hi</div> <div id="accTo" style="margin-left: 20px;"></div><br />
+                                    <div id="accCont"></div><br />
+                                    <div id="accGreet">Thanks,</div>
+                                    <div id="accFrom"></div>
+                                    <div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @(Html.EJ().Accordion("iconAccordion").EnableMultipleOpen(true).Events("click").ClientSideEvents(e => e.BeforeInActivate("onbeforeInActivate").InActivate("onInActivate").BeforeActivate("beforeActivate").Activate("InActivate")).CustomIcon(c => c.Header("ej-icon-expander-down---01").SelectedHeader("ej-icon-up-arrow---01")))
+                        <form id="textform">
+                            <div id="messageData" class="mailDetails">
+                                <div id="mailarea" style="margin: 16px 45px 0px 28px;" class="hidden">
+                                    @(Html.EJ().Button("toButton").Width("55px").Text("To"))<br /><br />
+                                    @(Html.EJ().Autocomplete("autoTo").Datasource((IEnumerable<OutlookData>)ViewBag.datasource).FilterType(FilterOperatorType.Contains).Width("593").PopupWidth("230").PopupHeight("250").MultiSelectMode(MultiSelectModeTypes.VisualMode))
+                                    <hr class="compose" />
+                                    <br />
+                                    @(Html.EJ().Button("ccButton").Width("55px").Text("Cc"))
+                                    @(Html.EJ().Autocomplete("autoCc").Datasource((IEnumerable<OutlookData>)ViewBag.datasource).FilterType(FilterOperatorType.Contains).Width("593").PopupWidth("230").PopupHeight("250").MultiSelectMode(MultiSelectModeTypes.VisualMode))
+                                    <hr class="compose" />
+                                    @(Html.EJ().MaskEdit("mailsubject").InputMode(InputMode.Text).WatermarkText("Enter subject here").Width("695"))
+                                    <hr class="compose">
+                                    <br />
+                                    @{ List<String> toolsList = new List<string>() { "formatStyle", "font", "style", "effects", "alignment", "lists", "indenting", "clipboard", "doAction", "clear", "casing", "print" };
+                                        List<String> font = new List<string>() { "fontName", "fontSize", "fontColor", "backgroundColor" };
+                                        List<String> style = new List<string>() { "bold", "italic", "underline", "strikethrough" };
+                                        List<String> alignment = new List<string>() { "justifyLeft", "justifyCenter", "justifyRight", "justifyFull" };
+                                        List<String> lists = new List<string>() { "unorderedList", "orderedList" };
+                                        List<String> indenting = new List<string> { "outdent", "indent" };
+                                        List<String> clipboard = new List<string>() { "cut", "copy", "paste" };
+                                        List<String> doAction = new List<string>() { "undo", "redo" };
+                                        List<String> clear = new List<string>() { "clearFormat", "clearAll" };
+                                        List<String> effects = new List<string>() { "superscript", "subscript" };
+                                        List<String> casing = new List<string>() { "upperCase", "lowerCase" };
+                                        List<String> formatStyle = new List<string>() { "format" };
+                                        List<String> print = new List<string>() { "print" };
+                                    }
+                                    @(Html.EJ().RTE("rteSample").Width("710px").Height("350px").ToolsList(toolsList))
+                                    @(Html.EJ().Button("sendButton").Width("65px").Type(ButtonType.Submit).Text("Send").ClientSideEvents(e => e.Click("Click")))
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <script id="treeTemplate" type="text/x-jsrender">
+                    {{if hasChild}}
+                    <div>{{>name}}</div>
+                    {{else}}
+                    <div class="treeitem" style="float:left;margin-right: 8px;">{{>name}}</div>
+                    <div id="count" class="count" style="height: 20px;width: 100%;">{{>count}}</div>
+                    {{/if}}
+                </script>
+                <script id="listTempData" type="text/x-jsrender">
+                    <div class="{{>Class}}">
+                    </div>
+                    <div class="listrightdiv">
+                        <span class="templatetext">{{>ContactName}}</span> <span class="designationstyle">{{>Time}}</span>
+                        <div class="subjectstyle">
+                            {{>ContactTitle}}
+                        </div>
+                        <div class="descriptionstyle">
+                            {{>Message}}
+                        </div>
+                        <div class="receiver" style="display:none">
+                            {{>To}}
+                        </div>
+                    </div>
+                </script>
+            </div>
+        </div>
+    </div>
+</body>

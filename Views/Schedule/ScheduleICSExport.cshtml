@@ -1,0 +1,74 @@
+@section MetaTags{
+    <meta name="description" content="This example shows how the ASP.NET MVC Scheduler imports and exports appointments in an ICS file.">
+}
+@section SampleHeading{<span class="sampleName">Schedule-ICS Import & Export-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    @(Html.EJ().Schedule("Schedule1")
+        .Width("100%")
+        .Height("525px")
+        .CurrentDate(new DateTime(2017, 6, 5))
+        .TimeMode(Syncfusion.JavaScript.TimeMode.Hour24)
+        .ContextMenuSettings(menu => menu.Enable(true).MenuItems(item => item.Cells(ViewBag.cell).Appointment(ViewBag.app)))
+        .ScheduleClientSideEvents(evt => evt.MenuItemClick("onMenuItemClick"))
+        .AppointmentSettings(fields => fields.Datasource((IEnumerable)ViewBag.datasource)
+            .Id("Id")
+            .Subject("Subject")
+            .StartTime("StartTime")
+            .EndTime("EndTime")
+            .Description("Description")
+            .AllDay("AllDay")
+            .Recurrence("Recurrence")
+            .RecurrenceRule("RecurrenceRule"))
+    )
+}
+
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">Import ICS</div>
+        <div class="col-md-3">
+            @Html.EJ().Uploadbox("UploadDefault").Height("30px").Width("60px").SaveUrl("SaveDefault").UploadBoxButtonText(btn => btn.Browse("Import")).ExtensionsAllow(".ics").RemoveUrl("RemoveDefault").AutoUpload(true).ShowFileDetails(false).MultipleFilesSelection(false).ClientSideEvents(evt => evt.Complete("onUploadComplete"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">Export ICS</div>
+        <div class="col-md-3">
+            @Html.EJ().Button("Export").Text("Export").Height("30px").Width("60px").ShowRoundedCorner(true).ClientSideEvents(evt => evt.Click("onExportClick"))
+        </div>
+    </div>
+}
+
+@section ScriptSection{
+    <script>
+        $(document).ready(function () { $("#sampleProperties").ejPropertiesPanel(); });
+
+        function onExportClick(e) {
+            var obj = $("#Schedule1").data("ejSchedule");
+            obj.exportSchedule("ExportToICS", null, null);
+        }
+
+        function onMenuItemClick(args) {
+            if (args.events.ID == "exportApp") {
+                var obj = $("#Schedule1").data("ejSchedule");
+                obj.exportSchedule("ExportToICS", null, args.targetInfo.Id);
+            }
+        }
+
+        function onUploadComplete(args) {
+            var query = ej.Query().from("DefaultSchedules");
+            var dManager = ej.DataManager({
+                url: "/Schedule/ScheduleImportData",
+                offline: false
+            });
+            dManager.adaptor = new ej.UrlAdaptor();
+
+            $("#Schedule1").ejSchedule({
+                appointmentSettings: {
+                    dataSource: dManager,
+                    tableName: "DefaultSchedules",
+                    query: query
+                }
+            });
+        }
+    </script>
+}
+
