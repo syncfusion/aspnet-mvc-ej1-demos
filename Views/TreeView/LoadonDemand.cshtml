@@ -1,8 +1,0 @@
-﻿@section SampleHeading{<span class="sampleName">TreeView / LoadonDemand </span>}
-@section ControlsSection{
-    <div style="width: 250px">
-        @(Html.EJ().TreeView("tree").TreeViewFields(s => s.Datasource((IEnumerable<loadondemand>)ViewBag.datasource).Id("id")
-                   .ParentId("pid").Text("name").HasChild("hasChild").Expanded("expanded")).LoadOnDemand(true))
-
-    </div>
-}

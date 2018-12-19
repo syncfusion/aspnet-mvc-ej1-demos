@@ -1,7 +1,0 @@
-﻿@section SampleHeading{ <span class="sampleName">TagCloud / Rtl</span>}
-
-@section ControlsSection{
-<div class="controlframe" style="width: 350px;">
-    @Html.EJ().TagCloud("tagcloudRTL").Datasource((IEnumerable<WebsiteCollection>)ViewBag.datasource).TagCloudFields(tag => tag.Text("text").Url("url").Frequency("frequency")).Title("مواقع التكنولوجيا").EnableRTL(true)
-    </div>
-}
