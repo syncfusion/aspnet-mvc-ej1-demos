@@ -1,0 +1,11 @@
+@section SampleHeading{
+    <span class="sampleName">Dropdownlist-Grouping-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().DropDownList("vegetable").Width("100%").WatermarkText("Select a vegetable").Datasource((IEnumerable)ViewData["dataSource"]).DropDownListFields(f=>f.Text("Veg").GroupBy("Group"))
+        </div>
+    </div>
+    
+}
+

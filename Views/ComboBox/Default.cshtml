@@ -1,0 +1,18 @@
+@section SampleHeading{
+    <span class="sampleName">ComboBox-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @{
+                Html.EJ()
+                    .ComboBox("selectCar")
+                    .Width("100%")
+                    .Datasource((IEnumerable<CarsList>)ViewBag.datasource)
+                    .ComboBoxFields(f=>f.Text("text"))
+                    .Placeholder("Select a car")
+                    .Render();
+            }
+        </div>
+    </div>
+}
+

@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+       <title>Essential JS1 | Showcase Sample | Diagram Builder</title>
+        <meta name="description" content="The ASP.NET MVC diagram builder application is used to making diagrams like flowcharts, BPMN, swimlane and electrical diagrams."> 
+        <link href="@Url.Content("~/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />        
+        <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+       @* <link href="@Url.Content("~/Content/expense/Site.css")" rel="stylesheet" type="text/css" />*@
+        <link href="@Url.Content("~/Content/ejthemes/default-theme/ej.web.all.min.css")" rel="stylesheet" type="text/css" />
+        <link href="@Url.Content("~/Content/sampleBrowserSite.css")" rel="stylesheet" />
+        <link href="@Url.Content("~/Content/sampleBrowserSite-responsive.css")" rel="stylesheet" />
+        <!--[if lt IE 9]>
+		<script src="@Url.Content("~/Scripts/jquery-1.11.3.min.js")"></script>
+		<![endif]-->
+		<!--[if gte IE 9]><!-->
+		<script src="@Url.Content("~/Scripts/jquery-3.0.0.min.js")"></script>
+		<!--<![endif]-->
+        <script src="@Url.Content("~/Scripts/jsrender.min.js")" type="text/javascript"></script>
+       
+        <script src="@Url.Content("~/Scripts/ej.web.all.min.js")" type="text/javascript"></script>
+    </head>
+    <body>  
+        @RenderBody()
+       
+        @(Html.EJ().ScriptManager())
+    </body>
+</html>

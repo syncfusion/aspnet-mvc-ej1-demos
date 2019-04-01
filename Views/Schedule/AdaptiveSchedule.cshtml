@@ -1,0 +1,61 @@
+﻿@using Syncfusion.JavaScript.Models
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/ejthemes/ej.widgets.core.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/ejthemes/flat-saffron/ej.theme.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/ejthemes/responsive-css/ej.responsive.css")" rel="stylesheet" />
+    <!--[if lt IE 9]>
+    <script src="@Url.Content("~/Scripts/jquery-1.11.3.min.js")"></script>
+	<![endif]-->
+	<!--[if gte IE 9]><!-->
+	<script src="@Url.Content("~/Scripts/jquery-2.1.4.min.js")"></script>
+	<!--<![endif]-->
+    <script src="@Url.Content("~/Scripts/jquery.easing-1.3.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jsrender.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.globalize.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/ej.web.all.min.js")"></script>
+    <script type="text/javascript">
+        $(function () {
+            var browserDetails = ej.browserInfo();
+            if (!(browserDetails.name == "msie" && parseInt(browserDetails.version, 10) < 9)) {
+                window.addEventListener('message', function (e) {
+                    if (typeof e.data != "boolean") {
+                        var links = $(document.head || document.getElementsByTagName('head')[0]).find("link");
+                        for (var i = 0; i < links.length; i++) {
+                            if (links[i].href.indexOf("ej.theme.min.css") != -1) {
+                                var cssref = links[i].href,
+                                    serverconfig = cssref.substr(0, cssref.indexOf("Content") - 1),
+                                    fileref = $('<link rel="stylesheet" type="text/css" href="' + serverconfig + window.parent.themes[e.data.split('_')[1]] + '" />');
+                                $(fileref).insertAfter(links[i]);
+                                $(links[i]).remove();
+                                break;
+                            }
+                        }
+
+                    }
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+    @(Html.EJ().Schedule("Schedule")
+    .Width("100%")
+        .Height("490px")
+        .CurrentDate(new DateTime(2017, 6, 5))
+        .AppointmentSettings(fields => fields.Datasource((IEnumerable)ViewBag.datasource)
+            .Id("Id")
+            .Subject("Subject")
+            .StartTime("StartTime")
+            .EndTime("EndTime")
+            .Description("Description")
+            .AllDay("AllDay")
+            .Recurrence("Recurrence")
+            .RecurrenceRule("RecurrenceRule"))
+              )
+    @Html.EJ().ScriptManager()
+</body>
+</html>

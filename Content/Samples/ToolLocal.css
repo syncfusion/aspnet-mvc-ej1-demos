@@ -1,0 +1,41 @@
+﻿.darktheme .cols-sample-area .e-tooltxt .e-spriteimg {
+    background-image: url('../../Images/toolbar/browserd.png');
+}
+
+.cols-sample-area .e-tooltxt .e-spriteimg {
+    display: block;
+    background-image: url('../../Images/toolbar/browserl.png');
+    height: 32px;
+    width: 32px;
+    background-repeat: no-repeat;
+}
+
+.e-tooltxt:hover .e-spriteimg, .darktheme .cols-sample-area .e-tooltxt:hover .e-spriteimg {
+    background-image: url('../../Images/toolbar/browserh.png');
+}
+
+.ieb {
+    background-position: -84px 0px;
+}
+
+.chromeb {
+    background-position: -42px 0px;
+}
+
+.firefoxb {
+    background-position: 0px 0px;
+}
+
+.bittyb {
+    background-position: -126px 0px;
+}
+
+.operab {
+    background-position: -168px 0px;
+}
+/***/
+.frame {
+    width: 35%;
+
+}
+

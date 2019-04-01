@@ -1,0 +1,50 @@
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName">Editor-RTL-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+      <div class="frame">
+          <div class="control">
+                  <table>
+                      <tr>
+                          <td class="btnsht">
+                              @Html.EJ().NumericTextbox("numeric").Value("1000").EnableRTL(true).Width("100%")
+                          </td>
+                          <td class="btnsht brtl">
+                              <span>Numeric TextBox</span>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="btnsht">
+                              @Html.EJ().PercentageTextbox("percent").Value("100").EnableRTL(true).Width("100%")
+                          </td>
+                          <td class="btnsht brtl">
+                              <span>Percentage TextBox</span>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td class="btnsht">
+                              @Html.EJ().CurrencyTextbox("currency").Value("50").EnableRTL(true).Width("100%")
+                          </td>
+                          <td class="btnsht brtl">
+                              <span>Currency TextBox</span>
+                          </td>
+                      </tr>
+                  </table>
+          </div>
+        </div>
+}
+@section StyleSection{
+
+    <style>
+       .frame {
+            width: 35%;
+        }
+
+        .brtl {
+            text-align: right;
+        } 
+    </style>
+}
+

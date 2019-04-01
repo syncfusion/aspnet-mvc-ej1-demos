@@ -1,0 +1,65 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates sequencing the tasks in a Gantt project automatically with unique numbering.">
+}
+@section SampleHeading{<span class="sampleName">Gantt-Sequencing Tasks-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+    <div id="ganttserialsample" style="width: 100%; height: 450px;">
+    @(Html.EJ().Gantt("ganttserialsample")
+              .TaskIdMapping("TaskID")
+              .EnableSerialNumber(true)
+              .TaskNameMapping("TaskName")
+              .StartDateMapping("StartDate")
+              .EndDateMapping("EndDate")
+              .DurationMapping("Duration")
+              .ProgressMapping("Progress")
+              .ScheduleStartDate("02/01/2017")
+              .ScheduleEndDate("03/14/2017")
+              .DateFormat("MM/dd/yyyy")
+              .AllowDragAndDrop(true)
+              .HighlightWeekends(true)
+              .TreeColumnIndex(2)
+              .ShowGridCellTooltip(true)
+              .ChildMapping("SubTasks")
+              .AllowSelection(true)
+              .AllowGanttChartEditing(true)
+              .PredecessorMapping("Predecessors")
+              .AllowColumnResize(true)
+              .IncludeWeekend(false)
+              .EnableContextMenu(true)
+              .EditSettings(edit =>
+              {
+                  edit.AllowAdding(true);
+                  edit.AllowDeleting(true);
+                  edit.AllowEditing(true);
+                  edit.AllowIndent(true);
+                  edit.EditMode("cellEditing");
+              })
+              .IsResponsive(true)
+              .EnableVirtualization(true)
+              .ToolbarSettings(toolbar =>
+              {
+                  toolbar.ShowToolbar(true);
+                  toolbar.ToolbarItems(new List<GanttToolBarItems>()
+                  {
+                      GanttToolBarItems.Add,
+                      GanttToolBarItems.Search,
+                      GanttToolBarItems.Edit,
+                      GanttToolBarItems.Delete,
+                      GanttToolBarItems.Update,
+                      GanttToolBarItems.Cancel,
+                      GanttToolBarItems.Indent,
+                      GanttToolBarItems.Outdent,
+                      GanttToolBarItems.ExpandAll,
+                      GanttToolBarItems.CollapseAll
+                  });
+              })
+              .DragTooltip(tooltip =>
+              {
+                  tooltip.ShowTooltip(true);
+              })
+              .Datasource(ViewBag.datasource)
+    )
+</div>
+}
+

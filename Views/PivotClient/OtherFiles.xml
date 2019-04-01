@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Category>
+  <Samples url="/PivotClient/RelationalWCF">
+    <DependentFiles displayname="WCF" url="wcf/RelationalClientService.svc.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/PivotClient/RelationalWebAPI">
+    <DependentFiles displayname="Web API" url="WebAPI/RelationalClientController.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/PivotClient/OlapWCF">
+    <DependentFiles displayname="WCF" url="wcf/OlapClientService.svc.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/PivotClient/OlapWebAPI">
+    <DependentFiles displayname="Web API" url="WebAPI/OlapClientController.cs"></DependentFiles>
+  </Samples>
+</Category>

@@ -1,0 +1,11 @@
+@section SampleHeading{<span class="sampleName">TreeView-Multi-Select-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div style="width: 250px">
+        @Html.EJ().TreeView("tree").TreeViewFields(field => 
+            field.Datasource((IEnumerable<loadondemand>)ViewBag.datasource)
+            .Id("id").ParentId("pid").Text("name")
+            .HasChild("hasChild").Expanded("expanded")
+        ).AllowMultiSelection(true).AllowDragAndDrop(true).EnableAnimation(false)
+    </div>
+}
+

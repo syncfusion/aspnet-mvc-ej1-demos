@@ -1,0 +1,56 @@
+﻿.flagsimage {
+    background-image: url("../../Images/tab/flags.png");
+    display: inline-block;
+    overflow: hidden;
+    background-repeat: no-repeat;
+    font-size: 0;
+    line-height: 0;
+    text-indent: -3333px;
+    text-align: center;
+    vertical-align: middle;
+    margin-right: -9px;
+    margin-left: 9px;
+}
+
+.sprite-Australia {
+    background-position: 0 0px;
+    width: 16px;
+    height: 16px;
+    margin-top: 14px;
+    float: left;
+}
+
+.sprite-Germany {
+    background-position: 0 -398px;
+    width: 16px;
+    height: 16px;
+    margin-top: 14px;
+    float: left;
+}
+
+.sprite-India {
+    background-position: -3px -462px;
+    width: 16px;
+    height: 15px;
+    margin-top: 14px;
+    float: left;
+}
+
+.sprite-France {
+    background-position: 0px -329px;
+    width: 16px;
+    height: 16px;
+    margin-top: 14px;
+    float: left;
+}
+
+.sprite-USA {
+    background-position: 0px -1119px;
+    width: 16px;
+    height: 16px;
+    margin-top: 14px;
+    float: left;
+}
+.material .flagsimage {
+	margin-top: 18px;
+}
