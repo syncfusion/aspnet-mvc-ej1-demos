@@ -1,9 +1,0 @@
-@section SampleHeading{<span class="sampleName">TreeView-Local Data-ASP.NET MVC-SYNCFUSION</span>}
-@section ControlsSection{
-    <div style="width: 250px">
-        @(Html.EJ().TreeView("tree").TreeViewFields(s => s.Datasource((IEnumerable<loadondemand>)ViewBag.datasource).Id("id").ParentId("pid")
-                   .Text("name").HasChild("hasChild").Expanded("expanded")))
-
-    </div>
-}
-

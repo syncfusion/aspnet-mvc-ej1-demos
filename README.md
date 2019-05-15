@@ -11,7 +11,7 @@ The following sections will guide you through using the Syncfusion Essential JS1
 * [Controls catalog](#controls-catalog)
 * [Demos](#demos)
 * [Release Notes](#release-notes)
-* [Support and Feedback](#support-and-feedback)
+* [Support and Feedback](#support-and-feedback) 
 
 ## Requirements to run the demos 
 
