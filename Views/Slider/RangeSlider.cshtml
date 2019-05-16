@@ -1,0 +1,26 @@
+@section SampleHeading{ <span class="sampleName">Slider-Range Slider-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+
+    <div class="frame">
+        <div class="txt">Range</div>
+        @Html.EJ().Slider("rangeSlider").SliderType(SlideType.Range).Values("30,60")
+        <br />
+        <br />
+        <div class="txt">Min-Range</div>
+        @Html.EJ().Slider("minSlider").SliderType(SlideType.MinRange).Value("60")
+    </div>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .frame {
+            width: 50%;
+        }
+
+        .txt {
+            font-size: 15px;
+            margin-bottom: 13px;
+        }
+    </style>
+}
+

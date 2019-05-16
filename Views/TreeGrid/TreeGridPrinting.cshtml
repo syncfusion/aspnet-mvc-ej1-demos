@@ -1,0 +1,35 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates how to enable and print the records in a tree grid.">
+}
+@section SampleHeading{<span class="sampleName">TreeGrid-Printing-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+
+
+    @(Html.EJ().TreeGrid("TreeGridContainer")
+             .ChildMapping("Children")
+             .TreeColumnIndex(1)
+             .IsResponsive(true)
+             .Columns(co =>
+               {
+                   co.Field("TaskId").HeaderText("Task Id").Width(45).Add();
+                   co.Field("TaskName").HeaderText("Task Name").Add();
+                   co.Field("StartDate").HeaderText("Start Date").Add();
+                   co.Field("EndDate").HeaderText("End Date").Add();
+                   co.Field("Duration").HeaderText("Duration").Add();
+                   co.Field("Progress").HeaderText("Progress").Add();
+               }
+             )
+             .ToolbarSettings(tool =>
+             {
+                 tool.ShowToolbar(true);
+                 tool.ToolbarItems(new List<TreeGridToolBarItems>()
+                {
+                                    
+                                     TreeGridToolBarItems.Print
+                                  });
+             })
+             .SizeSettings(ss => ss.Width("100%").Height("350px"))
+             .Datasource(ViewBag.datasource)
+    )
+}
+

@@ -1,0 +1,45 @@
+@section SampleHeading{<span class="sampleName">Grid-AutoWrap Column Cells-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This demo explains how to wrap the content of datagrid cells within the specified width of datagrid columns in Syncfusion ASP.NET MVC DataGrid control.">
+}
+@section ControlsSection{
+    @(Html.EJ().Grid<EditableOrder>("TextWrap")
+        .Datasource((IEnumerable<object>)ViewBag.datasource)
+        .AllowScrolling()
+		.AllowPaging()
+        .ScrollSettings(scroll => { scroll.Height(300).Width(970); })
+		.AllowTextWrap()
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(90).Add();
+            col.Field("CustomerID").HeaderText("Customer ID").Width(90).Add();
+            col.Field("EmployeeID").HeaderText("Employee ID").TextAlign(TextAlign.Right).Width(90).Add();
+            col.Field("Freight").HeaderText("Freight").TextAlign(TextAlign.Right).Width(90).Format("{0:C}").Add();
+            col.Field("ShipCity").HeaderText("Ship City").Width(110).Add();
+            col.Field("ShipName").HeaderText("Ship Name").Width(100).Add();
+            col.Field("OrderDate").HeaderText("Order Date").Width(100).TextAlign(TextAlign.Right).Format("{0:MM/dd/yyyy}").Add();
+            col.Field("ShipCountry").HeaderText("ShipCountry").Width(110).Add();
+            col.Field("ShipPostalCode").HeaderText("Postal Code").Width(110).Add();
+            col.Field("Verified").HeaderText("Verified").Width(100).Add();
+        })
+        )
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            var gridObj = $("#TextWrap").ejGrid("instance");
+            scrolWidth = gridObj.model.scrollSettings.width / $(".cols-sample-area").width();
+            if (gridObj.element.width() > $(".cols-sample-area").width()) {
+                var scrollerwidth = Math.floor($(".cols-sample-area").width())
+                gridObj.option("model.scrollSettings", { width: scrollerwidth })
+                scrolWidth = 1;
+            }
+        });
+        $(window).resize(function () {
+            var gridObj = $("#TextWrap").ejGrid("instance")
+            var scrollerwidth = Math.floor($(".cols-sample-area").width() * scrolWidth)
+            gridObj.option("model.scrollSettings", { width: scrollerwidth })
+        });
+    </script>
+}
+

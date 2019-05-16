@@ -1,0 +1,59 @@
+@section SampleHeading{ <span class="sampleName">ProgressBar-Methods-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().ProgressBar("sampleBar").Percentage(75).Height("18px")
+        </div>
+        <div class="txt"></div>
+    </div>
+}
+@section PropertiesSection{
+
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EJ().ToggleButton("btnDisable").Width("115px").DefaultText("Disable").ActiveText("Enable").ClientSideEvents(evt => evt.Click("changeState"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EJ().Button("btnPercent").Width("115px").Text("Get Percentage").ClientSideEvents(evt => evt.Click("onGetPercentage"))
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script>
+        var progressBar;
+        $(document).ready(function () {
+            progressBar = $("#sampleBar").data("ejProgressBar");
+            $('.txt').html(progressBar.getPercentage() + " %");
+        });
+        function changeState(args) {
+            if (args.isChecked) progressBar.disable();
+            else progressBar.enable();
+        }
+        function onGetPercentage() {
+            alert("Progress percentage : " + progressBar.getPercentage());
+        }
+        $(document).ready(function () { $("#sampleProperties").ejPropertiesPanel(); });
+    </script>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .frame {
+            width: 330px;
+        }
+
+        .txt {
+            font-size: 18px;
+            margin-top: 12px;
+            text-align: center;
+        }
+		
+		.office-365 #getper {
+			width: 137px !important;
+		}
+    </style>
+}
+

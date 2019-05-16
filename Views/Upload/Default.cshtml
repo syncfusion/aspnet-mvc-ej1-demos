@@ -1,0 +1,22 @@
+@section SampleHeading{
+    <span class="sampleName">Upload-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            <div class="posupload">Select a file to upload</div>
+            @Html.EJ().Uploadbox("UploadDefault").SaveUrl(@Url.Action("SaveDefault")).RemoveUrl(@Url.Action("RemoveDefault"))
+        </div>
+    </div>
+}
+@section StyleSection{
+    <style class="cssStyles">
+        .posupload {
+            padding:10px;
+            text-align:center;
+        }
+        #UploadDefault {
+            margin: 0 auto;
+        }
+    </style>
+}
+

@@ -1,0 +1,18 @@
+@section SampleHeading{<span class="sampleName">TreeView-Remote Data-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div style="width: 300px;">
+        @(Html.EJ().TreeView("treeView").TreeViewFields(s => s.Datasource(s1 => s1.URL("//js.syncfusion.com/demos/ejServices/Wcf/Northwind.svc/").CrossDomain(true))
+                   .Query("ej.Query().from('Categories').select('CategoryID,CategoryName').take(3)").Id("CategoryID").Text("CategoryName")
+                   .Child(s2 => s2.Datasource(s3 => s3.URL("//js.syncfusion.com/demos/ejServices/Wcf/Northwind.svc/").CrossDomain(true)).TableName("Products")
+                   .ParentId("CategoryID").Text("ProductName"))))
+
+    </div>
+}
+@section StyleSection{
+    <style>
+        .e-waitingPopup-panel {
+            top: 140px !important;
+        }
+    </style>
+}
+
