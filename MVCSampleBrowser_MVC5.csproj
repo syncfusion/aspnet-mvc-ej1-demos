@@ -97,7 +97,7 @@
       <HintPath>packages\Syncfusion.Web.Base45.17.2.0.34\lib\net45\Syncfusion.EJ.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.EJ.Export">
-      <HintPath>packages\Syncfusion.EJ.Export.17.2.0.34\lib\net45\Syncfusion.EJ.Export.dll</HintPath>
+      <HintPath>packages\Syncfusion.Web.Base45.17.2.0.34\lib\net45\Syncfusion.EJ.Export.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.EJ.MVC">
       <HintPath>packages\Syncfusion.AspNet.Mvc5.17.2.0.34\lib\net45\Syncfusion.EJ.MVC.dll</HintPath>
