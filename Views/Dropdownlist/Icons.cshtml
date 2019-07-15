@@ -1,0 +1,25 @@
+@section SampleHeading{
+    <span class="sampleName">Dropdownlist-Icons-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().DropDownList("selectmailtools").TargetID("mailtoolslist").WatermarkText("Select a icon").Width("100%")
+            <div id="mailtoolslist">
+                <ul>
+                    <li><div class="mailtools categorize"></div>Categorize and Move</li>
+                    <li><div class="mailtools done"></div>Done</li>
+                    <li><div class="mailtools flag"></div>Flag & Move</li>
+                    <li><div class="mailtools forward"></div>Forward</li>
+                    <li><div class="mailtools movetofolder"></div>Move to Folder</li>
+                    <li><div class="mailtools newmail"></div>New E-mail</li>
+                    <li><div class="mailtools meeting"></div>New Meeting</li>
+                    <li><div class="mailtools reply"></div>Reply & Delete</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+@section StyleSection{
+    <link href="@Url.Content("~/Content/Samples/DrpDwnIcon.css")" rel="stylesheet" />
+}
+

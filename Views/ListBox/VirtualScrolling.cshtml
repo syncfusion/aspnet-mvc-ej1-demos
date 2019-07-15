@@ -1,0 +1,77 @@
+@section SampleHeading{
+    <span class="sampleName">ListBox-Virtual Scrolling-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to load large amounts of data on demand in the Syncfusion ASP.NET MVC ListBox component.">
+}
+@section ControlsSection{
+    <div class="control frame">
+        <div class="ctrllabel">
+            Select a customer
+        </div>
+
+
+        @Html.EJ().ListBox("selectlang").Datasource(ds => ds.URL("//js.syncfusion.com/ejServices/wcf/NorthWind.svc/").CrossDomain(true)).Query("ej.Query().from('Customers')").ListBoxFields(f => f.Text("CustomerID")).ItemRequestCount(10).AllowVirtualScrolling(true)
+
+    </div>
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">Select Dropdown</div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("dropdown").Width("120px").SelectedItemIndex(0).ClientSideEvents(evt => evt.Change("onValueChange")).TargetID("Targetid")
+
+            <div id="Targetid">
+                <ul>
+                    <li value="disablevirtual">Normal Mode</li>
+                    <li value="enablevirtual">Continuous Mode</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .ctrllabel {
+            padding: 0px 0px 12px 3px;
+            font-weight: 600;
+        }
+
+        .e-ddl-popup {
+            margin: 0 auto;
+        }
+    </style>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        function onValueChange(args) {
+            var target = $('#selectlang').data("ejListBox");
+            //target.destroy();
+            var dataManger = ej.DataManager({
+                url: "//js.syncfusion.com/ejServices/Wcf/Northwind.svc/", crossDomain: true
+            });
+            // Query creation
+            var query = ej.Query()
+                   .from("Customers");
+            if (args.value == "enablevirtual") {
+                $("#selectlang").ejListBox({
+                    dataSource: dataManger,
+                    fields: { text: "CustomerID" },
+                    query: query, allowVirtualScrolling: true, virtualScrollMode: ej.VirtualScrollMode.Continuous
+
+                });
+            }
+            if (args.value == "disablevirtual") {
+                $("#selectlang").ejListBox({
+                    dataSource: dataManger,
+                    fields: { text: "CustomerID" },
+                    query: query, allowVirtualScrolling: true
+                });
+            }
+        }
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+    </script>
+}
+

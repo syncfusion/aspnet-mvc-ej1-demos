@@ -1,0 +1,100 @@
+@section MetaTags{
+    <meta name="description" content="This example shows how to display user-provided continuous date ranges in the ASP.NET MVC Scheduler.">
+}
+@section SampleHeading{
+    <span class="sampleName">Schedule-Custom View-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+        @{
+            List<string> views = new List<string>() { "CustomView" };
+        }
+        @(Html.EJ().Schedule("Schedule1")
+        .Width("100%")
+        .Height("525px")
+        .Views(views)
+        .CurrentDate(new DateTime(2017,6,5))
+        .CurrentView(CurrentView.CustomView)
+        .RenderDates(dt => dt.Start("6/7/2017").End("7/10/2017"))
+        .AppointmentSettings(fields => fields.Datasource((IEnumerable)ViewBag.datasource)
+            .Id("Id")
+            .Subject("Subject")
+            .StartTime("StartTime")
+            .EndTime("EndTime")
+            .Description("Description")
+            .AllDay("AllDay")
+            .Recurrence("Recurrence")
+            .RecurrenceRule("RecurrenceRule"))
+        )
+}
+<div id="scheduleViews">
+    <ul> 
+        <li>Agenda</li>
+        <li>Day</li>
+        <li>Week</li>
+        <li>WorkWeek</li>
+        <li>Month</li>
+        <li>CustomView</li>
+    </ul>
+</div>
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Select View
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("views").TargetID("scheduleViews").Width("120px").SelectedItemIndex(5).ClientSideEvents(evt => evt.Change("onChange"))
+        </div>
+    </div>
+     <div class="row">
+        <div class="col-md-3">
+            Start Date
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            @Html.EJ().DatePicker("customstartdate").Width("120px").Value("6/7/2017")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            End Date
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            @Html.EJ().DatePicker("customenddate").Width("120px").Value("7/10/2017")
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-3">
+            @Html.EJ().Button("submit").Text("Submit").ClientSideEvents(evt => evt.Click("ChangeDate"))
+        </div>
+    </div>
+}
+    <script>
+        $(document).ready(function () { $("#sampleProperties").ejPropertiesPanel(); });
+        function onChange(args) {
+            $("#Schedule1").ejSchedule({ views: [args.text], currentView: args.text.toLowerCase() });
+        }
+        function ChangeDate(args) {
+            var startDate = $("#customstartdate").ejDatePicker("option", "value");
+            startDate = new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate());
+            var endDate = $("#customenddate").ejDatePicker("option", "value");
+            endDate = new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate());
+            $('#views').ejDropDownList({
+                 selectedItemIndex: 5
+            });
+            if (startDate <= endDate) {
+                $("#Schedule1").ejSchedule({
+					currentDate:new Date(startDate),
+                    renderDates: {
+                        start: new Date(startDate),
+                        end: new Date(endDate)
+                    }
+                });
+            }
+            else
+                alert("Start date must be lesser than end date");
+        }
+    </script>
+

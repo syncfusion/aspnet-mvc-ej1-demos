@@ -1,0 +1,46 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates how to extend the timeline in a project dynamically in the Syncfusion Gantt chart control.">
+}
+
+@section SampleHeading{<span class="sampleName">Gantt-Timescale Extension-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+    <div id="ganttsample2" style="width: 100%; height: 450px;">
+        @(Html.EJ().Gantt("ganttsample12")
+              .TaskIdMapping("Id")
+              .TaskNameMapping("Name")
+              .StartDateMapping("StartDate")
+              .DurationMapping("Duration")
+              .ProgressMapping("PercentDone")
+              .HighlightWeekends(true)
+              .IncludeWeekend(true)
+              .AllowColumnResize(true)
+              .TreeColumnIndex(1)
+              .ChildMapping("Children")
+              .AllowSelection(true)
+              .AllowGanttChartEditing(true)
+              .IsResponsive(true)
+              .ClientSideEvents(cs => cs.Load("load"))
+              .EditSettings(es => es.AllowAdding(true).AllowDeleting(true).EditMode("cellEditing").AllowEditing(true))
+              .ToolbarSettings(toolbar =>
+                              {
+                                  toolbar.ShowToolbar(true);
+                                  toolbar.ToolbarItems(new List<GanttToolBarItems>()
+                                  {
+                                     GanttToolBarItems.PrevTimeSpan,
+                                     GanttToolBarItems.NextTimeSpan
+                                  });
+                              })
+              .Datasource(ViewBag.datasource)
+        )
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        function load(args) {
+            var columns = this.getColumns();
+            columns[0].width = 60;
+        }
+    </script>
+}
+

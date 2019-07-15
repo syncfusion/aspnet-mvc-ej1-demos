@@ -1,0 +1,116 @@
+@section SampleHeading{
+    <span class="sampleName">ListBox-Checkbox-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to select multiple items at a time and display their check-boxes with the Syncfusion ASP.NET MVC ListBox component.">
+}
+@section ControlsSection{
+        <div class="control frame">
+            <div class="ctrllabel">
+                Select your skills</div>
+            @Html.EJ().ListBox("skillsets").ShowCheckbox(true).Datasource((IEnumerable<Languages>)ViewBag.datasource).ListBoxFields(df => df.Text("text")).Height("220px").ClientSideEvents(evt => evt.Create("setheight"))
+
+        </div>
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EJ().ToggleButton("btnchkunchk").DefaultText("Check All").ActiveText("Uncheck All").ClientSideEvents(e => e.Change("onCheckUncheckAll")).Width("130px")
+        </div>
+    </div>
+     <div class="row">
+        <div class="col-md-12">
+            @Html.EJ().Button("get").Text("Get Values").ClientSideEvents(evt => evt.Click("GetcheckedIndices")).Width("130px")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EJ().ToggleButton("bthshowhide").DefaultText("Hide CheckBox").ActiveText("Show CheckBox").ClientSideEvents(e => e.Change("onShowHide")).Width("130px")
+        </div>
+    </div>
+    <div id="resultarea" style="padding-left: 25px;">
+    <label>CheckedItems</label>
+    <table id="resultdata">
+        <tr>
+            <th>Index</></th>
+            <th>Text</th>
+        </tr>
+    </table>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        var target;
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        function onCheckUncheckAll(args) {
+            target = $('#skillsets').data("ejListBox");
+            if (args.isChecked)
+                target.checkAll();
+            else
+                target.uncheckAll();
+        }
+        function onShowHide(args) {
+            target = $('#skillsets').data("ejListBox");
+            ButtonObj = $("#get").data("ejButton");
+            ToggleButtonObj = $("#btnchkunchk").data("ejToggleButton");
+            if (args.isChecked) {
+                target.option("showCheckbox", false);
+                ButtonObj.disable();
+                ToggleButtonObj.disable();
+            }
+            else {
+                target.option("showCheckbox", true);
+                ButtonObj.enable();
+               ToggleButtonObj.enable();
+            }
+        }
+        function GetcheckedIndices(e) {
+             target = $('#skillsets').data("ejListBox");
+             var alertMsg = "";
+             var checkedItems = target.getCheckedItems();
+             if (checkedItems.length) {
+                 $(checkedItems).each(function (index, ele) {
+                     alertMsg += "<tr class='checkedItems'><td>" + ele.index + "</td><td>" + ele.value + "</td></tr>";
+                     $(".checkedItems").remove();
+                     $("#resultdata").append(alertMsg);
+                 });                 
+             }
+             else {
+                 $(".checkedItems").remove();
+                 $("#resultarea br").remove();
+                 $("#resultarea").append("<br /><span class='checkedItems'>No items are checked</span>");
+             }                 
+        }
+        function setheight(){
+            if (document.body.firstElementChild.className =="htmljssamplebrowser material" ||"htmljssamplebrowser office-365"){
+                setTimeout(function(){ var obj = $("#skillsets").ejListBox("instance");
+                    obj._refreshScroller(); }, 500);                
+            }
+        }
+        
+    </script>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .ctrllabel {
+            padding: 0px 0px 12px 3px;
+            font-weight: 600;
+        }
+
+        .e-ddl-popup {
+            margin: 0 auto;
+        }
+        #resultdata{
+            width:100%;
+        }
+        th{
+            width:50%;
+        }
+        label{
+            margin-left: 35px;
+        }
+       
+    </style>
+}
+

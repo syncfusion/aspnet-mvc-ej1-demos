@@ -1,0 +1,123 @@
+﻿@using Syncfusion.MVC.EJ
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title</title>
+        <link href="@Url.Content("~/Content/images/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+        <link href="@Url.Content("~/Content/ejthemes/ej.widgets.core.min.css")" rel="stylesheet" type="text/css" />
+        <link href="@Url.Content("~/Content/ejthemes/ej.reportdesigner.core.min.css")" rel="stylesheet" type="text/css" />
+        <link href="@Url.Content("~/Content/ejthemes/default-theme/ej.theme.min.css")" rel="stylesheet" type="text/css" />
+        <link href="@Url.Content("~/Content/ejthemes/default-theme/ej.reportdesigner.theme.min.css")" rel="stylesheet" />
+        <!--[if lt IE 9]><!-->
+		<script src="@Url.Content("~/Scripts/jquery-1.11.3.min.js")"></script>
+		<![endif]-->
+		<!--[if gte IE 9]><!-->
+		<script src="@Url.Content("~/Scripts/jquery-3.4.1.min.js")"></script>
+		<!--<![endif]-->
+        <script src="@Url.Content("~/Scripts/jsrender.min.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Scripts/jquery.globalize.min.js")" type="text/javascript"></script>
+        <link href="@Url.Content("~/Scripts/CodeMirror/codemirror.min.css")" rel="stylesheet" />
+        <link href="@Url.Content("~/Scripts/CodeMirror/show-hint.min.css")" rel=" stylesheet" />
+        <script src="@Url.Content("~/Scripts/CodeMirror/codemirror.js")"></script>
+        <script src="@Url.Content("~/Scripts/CodeMirror/show-hint.js")"></script>
+        <script src="@Url.Content("~/Scripts/CodeMirror/sql-hint.js")"></script>
+        <script src="@Url.Content("~/Scripts/CodeMirror/sql.js")"></script>
+        <script src="@Url.Content("~/Scripts/ej.web.all.min.js")" type="text/javascript"></script>
+        <!--[if gte IE 9]><!-->
+        <script src="@Url.Content("~/Scripts/ej.reportdesigner.min.js")" type="text/javascript"></script>
+        <!--<![endif]-->
+        <script src="@Url.Content("~/Scripts/properties.js")"></script>
+        <style type="text/css">
+            .rptdesigner-sample-header {
+                width: 100%;
+                height: 40px;
+                background-color: #333842;
+                font-family: 'Segoe UI';
+            }
+
+                .rptdesigner-sample-header .rptdesigner-sample-previewBtn,
+                .rptdesigner-sample-header .rptdesigner-sample-designBtn {
+                    width: 100px;
+                    height: 40px;
+                    float: right;
+                }
+
+                    .rptdesigner-sample-header .rptdesigner-sample-previewBtn .preview-btn,
+                    .rptdesigner-sample-header .rptdesigner-sample-designBtn .design-btn {
+                        background-color: #0079bc;
+                        color: #fff;
+                    }
+
+                    .rptdesigner-sample-header .rptdesigner-sample-previewBtn .preview-btn,
+                    .rptdesigner-sample-header .rptdesigner-sample-designBtn .design-btn {
+                        width: 80px;
+                        margin-top: 7px;
+                        height: 25px;
+                        margin-left: 0px;
+                        border: 0;
+                        border-radius: 2px;
+                        font-weight: 600;
+                        font-size: 12px;
+                        font-family: Segoe UI !important;
+                    }
+
+                .rptdesigner-sample-header .report-name,
+                .rptdesigner-sample-header .report-status {
+                    display: inline-block;
+                    padding-left: 6px;
+                }
+
+                .rptdesigner-sample-header .report-name {
+                    color: #fff;
+                    font-size: 16px !important;
+                }
+
+                .rptdesigner-sample-header .report-status {
+                    color: #a9a9a9;
+                    font-family: Segoe UI;
+                    padding-left: 15px;
+                    font-style: italic;
+                }
+
+                .rptdesigner-sample-header .main-screen-logo {
+                    width: 40px;
+                    height: 30px;
+                    display: inline-block;
+                    margin-top: 5px;
+                }
+
+                .rptdesigner-sample-header .rptdesigner-sample-designBtn .design-btn {
+                    display: none;
+                }
+
+                .rptdesigner-sample-header .preview-btn:hover,
+                .rptdesigner-sample-header .design-btn:hover {
+                    background-color: #009aef;
+                }
+
+                .rptdesigner-sample-header .main-screen-logo img {
+                    height: 30px;
+                    padding-left: 5px;
+                    margin-top: -1px;
+                }
+
+            .rptdesigner-sample-reportname,
+            .rptdesigner-sample-reportstatus {
+                display: inline-block;
+                margin: 0;
+                vertical-align: middle;
+                font-family: 'Segoe UI';
+                font-size: 13px !important;
+                font-weight: 400;
+            }
+        </style>
+
+    </head>
+    <body>
+        @RenderBody()
+        @(Html.EJ().ScriptManager())
+    </body>
+</html>

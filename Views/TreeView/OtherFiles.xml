@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Category>
+    <Samples url="/TreeView/FullRowSelection">
+    <DependentFiles displayname="Model" url="/Models/Treeview/loadondemand.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/TreeView/Icon">
+    <DependentFiles displayname="Model" url="/Models/Treeview/loadondemand.cs"></DependentFiles>
+  </Samples>
+    <Samples url="/TreeView/LoadonDemand">
+    <DependentFiles displayname="Model" url="/Models/Treeview/loadondemand.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/TreeView/Localdata">
+    <DependentFiles displayname="Model" url="/Models/Treeview/loadondemand.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/TreeView/MultiSelection">
+    <DependentFiles displayname="Model" url="/Models/Treeview/loadondemand.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/TreeView/Template">
+    <DependentFiles displayname="Model" url="/Models/Treeview/template.cs"></DependentFiles>
+  </Samples>
+
+</Category>

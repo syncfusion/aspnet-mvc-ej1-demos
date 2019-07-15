@@ -1,0 +1,47 @@
+﻿@section SampleHeading{
+    <span class="sampleName">RTL</span>
+}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to display header and card contents from right to left in the Syncfusion ASP.NET MVC Kanban component.">
+}
+@using Syncfusion.JavaScript.Models;
+    @section ControlsSection{
+    @(Html.EJ().Kanban("Kanban")
+                    .DataSource((IEnumerable<object>)ViewBag.datasource)
+                   .Columns(col =>
+                   {
+                       col.HeaderText("تراكم الأعمال غير المنجزة").Key("Open").Add();
+                       col.HeaderText("في تَقَدم").Key("InProgress").Constraints(con => { con.Max(2); }).Add();
+                       col.HeaderText("فعله").Key("Close").Add();
+                   })
+                  .AllowTitle(true)
+                  .EnableRTL(true)
+                  .Locale("ar-AE")
+                  .KeyField("Status")
+                  .Fields(field =>
+                  {
+                      field.Color("Type")
+                           .Content("Summary")
+                           .ImageUrl("ImgUrl")
+                           .PrimaryKey("Id")
+                           .SwimlaneKey("Assignee");
+                  })
+    )
+
+}
+@section ScriptSection{
+    <script type="text/javascript">
+    ej.Kanban.Locale["ar-AE"] = {
+        EmptyCard: "لا بطاقات لعرض",
+        SaveButton: "حفظ",
+        CancelButton: "إلغاء",
+        EditFormTitle: "تفاصيل ",
+        AddFormTitle: "إضافة بطاقة جديدة",
+        SwimlaneCaptionFormat: "- {{:count}}{{if count == 1 }} بند {{else}} العناصر {{/if}}",
+        FilterSettings: "مرشحات:",
+        FilterOfText: "من",
+        Max: "ماكس",
+        Min: "دقيقة"
+    };
+    </script>
+}

@@ -1,0 +1,50 @@
+
+
+@section SampleHeading{
+    <span class="sampleName">ListBox-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to display a list of items using the Syncfusion ASP.NET MVC ListBox component.">
+}
+@section ControlsSection{
+        <div class="control frame">
+            <div class="ctrllabel">
+
+                Select a car</div>
+            @Html.EJ().ListBox("list1").Height("220px").TargetID("carsList").ClientSideEvents(evt => evt.Create("setheight"))
+                <ul id="carsList">
+                    <li>Audi A4</li>
+                    <li>Audi A5</li>
+                    <li>Audi A6</li>
+                    <li>Audi A7</li>
+                    <li>Audi A8</li>
+                    <li>BMW 501</li>
+                    <li>BMW 502</li>
+                    <li>BMW 503</li>
+                    <li>BMW 507</li>
+                    <li>BMW 3200</li>
+                </ul>
+        </div>
+}
+@section ScriptSection{
+<script type="text/javascript">
+    function setheight(){
+         if (document.body.firstElementChild.className =="htmljssamplebrowser material" ||"htmljssamplebrowser office-365"){
+             setTimeout(function () {
+                 var obj = $("#list1").ejListBox("instance");
+                obj._refreshScroller(); }, 500);
+                 }
+    }
+    </script>
+    }
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .ctrllabel {
+            padding: 0px 0px 12px 3px;
+            font-weight: 600;
+        }
+        .e-ddl-popup {
+            margin:0 auto;
+        }
+    </style>
+}
+

@@ -1,0 +1,94 @@
+@section SampleHeading{
+    <span class="sampleName">BulletGraph-Indicator-ASP.NET MVC-SYNCFUSION</span>
+}
+@section ControlsSection{
+    
+      @(Html.EJ().BulletGraph("BulletGraph1").Height(400).QualitativeRangeSize(32).QuantitativeScaleLength(475)
+            .QuantitativeScaleSettings(qs =>
+            {
+                qs.Location(l => l.x(110).y(150))
+                    .Minimum(0)
+                    .Maximum(10)
+                    .Interval(1)
+                    .MajorTickSettings(mat => mat.Size(13).Width(1).Stroke(System.Drawing.Color.Gray))
+                    .MinorTickSettings(mit => mit.Size(5).Width(1).Stroke(System.Drawing.Color.Gray))
+                    .LabelSettings(la => { la.Offset(14).Size(10); })
+                    .FeaturedMeasureSettings(fm => fm.Width(6))
+                    .ComparativeMeasureSettings(cm => cm.Width(5))
+                    .FeatureMeasure(fm => { fm.ComparativeMeasureValue(6.7).Value(8).Category("").Add(); });
+            })
+            .QualitativeRanges(qr =>
+            {
+                qr.RangeEnd(4.3).Add();
+                qr.RangeEnd(7.3).Add();
+                qr.RangeEnd(10).Add();
+            })
+                .CaptionSettings(cs => cs.TextAngle(0).Text("Sales Review").Location(ls => ls.x(17).y(160))
+                .Font(f => f.FontFamily("Sagoe UI").FontStyle(BulletFontStyle.Normal.ToString()).FontSize("12px")
+                .FontWeight("Normal").Opacity(1))
+                .SubTitle(so => so.TextAngle(0).Text("$ in Thousands").Location(l => l.x(10).y(175))
+                .Font(f => f.FontFamily("Segoe UI").FontStyle(BulletFontStyle.Italic.ToString()).FontSize("12px")
+                .FontWeight("Normal").Opacity(1)))
+                .Indicator(indicator => indicator.Visible(true).Text(" $ 1.3 K")
+                .Location(loc=>loc.x(15).y(190)).TextSpacing(8)
+                .Font(font=> font.FontColor(System.Drawing.Color.Green).FontSize("13px").FontWeight("bold"))
+                .Symbol(symbol=>symbol.Shape(SymbolShape.Triangle).Color("green")
+                .Size(sz=> sz.Width(10).Height(10)))))                
+            )
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Symbol Shape
+        </div>
+        <div class="col-md-3 aligntop">
+            <select style="max-width:90%" autocomplete="off" id="symShape" onchange="ChangeBulletSymbol(this)">
+                <option value="circle">Circle</option>
+                <option value="uparrow">Up Arrow</option>
+                <option value="downarrow">Down Arrow</option>
+                <option value="leftarrow">Left Arrow</option>
+                <option value="rightarrow">Right Arrow</option>
+                <option value="cross">Cross</option> 
+                <option value="horizontalline">Horizontal Line</option>
+                <option value="verticalline">VerticalLine</option>
+                <option value="triangle" selected="selected">Triangle</option>
+                <option value="invertedtriangle">Inverted Triangle</option>
+                <option value="hexagon">Hexagon</option>
+                <option value="wedge">Wedge</option>
+                <option value="pentagon">Pentagon</option>
+                <option value="star">Star</option>
+                <option value="rectangle">Rectangle</option>
+                <option value="trapezoid">Trapezoid</option>
+                <option value="diamond">Diamond</option>
+                <option value="ellipse">Ellipse</option>
+            </select>
+        </div>
+    </div>
+}
+@section StyleSection{
+    <style>
+        .aligntop .e-ddl .e-input {
+            line-height:20px;
+        }
+    </style>
+}
+
+@section ScriptSection{
+<script type="text/javascript">
+       $(document).ready(function () {
+           $("#sampleProperties").ejPropertiesPanel();
+       });      
+
+       function ChangeBulletSymbol(sender) {
+           $("#BulletGraph1").ejBulletGraph("option", "captionSettings.indicator.symbol", { shape: sender.value });
+       }
+</script>
+}
+@section MetaTags{
+   <meta name="description" content="This sample indicate the sale review based on thousand people in the Syncfusion ASP.NET Web Forms Bullet graph control.">
+}
+
+
+
+
+

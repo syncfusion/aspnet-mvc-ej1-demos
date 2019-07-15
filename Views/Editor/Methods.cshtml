@@ -1,0 +1,219 @@
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName">Editor-Methods-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+<div class="frame">
+     <div class="row">
+            <div class="col-xs-6 col-sm-5">
+                            <span>Numeric TextBox</span>
+                        </div>
+            <div class="col-xs-6 col-sm-4">
+                            @Html.EJ().NumericTextbox("numeric").Value("1000").Width("100%")
+                        </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-5">
+                            <span>Percentage TextBox</span>
+                       </div>
+            <div class="col-xs-6 col-sm-4">
+                            @Html.EJ().PercentageTextbox("percent").Value("100").Width("100%")
+                        </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-5">
+                            <span>Currency TextBox</span>
+                        </div>
+            <div class="col-xs-6 col-sm-4">
+                            @Html.EJ().CurrencyTextbox("currency").Value("50").Width("100%")
+                        </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-5">
+                            <span>Mask Edit</span>
+                        </div>
+            <div class="col-xs-6 col-sm-4">
+                            @(Html.EJ().MaskEdit("maskedit").InputMode(InputMode.Text).MaskFormat("(999)999-9999")
+                                               .CustomCharacter("$").WatermarkText("(999)999-9999").Width("100%"))
+                        </div>
+        </div>
+    </div>
+
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Enable / Disable
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().ToggleButton("togbtn").Width("105px").DefaultText("Disable").ActiveText("Enable")
+                       .ClientSideEvents(s => s.Click("changeState")))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            IncrementStep
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().NumericTextbox("incrementStep").Width("105px").ShowSpinButton(false).WatermarkText("Incrementstep")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Min Value
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().NumericTextbox("minValue").Width("105px").ShowSpinButton(false).WatermarkText("Min Value")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Max Value
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().NumericTextbox("maxValue").Width("105px").ShowSpinButton(false).WatermarkText("Max Value")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Decimal Value
+        </div>
+        <div class="col-md-3">          
+            @(Html.EJ().NumericTextbox("decimalValue").Width("105px").ShowSpinButton(false).MinValue(0).MaxValue(5)
+                       .WatermarkText("Decimal Value"))
+        </div>
+	</div>
+	<div class="row">
+        <div class="col-md-6">
+            Apply Values
+        </div>
+        <div class="col-md-6">
+            @(Html.EJ().Button("applybtn").Text("Apply").Width("105px").Type(ButtonType.Button)
+                       .ClientSideEvents(e => e.Click("applyChanges")))
+        </div>
+	</div>
+    <div class="row">
+         <span id="error" style="color: red"></span>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <b>MaskEdit:</b>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            Mask
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().DropDownList("masks").Width("105px").Datasource((IEnumerable<LocalData>)ViewBag.datasource)
+                       .DropDownListFields(t => t.Text("text").Value("value")).SelectedItemIndex(0)
+                       .ClientSideEvents(s => s.Change("onMaskChange")))
+        </div>
+    </div>
+}
+
+<script>
+    var numobject, percentobject, currencyobject, maskobject;
+    $(function () {
+        objectcreation();
+        $("#sampleProperties").ejPropertiesPanel();
+
+
+    });
+    function objectcreation() {
+        numobject = $("#numeric").data("ejNumericTextbox");
+        percentobject = $("#percent").data("ejPercentageTextbox");
+        currencyobject = $("#currency").data("ejCurrencyTextbox");
+        maskobject = $("#maskedit").data("ejMaskEdit");
+    }
+    function changeState(args) {
+        objectcreation();
+        if (args.isChecked) {
+            numobject.disable();
+            percentobject.disable();
+            currencyobject.disable();
+            maskobject.disable();
+            $("#incrementStep").ejNumericTextbox("disable");
+            $("#minValue").ejNumericTextbox("disable");
+            $("#maxValue").ejNumericTextbox("disable");
+            $("#decimalValue").ejNumericTextbox("disable");
+        }
+        else {
+            numobject.enable();
+            percentobject.enable();
+            currencyobject.enable();
+            maskobject.enable();
+            $("#incrementStep").ejNumericTextbox("enable");
+            $("#minValue").ejNumericTextbox("enable");
+            $("#maxValue").ejNumericTextbox("enable");
+            $("#decimalValue").ejNumericTextbox("enable");
+        }
+    }
+
+    function applyChanges(args) {
+        objectcreation();
+        var val = parseFloat($("#incrementStep").val());
+        var minVal = parseFloat($("#minValue").val());
+        var maxVal = parseFloat($("#maxValue").val());
+        var decVal = parseInt($("#decimalValue").val());
+        if (!isNaN(val)) {
+            numobject.option("incrementStep", val);
+            percentobject.option("incrementStep", val);
+            currencyobject.option("incrementStep", val);
+        }
+        if (!isNaN(decVal)) {
+            numobject.option("decimalPlaces", decVal);
+            percentobject.option("decimalPlaces", decVal);
+            currencyobject.option("decimalPlaces", decVal);
+        }
+        if ((!isNaN(minVal)) && (!isNaN(maxVal)) && (maxVal < minVal))
+            $("#error").html("Min value exceeds Max value");
+        else {
+            if (!isNaN(minVal)) {
+                numobject.option("minValue", minVal);
+                percentobject.option("minValue", minVal);
+                currencyobject.option("minValue", minVal);
+                $("#error").html("");
+            }
+            if (!isNaN(maxVal)) {
+                numobject.option("maxValue", maxVal);
+                percentobject.option("maxValue", maxVal);
+                currencyobject.option("maxValue", maxVal);
+                $("#error").html("");
+            }
+        }
+    }
+    function onMaskChange(args) {
+        objectcreation();
+        maskobject.option("maskFormat", args.value);
+        maskobject.option("watermarkText", args.value);
+    }
+
+</script>
+
+@section StyleSection{
+
+    <style type="text/css" class="cssStyles">
+       .frame {
+            width: 50%;
+        }
+        .input {
+            width: 110px;
+            height: 22px;
+            text-indent: 10px;
+        }
+
+        .inputBtn, .e-togglebutton {
+            width: 114px;
+        }
+        .col-xs-6.col-sm-5 {
+            margin-top: 10px;
+        }
+       .col-xs-6.col-sm-4 {
+            padding-top: 5px;
+        }
+    </style>
+}
+

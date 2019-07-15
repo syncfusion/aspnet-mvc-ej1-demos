@@ -1,0 +1,103 @@
+@section SampleHeading{
+    <span class="sampleName">Upload-Events-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            <div class="posupload">
+                @Html.EJ().Uploadbox("UploadEvents").SaveUrl(@Url.Action("SaveEvents")).RemoveUrl(@Url.Action("RemoveEvents")).ClientSideEvents(e => e.Create("uploadload").FileSelect("fileselect").Begin("fileuploadbegin").Cancel("fileuploadcancel").InProgress("fileInprogress").Complete("fileuploadcomplete").Remove("fileuploadremove").Error("fileuploaderror").Destroy("fileuploadDestroy").Success("fileuploadsuccess"))
+            </div>
+        </div>
+    </div>
+}
+@section StyleSection{
+    <style class="cssStyles">
+        #UploadEvents {
+            margin: 0 auto;
+        }
+    </style>
+}
+@section EventsDropdown{
+    @Html.EJ().DropDownList("selectControls_input").TargetID("evntname").ShowCheckbox(true).CheckAll(true).ClientSideEvents(e => e.Change("evtpropscheckedevent").PopupShown("adjustpopupposition"))
+    <div id="evntname">
+        <ul>
+            <li>fileSelect</li>
+            <li>begin</li>
+            <li>cancel</li>
+            <li>inProgress</li>
+            <li>complete</li>
+            <li>remove</li>
+            <li>error</li>
+            <li>success</li>
+            <li>destroy</li>
+        </ul>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        function formatSize(bytes) {
+            var i = -1;
+            if (!bytes)
+                return "0.0KB";
+            do {
+                bytes = bytes / 1024;
+                i++;
+            } while (bytes > 99);
+            return Math.max(bytes, 0).toFixed(1) + ['KB', 'MB', 'GB', 'TB', 'PB', 'EB'][i];
+        }
+
+        function uploadload(e) {
+            jQuery.addEventLog("Upload box control has been <span class='eventTitle'> created </span>.");
+        }
+        function fileselect(e) {
+            for (var i = 0; i < e.files.length ; i++) {
+                jQuery.addEventLog(e.files[i].name + "- file has been <span class='eventTitle'>selected </span>.");
+            }
+        }
+        function fileuploadbegin(e) {
+            jQuery.addEventLog("Upload has been<span class='eventTitle'> started </span> -" + e.files.name);
+        }
+        function fileuploadcancel(e) {
+            jQuery.addEventLog("Upload has been <span class='eventTitle'>canceled </span>.");
+        }
+        function fileInprogress(e) {
+            jQuery.addEventLog("Upload <span class='eventTitle'>is InProgress</span> - " + e.percentage + "% - " + e.file.name + " (" + formatSize(e.e.loaded) + ").");
+        }
+        function fileuploadcomplete(e) {
+            jQuery.addEventLog("Upload action has been <span class='eventTitle'>completed </span>successfully .");
+        }
+        function fileuploadremove(e) {
+            jQuery.addEventLog("Uploaded file has been <span class='eventTitle'> removed </span>successfully.");
+        }
+        function fileuploaderror(e) {
+            jQuery.addEventLog("Upload action has <span class='eventTitle'>thrown an error </span>.");
+        }
+        function fileuploadDestroy(e) {
+            jQuery.addEventLog("Upload control has been <span class='eventTitle'>destroyed </span>.");
+        }
+        function fileuploadsuccess(e) {
+            jQuery.addEventLog("Upload of " + e.files.name + " is <span class='eventTitle'> success </span>.");
+        }
+        function onClear() {
+            jQuery.clearEventLog();
+        }
+        function evtpropscheckedevent(args) {
+            uploadObj = $("#UploadEvents").data("ejUploadbox");
+            if (args.isChecked) {
+                switch (args.selectedText) {
+                    case "create": uploadObj.option(args.selectedText, "uploadload"); break;
+                    case "fileSelect": uploadObj.option(args.selectedText, "fileselect"); break;
+                    case "begin": uploadObj.option(args.selectedText, "fileuploadbegin"); break;
+                    case "cancel": uploadObj.option(args.selectedText, "fileuploadcancel"); break;
+                    case "inProgress": uploadObj.option(args.value, "fileInprogress"); break;
+                    case "complete": uploadObj.option(args.selectedText, "fileuploadcomplete"); break;
+                    case "remove": uploadObj.option(args.selectedText, "fileuploadremove"); break;
+                    case "error": uploadObj.option(args.selectedText, "fileuploaderror"); break;
+                    case "success": uploadObj.option(args.selectedText, "fileuploadsuccess"); break;
+                    case "destroy": uploadObj.option(args.selectedText, "fileuploadDestroy"); break;
+                }
+            }
+            else uploadObj.option(args.selectedText, null);
+        }
+    </script>
+}
+
