@@ -1,0 +1,103 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates displaying custom icons or buttons in the tree grid toolbar.">
+}
+@section SampleHeading{<span class="sampleName">TreeGrid-Toolbar Template-ASP.NET MVC-SYNCFUSION</span>}
+@using Syncfusion.JavaScript.Models;
+@section ControlsSection{
+    <style>
+        #TreeGridContainer_ColumnVisibility:hover {
+            background: none;
+            border-color: transparent;
+        }
+
+        #TreeGridContainer_ColumnVisibility {
+            padding-top: 2px;
+            padding-bottom: 0px;
+        }
+
+        .Reset:before {
+            content: "\e677";
+        }
+    </style>
+    <script id="ColumnVisibility" type="text/x-jsrender">
+        <input id="dropdownContainer" />
+    </script>
+    @(Html.EJ().TreeGrid("TreeGridContainer")
+              .ChildMapping("Children")
+              .TreeColumnIndex(1)
+              .Columns(co =>
+              {
+                  co.Field("TaskId").HeaderText("Task Id").EditType(TreeGridEditingType.Numeric).Width(45).Add();
+                  co.Field("TaskName").HeaderText("Task Name").EditType(TreeGridEditingType.String).Add();
+                  co.Field("StartDate").HeaderText("Start Date").EditType(TreeGridEditingType.Datepicker).Add();
+                  co.Field("EndDate").HeaderText("End Date").EditType(TreeGridEditingType.Datepicker).Add();
+                  co.Field("Duration").HeaderText("Duration").EditType(TreeGridEditingType.Numeric).Add();
+                  co.Field("Progress").HeaderText("Progress").EditType(TreeGridEditingType.Numeric).Add();
+              })
+              .SizeSettings(ss => ss.Width("100%").Height("350px"))
+              .IsResponsive(true)
+              .EditSettings(edit =>
+              {
+                  edit.AllowEditing(true);
+                  edit.EditMode(TreeGridEditMode.CellEditing);
+              })
+             .ToolbarSettings(tool =>
+             {
+                 tool.ShowToolbar(true);
+                 tool.CustomToolbarItems(ct =>
+                     {                  
+                         ct.TemplateID("#ColumnVisibility").TooltipText("Column Visibility").Add();
+                         ct.Text("Reset").TooltipText("Reset").Add();  
+                      });                    
+             })
+          .ClientSideEvents(cs =>
+              {
+                  cs.Create("create");
+                  cs.ToolbarClick("toolbarClick");
+              })
+
+       .Datasource(ViewBag.datasource)
+    )
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        var sampleData, treeGridColumns,
+            dropData = [
+         { text: "Task Id", value: "taskID", selected: true },
+         { text: "Start Date", value: "startDate", selected: true },
+         { text: "End Date", value: "endDate", selected: true },
+         { text: "Duration", value: "duration", selected: true },
+         { text: "Progress", value: "progress", selected: true }
+            ];
+        function create(args) {
+            sampleData = $.extend(true, [], args.model.dataSource);
+            treeGridColumns = $.extend(true, [], args.model.columns);
+            $("#dropdownContainer").ejDropDownList({
+                height: 30,
+                dataSource: dropData,
+                showCheckbox: true,
+                field: { text: "text", value: "value", selected: "selected" },
+                checkChange: function (args) {
+                    var treeObj = $("#TreeGridContainer").data("ejTreeGrid");
+                    if (args.isChecked == false) {
+                        treeObj.hideColumn(args.selectedText);
+                    }
+                    else {
+                        treeObj.showColumn(args.selectedText);
+                    }
+                }
+            });
+        }
+        function toolbarClick(args) {
+            if (args.itemName == "Reset") {
+                var refreshData = $.extend(true, [], sampleData),
+                refreshColumns = $.extend(true, [], treeGridColumns),
+                dropObj = $("#dropdownContainer").data("ejDropDownList");
+                this.setModel({ "dataSource": refreshData, "columns": refreshColumns });
+                dropObj.clearText();
+                dropObj.checkAll();               
+            }
+        }
+    </script>
+}
+

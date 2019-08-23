@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="MvcSampleBrowser.PagingService" CodeBehind="PagingService.svc.cs" %>

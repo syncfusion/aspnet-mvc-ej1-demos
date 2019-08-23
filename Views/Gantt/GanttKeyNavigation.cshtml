@@ -1,0 +1,136 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates interacting with the Syncfusion Gantt chart control using keyboard shortcuts.">
+}
+@section SampleHeading{<span class="sampleName">Gantt-Keyboard Interaction-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+    <div id="ganttsample2" style="width: 100%; height: 450px;">
+        @(Html.EJ().Gantt("ganttsample2")
+              .TaskIdMapping("Id")
+              .TaskNameMapping("Name")
+              .StartDateMapping("StartDate")
+              .EndDateMapping("EndDate")
+              .ProgressMapping("PercentDone")
+              .ScheduleStartDate("02/23/2017")
+              .ScheduleEndDate("03/15/2017")
+              .HighlightWeekends(true)
+              .IncludeWeekend(true)
+              .AllowColumnResize(true)
+              .TreeColumnIndex(1)
+              .ChildMapping("Children")
+              .AllowSelection(true)
+              .ClientSideEvents(cs => cs.Load("load"))
+              .AllowGanttChartEditing(false)
+              .IsResponsive(true)
+              .EditSettings(edit =>
+                   {
+                       edit.AllowEditing(true);                       
+                       edit.AllowDeleting(true);
+                       edit.EditMode("cellEditing");
+
+                   })
+              .Datasource(ViewBag.datasource)
+        )
+    </div>
+}
+@section PropertiesSection{
+   <div id="sampleProperties">
+    <div class="prop-grid">
+        <div class="row">
+            <div class="col-md-3 colwidth">
+                <b>Keys</b>
+            </div>
+            <div class="col-md-3 colwidth">
+                <b>Description</b>
+            </div>
+            <div class="col-md-3 colwidth">
+                <b>Alt + j </b>
+            </div>
+            <div class="col-md-3 colwidth">
+                Focus
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 colwidth">
+                <b>Home</b>
+            </div>
+            <div class="col-md-3 colwidth">
+                <p>First Row Selection</p>
+            </div>
+            <div class="col-md-3 colwidth">
+                <b>End</b>
+            </div>
+            <div class="col-md-3 colwidth">
+                Last Row Selection
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 colwidth">
+                <b>F2</b>
+            </div>
+            <div class="col-md-3 colwidth">
+                Cell Edit
+            </div>
+            <div class="col-md-3 colwidth">
+                <b>Enter</b>
+            </div>
+            <div class="col-md-3 colwidth">
+                Save request
+            </div>
+            <div class="col-md-3 colwidth">
+                <b>Delete</b>
+            </div>
+            <div class="col-md-3 colwidth">
+                Delete Row
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 colwidth">
+                <b>Ctrl + Down Arrow</b>
+            </div>
+            <div class="col-md-3 colwidth">
+                Expand All
+            </div>
+            <div class="col-md-3 colwidth">
+                <b>Ctrl + Up Arrow</b>
+            </div>
+            <div class="col-md-3 colwidth">
+                Collapse All
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 colwidth">
+                <b>Left Arrow</b>
+            </div>
+            <div class="col-md-3 colwidth">
+                Collapse the Selected Row
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-3 colwidth">
+                <b>Right Arrow</b>
+            </div>
+            <div class="col-md-3 colwidth">
+                Expand the Selected Row
+            </div>
+        </div>
+    </div>
+</div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        $(document).on("keydown", function (e) {
+            if (e.altKey && e.keyCode === 74) { // j- key code.
+                $("#ganttsample2").find("#ejTreeGridganttsample2").focus();
+            }
+        });
+        function load(args) {
+            var columns = this.getColumns();
+            columns[0].width = 60;
+        }
+    </script>
+}
+

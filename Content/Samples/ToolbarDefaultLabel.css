@@ -1,0 +1,20 @@
+﻿.frame {
+    width: 35%;
+}
+.ctrllabel {
+    height: 28px;
+    width: 100%;
+    color: #FFFFFF;
+    box-sizing : border-box;
+    padding-left: 10px;
+    padding-top: 5px;
+    font-weight: normal;
+    background: #6d6e74; /* Old browsers */
+    background: -moz-linear-gradient(top, #6d6e74 0%, #4d4f53 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#6d6e74), color-stop(100%,#4d4f53)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #6d6e74 0%,#4d4f53 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #6d6e74 0%,#4d4f53 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #6d6e74 0%,#4d4f53 100%); /* IE10+ */
+    background: linear-gradient(to bottom, #6d6e74 0%,#4d4f53 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#6d6e74', endColorstr='#4d4f53',GradientType=0 ); /* IE6-9 */
+}

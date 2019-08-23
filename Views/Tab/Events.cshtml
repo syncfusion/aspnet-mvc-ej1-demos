@@ -1,0 +1,71 @@
+@section SampleHeading{ <span class="sampleName">Tab-Events-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+    <div class="controlframe">
+</div>
+    @{Html.EJ().Tab("eventTab").Items(data =>
+    {
+        data.Add().ID("tools").Text("ASP.NET").ContentTemplate(@<div>
+             Microsoft ASP.NET is a set of technologies in the Microsoft .NET Framework for building Web applications and XML Web services. ASP.NET pages execute on the server and generate markup such as HTML, WML, or XML that is sent to a desktop or mobile browser. ASP.NET pages use a compiled, event-driven programming model that improves performance and enables the separation of application logic and user interface.
+        </div>);
+        data.Add().ID("chart").Text("ASP.NET MVC").ContentTemplate(@<div>
+           The Model-View-Controller (MVC) architectural pattern separates an application into three main components: the model, the view, and the controller. The ASP.NET MVC framework provides an alternative to the ASP.NET Web Forms pattern for creating Web applications. The ASP.NET MVC framework is a lightweight, highly testable presentation framework that (as with Web Forms-based applications) is integrated with existing ASP.NET features, such as master pages and membership-based authentication.
+        </div>);
+        data.Add().ID("grid").Text("Javascript");
+    }).SelectedItemIndex(0).ClientSideEvents(evt => evt.AjaxBeforeLoad("onClientBeforeLoad").AjaxLoad("onClientLoad")
+            .Create("onClientCreate").BeforeActive("onClientBeforeActive").ItemActive("onClientActive")).Render();}
+}
+<div id="tabTarget">
+    <ul>
+        <li>ajaxBeforeLoad</li>
+        <li>ajaxLoad</li>
+        <li>beforeActive</li>
+        <li>itemActive</li>
+    </ul>
+</div>
+@section EventsDropdown{
+    @Html.EJ().DropDownList("selectControls_input").TargetID("tabTarget").ShowCheckbox(true).CheckAll(true).ClientSideEvents(evt => evt.Change("evtpropcheckevent").PopupShown("adjustpopupposition"))
+}
+@section ScriptSection{
+    <script>
+        function evtpropcheckevent(args) {
+            tabObj = $("#eventTab").data("ejTab");
+            if (args.isChecked) {
+                switch (args.selectedText) {
+                    case "ajaxBeforeLoad": tabObj.option(args.selectedText, "onClientBeforeLoad"); break;
+                    case "ajaxLoad": tabObj.option(args.selectedText, "onClientLoad"); break;
+                    case "beforeActive": tabObj.option(args.selectedText, "onClientBeforeActive"); break;
+                    case "itemActive": tabObj.option(args.selectedText, "onClientActive"); break;
+                }
+            }
+            else tabObj.option(args.selectedText, null);
+        }
+
+        function onClientBeforeLoad(e) {
+            jQuery.addEventLog("<span class='eventTitle'>BeforeLoad</span> event is fired.</br>");
+        }
+        function onClientLoad(e) {
+            jQuery.addEventLog("Ajax content has been <span class='eventTitle'>loaded</span>.</br>");
+        }
+        function onClientCreate(e) {
+			if (window.location.hostname == "localhost")
+                this.anchors[2].href = "../../Content/samplecontent/javascript.html";
+            else
+                this.anchors[2].href = "../Content/samplecontent/javascript.html";
+            jQuery.addEventLog("Tab is <span class='eventTitle'>created</span>. </br>");
+        }
+        function onClientActive(e) {
+            jQuery.addEventLog("Index " + e.activeIndex + " is <span class='eventTitle'>activated</span>. </br>");
+        }
+        function onClientBeforeActive(e) {
+            jQuery.addEventLog("<span class='eventTitle'>BeforeActive </span>event is fired. </br>");
+        }
+        function onClear() {
+            jQuery.clearEventLog();
+        }
+    </script>
+
+}
+
+
+

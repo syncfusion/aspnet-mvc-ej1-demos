@@ -1,0 +1,52 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates working with remote data in the tree grid control with a data manager URL adapter.">
+}
+@section SampleHeading{<span class="sampleName">TreeGrid-URL Adaptor-ASP.NET MVC-SYNCFUSION</span>}
+@using Syncfusion.JavaScript.Models;
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+}
+@section ControlsSection{
+
+@(Html.EJ().TreeGrid("TreeGridContainer")
+    .IdMapping("taskID")
+    .ParentIdMapping("parentID")
+    .TreeColumnIndex(1)
+    .IsResponsive(true)
+    .Columns(co =>
+        {
+            co.Field("taskID").HeaderText("Task Id").EditType(TreeGridEditingType.Numeric).Width(45).ValidationRules(v => v.AddRule("required", true)).Add();
+            co.Field("taskName").HeaderText("Task Name").ValidationRules(v => v.AddRule("required", true)).Add();
+            co.Field("startDate").HeaderText("Start Date").EditType(TreeGridEditingType.Datepicker).ValidationRules(v => v.AddRule("required", true)).Add();
+            co.Field("endDate").HeaderText("End Date").EditType(TreeGridEditingType.Datepicker).ValidationRules(v => v.AddRule("required", true)).Add();
+            co.Field("duration").HeaderText("Duration").EditType(TreeGridEditingType.Numeric).ValidationRules(v => v.AddRule("required", true)).Add();
+            co.Field("progress").HeaderText("Progress").EditType(TreeGridEditingType.Numeric).ValidationRules(v => v.AddRule("required", true)).Add();
+        })
+    .EditSettings(edit =>
+     {
+         edit.AllowEditing(true);
+         edit.AllowAdding(true);
+         edit.AllowDeleting(true);
+         edit.ShowDeleteConfirmDialog(true);
+         edit.EditMode(TreeGridEditMode.CellEditing);
+         edit.RowPosition(TreeGridRowPosition.Top);
+     })
+    .SizeSettings(ss => ss.Width("100%").Height("350px"))
+    .ToolbarSettings(tool =>
+    {                              
+        tool.ShowToolbar(true);
+        tool.ToolbarItems(new List<TreeGridToolBarItems>()
+            {
+                TreeGridToolBarItems.Add,
+                TreeGridToolBarItems.Edit,
+                TreeGridToolBarItems.Delete,
+                TreeGridToolBarItems.Update,
+                TreeGridToolBarItems.Cancel,
+                TreeGridToolBarItems.ExpandAll,
+                TreeGridToolBarItems.CollapseAll,        
+            });
+    })
+    .Datasource(ds => ds.URL("UrlDataSource").UpdateURL("UrlUpdate").InsertURL("UrlInsert").RemoveURL("UrlDelete").Adaptor(AdaptorType.UrlAdaptor))
+)}
+

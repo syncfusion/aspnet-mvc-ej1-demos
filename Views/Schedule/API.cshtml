@@ -1,0 +1,303 @@
+@section MetaTags{
+    <meta name="description" content="This example demonstrates the ASP.NET MVC Scheduler’s APIs.">
+}
+@section SampleHeading{
+    <span class="sampleName">Schedule-API's-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    @(Html.EJ().Schedule("Schedule1")
+        .Width("100%")
+        .Height("525px")
+        .CurrentDate(new DateTime(2017,6,5))
+        .TimeMode(Syncfusion.JavaScript.TimeMode.Hour24)
+        .PrioritySettings(pre=>pre.Enable(true).Text("text").Value("value"))
+        .AppointmentSettings(fields => fields.Datasource((IEnumerable)ViewBag.datasource)
+            .Id("Id")
+            .Subject("Subject")
+            .StartTime("StartTime")
+            .EndTime("EndTime")
+            .Description("Description")
+            .Priority("Priority")
+            .AllDay("AllDay")
+            .Recurrence("Recurrence")
+            .RecurrenceRule("RecurrenceRule"))
+            .StartHour(0)
+            .EndHour(24)
+        )
+}
+<div id="scheduleView">
+    <ul>
+        <li>Day</li>
+        <li>Week</li>
+        <li>WorkWeek</li>
+        <li>Month</li>
+        <li>Agenda</li>
+    </ul>
+</div>
+<div id="dateformat">
+    <ul>
+        <li value="MM/dd/yyyy">Default - MM/dd/yyyy</li>
+        <li value="d M, y">Short - d M, y</li>
+        <li value="d MM, y">Medium - d MM, y</li>
+        <li value="dddd, d MMMM, yy">Full - dddd,d MMMM,yy</li>
+        <li value="yyyy-MM-dd">UTC - yyyy-MM-dd</li>
+    </ul>
+</div>
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Current Date
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DatePicker("currentdate").Width("120px").Value(new DateTime(2017,6,5)).ClientSideEvents(evt=>evt.Change("dateChange"))
+        </div>
+    </div>
+        <div class="row">
+        <div class="col-md-3">
+            Min Date
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DatePicker("mindate").Width("120px").Value(new DateTime(2017,1,1)).ClientSideEvents(evt=>evt.Select("selectedDate1"))
+        </div>
+    </div>
+        <div class="row">
+        <div class="col-md-3">
+            Max Date
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DatePicker("maxdate").Width("120px").Value(new DateTime(2017,12,31)).ClientSideEvents(evt=>evt.Select("selectedDate2"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            DateFormat
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("dateFormat").TargetID("dateformat").Width("120px").SelectedItemIndex(0).ClientSideEvents(evt => evt.Change("onChange"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Business start hour
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("starthour").Datasource((IEnumerable)ViewBag.Hour).Width("100px").SelectedItemIndex(9).ClientSideEvents(evt => evt.Change("businessStart"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Business end hour
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("endhour").Datasource((IEnumerable)ViewBag.Hour).Width("100px").SelectedItemIndex(18).ClientSideEvents(evt => evt.Change("businessEnd"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Highlight Business Hours
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().CheckBox("businessHour").Checked(true).ClientSideEvents(eve => { eve.Change("onBusinessHour"); })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Read Only
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().CheckBox("readonly").Checked(false).ClientSideEvents(eve => { eve.Change("onReadOnly"); })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Show/Hide AllDay row
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().CheckBox("alldayrow").Checked(true).ClientSideEvents(eve => { eve.Change("onAllDayRow"); })
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Next/Prev Month Date
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().CheckBox("nextprevmonth").Checked(true).ClientSideEvents(eve => { eve.Change("onNextPrevMonth"); })
+        </div>
+    </div>
+	<div class="row">
+        <div class="col-md-3">
+            ApplyTimeOffset
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().CheckBox("applytimeoffset").Checked(false).ClientSideEvents(eve => { eve.Change("onApplyTimeOffset"); })
+        </div>
+    </div>
+	<div class="row">
+        <div class="col-md-3">
+            Disable TimeScale
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().CheckBox("timescale").Checked(false).ClientSideEvents(eve => { eve.Change("onTimeScale"); })
+        </div>
+    </div>
+<div class="row">
+    <div class="col-md-3">
+        Show/Hide Appointment Priority
+    </div>
+    <div class="col-md-3">
+        @Html.EJ().CheckBox("appointmentpriority").Checked(true).ClientSideEvents(eve => { eve.Change("onAppointmentPriority"); })
+    </div>
+</div>
+    <div class="row">
+        <div class="col-md-3">
+            Active View
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("currentView").TargetID("scheduleView").Width("100px").SelectedItemIndex(1).ClientSideEvents(evt => evt.Change("viewChange"))
+        </div>
+    </div>
+<div class="row">
+    <div class="col-md-3">
+        Start Time
+    </div>
+    <div class="col-md-3">
+        @Html.EJ().NumericTextbox("stime").Width("110px").Value("0").MinValue(0).MaxValue(24).EnableStrictMode(true)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        End Time
+    </div>
+    <div class="col-md-3">
+        @Html.EJ().NumericTextbox("etime").Width("110px").Value("24").MinValue(0).MaxValue(24).EnableStrictMode(true)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        Cell Width
+    </div>
+    <div class="col-md-3">
+        @Html.EJ().NumericTextbox("cellwidth").Width("110px").Value("100")
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        Cell Height
+    </div>
+    <div class="col-md-3">
+        @Html.EJ().NumericTextbox("cellheight").Width("110px").Value("60")
+    </div>
+</div>	<br/>
+<div class="row">
+    <div class="col-md-3">
+        @Html.EJ().Button("submit").Text("Submit").ClientSideEvents(evt => evt.Click("ChangeTime"))
+    </div>
+</div>	
+}
+@section ScriptSection{
+    <script>
+      var schObj;
+        $(document).ready(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+          schObj = $("#Schedule1").data("ejSchedule");
+        });
+
+        var maxDatepicker = null;
+        var minDatepicker = null;
+        var currentdate = null;
+        function selectedDate1(sender) {
+            $(function () {
+                maxDatepicker = $("#maxdate").data("ejDatePicker");
+                currentdate = $("#currentdate").data("ejDatePicker");
+                minDatepicker = $("#mindate").data("ejDatePicker");
+                maxDatepicker.setModel({ "minDate": new Date(sender.value) });
+                currentdate.setModel({ "minDate": new Date(sender.value) });
+            });
+        }
+        function selectedDate2(sender) {
+            $(function () {
+                currentdate = $("#currentdate").data("ejDatePicker");
+                minDatepicker = $("#mindate").data("ejDatePicker");
+                minDatepicker.setModel({ "maxDate": new Date(sender.value) });
+                currentdate.setModel({ "maxDate": new Date(sender.value) });
+            });
+        }
+        function onChange(args) {
+            $("#Schedule1").ejSchedule({ dateFormat: args.value });
+            $("#currentdate").ejDatePicker({ dateFormat: args.value });
+            $("#mindate").ejDatePicker({ dateFormat: args.value });
+            $("#maxdate").ejDatePicker({ dateFormat: args.value });
+        }
+        function ChangeTime(args) {
+            if (parseInt($("#stime").val()) < parseInt($("#etime").val()))
+                $("#Schedule1").ejSchedule({
+                    startHour: parseInt($("#stime").val()),
+                    endHour: parseInt($("#etime").val()),
+                    cellWidth: $("#cellwidth").val() + "px",
+                    cellHeight: $("#cellheight").val() + "px",
+                    minDate:$("#mindate").val(),
+                    maxDate:$("#maxdate").val()
+                });
+            else
+                alert("Start hour should be lesser than end hour");
+        }
+        function viewChange(args) {
+            $("#Schedule1").ejSchedule({ currentView: args.text.toLowerCase() });
+        }
+        function businessStart(args) {
+            if (args.itemId < schObj.model.workHours.end)
+                $("#Schedule1").ejSchedule({ workHours: { start: args.itemId } });
+            else
+                alert("Start time should be less than end time.");
+        }
+        function businessEnd(args) {
+            if (args.itemId > schObj.model.workHours.start)
+                $("#Schedule1").ejSchedule({ workHours: { end: args.itemId } });
+            else
+                alert("End time should be greater than start time.");
+        }
+        function onBusinessHour(args) {
+            if (args.isChecked)
+                $("#Schedule1").ejSchedule({ workHours: { highlight: true } });
+            else
+                $("#Schedule1").ejSchedule({ workHours: { highlight: false } });
+        }
+        function onReadOnly(args) {
+            if (args.isChecked)
+                $("#Schedule1").ejSchedule({ readOnly: true });
+            else
+                $("#Schedule1").ejSchedule({ readOnly: false });
+        }
+		function onApplyTimeOffset(args) {
+            $("#Schedule1").ejSchedule({ appointmentSettings: { applyTimeOffset: !args.isChecked } });
+        }
+        function onTimeScale(args) {
+            if (args.isChecked)
+                $("#Schedule1").ejSchedule({ timeScale: { enable: false } });
+            else
+                $("#Schedule1").ejSchedule({ timeScale: { enable: true } });
+        }
+        function onAllDayRow(args) {
+            if (args.isChecked)
+                $("#Schedule1").ejSchedule({ showAllDayRow: true });
+            else
+                $("#Schedule1").ejSchedule({ showAllDayRow: false });
+        }
+        function onNextPrevMonth(args) {
+            if (args.isChecked)
+                $("#Schedule1").ejSchedule({ showNextPrevMonth: true });
+            else
+                $("#Schedule1").ejSchedule({ showNextPrevMonth: false });
+        }
+        function dateChange(args) {            
+            $("#Schedule1").ejSchedule({ currentDate: args.value });
+        }
+
+        function onAppointmentPriority(args) {
+            if (args.isChecked)
+                $("#Schedule1").ejSchedule({ prioritySettings: { enable: true } });
+            else
+                $("#Schedule1").ejSchedule({ prioritySettings: { enable: false } });
+        }
+    </script>
+}
+

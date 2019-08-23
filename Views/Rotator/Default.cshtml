@@ -1,0 +1,36 @@
+@section SampleHeading{<span class="sampleName">Rotator-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to create a Syncfusion ASP.NET MVC Rotator component where each slide contains images.">
+}
+@section ControlsSection{
+    <div class="frame">
+        @{Html.EJ().Rotator("content").Items(itemElement =>
+                       {
+                           itemElement.Add().ContentTemplate(@<div>
+                                <img class="image" src="@Url.Content("~/Images/rotator/nature.jpg")" /></div>);
+                           itemElement.Add().ContentTemplate(@<div>
+                                <img class="image" src="@Url.Content("~/Images/rotator/bird.jpg" )"/></div>);
+                           itemElement.Add().ContentTemplate(@<div>
+                                <img class="image" src="@Url.Content("~/Images/rotator/sculpture.jpg")" /></div>);
+                           itemElement.Add().ContentTemplate(@<div>
+                                <img class="image" src="@Url.Content("~/Images/rotator/seaview.jpg")" /></div>);
+                           itemElement.Add().ContentTemplate(@<div>
+                                <img class="image" src="@Url.Content("~/Images/rotator/snowfall.jpg")" /></div>);
+                       }).SlideWidth("100%").SlideHeight("350px").IsResponsive(true).ShowPlayButton(true).Render();}
+
+    </div>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .frame {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #content > li .image {
+            width: 100%;
+            height: 350px;
+        }
+    </style>
+}
+

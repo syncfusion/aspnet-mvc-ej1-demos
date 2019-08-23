@@ -1,0 +1,53 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates column menus in the Syncfusion tree grid control for sorting, filtering, and toggling column visibility options.">
+}
+@section SampleHeading{<span class="sampleName">TreeGrid-Column Menu-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+
+
+    <style>
+        .cols-sample-area {
+            height: 440px;
+        }
+    </style>
+
+    @(Html.EJ().TreeGrid("TreeGridContainer")
+          .ChildMapping("Children")
+          .TreeColumnIndex(1)
+          .AllowSorting(true)
+          .AllowMultiSorting(true)
+          .ShowColumnChooser(true)
+          .ShowColumnOptions(true)
+          .ColumnDialogFields(new List<TreeGridColumnDialogFields>() 
+          {
+              TreeGridColumnDialogFields.Field,
+              TreeGridColumnDialogFields.HeaderText,
+              TreeGridColumnDialogFields.EditType,
+              TreeGridColumnDialogFields.Visible,
+              TreeGridColumnDialogFields.Width,
+              TreeGridColumnDialogFields.TextAlign,
+              TreeGridColumnDialogFields.ShowInColumnChooser
+          })
+          .Columns(co =>
+              {
+                  co.Field("TaskId").HeaderText("Task Id").EditType(TreeGridEditingType.Numeric).ShowInColumnChooser(false).Add();
+                  co.Field("TaskName").HeaderText("Task Name").EditType(TreeGridEditingType.String).Add();
+                  co.Field("StartDate").HeaderText("Start Date").EditType(TreeGridEditingType.Datepicker).Add();
+                  co.Field("EndDate").HeaderText("End Date").EditType(TreeGridEditingType.Datepicker).Add();
+                  co.Field("Duration").HeaderText("Duration").EditType(TreeGridEditingType.Numeric).Visible(false).Add();
+                  co.Field("Progress").HeaderText("Progress").EditType(TreeGridEditingType.Numeric).Add();
+              }
+          )
+          .EditSettings(edit =>
+          {
+              edit.AllowEditing(true);
+              edit.AllowAdding(true);
+              edit.AllowDeleting(true);
+              edit.EditMode(TreeGridEditMode.CellEditing);
+          }) 
+          .SizeSettings(ss => ss.Width("100%").Height("350px"))
+          .IsResponsive(true)
+          .Datasource(ViewBag.datasource)
+    )
+}
+

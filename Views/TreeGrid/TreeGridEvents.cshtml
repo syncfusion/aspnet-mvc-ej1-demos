@@ -1,0 +1,332 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates the cliet-side events available in the Syncfusion tree grid control for various user interactions.">
+}
+@section SampleHeading{<span class="sampleName">TreeGrid-Events-ASP.NET MVC-SYNCFUSION</span>}
+
+
+@section ControlsSection{
+    @(Html.EJ().TreeGrid("treeGridEventSample")
+               .ChildMapping("Children")
+               .TreeColumnIndex(1)
+               .Columns(co =>
+                           {
+                               co.Field("TaskId").HeaderText("Task Id").EditType(TreeGridEditingType.Numeric).Width(45).Add();
+                               co.Field("TaskName").HeaderText("Task Name").EditType(TreeGridEditingType.String).Add();
+                               co.Field("StartDate").HeaderText("Start Date").EditType(TreeGridEditingType.Datepicker).Add();
+                               co.Field("EndDate").HeaderText("End Date").EditType(TreeGridEditingType.Datepicker).Add();
+                               co.Field("Duration").HeaderText("Duration").EditType(TreeGridEditingType.Numeric).Add();
+                               co.Field("Progress").HeaderText("Progress").EditType(TreeGridEditingType.Numeric).Add();
+                           }
+                       )
+                       .AllowDragAndDrop(true)
+                       .AllowColumnReordering(true)
+                       .SizeSettings(ss => ss.Width("100%").Height("350px"))
+                       .IsResponsive(true)
+                       .EditSettings(edit =>
+                       {
+                           edit.AllowEditing(true);
+                           edit.AllowAdding(true);
+                           edit.AllowDeleting(true);
+                           edit.EditMode(TreeGridEditMode.CellEditing);
+                           edit.RowPosition(TreeGridRowPosition.AboveSelectedRow);
+                       })
+                       .AllowColumnResize(true)
+                       .ToolbarSettings(tool =>
+                       {
+                           tool.ShowToolbar(true);
+                           tool.ToolbarItems(new List<TreeGridToolBarItems>()
+                {
+                                     TreeGridToolBarItems.Add,
+                                     TreeGridToolBarItems.Edit,
+                                     TreeGridToolBarItems.Delete,
+                                     TreeGridToolBarItems.Update,
+                                     TreeGridToolBarItems.Cancel,
+                                     TreeGridToolBarItems.ExpandAll,
+                                     TreeGridToolBarItems.CollapseAll,
+                             });
+                       })
+              .ContextMenuSettings(cms => cms.ShowContextMenu(true)
+                               .ContextMenuItems(new List<TreeGridContextMenuItems>() {
+              TreeGridContextMenuItems.Add,TreeGridContextMenuItems.Edit,TreeGridContextMenuItems.Delete
+          }))
+                      .ClientSideEvents(eve =>
+                      {
+                          eve.Create("create");
+                          eve.Load("load");
+                          eve.ColumnDragStart("columnDragStart");
+                          eve.ColumnDrag("columnDrag");
+                          eve.ColumnDrop("columnDrop");
+                          eve.RecordClick("recordClick");
+                          eve.RecordDoubleClick("recordDoubleClick");
+                          eve.ToolbarClick("toolbarClick");
+                          eve.RowDrag("rowDrag");
+                          eve.RowDragStart("rowDragStart");
+                          eve.RowDragStop("rowDragStop");
+                          eve.RowDropActionBegin("rowDropActionBegin");
+                          eve.ColumnResizeStart("columnResizeStart");
+                          eve.ColumnResizeEnd("columnResizeEnd");
+                          eve.ColumnResized("columnResized");
+                          eve.ContextMenuOpen("contextMenuOpen");
+                          eve.ActionBegin("actionBegin");
+                          eve.ActionComplete("actionComplete");
+                          eve.BeginEdit("beginEdit");
+                          eve.EndEdit("endEdit");
+                          eve.QueryCellInfo("queryCellInfo");
+                          eve.RowDataBound("rowDataBound");
+                          eve.RowSelecting("rowSelecting");
+                          eve.RowSelected("rowSelected");
+                          eve.Collapsing("collapsing");
+                          eve.Collapsed("collapsed");
+                          eve.Expanding("expanding");
+                          eve.Expanded("expanded");
+
+                      })
+                     .Datasource(ViewBag.datasource)
+    )
+}
+
+@section EventsDropDown{
+    <div id="ddl">
+        <ul>
+            <li>load</li>
+            <li>columnDragStart</li>
+            <li>columnDrag</li>
+            <li>columnDrop</li>
+            <li>recordClick</li>
+            <li>recordDoubleClick</li>
+            <li>toolbarClick</li>
+            <li>rowDrag</li>
+            <li>rowDragStart</li>
+            <li>rowDragStop</li>
+            <li>rowDropActionBegin</li>
+            <li>columnResizeStart</li>
+            <li>columnResizeEnd</li>
+            <li>columnResized</li>
+            <li>contextMenuOpen</li>
+            <li>create</li>
+            <li>actionBegin</li>
+            <li>actionComplete</li>
+            <li>queryCellInfo</li>
+            <li>beginEdit</li>
+            <li>endEdit</li>
+            <li>rowDataBound</li>
+            <li>rowSelecting</li>
+            <li>rowSelected</li>
+            <li>collapsing</li>
+            <li>collapsed</li>
+            <li>expanding</li>
+            <li>expanded</li>
+        </ul>
+    </div>
+    @(Html.EJ().DropDownList("selectControls_input")
+               .TargetID("ddl")
+               .ClientSideEvents(eve => { eve.Change("evtpropscheckedevent"); })
+               .ShowCheckbox()
+          .CheckAll()
+    )
+}
+
+@section ScriptSection{
+    <script type="text/javascript">
+
+        function evtpropscheckedevent(args) {
+            var treeGridObj = $("#treeGridEventSample").data("ejTreeGrid");
+            var value = args.value;
+            if (args.isChecked && treeGridObj != undefined) {
+                switch (args.value) {
+                    case "load":
+                        treeGridObj.option(value, "load");
+                        break;
+                    case "columnDragStart":
+                        treeGridObj.option(value, "columnDragStart");
+                        break;
+                    case "columnDrag":
+                        treeGridObj.option(value, "columnDrag");
+                        break;
+                    case "columnDrop":
+                        treeGridObj.option(value, "columnDrop");
+                        break;
+                    case "recordClick":
+                        treeGridObj.option(value, "recordClick");
+                        break;
+                    case "recordDoubleClick":
+                        treeGridObj.option(value, "recordDoubleClick");
+                        break;
+                    case "toolbarClick":
+                        treeGridObj.option(value, "toolbarClick");
+                        break;
+                    case "rowDrag":
+                        treeGridObj.option(value, "rowDrag");
+                        break;
+                    case "rowDragStart":
+                        treeGridObj.option(value, "rowDragStart");
+                        break;
+                    case "rowDragStop":
+                        treeGridObj.option(value, "rowDragStop");
+                        break;
+                    case "rowDropActionBegin":
+                        treeGridObj.option(value, "rowDropActionBegin");
+                        break;
+                    case "columnResizeStart":
+                        treeGridObj.option(value, "columnResizeStart");
+                            break;
+                    case "columnResizeEnd":
+                        treeGridObj.option(value, "columnResizeEnd");
+                        break;
+                    case "columnResized":
+                        treeGridObj.option(value, "columnResized");
+                        break;
+                    case "contextMenuOpen":
+                        treeGridObj.option(value, "contextMenuOpen");
+                        break;
+                    case "create":
+                        treeGridObj.option(value, "create");
+                        break;
+                    case "actionBegin":
+                        treeGridObj.option(value, "actionBegin");
+                        break;
+                    case "actionComplete":
+                        treeGridObj.option(value, "actionComplete");
+                        break;
+                    case "queryCellInfo":
+                        treeGridObj.option(value, "queryCellInfo");
+                        break;
+                    case "beginEdit":
+                        treeGridObj.option(value, "beginEdit");
+                        break;
+                    case "endEdit":
+                        treeGridObj.option(value, "endEdit");
+                        break;
+                    case "rowDataBound":
+                        treeGridObj.option(value, "rowDataBound");
+                        break;
+                    case "rowSelecting":
+                        treeGridObj.option(value, "rowSelecting");
+                        break;
+                    case "rowSelected":
+                        treeGridObj.option(value, "rowSelected");
+                        break;
+
+                    case "collapsing":
+                        treeGridObj.option(value, "collapsing");
+                        break;
+
+                    case "collapsed":
+                        treeGridObj.option(value, "collapsing");
+                        break;
+
+                    case "expanding":
+                        treeGridObj.option(value, "expanding");
+                        break;
+
+                    case "expanded":
+                        treeGridObj.option(value, "expanded");
+                        break;
+
+                }
+            } else treeGridObj.option(value, "");
+        }
+
+        function create(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>create</span> event called");
+        }
+
+        function load(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>load</span> event called");
+        }
+        function columnDragStart(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>columnDragStart</span> event called");
+        }
+        function columnDrag(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>columnDrag</span> event called");
+        }
+        function columnDrop(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>columnDrop</span> event called");
+        }
+        function recordClick(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>recordClick</span> event called");
+        }
+        function recordDoubleClick(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>recordDoubleClick</span> event called");
+        }
+        function rowDrag(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>rowDrag</span> event called");
+        }
+        function rowDragStart(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>rowDragStart</span> event called");
+        }
+        function rowDragStop(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>rowDragStop</span> event called");
+        }
+        function rowDropActionBegin(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>rowDropActionBegin</span> event called");
+        }
+        function columnResizeStart(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>columnResizeStart</span> event called");
+        }
+        function columnResizeEnd(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>columnResizeEnd</span> event called");
+        }
+        function columnResized(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>columnResized</span> event called");
+        }
+        function contextMenuOpen(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>contextMenuOpen</span> event called");
+        }
+        function toolbarClick(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>toolbarClick</span> event called");
+        }
+        function actionBegin(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>actionBegin</span> event called");
+        }
+
+        function actionComplete(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>actionComplete</span> event called");
+        }
+
+        function beginEdit(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>beginEdit</span> event called");
+        }
+
+        function endEdit(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>endEdit</span> event called");
+        }
+
+        function queryCellInfo(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>queryCellInfo</span> event called");
+        }
+
+        function expanding(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>expanding</span> event called");
+        }
+
+        function expanded(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>expanded</span> event called");
+        }
+
+        function collapsing(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>collapsing</span> event called");
+        }
+
+        function collapsed(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>collapsed</span> event called");
+        }
+
+        function rowDataBound(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>rowDataBound</span> event called");
+        }
+
+        function rowSelecting(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>rowSelecting</span> event called");
+        }
+
+        function rowSelected(args) {
+            jQuery.addEventLog("TreeGrid <span class='eventTitle'>rowSelected</span> event called");
+        }
+
+        function onClear() {
+            $("#EventLog").html("");
+        }
+    </script>
+}
+

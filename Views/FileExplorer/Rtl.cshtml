@@ -1,0 +1,7 @@
+@section SampleHeading{ <span class="sampleName">FileExplorer-RTL-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+    @(Html.EJ().FileExplorer("fileExplorer").Path("~/FileExplorerContent/").AjaxAction(@Url.Content("FileActionRTL"))
+               .Width("100%").Layout(LayoutType.Tile).IsResponsive(true).EnableRTL(true).MinWidth("150px"))
+}
+
