@@ -1,7 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<Category>
-  <Samples url="/TreeGrid/Adaptive">
-    <DependentFiles displayname="AdaptiveTreegridView" 		url="Views/TreeGrid/AdaptiveTreegrid.cshtml"></DependentFiles>
-  </Samples>
-</Category> 
-  
