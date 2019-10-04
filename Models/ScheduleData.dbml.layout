@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11.25, 8.5" name="ScheduleData">
+  <DataContextMoniker Name="/ScheduleDataDataContext" />
+  <nestedChildShapes>
+    <classShape Id="fd577eed-e899-482a-9bfb-ed0b91c5336f" isExpanded="false" absoluteBounds="4.75, 1.125, 2, 0.45">
+      <DataClassMoniker Name="/ScheduleDataDataContext/Template" />
+      <nestedChildShapes>
+        <elementListCompartment Id="be168e57-e728-4597-8333-85890c421537" absoluteBounds="4.7650000000000006, 1.585, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2101ccc1-5764-41ab-a7fa-3ac49a14afe8" isExpanded="false" absoluteBounds="2.625, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/ScheduleDataDataContext/DefaultSchedule" />
+      <nestedChildShapes>
+        <elementListCompartment Id="3ca8b4f0-f5ce-450c-9efc-737792ab1324" absoluteBounds="2.6400000000000006, 0.96, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="9b673153-f3d2-4fb7-8fa0-48a2d88b763e" isExpanded="false" absoluteBounds="2.625, 1.125, 2, 0.45">
+      <DataClassMoniker Name="/ScheduleDataDataContext/StartEndHour" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a938951d-0be9-45e5-bab2-23b85b5d7d4f" absoluteBounds="2.6400000000000006, 1.585, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="7f644487-b655-4a17-8541-090b9159983c" isExpanded="false" absoluteBounds="6.875, 1.125, 2, 0.45">
+      <DataClassMoniker Name="/ScheduleDataDataContext/TimeMode" />
+      <nestedChildShapes>
+        <elementListCompartment Id="611f7787-a1f1-440c-92b7-f98b240d1b81" absoluteBounds="6.8900000000000006, 1.585, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="eaeaaf86-ee75-44dd-94eb-e4c258de2eff" isExpanded="false" absoluteBounds="4.75, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/ScheduleDataDataContext/Event" />
+      <nestedChildShapes>
+        <elementListCompartment Id="46a7eff6-fdf2-45e7-a223-3e28b2bde729" absoluteBounds="4.765, 0.96, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="d0866405-983f-431d-9e6c-204f6a62c65e" isExpanded="false" absoluteBounds="6.875, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/ScheduleDataDataContext/KeyboardInteraction" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6136069a-ee76-43bf-bcba-e7f2fceebd98" absoluteBounds="6.89, 0.96, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="28ebce6e-c963-444f-a7ff-a0b019d08f7d" isExpanded="false" absoluteBounds="9, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/ScheduleDataDataContext/Localization" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b07b5801-03c5-4559-9eeb-a00281040031" absoluteBounds="9.015, 0.96, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2b6f1bb2-6007-4d7f-ab0a-7313e5ec62b4" isExpanded="false" absoluteBounds="0.5, 1.125, 2, 0.45">
+      <DataClassMoniker Name="/ScheduleDataDataContext/RTL" />
+      <nestedChildShapes>
+        <elementListCompartment Id="e7e8d59c-b6ea-4219-93ca-2fdf6f359dc8" absoluteBounds="0.51499999999999968, 1.585, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2f8b6c48-a7e7-4a50-8d2c-0a04e979aa5b" isExpanded="false" absoluteBounds="9, 1.125, 2, 0.45">
+      <DataClassMoniker Name="/ScheduleDataDataContext/Viewcustomization" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d5d6cc65-dc14-4c8b-8cfe-ebedec769a19" absoluteBounds="9.015, 1.585, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="a7afa32e-d3b8-4c4e-b2c1-c2ab8d2e9092" absoluteBounds="1.875, 2.5, 2, 2.7324039713541666">
+      <DataClassMoniker Name="/ScheduleDataDataContext/MultipleResource" />
+      <nestedChildShapes>
+        <elementListCompartment Id="a7553e48-4c98-42b9-a879-267d5e4b76ec" absoluteBounds="1.8900000000000001, 2.96, 1.9700000000000002, 2.1724039713541665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="54ab1705-f370-45cc-b1a6-3cfb9545edbb" isExpanded="false" absoluteBounds="0.5, 0.5, 2, 0.45">
+      <DataClassMoniker Name="/ScheduleDataDataContext/API" />
+      <nestedChildShapes>
+        <elementListCompartment Id="423b6399-4a60-4a57-a09a-828668c06433" absoluteBounds="0.51500000000000012, 0.96, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

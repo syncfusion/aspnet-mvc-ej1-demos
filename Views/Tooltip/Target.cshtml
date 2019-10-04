@@ -1,0 +1,124 @@
+@section SampleHeading{
+    <span class="sampleName">Tooltip-Forms-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+            <div id="form" class="frame">
+                <form id="details" role="form">
+                    <fieldset>
+                        <div class="form-group">
+                            <label for="name">User Name:</label>
+                            <input class="form-control" type="text" id="name" name="firstname" title="Please enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address:</label>
+                            <input class="form-control" id="email" type="text" name="email" title="Enter a valid email address">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwd">Password:</label>
+                            <input class="form-control" id="pwd" type="password" name="pwd" title="Be at least 8 characters length">
+                        </div>
+                        <div class="form-group">
+                            <label for="Cpwd">Confirm Password:</label>
+                            <input class="form-control" type="password" id="Cpwd" name="Cpwd" title="Re-enter your password">
+                        </div>
+                        @Html.EJ().Button("sample").Type(ButtonType.Submit).Text("Submit").ShowRoundedCorner(true).Size(ButtonSize.Medium)
+                        @Html.EJ().Button("clear").Type(ButtonType.Reset).Text("Reset").ShowRoundedCorner(true).Size(ButtonSize.Medium)
+                    </fieldset>
+                </form>
+            </div>
+
+@Html.EJ().Tooltip("details").Target(".form-control").Height("30px").Width("175px").Position(pos => pos.Target(target => target.Horizontal("left").Vertical("center")).Stem(stem => stem.Horizontal("right").Vertical("center"))).ClientSideEvents(events => events.Create("onCreate").BeforeOpen("onOpen"))
+}
+
+@section PropertiesSection{
+       <div id="sampleProperties">
+            <div class="prop-grid">
+                <div class="row">
+                    <div class="col-md-6">
+                        Trigger
+                    </div>
+                    <div class="col-md-6">
+                        @Html.EJ().DropDownList("trigger").TargetID("list").Width("120px").SelectedIndex(0).ClientSideEvents(e => e.Change("selectChange"))
+                        <div id="list">
+                        <ul >
+                            <li value="focus" selected="selected"> Focus </li>
+                            <li value="click"> Click </li>
+                            <li value="hover"> Hover </li>
+                        </ul>
+                    </div>
+                </div>
+                    </div>
+            </div>
+        </div>
+}
+@section ScriptSection{
+<script type="text/javascript">
+    var target;
+    function onCreate() {
+        target = $("#details").data("ejTooltip");
+    }
+    $("#sampleProperties").ejPropertiesPanel();
+    function selectChange(args) {
+
+        target.option("trigger", args.value)
+    }
+    function onOpen(args) {
+        var currentElement = args.event.currentTarget, content = $(currentElement).attr("data-content");
+        if (content == "Enter a valid email address")
+            target.setModel({ cssClass: "info" });
+            //$(target.tooltip).removeClass("warning").addClass("info");
+
+        else
+            target.setModel({ cssClass: "warning" });
+        //$(target.tooltip).removeClass("info").addClass("warning");
+
+    }
+
+</script>
+}
+@section StyleSection{
+<style>
+    .info {
+        background-color: #f9ce9b;
+        color: #b29b7f;
+    }
+
+    .warning {
+        background-color: #e56161;
+        color: #ffffff;
+    }
+
+    .cols-sample-area {
+        height: 500px;
+    }
+
+    .frame {
+        width: 500px;
+        box-sizing: border-box;
+        border: none;
+    }
+
+    .form-control {
+        box-sizing: border-box;
+    }
+
+    .form-group {
+        margin-bottom: 10px;
+    }
+
+    fieldset {
+        border: 1px solid #D9DEDD;
+        padding: 15px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    #sample {
+        margin-right: 50px;
+    }
+
+    #details .e-button {
+        margin: 10px;
+    }
+</style>
+}
+

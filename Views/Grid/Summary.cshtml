@@ -1,0 +1,29 @@
+@section SampleHeading{<span class="sampleName">Grid-Basic-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This demo explains how to display the summary values such as average, minimum, etc., for the columns in Syncfusion ASP.NET MVC DataGrid.">
+}
+@section ControlsSection{
+    @(Html.EJ().Grid<OrdersView>("Summary")
+        .Datasource((IEnumerable<object>)ViewBag.datasource)
+        .ShowSummary()
+        .AllowPaging()
+        .PageSettings(page => { page.PageSize(10); })
+        .SummaryRow(row =>
+        {
+            row.Title("Sum").SummaryColumns(col => { col.SummaryType(SummaryType.Sum).Format("{0:C}").DisplayColumn("Freight").DataMember("Freight").Add(); }).Add();
+            row.Title("Average").SummaryColumns(col => { col.SummaryType(SummaryType.Average).Format("{0:C}").DisplayColumn("Freight").DataMember("Freight").Add(); }).Add();
+            row.Title("Smallest").SummaryColumns(col => { col.SummaryType(SummaryType.Minimum).Format("{0:C}").DisplayColumn("Freight").DataMember("Freight").Add(); }).Add();
+            row.Title("Largest").SummaryColumns(col => { col.SummaryType(SummaryType.Maximum).Format("{0:C}").DisplayColumn("Freight").DataMember("Freight").Add(); }).Add();
+        })
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(80).Add();
+            col.Field("EmployeeID").HeaderText("Employee ID").TextAlign(TextAlign.Right).Width(80).Add();
+            col.Field("ShipCity").HeaderText("Ship City").Width(90).Add();
+            col.Field("ShipName").HeaderText("Ship Name").Width(110).Add();
+            col.Field("ShipCountry").HeaderText("Ship Country").Width(100).Add();
+            col.Field("Freight").HeaderText("Freight").TextAlign(TextAlign.Right).Width(80).Format("{0:C}").Add();
+        })
+    )
+}
+

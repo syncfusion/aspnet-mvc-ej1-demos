@@ -1,0 +1,63 @@
+@section SampleHeading{
+    <span class="sampleName">Autocomplete-Multiple Values-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This example demonstrates using the Syncfusion ASP.NET MVC Autocomplete component to select multiple values from the suggestion list.">
+}
+@section ControlsSection{
+    <div class="frame">
+        <div class="row">
+            <div class="control">
+                <span class="txt">Using Delimiter</span>
+                @{
+                    Html.EJ()
+                        .Autocomplete("delimit")
+                        .Datasource((IEnumerable<Languages>)ViewBag.datasource)
+                        .Width("100%")
+                        .MultiSelectMode(MultiSelectModeTypes.Delimiter)
+                        .ShowPopupButton(true)
+                        .Render();
+                }
+            </div>
+            <div class="control">
+                <span class="txt">Using VisualMode</span>
+                @{
+                    Html.EJ()
+                        .Autocomplete("visualmode")
+                        .Datasource((IEnumerable<Languages>)ViewBag.datasource)
+                        .Width("100%")
+                        .MultiSelectMode(MultiSelectModeTypes.VisualMode)
+                        .ShowPopupButton(true)
+                        .Render();
+                }
+            </div>
+        </div>
+    </div>
+}
+@section StyleSection{
+    <style type="text/css">
+        .frame
+        {
+            height: 150px;
+            width: 40%;
+        }
+        
+        .control
+        {
+            width: 100%;
+            display: inline-block;
+            float: left;
+        }
+        
+        .control:first-child
+        {
+            margin-bottom: 15px;
+        }
+        
+        .txt
+        {
+            display: block;
+            margin-bottom: 12px;
+        }
+    </style>
+}
+

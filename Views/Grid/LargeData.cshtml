@@ -1,0 +1,69 @@
+@section SampleHeading{<span class="sampleName">Grid-Large Data-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This demo shows that the Syncfusion ASP.NET MVC DataGrid can be used to load large sets of data with less time delay.">
+}
+@section ControlsSection{
+    @(Html.EJ().Grid<object>("LargeData")
+           .Datasource((IEnumerable<object>) ViewBag.datasource)
+           .AllowScrolling()
+           .ScrollSettings(scroll => scroll.Height(400).Width(700))
+           .ClientSideEvents(eve => eve.Load("onLoad").Create("onComplete")))
+          
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Number of Columns:
+        </div>
+        <div class="col-md-3">
+            <label id="Label1">50</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Number of Rows:
+        </div>
+        <div class="col-md-3">
+            <label id="rowCount">50</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Load Time:
+        </div>
+        <div class="col-md-3">
+            <label id="time"></label>
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+			var gridObj = $("#LargeData").ejGrid("instance");
+            scrolWidth = gridObj.model.scrollSettings.width / $(".cols-sample-area").width();
+            if (gridObj.element.width() > $(".cols-sample-area").width()) {
+                var scrollerwidth = Math.floor($(".cols-sample-area").width())
+                gridObj.option("model.scrollSettings", { width: scrollerwidth })
+                scrolWidth = 1;
+            }
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+		$(window).resize(function () {
+            var gridObj = $("#LargeData").ejGrid("instance")
+            var scrollerwidth = Math.floor($(".cols-sample-area").width() * scrolWidth)
+            gridObj.option("model.scrollSettings", { width: scrollerwidth })
+        });
+        var startTime;
+        var endTime;
+        function onLoad(args) {
+            args.model.commonWidth = 120;
+            startTime = new Date();
+        }
+        function onComplete(args) {
+            endTime = new Date();
+            var difference = endTime - startTime;
+            $("#time").text(Math.abs(difference) + "ms");
+        }
+    </script>
+}
+

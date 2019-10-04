@@ -1,0 +1,81 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates how to display custom tooltips for the tasks in the Syncfusion Gantt chart control.">
+}
+@section SampleHeading{<span class="sampleName">Gantt-Tooltip Template-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+    <script>
+        function _dateFormating(key) {
+            var date = this.data[key];
+            return date ? ej.format(date, "dddd, dd MMM") : "";
+        }
+        var helpers = {};
+        helpers["_ganttDateFormatter"] = _dateFormating;
+        $.views.helpers(helpers);
+    </script>
+
+    <script type="text/x-jsrender" id="tooltipTemplate">
+        <table>
+            {{if #data['resourceNames']}}
+            <tr>
+                <td rowspan="3" style="padding: 3px">
+                    <img src="../images/gantt/{{:#data['resourceNames']}}.png" height="40px" />
+                </td>
+                <td style="padding: 3px"><b>Task done By:</b></td>
+                <td style="padding: 3px">{{:#data['resourceNames']}}</td>
+            </tr>
+            {{/if}}
+            <tr>
+                <td style="padding: 3px"><b>Starts On:</b></td>
+                <td style="padding: 3px">{{:~_ganttDateFormatter("startDate")}}</td>
+            </tr>
+            <tr>
+                <td style="padding: 3px"><b>Ends On:</b></td>
+                <td style="padding: 3px">{{:~_ganttDateFormatter("endDate")}}</td>
+            </tr>
+        </table>
+    </script>
+
+    @(Html.EJ().Gantt("ganttsample")
+    .TaskIdMapping("TaskID")
+    .TaskNameMapping("TaskName")
+    .StartDateMapping("StartDate")
+    .EndDateMapping("EndDate")
+    .DurationMapping("Duration")
+    .ProgressMapping("Progress")
+    .ScheduleStartDate("02/01/2017")
+    .ScheduleEndDate("03/14/2017")
+    .DateFormat("MM/dd/yyyy")
+    .HighlightWeekends(true)
+    .TreeColumnIndex(1)
+    .ShowGridCellTooltip(true)
+    .ChildMapping("SubTasks")
+    .AllowSelection(true)
+    .PredecessorMapping("Predecessors")
+    .AllowColumnResize(true)
+    .IncludeWeekend(false)
+    .ResourceInfoMapping("ResourceID")
+    .ResourceNameMapping("ResourceName")
+    .ResourceIdMapping("ResourceID")
+    .ShowResourceNames(true)
+    .IsResponsive(true)
+    .EnableVirtualization(false)
+    .SizeSettings(ss => ss.Width("100%").Height("450px"))
+    .ShowGridCellTooltip(true)
+    .ClientSideEvents(cs => cs.Load("load"))    
+    .AllowGanttChartEditing(false)
+    .TaskbarTooltipTemplateId("tooltipTemplate")
+    .Resources(ViewBag.datasource1)
+    .Datasource(ViewBag.datasource)
+    )
+}
+@section ScriptSection{
+
+    <script>
+        function load(args) {
+            var columns = this.getColumns();
+            columns[0].width = 60;
+        }
+    </script>
+}
+

@@ -1,0 +1,73 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart-Spline Area-ASP.NET MVC-SYNCFUSION</span>}
+
+@section MetaTags{
+    <meta name="description" content="This sample demonstrates how to render spline series using Syncfusion ASP.NET MVC Chart Control">
+}
+
+@section ControlsSection{
+    <div>
+  @(Html.EJ().Chart("container")
+        .ChartArea(cr => cr.Border(b => b.Color("transparent")))
+        .PrimaryXAxis(pr => pr.AxisLine(ax => ax.Visible(false)).MajorGridLines(mr => mr.Visible(false))
+        .MajorTickLines(mt => mt.Visible(false)).Title(tl => tl.Text("Year")))
+        .PrimaryYAxis(pr => pr.AxisLine(ax => ax.Visible(false)).MajorTickLines(mt => mt.Visible(false))
+        .Title(tl => tl.Text("Rate in %")).LabelFormat("{value}%"))
+        .CommonSeriesOptions(cr => cr.Type(SeriesType.SplineArea).EnableAnimation(true).Border(st => st.Width(2)))
+        .Series(sr =>
+            {
+                sr.Points(pt =>
+                    {
+                        pt.X("2002").Y(2.2).Add();
+                        pt.X("2003").Y(3.4).Add();
+                        pt.X("2004").Y(2.8).Add();
+                        pt.X("2005").Y(1.6).Add();
+                        pt.X("2006").Y(2.3).Add();
+                        pt.X("2007").Y(2.5).Add();
+                        pt.X("2008").Y(2.9).Add();
+                        pt.X("2009").Y(3.8).Add();
+                        pt.X("2010").Y(1.4).Add();
+                        pt.X("2011").Y(3.1).Add();
+                    }).Name("US").Border(st => st.Color("transparent")).Opacity(0.5).Fill("#C4C24A").Add();
+
+                sr.Points(pt =>
+                {
+                    pt.X("2002").Y(2).Add();
+                    pt.X("2003").Y(1.7).Add();
+                    pt.X("2004").Y(1.8).Add();
+                    pt.X("2005").Y(2.1).Add();
+                    pt.X("2006").Y(2.3).Add();
+                    pt.X("2007").Y(1.7).Add();
+                    pt.X("2008").Y(1.5).Add();
+                    pt.X("2009").Y(2.8).Add();
+                    pt.X("2010").Y(1.5).Add();
+                    pt.X("2011").Y(2.3).Add();
+                }).Name("France").Border(st => st.Color("transparent")).Opacity(0.5).Fill("#69D2E7").Add();
+
+                sr.Points(pt =>
+                {
+                    pt.X("2002").Y(0.8).Add();
+                    pt.X("2003").Y(1.3).Add();
+                    pt.X("2004").Y(1.1).Add();
+                    pt.X("2005").Y(1.6).Add();
+                    pt.X("2006").Y(2).Add();
+                    pt.X("2007").Y(1.7).Add();
+                    pt.X("2008").Y(2.3).Add();
+                    pt.X("2009").Y(2.7).Add();
+                    pt.X("2010").Y(1.1).Add();
+                    pt.X("2011").Y(2.3).Add();
+                }).Name("Germany").Border(st => st.Color("transparent")).Opacity(0.5).Fill("#6A4B82").Add();
+            })
+        .IsResponsive(true)
+        .Title(title => title.Text("Inflation Rate"))
+        .Size(sz => sz.Height("600"))
+        .Load("loadTheme")
+        .Legend(lg => { lg.Visible(true); })
+        )
+        <script>
+            $("#controlarea").css("visibility", "visible");
+        </script>
+    </div>
+}
+

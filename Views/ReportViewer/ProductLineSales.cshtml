@@ -1,0 +1,25 @@
+@section SampleHeading{ <span class="sampleName">ReportViewer-Product Line Sales-ASP.NET MVC-SYNCFUSION</span>}
+
+@using Syncfusion.JavaScript
+@using Syncfusion.MVC.EJ
+
+@section StyleSection{
+    <style>
+        #reportviewer {
+            min-height: 650px;
+            min-width: 100%;
+        }
+    </style>
+}
+@section ScriptReferenceSection{
+}
+
+@section ControlsSection{
+    <div style="width:100%">
+        @(Html.EJ().ReportViewer("reportviewer")
+              .ProcessingMode(Syncfusion.JavaScript.ReportViewerEnums.ProcessingMode.Remote).ReportPath("~/App_Data/Reports/ProductLineSales.rdl")
+              .ReportServiceUrl(VirtualPathUtility.ToAbsolute("~/api/RDLReport"))
+        )
+    </div>
+}
+

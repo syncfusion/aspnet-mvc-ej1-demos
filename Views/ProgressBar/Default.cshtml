@@ -1,0 +1,33 @@
+@section SampleHeading{ <span class="sampleName">ProgressBar-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>}
+@section ActionDescription{
+    <div class="action-description">
+    <p>
+        This sample demonstrates rendering ProgressBar control which is a graphical control element used to visualize the changing status of an extended operation. 
+        It is available in ASP.NET MVC product. ProgressBar provides an interactive way to display the progression of the task. 
+        You can configure the item size, orientation and the display text on the ProgressBar control.
+    </p>
+    </div>
+}
+@section ControlsSection{
+
+    <div class="imgframe controlframe">
+        <div class="control">
+            <span class="txt">Water Purification</span>
+            @Html.EJ().ProgressBar("defaultBar").Value(45).Height("20px").ClientSideEvents(evt => evt.Create("oncreate"))
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script>
+        var progress;
+        $(document).ready(function () {
+            progress = $("#defaultBar").data("ejProgressBar");
+            progress.setModel({ text: progress.getPercentage() + " %" });
+        });
+    </script>
+}
+@section StyleSection{
+    <link href="@Url.Content("~/Content/Samples/ProgressDefault.css")" rel="stylesheet" />
+}
+
+

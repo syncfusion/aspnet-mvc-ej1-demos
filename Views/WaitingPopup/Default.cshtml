@@ -1,0 +1,23 @@
+@section SampleHeading{<span class="sampleName">WaitingPopup-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>}
+@section ActionDescription{
+    <div class="action-description">
+    <p>
+        This sample demonstrates rendering WaitingPopup control for MVC is a visual element that provides support for displaying a pop-up indicator over a target area and preventing the end user’s interaction with the target area while loading.
+    </p>
+    </div>
+}
+@section ControlsSection{
+<div class="controlframe" style="position:relative;">
+    <div id="target"></div>
+    @Html.EJ().WaitingPopup("target").ShowOnInit(true).AppendTo(".controlframe")
+</div>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        #target {
+            height: 320px;
+        }
+ 
+    </style>
+}
+

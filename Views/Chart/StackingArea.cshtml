@@ -1,0 +1,123 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart-Stacked Area-ASP.NET MVC-SYNCFUSION</span>}
+
+@section MetaTags{
+    <meta name="description" content="This sample demonstrates how to render stacked area series using Syncfusion ASP.NET MVC Chart Control">
+}
+
+@section ControlsSection{
+    <div>
+  @(Html.EJ().Chart("container")
+        .PrimaryXAxis(pr => pr.AxisLine(ax => ax.Visible(false)).MajorGridLines(mr => mr.Visible(false))
+        .MajorTickLines(mt => mt.Visible(false)).Title(tl => tl.Text("Year")).Range(ra => ra.Min(2002).Max(2011).Interval(1)))
+        .PrimaryYAxis(pr => pr.Title(tl => tl.Text("Production in %")).LabelFormat("{value} %"))
+        .CommonSeriesOptions(cr => cr.Type(SeriesType.StackingArea).EnableAnimation(true))
+        .Series(sr =>
+            {
+                sr.Points(pt =>
+                    {
+                        pt.X("2002").Y(6).Add();
+                        pt.X("2003").Y(7.5).Add();
+                        pt.X("2004").Y(6).Add();
+                        pt.X("2005").Y(6.5).Add();
+                        pt.X("2006").Y(7.4).Add();
+                        pt.X("2007").Y(7.9).Add();
+                        pt.X("2008").Y(7.5).Add();
+                        pt.X("2009").Y(8.5).Add();
+                        pt.X("2010").Y(4.8).Add();
+                        pt.X("2011").Y(9.3).Add();
+
+                    }).Name("US").Border(st => st.Color("transparent")).Opacity(0.5).Fill("#C4C24A").Add();
+
+                sr.Points(pt =>
+                {
+                    pt.X("2002").Y(3.5).Add();
+                    pt.X("2003").Y(4.9).Add();
+                    pt.X("2004").Y(3.7).Add();
+                    pt.X("2005").Y(7.5).Add();
+                    pt.X("2006").Y(4.8).Add();
+                    pt.X("2007").Y(2.6).Add();
+                    pt.X("2008").Y(4.7).Add();
+                    pt.X("2009").Y(3.7).Add();
+                    pt.X("2010").Y(3.5).Add();
+                    pt.X("2011").Y(3.6).Add();
+                }).Name("Indonesia").Border(st => st.Color("transparent")).Opacity(0.5).Fill("#69D2E7").Add();
+
+                sr.Points(pt =>
+                {
+                    pt.X("2002").Y(8.1).Add();
+                    pt.X("2003").Y(8.8).Add();
+                    pt.X("2004").Y(6.7).Add();
+                    pt.X("2005").Y(6.4).Add();
+                    pt.X("2006").Y(4).Add();
+                    pt.X("2007").Y(4.8).Add();
+                    pt.X("2008").Y(7.4).Add();
+                    pt.X("2009").Y(3.5).Add();
+                    pt.X("2010").Y(8.3).Add();
+                    pt.X("2011").Y(4.7).Add();
+                }).Name("Russia").Border(st => st.Color("transparent")).Opacity(0.5).Fill("#6A4B82").Add();
+
+                sr.Points(pt =>
+                {
+                    pt.X("2002").Y(2.5).Add();
+                    pt.X("2003").Y(6.1).Add();
+                    pt.X("2004").Y(6.2).Add();
+                    pt.X("2005").Y(1.8).Add();
+                    pt.X("2006").Y(4).Add();
+                    pt.X("2007").Y(6.5).Add();
+                    pt.X("2008").Y(6.7).Add();
+                    pt.X("2009").Y(7.2).Add();
+                    pt.X("2010").Y(8.4).Add();
+                    pt.X("2011").Y(6.9).Add();
+                }).Name("Bangaladesh").Border(st => st.Color("transparent")).Opacity(0.5).Fill("#E7B0B2").Add();
+            })
+        .IsResponsive(true)
+        .Load("loadTheme")
+        .Title(title => title.Text("Industrial Production Growth"))
+        .Size(sz => sz.Height("600"))
+        .Legend(lg => { lg.Visible(true); })
+        )
+        <script>
+            $("#controlarea").css("visibility", "visible");
+        </script>
+    </div>
+}
+
+@section PropertiesSection{
+    <div id="sampleProperties">
+        <div class="prop-grid">
+            <div class="row" style="margin: 10px 0;">
+                <div class="col-md-3">
+                    Series Type
+                </div>
+                <div class="col-md-3">
+                    <div id="dropdown">
+                        <select id="seriestype">
+                            <option value="stackingarea">Stacked Area</option>
+                            <option value="stackingsplinearea">Stacked Spline Area</option>
+                            <option value="stackingsplinearea100">100% Stacked Spline Area</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+} 
+
+@section ScriptSection{
+    <script type="text/javascript">
+        function changeSeriestype(e) {
+            if (e.value == "stackingsplinearea100")
+                $('#container').ejChart('option', { primaryYAxis: { range: { min: 0, max: 100, interval: 10 } } });
+            else
+                $('#container').ejChart('option', { primaryYAxis: { range: { min: 0, max: 30, interval: 5 } } });
+            $('#container').ejChart('option', { commonSeriesOptions: { type: e.value } });
+        }
+
+        $("#seriestype").ejDropDownList({ "change": "changeSeriestype", width: "100px", selectedItemIndex: 0 });
+
+        $("#sampleProperties").ejPropertiesPanel();
+    </script>
+}
+
