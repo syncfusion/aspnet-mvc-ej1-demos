@@ -1,0 +1,738 @@
+@section SampleHeading{
+    <span class="sampleName">Ribbon-Backstage Page-ASP.NET MVC-SYNCFUSION</span>
+}
+@using Syncfusion.JavaScript.Models;
+@section ControlsSection{
+    @(Html.EJ().Ribbon("defaultRibbon")
+     .Width("100%")
+     .ExpandPinSettings(exPin =>
+      {
+          exPin.ToolTip("Collapse the Ribbon");
+      })
+     .CollapsePinSettings(colPin =>
+      {
+          colPin.ToolTip("Pin the Ribbon");
+      })
+     .ApplicationTab(apptab =>
+    {
+        apptab.Type(ApplicationTabType.Backstage).BackstageSettings(bsSettings=>
+        {
+            bsSettings.Text("FILE").Height("350").Width("100%").HeaderWidth("120").Pages(bsPage =>
+            {
+                bsPage.Id("info").Text("Info").ContentID("infoCon").ItemType(ItemType.Tab).Add();
+                bsPage.Id("new").Text("New").ContentID("newCon").Add();
+                bsPage.Id("close").Text("Close").EnableSeparator(true).ItemType(ItemType.Button).Add();
+                bsPage.Id("account").Text("Office Account").ContentID("accountCon").Add();
+            });
+        });
+    })
+    .RibbonTabs(tab =>
+    {
+        tab.Id("home").Text("HOME").TabGroups(tabgrp =>
+        {
+            tabgrp.Text("Clipboard").AlignType(RibbonAlignType.Columns).EnableGroupExpander(true).GroupExpanderSettings(grpExp => 
+            {
+               grpExp.ToolTip("Clipboard"); 
+            }).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("paste").Text("Paste").ToolTip("Paste").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-ribbonpaste"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).IsBig(true).Width("50px").Height("70px")).Add();
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("cut").Text("Cut").ToolTip("Cut").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        PrefixIcon = "e-icon e-ribbon e-ribboncut"
+                    }).Add();
+                    cntgrp.Id("copy").Text("Copy").ToolTip("Copy").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        PrefixIcon = "e-icon e-ribbon e-ribboncopy"
+                    }).Add();
+                    cntgrp.Id("clear").Text("Clear").ToolTip("Clear All").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        PrefixIcon = "e-icon e-ribbon clearAll"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("60px").Height("25px").IsBig(false)).Add();
+            }).Add();
+            tabgrp.Text("Font").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("fontfamily").ToolTip("Font").DropdownSettings(new DropDownListProperties()
+                    {
+                        DataSource = (IEnumerable<FontFamily>)ViewBag.datasource,
+                        Text = "Segoe UI",
+                        Width = "150px"
+                    }).Add();
+                    cntgrp.Id("fontsize").ToolTip("FontSize").DropdownSettings(new DropDownListProperties()
+                    {
+                        DataSource = (IEnumerable<FontPoint>)ViewBag.datasource1,
+                        Text = "1pt",
+                        Width = "65px"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.DropDownList).Height("28px").IsBig(false)).Add();
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("bold").Text("Bold").ToolTip("Bold").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon bold",
+                        Click = "executeAction"
+                    }).Add();
+                    cntgrp.Id("italic").Text("Italic").ToolTip("Italic").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-ribbonitalic"
+                    }).Add();
+                    cntgrp.Id("underline").Text("Underline").ToolTip("Underline").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-ribbonunderline"
+                    }).Add();
+                    cntgrp.Id("strikethrough").Text("Strikethrough").ToolTip("Strikethrough").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon strikethrough"
+                    }).Add();
+                    cntgrp.Id("superscript").Text("Superscript").ToolTip("Superscript").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-superscripticon"
+                    }).Add();
+                    cntgrp.Id("subscript").Text("Subscript").ToolTip("Subscript").EnableSeparator(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-subscripticon"
+                    }).Add();
+                    cntgrp.Id("uppercase").Text("Upper Case").ToolTip("Upper Case").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-uppercase"
+                    }).Add();
+                    cntgrp.Id("lowercase").Text("Lower Case").ToolTip("Lower Case").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-lowercase"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).IsBig(false)).Add();
+            }).Add();
+             tabgrp.Text("New").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("new").Text("New").ToolTip("New").ButtonSettings(new ButtonProperties()
+                        {
+                            ContentType = ContentType.ImageOnly,
+                            ImagePosition = ImagePosition.ImageTop,
+                            PrefixIcon = "e-icon e-ribbon e-new",
+                            Click= "executeAction"
+                        }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("60px").Height("70px")).Add();
+            }).Add();
+            tabgrp.Text("Actions").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("undo").Text("Undo").ToolTip("Undo").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition=ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-undo"
+                    }).Add();
+                    cntgrp.Id("redo").Text("Redo").ToolTip("Redo").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-redo"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("40px").Height("70px")).Add();
+            }).Add();
+        }).Add();
+        tab.Id("layout").Text("LAYOUT").TabGroups(tabgrp =>
+        {
+            tabgrp.Text("Alignment").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("bullet").Text("Bullet Format").ToolTip("Bullets").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-bullet"
+                    }).Add();
+                    cntgrp.Id("number").Text("Number Format").ToolTip("Numbering").EnableSeparator(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-numbericon"
+                    }).Add();
+                    cntgrp.Id("textindent").Text("Text Indent").ToolTip("Text Indent").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-indent"
+                    }).Add();
+                    cntgrp.Id("textoudent").Text("Text Outdent").ToolTip("Text Outdent").EnableSeparator(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-outdent"
+                    }).Add();
+                    cntgrp.Id("sortascending").Text("Sort").ToolTip("Sort").EnableSeparator(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-sort"
+                    }).Add();
+                    cntgrp.Id("border").Text("Border").ToolTip("Border").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-border"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).IsBig(false)).Add();
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("alignleft").Text("JustifyLeft").ToolTip("Align Left").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon alignleft"
+                    }).Add();
+                    cntgrp.Id("aligncenter").Text("JustifyCenter").ToolTip("Align Center").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon aligncenter"
+                    }).Add();
+                    cntgrp.Id("alignright").Text("JustifyRight").ToolTip("Align Right").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon alignright"
+                    }).Add();
+                    cntgrp.Id("justify").Text("JustifyFull").ToolTip("Justify").EnableSeparator(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon justify"
+                    }).Add();
+                    cntgrp.Id("fontcolor").Text("Font Color").ToolTip("Font Color").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-fontcolor"
+                    }).Add();
+                    cntgrp.Id("fillcolor").Text("Fill Color").ToolTip("Fill Color").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-fillcolor"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).IsBig(false)).Add();
+            }).Add();
+            tabgrp.Text("Print Layout").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("printlayout").Text("Print Layout").ToolTip("Print Layout").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-printlayout"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("80px").Height("70px")).Add();
+            }).Add();
+        }).Add();
+        tab.Id("insert").Text("INSERT").TabGroups(tabgrp =>
+        {
+            tabgrp.Text("Tables").AlignType(RibbonAlignType.Columns).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("tables").Text("Tables").ToolTip("Tables").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-table"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("50px").Height("70px")).Add();
+            }).Add();
+            tabgrp.Text("Illustrations").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("pictures").Text("Pictures").ToolTip("Pictures").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-picture"
+                    }).Add();
+                    cntgrp.Id("videos").Text("Videos").ToolTip("Videos").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-video"
+                    }).Add();
+                    cntgrp.Id("shapes").Text("Shapes").ToolTip("Shapes").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-shape"
+                    }).Add();
+                    cntgrp.Id("charts").Text("Charts").ToolTip("Charts").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-chart"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("56px").Height("70px")).Add();
+            }).Add();
+            tabgrp.Text("Comments").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("comments").Text("Comments").ToolTip("Comments").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-comment"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("70px").Height("70px")).Add();
+            }).Add();
+            tabgrp.Text("Hyperlink").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("hyperlink").Text("Hyperlink").ToolTip("Hyperlink").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-hyperlink"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("70px").Height("70px")).Add();
+            }).Add();
+            tabgrp.Text("Equation").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("equation").Text("Equation").ToolTip("Equation").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-equation"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("60px").Height("70px")).Add();
+            }).Add();
+        }).Add();
+        })
+        .ClientSideEvents(evt=>evt.Create("createControl"))
+    )
+    }
+	  <div id="infoCon">
+	<div style="display:table-cell;padding-top:10px">
+	<table> 
+	<tr>
+	<td> 
+	<button id="spltbutton1" class="e-bsinfobtnstyle e-bssplbtn1">Protect Workbook</button>
+     <ul id="Ul51">
+         <li><span>Mark as Final</span></li>
+         <li><span>Encrypt Password</span></li>
+     </ul>    
+	 </td>
+	 <td style="vertical-align: top;padding-left:10px">
+	<span class="e-bsptitle" style="font-size:18px">Protect Workbook</span>
+	<span style="display:block">Control what types of changes people can make to this workbook.</span>
+	</td>
+	</tr>
+	<tr>
+	<td style="padding-top:10px"> 
+	<button id="spltbutton2" class="e-bsinfobtnstyle e-bssplbtn2">Check for Issues</button>
+     <ul id="Ul52">
+         <li><span>Inspect Document</span></li>
+     </ul>   
+	 </td>
+	  <td style="vertical-align: top;padding-left:10px;padding-top:10px">
+	 <span class="e-bsptitle" style="font-size:18px">Inspect Workbook</span>
+	<span style="display:block">Before publishing this file,be aware that it contains:</span>
+	<ul><li style="list-style-type: square" class="e-inspectli"><span class="e-inspectcon">Author's name and absolute path</span></li></ul>
+	</td>
+	</tr>
+	<tr>
+	<td style="padding-top:10px"> 
+	<button id="spltbutton3" class="e-bsinfobtnstyle e-bssplbtn3" style="font-size:18px">Manage Versions</button>
+     <ul id="Ul53">
+         <li><span>Recover Workbooks</span></li>
+     </ul>       
+	 </td>
+	  <td style="vertical-align: top;padding-left:10px;padding-top:10px">
+	<span class="e-bsptitle" style="font-size:18px">Versions</span>
+	<span style="display:block">There are no previous versions of this file.</span>
+	</td>
+	</tr>
+	<tr>
+	<td style="padding-top:10px"> 
+	<button id="btnlast" class="e-bsinfobtnstyle">Browser view Options</button>           
+	 </td>
+	 <td style="vertical-align: top;padding-left:10px;padding-top:10px">
+	<span class="e-bsptitle" style="font-size:18px">Browser View Options</span>
+	<span style="display:block">Pick what users can see when this workbook is viewed on the Web.</span>
+	</td>
+	</tr>
+	</table>	
+	</div>
+	<div style="display:table-cell;padding-left:80px;vertical-align: top">
+	<table>
+	<tr><span class="e-bsptitle" style="font-size:17px">Properties</span></tr>
+	<tr>
+	<td style="width:125px">Size</td>
+	<td>Not saved yet</td>
+	</tr>
+	<tr>
+	<td style="width:125px">Tags</td>
+	<td>Add a title</td>
+	</tr>
+	<tr>
+	<td style="width:125px">Title</td>
+	<td>Add a tag</td>
+	</tr>
+	<tr>
+	<td style="width:125px">Categories</td>
+	<td>Add a category</td>
+	</tr>
+	</table>
+	
+	<div style="padding-top: 15px">
+    <div class="e-bsptitle" style="font-size:17px">Related Dates</div>
+	<div>Last Modified</div>
+	<div>Created</div>
+	<div>Last Printed</div>
+	</div>
+    
+	<div style="padding-top: 15px">
+	<span class="e-bsptitle" style="font-size:17px">Related People</span>
+	<table>
+	<tr>
+	<td style="width:125px">Author</td>
+	<td class="e-accuser e-newpageicon"></td>
+	<td>user</td>
+	</tr>
+	<tr>
+	<td colspan="3" style="text-align:right"><span class="e-author">Add an author</span></td>
+	</tr>
+	<tr>
+	<td style="width:126px">Last Modified by</td>
+	<td colspan="2">Not saved yet</td>
+	</tr>
+	<tr><td><a href="#" class="e-infoprop">Show All Properties</a><td></tr>
+	</table>
+	</div>
+	</div>
+	</div>
+	<div id="newCon">
+	<table>
+	<tr><td><input type="text" id="autocomplete" /></tr></td>
+	<tr><td class="e-suggestsearch" style="padding-top:5px">Suggested searches:
+	<a href="#">Business</a>
+	<a href="#">Personal</a>
+	<a href="#">Industrty</a>
+	<a href="#">Small Business</a>
+	<a href="#">Calculator</a>
+	<a href="#">Finance-Accounting</a>
+	<a href="#">Lists</a>
+	</td></tr>
+	<tr>
+	<td><button id="btn1" class="e-bsnewbtnstyle">Blank WorkBook</button><button id="btn2" class="e-bsnewbtnstyle">Project cost tracker</button><button id="btn3" class=" e-bsnewbtnstyle">Gantt project planner</button></td>
+	</tr>
+	<tr>
+	<td><button id="btn4" class="e-bsnewbtnstyle">Diet and exercise journal</button><button id="btn5" class="e-bsnewbtnstyle">Sales invoice tracker</button></td>
+	</tr>
+	<tr>
+	<td></td>
+	</tr>
+	</table>
+	</div>
+	
+	<div id="accountCon">
+	<div style="padding-top:20px"><span style="font-size:17px">User Information</span>
+	<div>
+	<div class="e-accuser e-newpageicon" style="display:table-cell"></div>
+	<div style="display:table-cell;vertical-align:middle">
+	 <div>user</div>
+	 <div>xyz@syncfusion.com</div>
+	</div>
+	</div>
+	</div>
+	<a href="#" style="font-size:11px">Sign out</a>
+	<a href="#" style="display:table;font-size:11px">Switch Account</a>
+	<div style="padding-top:20px;padding-bottom:10px">Background:</div>
+                        <input type="text" id="background" />
+                        <div id="backgroundList">
+                            <ul>
+                                <li>No Background</li>
+                                <li>Calligraphy</li>
+                                <li>Doodle Circles</li>
+                                <li>Geometry</li>
+                                <li>Stars</li>
+                            </ul>
+							</div>
+	<div style="padding-top:20px;padding-bottom:10px">Theme:</div>
+                        <input type="text" id="theme" />
+                        <div id="themeList">
+                            <ul>
+                                <li>White</li>
+                                <li>Light Gray</li>
+                                <li>Dark Gray</li>
+                            </ul>		
+							</div>
+	</div>
+@section ScriptSection{
+    <script>
+        function createControl(args) {
+            var languages = [
+                    "ActionScript", "AppleScript", "ASP", "BASIC",
+                    "C", "C++", "Clojure", "COBOL", "ColdFusion",
+                    "Erlang", "Fortran", "Groovy", "Haskell",
+                    "Java", "JavaScript", "Lisp", "Perl", "PHP",
+                    "Python", "Ruby", "Scala", "Scheme"
+            ];
+            $("#spltbutton1").ejSplitButton({
+                size: "large",
+                showRoundedCorner: false,
+                targetID: "Ul51",
+                buttonMode: "dropdown",
+                contentType: "textandimage",
+                imagePosition: "imagetop",
+                prefixIcon: "e-protect e-newpageicon",
+                arrowPosition: "bottom",
+                height: 90,
+                width: 100
+            });
+            $('#autocomplete').ejAutocomplete({
+                showPopupButton: true,
+                width: 450,
+                watermarkText: "Search for online templates",
+                dataSource: languages
+            });
+            $("#spltbutton2").ejSplitButton({
+                size: "large",
+                showRoundedCorner: false,
+                targetID: "Ul52",
+                contentType: "textandimage",
+                imagePosition: "imagetop",
+                prefixIcon: "e-check e-newpageicon",
+                buttonMode: "dropdown",
+                arrowPosition: "bottom",
+                height: 90,
+                width: 100
+            });
+            $("#spltbutton3").ejSplitButton({
+                size: "large",
+                showRoundedCorner: false,
+                targetID: "Ul53",
+                contentType: "textandimage",
+                imagePosition: "imagetop",
+                prefixIcon: "e-version e-newpageicon",
+                buttonMode: "dropdown",
+                arrowPosition: "bottom",
+                height: 90,
+                width: 100
+            });
+            $("#btnlast").ejButton({
+                size: "large",
+                showRoundedCorner: false,
+                contentType: "textandimage",
+                imagePosition: "imagetop",
+                prefixIcon: "e-browser e-newpageicon",
+                arrowPosition: "bottom",
+                height: 100,
+                width: 100
+            });
+            $("#btn1").ejButton({
+                size: "large",
+                height: 200,
+                width: 225,
+                contentType: "textandimage",
+                imagePosition: "imagetop",
+                prefixIcon: "e-blank e-infopageicon"
+            });
+            $("#btn2").ejButton({
+                size: "large",
+                height: 200,
+                width: 225,
+                contentType: "textandimage",
+                imagePosition: "imagetop",
+                prefixIcon: "e-project e-infopageicon"
+            });
+            $("#btn3").ejButton({
+                size: "lerge",
+                height: 200,
+                width: 225,
+                contentType: "textandimage",
+                imagePosition: "imagetop",
+                prefixIcon: "e-gantt e-infopageicon"
+            });
+            $("#btn4").ejButton({
+                size: "large",
+                height: 200,
+                width: 225,
+                contentType: "textandimage",
+                imagePosition: "imagetop",
+                prefixIcon: "e-diet e-infopageicon"
+            });
+            $("#btn5").ejButton({
+                size: "lerge",
+                height: 200,
+                width: 225,
+                contentType: "textandimage",
+                imagePosition: "imagetop",
+                prefixIcon: "e-sales e-infopageicon"
+            });
+
+            $('#background').ejDropDownList({
+                targetID: "backgroundList",
+                width: "200px",
+                text: "No Background"
+            });
+            $('#theme').ejDropDownList({
+                targetID: "themeList",
+                width: "200px",
+                text: "White"
+            });
+            $("#background_popup,#theme_popup").addClass("e-backstagechild");
+        }
+    </script>
+    
+}
+@section StyleSection{
+   <link href="~/Content/ejthemes/ribbon-css/ej.icons.css" rel="stylesheet" />
+   <style>
+	 .e-blank{
+	  background-image: url("../Content/ejthemes/common-images/ribbon/blank.png");
+	 }
+	 .e-project{
+	  background-image: url("../Content/ejthemes/common-images/ribbon/Project.png");
+	 }
+	 .e-gantt{
+	  background-image: url("../Content/ejthemes/common-images/ribbon/Gantt.png");
+	 }
+	 .e-diet{
+	  background-image: url("../Content/ejthemes/common-images/ribbon/Diet.png");
+	 }
+	 .e-sales{
+	  background-image: url("../Content/ejthemes/common-images/ribbon/Sales.png");
+	 }
+	 .e-infopageicon{
+	  background-repeat:no-repeat;
+	  height:150px;
+      width: 198px;
+	 }
+	 .e-accuser{
+	  background-image: url("../Content/ejthemes/common-images/ribbon/User.jpg");
+	 }
+	 .e-protect{
+	  background-image: url("../Content/ejthemes/common-images/ribbon/Protect.png");
+	 }
+	 .e-browser{
+	  background-image: url("../Content/ejthemes/common-images/ribbon/Browser.png");
+	 }
+	 .e-check{
+	  background-image: url("../Content/ejthemes/common-images/ribbon/Check.png");
+	 }
+	 .e-version{
+	  background-image: url("../Content/ejthemes/common-images/ribbon/Version.png");
+	 }
+	 .e-newpageicon{
+	  background-repeat:no-repeat;
+	  height: 42px;
+      width: 42px;
+	 }
+	.e-ribbon .e-ribbonbackstagepage .e-bsinfobtnstyle {
+            font-family: segoe ui;
+            border: 1px solid #c9c9c9 !important;
+            background: #fdfdfd !important;
+            color: #212121;
+			box-shadow:none;
+			text-transform:none;
+        }
+        .e-ribbon .e-ribbonbackstagepage .e-bsnewbtnstyle {
+            font-family: segoe ui;
+            color: #212121;
+            background: #fdfdfd !important;
+            margin-top: 20px;
+			border:none;
+			box-shadow:none;
+			text-transform:none;
+        }
+		.e-ribbon .e-ribbonbackstagepage .e-bsinfobtnstyle:hover,
+            .e-ribbon .e-ribbonbackstagepage .e-bsnewbtnstyle:hover {
+                color: black;
+                background:  #e0e0e0!important;
+			    box-shadow:none;
+                font-family: segoe ui;
+            }
+			.e-ribbon .e-ribbonbackstagepage #btnlast{
+			 padding:0px;
+			}
+	 .e-bssplbtn1 .e-split-btn-div{
+      text-indent: 40px;
+      top: 64px;
+	 }
+	 .e-bssplbtn2 .e-split-btn-div{
+      text-indent: 26px;
+      top: 64px;
+	 }
+	 .e-bssplbtn3 .e-split-btn-div{
+      text-indent: 34px;
+      top: 64px;
+	 }
+	 .e-bsinfobtnstyle .e-btntxt{
+      font-size:14px;
+	 }
+	 .e-bssplbtn1 .e-btntxt,.e-bssplbtn2 .e-btntxt{
+      position: relative;
+	  left: -6px;
+	 }
+	 .e-bssplbtn3 .e-btntxt{
+      position: relative;
+	  left: -8px;
+	 }
+	 .e-suggestsearch a{
+	  padding-left:7px;
+	 }
+	 .e-author{
+	  color:#939393;
+	 }
+	 .e-ribbonbackstagepage,.e-inspectcon{
+	  color:#565656;
+	 }
+	 .e-bsptitle{
+	  color:#000000;
+	 }
+	 .e-infoprop{
+	  color:#0072c6;
+	 }
+	 .e-inspectli{
+	  color:#aaaaaa;
+	 }
+	 .e-bssplbtn2 .e-newpageicon,.e-bssplbtn3 .e-newpageicon{
+      position: relative;
+      left: -5px;
+     }
+	.darktheme .e-ribbon .e-ribbonbackstagepage .e-bsinfobtnstyle {
+            font-family: segoe ui;
+            border: 1px solid #303030 !important;
+            background: #1f1f1f !important;
+            color: #c1c1c1;
+        }
+
+        .darktheme .e-ribbon .e-ribbonbackstagepage .e-bsnewbtnstyle {
+            font-family: segoe ui;
+            background: #1f1f1f !important;
+            color: #c1c1c1;
+        }
+        .row .cols-sample-area {
+            min-height: 490px !important;
+        }
+		.e-ribbon .e-ribbonbackstagepage .e-split.e-widget.e-active .e-in-wrap .e-split-btn-div .e-icon{
+		  transform: none;
+		}
+    </style>
+}
+

@@ -1,0 +1,104 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart-Candle-ASP.NET MVC-SYNCFUSION</span>}
+
+@section MetaTags{
+    <meta name="description" content="This sample demonstrates how to render and configure candle series using Syncfusion ASP.NET MVC Chart Control">
+}
+
+@section ControlsSection{
+    <div id="Tooltip" style="display: none; width: 110px; padding-top: 10px; padding-bottom: 10px">
+        <div align="center" style="font-weight: bold">
+            #point.x#
+        </div>
+        <table>
+            <tr>
+                <td>Open:
+                </td>
+                <td>$#point.open#
+                </td>
+            </tr>
+            <tr>
+                <td>High:
+                </td>
+                <td>$#point.high#
+                </td>
+            </tr>
+            <tr>
+                <td>Low:
+                </td>
+                <td>$#point.low#
+                </td>
+            </tr>
+            <tr>
+                <td>Close:
+                </td>
+                <td>$#point.close#
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        @(Html.EJ().Chart("container")
+        .PrimaryXAxis(pr => pr.Title(tl => tl.Text("Date")).ValueType(AxisValueType.Datetime).LabelFormat("MM/dd/yyyy").IntervalType(ChartIntervalType.Years)
+        .Range(ra => ra.Min(new DateTime(1949, 1, 1)).Max(new DateTime(2009, 1, 1)).Interval(20)))
+        .PrimaryYAxis(pr => pr.Range(ra => ra.Max(250).Min(0).Interval(50)).Title(tl => tl.Text("Price in Dollars")).LabelFormat("${value}"))
+        .Series(sr =>
+            {
+                sr.Points(pt =>
+                    {
+                        pt.X("1950/ 1/ 12").High(125).Low(70).Open(115).Close(90).Add();
+                        pt.X("1953/ 1/ 12").High(150).Low(60).Open(120).Close(70).Add();
+                        pt.X("1956/ 1/ 12").High(200).Low(140).Open(160).Close(190).Add();
+                        pt.X("1959/ 1/ 12").High(160).Low(90).Open(140).Close(110).Add();
+                        pt.X("1962/ 1/ 12").High(200).Low(100).Open(180).Close(120).Add();
+                        pt.X("1965/ 1/ 12").High(100).Low(45).Open(70).Close(50).Add();
+                        pt.X("1968/ 1/ 12").High(150).Low(70).Open(140).Close(130).Add();
+                        pt.X("1971/ 1/ 12").High(90).Low(60).Open(65).Close(80).Add();
+                        pt.X("1974/ 1/ 12").High(225).Low(170).Open(175).Close(220).Add();
+                        pt.X("1977/ 1/ 12").High(250).Low(180).Open(223).Close(190).Add();
+                        pt.X("1980/ 1/ 12").High(200).Low(140).Open(160).Close(190).Add();
+                        pt.X("1983/ 1/ 12").High(160).Low(90).Open(140).Close(110).Add();
+                        pt.X("1986/ 1/ 12").High(200).Low(100).Open(180).Close(120).Add();
+                        pt.X("1989/ 1/ 12").High(130).Low(95).Open(120).Close(100).Add();
+                        pt.X("1991/ 1/ 12").High(100).Low(70).Open(92).Close(75).Add();
+                        pt.X("1994/ 1/ 12").High(85).Low(50).Open(65).Close(80).Add();
+                        pt.X("1997/ 1/ 12").High(185).Low(110).Open(130).Close(170).Add();
+                        pt.X("2000/ 1/ 12").High(90).Low(30).Open(80).Close(50).Add();
+                        pt.X("2003/ 1/ 12").High(200).Low(140).Open(160).Close(190).Add();
+                        pt.X("2006/ 1/ 12").High(170).Low(90).Open(140).Close(110).Add();
+                        pt.X("2008/ 1/ 12").High(200).Low(100).Open(180).Close(120).Add();
+                    }).Name("Candle").Type(SeriesType.Candle).EnableAnimation(true)
+                      .Tooltip(tt => tt.Visible(true)
+                                     .Template("Tooltip"))
+                                     .Add();
+            })
+        .Load("loadTheme")
+        .CommonSeriesOptions(cr => cr.EnableAnimation(true))
+        .IsResponsive(true)
+        .Title(t => t.Text("Foreign Exchange Rate Analysis"))
+        .Size(sz => sz.Height("600"))
+        .Legend(lg => { lg.Visible(false); })
+        )
+        <script>
+            $("#controlarea").css("visibility", "visible");
+        </script>
+    </div>
+}
+@section StyleSection
+{
+    <style class="cssStyles">
+        .tooltipDivcontainer table, table th, table tr, table td {
+            border: 0px none;
+            margin: 0 auto;
+        }
+        .tooltipDivcontainer {
+            border: 2px transparent;
+            color: white;
+        }
+        #Tooltip td {
+            color: white;
+        }
+    </style>
+}
+

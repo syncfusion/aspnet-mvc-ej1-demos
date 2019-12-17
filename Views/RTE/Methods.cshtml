@@ -1,0 +1,151 @@
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName">RTE-Methods-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    @{Html.EJ().RTE("rteSample").Width("100%").Height("414").ContentTemplate(@<div>
+        <p><b>Description:</b></p>
+        <p>The Rich Text Editor (RTE) control is an easy to render in
+        client side. Customer easy to edit the contents and get the HTML content for
+        the displayed content. A rich text editor control provides users with a toolbar
+        that helps them to apply rich text formats to the text entered in the text
+        area. </p>
+       <p><b>Functional
+        Specifications/Requirements:</b></p>
+        <ol><li><p>Provide
+        the tool bar support, it’s also customizable.</p></li><li><p>Options
+        to get the HTML elements with styles.</p></li><li><p>Support
+        to insert image from a defined path.</p></li><li><p>Footer
+        elements and styles(tag / Element information , Action button (Upload, Cancel))</p></li><li><p>Re-size
+        the editor support.</p></li><li><p>Provide
+        efficient public methods and client side events.</p></li><li><p>Keyboard
+        navigation support.</p></li></ol>
+    </div>).MinWidth("200px").Render();}
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Get Html Text
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().Button("getHtmlText").Width("105px").Text("Get HTML").ClientSideEvents(evt => evt.Click("ongetHtmlString"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Get Text
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().Button("getText").Width("105px").Text("Get Text").ClientSideEvents(evt => evt.Click("ongetText"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Execute Bold
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().Button("executeBold").Width("105px").Text("Exec Bold").ClientSideEvents(evt => evt.Click("onexec"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Command Status
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().Button("commandStatus").Width("105px").Text("Bold Status").ClientSideEvents(evt => evt.Click("oncmdStatus"))
+        </div>
+    </div>
+
+<div class="row">
+    <div class="col-md-3">
+        Select all 
+    </div>
+    <div class="col-md-3">
+        @Html.EJ().Button("selectall").Width("105px").Text("Select All").ClientSideEvents(evt => evt.Click("onSelectAll"))
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        Select Range
+    </div>
+    <div class="col-md-3">
+        @Html.EJ().Button("selectrange").Width("105px").Text("Select Range").ClientSideEvents(evt => evt.Click("onSeletcRange"))
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        Paste Content
+    </div>
+    <div class="col-md-3">
+        @Html.EJ().Button("paste").Width("105px").Text("Paste Content").ClientSideEvents(evt => evt.Click("onPasteContent"))
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        Destroy/Restore
+    </div>
+    <div class="col-md-3">
+        @Html.EJ().ToggleButton("destroy").ActiveText("Restore").DefaultText("Destroy").ClientSideEvents(evt => evt.Change("onDestroyRestore"))
+    </div>
+</div>
+}
+@section ScriptSection{
+    <script>
+        var rte;
+        $(function () {
+            rte = $("#rteSample").data("ejRTE");
+        });
+        function ongetHtmlString() {
+            if (rte)
+                alert(rte.getHtml());
+        }
+        function ongetText() {
+            if (rte)
+                alert(rte.getText());
+        }
+        function onexec() {
+            if (rte)
+                rte.executeCommand("bold", true);
+        }
+        function oncmdStatus() {
+            alert(rte.getCommandStatus("bold"));
+        }
+        function onSelectAll() {
+		if(!ej.isNullOrUndefined(rte))
+            rte.selectAll();
+        }
+        function onSeletcRange() {
+		if(!ej.isNullOrUndefined(rte)){
+            var range = rte.createRange();
+            var liTag = rte.getDocument().getElementsByTagName("li");
+            if (!rte._isIE8()) {
+                range.setStart(liTag[2], 1);
+                range.setEnd(liTag[4], 0);
+            }
+            else {
+                range = rte.getDocument().body.createTextRange()
+                range.moveToElementText(liTag[3]);
+            }
+            rte.selectRange(range);
+        }
+		}
+        function onPasteContent() {
+		if(!ej.isNullOrUndefined(rte)){
+            select = rte.getSelectedHtml();
+            rte.pasteContent("<p style='background-color:yellow;color:skyblue'> " + select + " </p>");
+        }
+        }
+        function onDestroyRestore(args) {
+            if (args.isChecked) {
+                rte.destroy();
+                rte = null;
+            }
+            else {
+                $("#rteSample").ejRTE({ width: "100%", height: "350", minWidth: "20px",isResponsive:true });
+                rte = $("#rteSample").data("ejRTE");
+            }
+        }
+        $(document).ready(function () { $("#sampleProperties").ejPropertiesPanel(); });
+    </script>
+}
+

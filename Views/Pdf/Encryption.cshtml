@@ -1,0 +1,109 @@
+@section SampleHeading{
+	<span class="sampleName">PDF-Encryption-ASP.NET MVC-SYNCFUSION</span>}
+	
+@section ControlsSection{
+@{Html.BeginForm("Encryption", "Pdf", FormMethod.Post);
+  {
+    <div class="Common">
+        <div class="tablediv">
+            <div style = "font-size: 17px;font-weight: 400;">
+			       	This sample demonstrates how to encrypt the PDF document with encryption standards like 40-bit RC4, 128-bit RC4, 128-bit AES, 256-bit AES, and advanced encryption standard 256-bit AES Revision 6 (PDF 2.0) to protect documents against unauthorized access. 
+<br/>
+
+	</div>
+	<br/>
+            <div class="rowdiv">
+                <div style="border: solid 1px #EDEDED; padding: 5px 7px 5px 7px;">
+                    <table width="100%" height="50px">
+                        <tr>
+                            <td align="left" width="18%">
+                                <label>
+                                    <b>Encryption Type&nbsp;&nbsp;:</b>
+                                </label>
+                            </td>
+                            <td align="left" width="15%">
+                                <input type="radio" id="rdButton40" name="encryptionType" value="40_RC4" />
+                                <label for="rdButton40">
+                                    40 Bit RC4
+                                </label>
+                            </td>
+                            <td align="left" width="15%">
+                                <input type="radio" id="rdButton128RC4" name="encryptionType" value="128_RC4" />
+                                <label for="rdButton128RC4">
+                                    128 Bit RC4
+                                </label>
+                            </td>
+                            <td align="left" width="15%">
+                                <input type="radio" id="rdButton128AES" name="encryptionType" value="128_AES" checked="checked" />
+                                <label for="rdButton128AES">
+                                    128 Bit AES
+                                </label>
+                            </td>
+                            <td align="left" width="15%">
+                                <input type="radio" id="rdButton256" name="encryptionType" value="256_AES" />
+                                <label for="rdButton256">
+                                    256 Bit AES
+                                </label>
+                            </td>
+                            <td align="left" width="20%">
+                                <input type="radio" id="rdButton256Revision6" name="encryptionType" value="256_AES_Revision_6" />
+                                <label for="rdButton256">
+                                    256 Bit AES Revision 6
+                                </label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="tablediv">
+                    <div class="rowdiv">
+                        <div class="celldiv">
+                            <div style="border: solid 1px #EDEDED; padding: 5px 7px 5px 7px;">
+                                <table width="100%">
+                                    <tr>
+                                        <td align="left" width="100%">
+                                            <b>User password</b>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;password
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" width="100%">
+                                            <b>Owner password</b>&nbsp;&nbsp;&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;syncfusion
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rowdiv">
+                        <div class="celldiv">
+                            <div style="border: solid 1px #EDEDED; padding: 5px 7px 5px 7px;">
+                                <table width="100%">
+                                    <tr>
+                                        <td align="left" width="100%">
+                                            <input id="Checkbox1" type="checkbox" name="InsideBrowser" value="Browser" />
+                                            <label for="Opentype">
+                                                Open Document inside Browser</label>
+                                        </td>
+                                        <td align="right">
+                                            <input type="submit" class="Button" value="Create PDF" />
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+		<br/>
+			<div style = "font-size: 17px;font-weight: 400;">
+		
+	It is possible to protect with user password or owner password or both passwords and also possible to change or remove password and permission. 
+More information about encryption or decryption can be found in this documentation <a href="https://help.syncfusion.com/file-formats/pdf/working-with-security">section.</a>
+           </div>
+    </div>
+      Html.EndForm();
+  }}}
+@section MetaTags{
+   <meta name="description" content="Example [C#] to protect PDF document with advanced encryption standards in ASP.NET MVC using Syncfusion .NET PDF library.">
+}
+

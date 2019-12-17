@@ -1,0 +1,46 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart-Funnel-ASP.NET MVC-SYNCFUSION</span>}
+
+@section MetaTags{
+    <meta name="description" content="This sample demonstrates how to render funnel series using Syncfusion ASP.NET MVC Chart Control">
+}
+
+@section ControlsSection{
+    <div style="width: 700px">
+        <div>
+      @(Html.EJ().Chart("container")
+            .Series(sr =>
+                         {
+                             sr.Points(pt =>
+                                  {
+                                      pt.X("Renewed").Y(18.25).Text("18.25%").Add();
+                                      pt.X("Subscribe").Y(24).Text("24%").Add();
+                                      pt.X("Support").Y(55.9).Text("55.9%").Add();
+                                      pt.X("Downloaded").Y(75.7).Text("75.7%").Add();
+                                      pt.X("Visited").Y(100).Text("100%").Add();
+                                  }).Marker(mr =>
+                                  {
+                                      mr.DataLabel(db =>
+                                      {
+                                          db.Visible(true).EnableContrastColor(true).Shape(ChartShape.None)
+                                              .Font(fn => { fn.Color("white").Size("12px").FontWeight(ChartFontWeight.Lighter); });
+                                      });
+                                  })
+                                    .Name("WebSite").FunnelWidth("15%").FunnelHeight("20%").Type(SeriesType.Funnel)
+                                    .LabelPosition(ChartLabelPosition.Inside).Add();
+
+                         })
+            .Load("loadTheme")
+            .IsResponsive(true)
+            .Title(title => title.Text("Web Site Visitor"))
+            .Size(sz => sz.Height("600"))
+            .Legend(lg => { lg.Visible(true).Position(LegendPosition.Top); })
+   )
+            <script>
+                $("#controlarea").css("visibility", "visible");
+            </script>
+        </div>
+    </div>
+}
+

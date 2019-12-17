@@ -1,0 +1,87 @@
+@section SampleHeading{ <span class="sampleName">Tab-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ActionDescription{
+    <div class="action-description">
+    <p>
+        This sample demonstrates rendering Tab control which is an interface where list of items are expanded from a single item. 
+        Each Tab panel defines its header text or header template, as well as a content template. Tab items are dynamically added and removed. 
+        Tabs can be loaded with AJAX content that is useful for building dashboards where space is limited.
+    </p>
+    </div>
+}
+
+@section ControlsSection{
+    <div class="controlframe">
+        @{Html.EJ().Tab("defaultTabs").Items(data =>
+           {
+               data.Add().ID("steelman").Text("Man of Steel").ContentTemplate(@<div>
+                   <table>
+                       <tr>
+                           <td class="movies-img" valign="top">
+                               <img src="@Url.Content("~/Images/rating/mos.png")" alt="mos" />
+                           </td>
+                           <td valign="top">
+                               <div>
+                                   <span class="movie-header">Man of Steel</span><br />
+                                   <span>Movie Info:</span>
+                                   <p>
+                                       A young boy learns that he has extraordinary powers and is not of this Earth.
+                                   </p>
+                               </div>
+                           </td>
+                       </tr>
+                   </table>
+               </div>);
+               data.Add().ID("woldwar").Text("World War Z").ContentTemplate(@<div>
+                   <table>
+                       <tr>
+                           <td class="movies-img" valign="top">
+                               <img src="@Url.Content("~/Images/rating/wwz.png")" alt="mos" />
+                           </td>
+                           <td valign="top">
+                               <div>
+                                   <span class="movie-header">World War Z</span><br />
+                                   <span>Movie Info:</span>
+                                   <p>
+                                       The story revolves around United Nations employee Gerry Lane (Pitt).
+                                   </p>
+                               </div>
+                           </td>
+                       </tr>
+                   </table>
+               </div>);
+               data.Add().ID("unive").Text("Monsters University").ContentTemplate(@<div>
+                   <table>
+                       <tr>
+                           <td class="movies-img" valign="top">
+                               <img src="@Url.Content("~/Images/rating/mu.png")" alt="mos" />
+                           </td>
+                           <td valign="top">
+                               <div>
+                                   <span class="movie-header">Monsters University</span><br />
+                                   <span>Movie Info:</span>
+                                   <p>
+                                       Mike Wazowski and James P. Sullivan are an inseparable pair, but that wasn't always the case. 
+                                   </p>
+                               </div>
+                           </td>
+                       </tr>
+                   </table>
+               </div>);
+           }).Render();}
+    </div>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .movies-img {
+            width: 125px;
+        }
+
+        .movie-header {
+            font-size: 20px;
+            font-weight: 600;
+        }
+ 
+    </style>
+}
+
