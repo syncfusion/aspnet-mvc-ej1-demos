@@ -1,0 +1,180 @@
+@section SampleHeading{
+    <span class="sampleName">BulletGraph-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>
+}
+
+@section ControlsSection{
+
+    <div>
+        <center>
+        <div>
+            @(Html.EJ().BulletGraph("Bullet2").QualitativeRangeSize(32).QuantitativeScaleLength(475)
+                  .TooltipSettings(t => t.Visible(true).Template("Tooltip")).Orientation(Orientation.Horizontal)
+                  .FlowDirection(Syncfusion.JavaScript.DataVisualization.FlowDirection.Forward)
+                  .QuantitativeScaleSettings(qs =>
+                      {
+                          qs.Location(l => l.x(110).y(10))
+                            .Minimum(0)
+                            .Maximum(10)
+                            .Interval(1)
+                            .MinorTicksPerInterval(4)
+                            .MajorTickSettings(mat => mat.Size(13).Width(1).Stroke(System.Drawing.Color.Gray))
+                            .MinorTickSettings(mit => mit.Size(5).Width(1).Stroke(System.Drawing.Color.Gray))
+                            .LabelSettings(la => { 
+                            la.Position(Syncfusion.JavaScript.DataVisualization.LabelPosition.Below)
+                            .Offset(14).Size(10); })
+                            .TickPosition(Syncfusion.JavaScript.DataVisualization.TickPosition.Far)
+                            .FeaturedMeasureSettings(fm => fm.Width(6))
+                            .ComparativeMeasureSettings(cm => cm.Width(5))
+                            .FeatureMeasure(fm => { fm.ComparativeMeasureValue(6.7).Value(8).Category("").Add(); });
+
+                      })
+                  .QualitativeRanges(qr =>
+                      {
+                          qr.RangeEnd(4.3).Add();
+                          qr.RangeEnd(7.3).Add();
+                          qr.RangeEnd(10).Add();
+                      })
+                  .CaptionSettings(cs => cs.TextAngle(0).Text("Revenue YTD").Location(ls => ls.x(17).y(20))
+                  .Font(f => f.FontFamily("Segoe UI")
+                  .FontStyle(BulletFontStyle.Normal.ToString()).FontSize("12px").FontWeight("Normal").Opacity(1))
+                  .SubTitle(so => so.TextAngle(0).Text("$ in Thousands").Location(l => l.x(10).y(35))
+                  .Font(f => f.FontFamily("Segoe UI")
+                  .FontStyle(BulletFontStyle.Normal.ToString()).FontSize("12px").FontWeight("Normal").Opacity(1))))
+                  )
+
+        </div>
+
+
+        <div>
+            @(Html.EJ().BulletGraph("Bullet3").QualitativeRangeSize(32).QuantitativeScaleLength(475).Orientation(Orientation.Horizontal)
+                  .FlowDirection(Syncfusion.JavaScript.DataVisualization.FlowDirection.Forward)
+                  .QuantitativeScaleSettings(qs =>
+                      {
+                          qs.Location(l => l.x(110).y(10))
+                            .Minimum(-10)
+                            .Maximum(10)
+                            .Interval(2)
+                            .MinorTicksPerInterval(4)
+                            .MajorTickSettings(mat => mat.Size(13).Width(1))
+                            .MinorTickSettings(mit => mit.Size(5).Width(1))
+                            .LabelSettings(la => { la.LabelSuffix("%")
+                            .Position(Syncfusion.JavaScript.DataVisualization.LabelPosition.Below)
+                            .Offset(14).Size(10); })
+                            .TickPosition(Syncfusion.JavaScript.DataVisualization.TickPosition.Far)
+                            .FeaturedMeasureSettings(fm => fm.Width(6))
+                            .ComparativeMeasureSettings(cm => cm.Width(5))
+                            .FeatureMeasure(fm => { fm.ComparativeMeasureValue(6.7).Value(8).Add(); });
+
+                      })
+                  .QualitativeRanges(qr =>
+                      {
+                          qr.RangeEnd(-4).RangeStroke(System.Drawing.Color.OliveDrab).Add();
+                          qr.RangeEnd(3).RangeStroke(System.Drawing.Color.Yellow).Add();
+                          qr.RangeEnd(10).RangeStroke(System.Drawing.Color.Crimson).Add();
+                      })
+                  .CaptionSettings(cs => cs.TextAngle(0).Text("Profit").Location(ls => ls.x(60).y(25))
+                  .Font(f => f.FontFamily("Segoe UI")
+                  .FontStyle(BulletFontStyle.Normal.ToString()).FontSize("14px").FontWeight("Normal").Opacity(1))
+                  )
+                  )
+        </div>
+        <div>
+            @(Html.EJ().BulletGraph("Bullet4").Width(620).QualitativeRangeSize(32).QuantitativeScaleLength(475)
+                  .TooltipSettings(t => t.Visible(true)).Orientation(Orientation.Horizontal)
+                  .FlowDirection(Syncfusion.JavaScript.DataVisualization.FlowDirection.Backward)
+                  .QuantitativeScaleSettings(qs =>
+                      {
+                          qs.Location(l => l.x(125).y(10))
+                            .Minimum(-10)
+                            .Maximum(10)
+                            .Interval(2)
+                            .MinorTicksPerInterval(4)
+                            .MajorTickSettings(mat => mat.Size(13).Width(1).Stroke(System.Drawing.Color.Gray))
+                            .MinorTickSettings(mit => mit.Size(5).Width(1).Stroke(System.Drawing.Color.Gray))
+                            .LabelSettings(la => { la.LabelSuffix("%")
+                            .Position(Syncfusion.JavaScript.DataVisualization.LabelPosition.Below)
+                            .Offset(14).Size(10); })
+                            .TickPosition(Syncfusion.JavaScript.DataVisualization.TickPosition.Far)
+                            .FeaturedMeasureSettings(fm => fm.Width(6))
+                            .ComparativeMeasureSettings(cm => cm.Width(5))
+                            .FeatureMeasure(fm => { fm.ComparativeMeasureValue(-2).Value(-2).Add(); });
+
+                      })
+                  .QualitativeRanges(qr =>
+                      {
+                          qr.RangeEnd(-4.3).Add();
+                          qr.RangeEnd(4.3).Add();
+                          qr.RangeEnd(10).Add();
+                      })
+                  .CaptionSettings(cs => cs.TextAngle(0).Text("Expenses").Location(ls => ls.x(38).y(25))
+                  .Font(f => f.FontFamily("Segoe UI").FontStyle(BulletFontStyle.Normal.ToString()).FontSize("14px")
+                  .FontWeight("Normal").Opacity(1))
+                  )
+                  )
+        </div>
+        <div>
+            @(Html.EJ().BulletGraph("Bullet5").Width(620).QualitativeRangeSize(32).QuantitativeScaleLength(475)
+                  .TooltipSettings(t => t.Visible(true).Template("Tooltip")).Orientation(Orientation.Horizontal)
+                  .FlowDirection(Syncfusion.JavaScript.DataVisualization.FlowDirection.Backward)
+                  .QuantitativeScaleSettings(qs =>
+                      {
+                          qs.Location(l => l.x(125).y(10))
+                            .Minimum(0)
+                            .Maximum(10)
+                            .Interval(1)
+                            .MinorTicksPerInterval(4)
+                            .MajorTickSettings(mat => mat.Size(13).Width(1))
+                            .MinorTickSettings(mit => mit.Size(5).Width(1))
+                            .LabelSettings(la => { la.LabelSuffix("K").LabelPrefix("$")
+                            .Position(Syncfusion.JavaScript.DataVisualization.LabelPosition.Below)
+                            .Offset(14).Size(10); })
+                            .TickPosition(Syncfusion.JavaScript.DataVisualization.TickPosition.Far)
+                            .FeaturedMeasureSettings(fm => fm.Width(5))
+                            .ComparativeMeasureSettings(cm => cm.Width(5))
+                            .FeatureMeasure(fm => { fm.ComparativeMeasureValue(6.7).Value(8).Category("").Add(); });
+
+                      })
+                  .QualitativeRanges(qr =>
+                      {
+                          qr.RangeEnd(4.3).RangeStroke(System.Drawing.Color.OliveDrab).Add();
+                          qr.RangeEnd(7.3).RangeStroke(System.Drawing.Color.Yellow).Add();
+                          qr.RangeEnd(10).RangeStroke(System.Drawing.Color.Crimson).Add();
+                      })
+                  .CaptionSettings(cs => cs.TextAngle(0).Text("Revenue YTD").Location(ls => ls.x(17).y(20))
+                  .Font(f => f.FontFamily("Segoe UI").FontStyle(BulletFontStyle.Normal.ToString())
+                  .FontSize("12px").FontWeight("Normal").Opacity(1))
+                  .SubTitle(so => so.TextAngle(0).Text("$ in Thousands").Location(l => l.x(10).y(35))
+                  .Font(f => f.FontFamily("Segoe UI").FontStyle(BulletFontStyle.Normal.ToString())
+                  .FontSize("12px").FontWeight("Normal").Opacity(1))))
+                  )
+        </div>
+            </center>
+    </div>
+
+    <div id="Tooltip" style="display: none; width: 125px; padding-top: 10px; padding-bottom: 10px">
+        <div style="font-weight: bold">
+            Sales
+        </div>
+        <table>
+            <tr>
+                <td>Current
+                </td>
+                <td>: {{:currentValue}}
+                </td>
+            </tr>
+            <tr>
+                <td>Target
+                </td>
+                <td>: {{:targetValue}}
+                </td>
+            </tr>
+        </table>
+    </div>
+   }
+@section MetaTags{
+   <meta name="description" content="This sample demonstrates the default rendering of the Syncfusion ASP.NET Web Forms Bullet graph control.">
+}
+
+
+
+

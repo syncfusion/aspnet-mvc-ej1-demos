@@ -1,0 +1,115 @@
+﻿@section SampleHeading{ <span class="sampleName">ReportDesigner/WebDesignerLocalization</span>}
+
+@using Syncfusion.JavaScript
+@using Syncfusion.MVC.EJ
+
+@section StyleSection{
+   <style>
+    #container {
+        min-height: 650px;
+        min-width: 100%;
+    }
+
+    #e-rptdesigner-locale-dropdwn {
+        border-right: 0px !important;
+    }
+
+    #e-rptdesigner-locale-div {
+        margin-top: 4px;
+    }
+
+    .e-rptdesigner-preview-div {
+        width: 88px !important;
+    }
+
+    .e-rptdesigner-toolbarul-preview.e-separator {
+        border-right: 0 none !important;
+    }
+
+    .e-rptdesigner .e-rptdesigner-toolbarul {
+        display: inline-block;
+    }
+</style>
+}
+
+@section ScriptReferenceSection{
+}
+
+@section ControlsSection{
+    <div style="width:100%">
+        @(Html.EJ().ReportDesigner("container")
+        .ServiceUrl(VirtualPathUtility.ToAbsolute("~/api/ReportDesigner"))
+        .Create("controlInitialized").ToolbarRendering("renderDesignerToolbar")
+        .ToolbarSettings(tb => tb.Items(Syncfusion.JavaScript.ReportDesignerEnums.ToolbarItems.All)))
+    </div>
+}
+
+<script type="text/javascript">
+    var isSubmit = true;
+    var controlId = 'container';
+    var currentLocale = 'en-US';
+
+    @{ var isSupport = true; }
+
+    if ((ej.browserInfo().name === "msie" && Number(ej.browserInfo().version) < 9)) {
+        alert("ReportDesigner will not be supported in IE Version < 9");
+        @isSupport = false;
+    }
+
+    function formSubmit(args) {
+        isSubmit = false;
+    }
+
+    function windowUnload(args) {
+        var designer = $('#container').data("ejReportDesigner");
+        if (designer.hasReportChanges() && isSubmit) {
+            return 'Changes you made may not be saved';
+        }
+        isSubmit = true;
+    }
+
+    function controlInitialized(args) {
+        var designer = $('#' + controlId).data("ejReportDesigner");
+        designer.openReport('/Catagory1/Customer Support Analysis');
+    }
+
+    function renderDesignerToolbar(args) {
+        var locale = [
+        { id: '1', text: 'en-US' },
+        { id: "2", text: 'fr-FR' },
+        { id: "2", text: 'es-ES' }
+        ];
+        var ulTag = $("<ul style='float:right;display:inline-block;'/>");
+        ulTag.attr('id', 'e-rptdesigner-locale-dropdwn');
+        var liTag = $("<div/>");
+        liTag.attr('id', 'e-rptdesigner-locale-div');
+        var input = $("<input/>");
+        input.attr('id', 'dropdown-input');
+        liTag.append(input);
+        ulTag.append(liTag);
+        args.target.append(ulTag);
+        input.ejDropDownList({
+            dataSource: locale,
+            change: $.proxy(onLocaleChange, this),
+            watermarkText: "Select a Culture",
+            fields: { id: "id", text: "text", value: "text" },
+            width: '100px', height: '25px'
+        });
+        $('#dropdown-input').data("ejDropDownList").selectItemsByIndices('1');
+        currentLocale = $('#dropdown-input').val();
+    }
+
+    function onLocaleChange(args) {
+        var designer = $('#container').data("ejReportDesigner");
+        if (designer && designer.model.locale != args.selectedText) {
+            currentLocale = args.text;
+            $.ajax({
+                url: '../Scripts/cultures/reportdesigner/ej.localetexts.' + currentLocale + '.min.js',
+                async: false
+            });
+            designer.setModel({ 'locale': args.text });
+        }
+    }
+</script>
+
+

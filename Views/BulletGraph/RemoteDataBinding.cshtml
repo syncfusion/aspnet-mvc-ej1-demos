@@ -1,0 +1,79 @@
+@section SampleHeading{
+    <span class="sampleName">BulletGraph-DataBinding-Remote-ASP.NET MVC-SYNCFUSION</span>
+}
+
+@section ControlsSection{
+    <div>
+        @(Html.EJ().BulletGraph("RemoteBindingBullet")
+            .Height(540)
+            .EnableAnimation(true)
+            .QualitativeRangeSize(320)
+            .QuantitativeScaleLength(475)
+            .TooltipSettings(t => t.Visible(true))
+            .Orientation(Orientation.Vertical)
+            .FlowDirection(FlowDirection.Backward)
+            .Fields(fie =>
+            {
+                fie.Datasource(dt => { dt.URL("//js.syncfusion.com/demos/ejServices/Wcf/Northwind.svc/").CrossDomain(true); })
+                                          .Query("ej.Query().from('Products').take(10).where('UnitPrice', ej.FilterOperators.greaterThan, 18, false).where('UnitPrice', ej.FilterOperators.lessThanOrEqual, 40, false).where('UnitsInStock', ej.FilterOperators.greaterThan, 5, false).where('UnitsInStock',ej.FilterOperators.lessThanOrEqual,45,false)")
+                                          .Category("ProductID").FeatureMeasure("UnitPrice").ComparativeMeasure("UnitsInStock");
+            })
+            .QuantitativeScaleSettings(qs =>
+            {
+                qs.Minimum(5).Maximum(45).Interval(10).MinorTicksPerInterval(4)
+                    .MajorTickSettings(mat => mat.Size(13).Width(1).Stroke(System.Drawing.Color.Gray))
+                    .MinorTickSettings(mit => mit.Size(5).Width(1).Stroke(System.Drawing.Color.Gray))
+                    .TickPosition(TickPosition.Near).LabelSettings(lbl => lbl.Position(LabelPosition.Above)
+                    .Offset(15).Size(10)).Location(loc => loc.x(50).y(200));
+            })
+            .QualitativeRanges(qr =>
+                {
+                    qr.RangeEnd(25).Add();
+                    qr.RangeEnd(37).Add();
+                    qr.RangeEnd(45).Add();
+                })
+           .CaptionSettings(cap =>
+                    {
+                        cap.TextAngle(0)
+                            .SubTitle(st =>
+                            {
+                                st.TextAngle(270).Text("Product in Units")
+                                  .Font(fon => { fon.Opacity(1).FontWeight("regular").FontSize("12px").FontFamily("Segoe UI")
+                                  .FontStyle("Normal"); }).Location(loc => loc.x(145).y(290));
+                            })
+                            .Text("Product (with ID's)")
+                            .Font(fon => { fon.Opacity(1).FontWeight("regular").FontSize("12px").FontFamily("Segoe UI")
+                            .FontStyle("Normal"); }).Location(loc => loc.x(300).y(540));
+                    })
+      )
+    </div>
+    <div id="tooltip" style="display: none; width: 125px; padding-top: 10px; padding-bottom: 10px">
+        <div align="center" style="font-weight: bold">
+            production
+        </div>
+        <table>
+            <tr>
+                <td>production level
+                </td>
+                <td>: {{:currentvalue}}
+                </td>
+            </tr>
+            <tr>
+                <td>estimated level
+                </td>
+                <td>: {{:targetvalue}}
+                </td>
+            </tr>
+            <tr>
+                <td>product id
+                </td>
+                <td>: {{:category}}
+                </td>
+            </tr>
+        </table>
+    </div>
+}
+@section MetaTags{
+   <meta name="description" content="This sample demonstrates the product unit based on product Id in the Syncfusion ASP.NET Web Forms Bullet graph control.">
+}
+

@@ -1,0 +1,186 @@
+@section SampleHeading{
+    <span class="sampleName">Splitter-Keyboard Navigation-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to access the Syncfusion ASP.NET MVC Splitter component functionalities using keyboard interactions.">
+}
+@section ControlsSection{
+
+
+    @{Html.EJ().Splitter("outer").Height("350").Width("100%").Orientation(Orientation.Vertical).EnableAutoResize(true).PaneProperties(
+            p =>
+            {
+                p.Add().ContentTemplate(                            
+        @<div style="height: 100%">
+
+            @innerSplitter()
+
+        </div>);
+                p.Add().ContentTemplate(
+        @<div class="cont">
+            Pane 3
+        </div>).PaneSize("80");
+            }).Render();}
+
+
+    @helper innerSplitter()
+{
+        @Html.EJ().Splitter("inner").EnableAutoResize(true).PaneProperties(
+            p1 =>
+            {
+                p1.Add().ContentTemplate(
+                    @<div class="cont">
+                        Pane 1
+                    </div>);
+                p1.Add().ContentTemplate(
+                    @<div class="cont">
+                        Pane 2
+                    </div>);
+            }).Orientation(Orientation.Horizontal)
+    }
+
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Alt + j
+        </div>
+        <div class="col-md-3">
+            Focuses the first Splitbar
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Tab
+        </div>
+        <div class="col-md-3">
+            Focuses the next Splitbar
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Shift + Tab
+        </div>
+        <div class="col-md-3">
+            Focuses the previous Splitbar
+        </div>
+    </div>
+	<div class="row">
+        <div class="col-md-3">
+            Enter
+        </div>
+        <div class="col-md-3">
+            Resize the Pane to the current Splitbar position.
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <br />
+            Esc
+        </div>
+        <div class="col-md-3">
+            <br />
+            Focuses out from the Splitbar
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+			 <br/>
+            For Horizontal:
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Left
+        </div>
+        <div class="col-md-3">
+            Moves the Splitbar in Left
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Right
+        </div>
+        <div class="col-md-3">
+            Moves the Splitbar in Right
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Ctrl + Left
+        </div>
+        <div class="col-md-3">
+            Collapses the left Pane
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Ctrl + Right
+        </div>
+        <div class="col-md-3">
+            Collapses the right Pane
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            For Vertical:
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Up
+        </div>
+        <div class="col-md-3">
+            Moves the Splitbar in Bottom
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Down
+        </div>
+        <div class="col-md-3">
+            Moves the Splitbar in Right
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Ctrl + Up
+        </div>
+        <div class="col-md-3">
+            Collapses the top Pane
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Ctrl + Down
+        </div>
+        <div class="col-md-3">
+            Collapses the bottom Pane
+        </div>
+    </div>    
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            //Control focus key
+            $(document).on("keydown", function (e) {
+                if (e.altKey && e.keyCode === 74) { // j- key code.
+                    $("#outer .e-splitbar")[0].focus();
+                }
+            });
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+    </script>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .cont {
+            text-align: center;
+            padding: 10px 0 0 10px;
+        }
+
+        #inner {
+            border: 0 none;
+        }
+    </style>
+}
+

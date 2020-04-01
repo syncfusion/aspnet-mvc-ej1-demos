@@ -1,0 +1,160 @@
+@section SampleHeading{<span class="sampleName">Grid-Paging API-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This demo explains how to customize a pager using the APIs that are relevant to paging of Syncfusion ASP.NET MVC DataGrid control.">
+}
+@section ControlsSection{
+    @(Html.EJ().Grid<OrdersView>("Paging")
+        .Datasource((IEnumerable<object>)ViewBag.datasource)
+        .AllowPaging()
+                .PageSettings(p => { p.PageCount(3); })
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).Width(80).Add();
+            col.Field("CustomerID").HeaderText("Customer ID").Width(90).Add();
+            col.Field("EmployeeID").HeaderText("Employee ID").Width(80).Add();
+            col.Field("Freight").HeaderText("Freight").Width(80).Format("{0:C}").Add();
+            col.Field("ShipCity").HeaderText("Ship City").Width(110).Add();
+            col.Field("ShipCountry").HeaderText("Ship Country").Width(110).Add();
+        })
+                                .ClientSideEvents(eve => { eve.ActionBegin("beginHandler"); })
+        )
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Allow Paging
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().CheckBox("allowCheck")
+                .Checked()
+                .ClientSideEvents(eve => { eve.Change("onClick"); })
+                )
+        </div>
+        <div class="col-md-3">
+            Page Size
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().NumericTextbox("sizetxt")
+                .Value("12")
+                .MinValue(1)
+                .MaxValue(50)
+                .ClientSideEvents(eve => { eve.Change("sizeValChange"); })
+                .Width("100px")
+                )
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Page Count
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().NumericTextbox("counttxt")
+                .Value("3")
+                .MinValue(1)
+                .MaxValue(8)
+                .ClientSideEvents(eve => { eve.Change("countValChange"); })
+                .Width("100px")
+                )
+        </div>
+        <div class="col-md-3">
+            Current Page
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().NumericTextbox("pagetxt")
+                .Value("1")
+                .MinValue(1)
+                .ClientSideEvents(eve => { eve.Change("pageValChange"); })
+                .Width("100px")
+                )
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        var flag = flag1 = false;
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        function beginHandler(args) {
+            if (args.requestType == "paging") {
+                var val = $("#counttxt").ejNumericTextbox().val();
+                var model = $("#Paging").ejGrid("getPager").ejPager("model");
+                if (val != model.pageCount && val != "")
+                    model.pageCount = val;
+                if (flag1 == false) {
+                    flag = true;
+                    $("#pagetxt").ejNumericTextbox({ value: args.currentPage });
+                }
+				else
+					flag1 = false;
+            }
+        }
+
+        function onClick(args) {
+            var model = $("#Paging").ejGrid("model");
+            model.pageSettings.currentPage = 1;
+            $("#pagetxt").ejNumericTextbox("model.value", model.pageSettings.currentPage);
+            if (!args.isChecked)
+                $("#pagetxt, #counttxt, #sizetxt").ejNumericTextbox("disable");
+            else
+                $("#pagetxt, #counttxt, #sizetxt").ejNumericTextbox("enable");
+            $("#Paging").ejGrid({ allowPaging: args.isChecked });
+        }
+       
+        function pageValChange(args) {
+            if (flag == false) {
+                flag1 = true;
+                var checkObj = $("#allowCheck").data("ejCheckBox");
+                var ischecked = checkObj.option("checked");
+                if (checkNumericValue(args.value))
+                    return;
+                var model = $("#Paging").ejGrid("getPager").ejPager("model");
+                if (ischecked && (parseInt(args.value) <= model.totalPages))
+                    $("#Paging").ejGrid("getPager").ejPager("goToPage", args.value);
+                setPageValue(args.model.name, model.totalPages);
+            }
+            else
+                flag = false;
+        }
+       
+        function countValChange(args) {
+            var checkObj = $("#allowCheck").data("ejCheckBox");
+            var ischecked = checkObj.option("checked");
+            var model = $("#Paging").ejGrid("model");
+            var pagermodel = $("#Paging").ejGrid("getPager").ejPager("model");
+            if (checkNumericValue(args.value))
+                return;
+            if (args.value > pagermodel.totalPages) {
+                $("#counttxt").ejNumericTextbox({ value: pagermodel.totalPages });
+                return;
+            }
+            if (ischecked && Math.ceil(model.pageSettings.totalRecordsCount / model.pageSettings.pageSize) >= parseInt(args.value))
+                $("#Paging").ejGrid({ "pageSettings": { pageCount: parseInt(args.value)} });
+        }
+        function setPageValue(id,val) {
+            $("#"+id).ejNumericTextbox("model").maxValue = val;
+        }
+        function checkNumericValue(value) {
+            var pagermodel = $("#Paging").ejGrid("getPager").ejPager("model");
+            return (value == "" || value == 0);
+        }
+        function sizeValChange(args) {
+            if (checkNumericValue(args.value))
+                return;
+            var model = $("#Paging").ejGrid("model");
+            var model1 = $("#Paging").ejGrid("getPager").ejPager("model");
+            var newLastPage = Math.ceil(model.pageSettings.totalRecordsCount / args.value);
+            $("#Paging").ejGrid({ "pageSettings": { pageSize: parseInt(args.value) } });
+            if (model1.pageCount > newLastPage)
+                $("#counttxt").ejNumericTextbox({ value: newLastPage });
+            else {
+				setPageValue("pagetxt", model1.totalPages);
+                $("#counttxt").ejNumericTextbox({ value: model1.pageCount });
+                flag = true;
+                $("#pagetxt").ejNumericTextbox({ value: model1.currentPage });
+                flag = false;
+            }
+        }
+    </script>
+}
+

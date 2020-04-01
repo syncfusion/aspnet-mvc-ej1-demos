@@ -1,0 +1,10 @@
+<configuration>
+	<system.web.webPages.razor>
+		<pages>
+			<namespaces>
+				<add namespace="Syncfusion.JavaScript"/>
+				<add namespace="Syncfusion.JavaScript.Olap"/>
+</namespaces>
+		</pages>
+	</system.web.webPages.razor>
+</configuration>

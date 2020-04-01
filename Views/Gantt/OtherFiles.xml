@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Category>
+  <Samples url="/Gantt/GanttScheduleModes">
+    <DependentFiles displayname="GanttData.js" url="/Gantt/GanttData.js"></DependentFiles>
+  </Samples>
+</Category>

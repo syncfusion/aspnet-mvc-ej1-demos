@@ -1,0 +1,14 @@
+@section SampleHeading{ <span class="sampleName">TagCloud-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>}
+@section ActionDescription{
+    <div class="action-description">
+    <p>
+        This sample demonstrates rendering TagCloud control allows the user to display a list of links or tags with a structured cloud format where the importance of the tags can differentiate with varied font sizes, colors, and styles.
+    </p>
+    </div>
+}
+@section ControlsSection{
+<div class="controlframe" style="width: 350px;">
+    @Html.EJ().TagCloud("techWebList").Datasource((IEnumerable<WebsiteCollection>)ViewBag.datasource).TagCloudFields(tag => tag.Text("text").Url("url").Frequency("frequency")).Title("Tech Sites")
+</div>
+}
+

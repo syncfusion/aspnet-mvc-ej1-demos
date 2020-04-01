@@ -1,0 +1,38 @@
+@{
+    ViewBag.Title = "Default";
+}
+
+@section SampleHeading{
+    <span class="sampleName">Signature-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to capture or draw smooth signatures using the Syncfusion ASP.NET MVC Signature component.">
+}
+@section ActionDescription{
+    <div class="action-description">
+    <p>
+        This sample demonstrates about Signature Plugin is used to capture or drawing the smooth signatures. It captures user’s signature as vector outlines of strokes. 
+        Using Signature we can customize the background, stroke width and stroke color and also convert captured signature to an image format. It is also provided with Undo, Redo & Clear options.
+    </p>
+    </div>
+}
+@section ControlsSection{
+
+    <div class="frame">
+        <div class="control">
+		 <h3>Sign here</h3>
+            @Html.EJ().Signature("sign").Height("400px").StrokeWidth(3).IsResponsive(true)
+        </div>
+    </div>
+
+}
+@section StyleSection{
+
+    <style type="text/css">
+        .frame {
+            width: 80%;
+        }
+    </style>
+}
+
+
+

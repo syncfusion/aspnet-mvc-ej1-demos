@@ -1,0 +1,140 @@
+@section SampleHeading{
+    <span class="sampleName">Diagram-Tooltip-ASP.NET MVC-SYNCFUSION</span>
+}
+@section MetaTags{
+    <meta name="description" content="This sample demonstrates ASP.NET MVC diagram's tooltip functionality and its customization in the diagram.">
+}	
+@section ControlsSection{
+    <div>
+        @Html.EJ().Diagram("Tooltip", ViewData["diagramModel"] as Syncfusion.JavaScript.DataVisualization.Models.DiagramProperties)
+    </div>
+}
+@section PropertiesSection{
+    <div id="sampleProperties">
+        <div class="prop-grid">
+            <div class="row">
+                <div class="col-md-3">
+                    <b>Tooltip</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Position
+                </div>
+                <div class="col-md-3  aligntop" style="margin-left:-25px;">
+                    @Html.EJ().DropDownList("tooltip").TargetID("options").Text("Object").Value("value").Width("120px").ClientSideEvents(s => s.Change("changeOptions"))
+                    <div id="options">
+                        <ul>
+                            <li value="object">Object</li>
+                            <li value="mouse">Mouse</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Margin
+                </div>
+                <div class="col-md-3  aligntop" style="margin-left:-25px;">
+                    @Html.EJ().NumericTextbox("margin").Width("120px").Value(0).MinValue(0).MaxValue(1000).ClientSideEvents(s => s.Change("changeMargin"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <b>Alignment</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Horizontal
+                </div>
+                <div class="col-md-3  aligntop" style="margin-left:-25px;">
+                    @Html.EJ().DropDownList("horizontalalign").TargetID("horizontalalignlist").Text("Center").Value("value").Width("120px").ClientSideEvents(s => s.Change("changeHorizontalAlign"))
+                    <div id="horizontalalignlist">
+                        <ul>
+                            <li value="center">Center</li>
+                            <li value="left">Left</li>
+                            <li value="right">Right</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Vertical
+                </div>
+                <div class="col-md-3  aligntop" style="margin-left:-25px;">
+                    @Html.EJ().DropDownList("verticalalign").TargetID("verticalalignlist").Text("Bottom").Value("value").Width("120px").ClientSideEvents(s => s.Change("changeVerticalAlign"))
+                    <div id="verticalalignlist">
+                        <ul>
+                            <li value="bottom">Bottom</li>
+                            <li value="top">Top</li>
+                           
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+}
+
+@section ScriptSection{
+    <script type="text/javascript">
+        // Properties Panel
+        $("#sampleProperties").ejPropertiesPanel();
+        var Diagram = ej.datavisualization.Diagram;
+        function changeOptions(args) {
+            var node, diagram;
+            diagram = $("#Tooltip").ejDiagram("instance");
+            for (var i = 0; i < diagram.model.nodes.length; i++) {
+                node = diagram.findNode(diagram.model.nodes[i].name);
+                if (node.tooltip && args.value != diagram.model.tooltip.relativeMode) {
+                    node.constraints ^= ej.datavisualization.Diagram.NodeConstraints.InheritTooltip;
+                }
+            }
+            $("#Tooltip").ejDiagram({ tooltip: { relativeMode: args.value } });
+        }
+
+        function changeHorizontalAlign(args) {
+            $("#Tooltip").ejDiagram({
+                tooltip: {
+                    alignment: { horizontal: args.value }
+                }
+            });
+        }
+
+        function changeVerticalAlign(args) {
+            $("#Tooltip").ejDiagram({
+                tooltip: {
+                    alignment: { vertical: args.value }
+                }
+            });
+        }
+        //Margin
+        $("#margin").ejNumericTextbox({
+            value: 0,
+            minValue: 0,
+            maxValue: 1000,
+            width: "120px",
+            "change": "changeMargin"
+        });
+        function changeMargin(args) {
+            $("#Tooltip").ejDiagram({
+                tooltip: {
+                    margin: { left: args.value, right: args.value, top: args.value, bottom: args.value }
+                }
+            });
+        }
+        //End region
+
+    </script>
+
+    <script type="text/x-jsrender" id="mouseovertoolTipId">
+        <div style="background-color: #f4f4f4; color: black; border-width:1px;border-style: solid;border-color: #d3d3d3; border-radius: 8px;corner-radius:2px;white-space: nowrap;">
+            <span style="margin: 10px;"> {{:addInfo.Description}} </span>
+        </div>
+    </script>
+
+}
+

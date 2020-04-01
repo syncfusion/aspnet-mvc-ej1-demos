@@ -1,0 +1,53 @@
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/excanvas.min.js")"></script>
+    }
+@section SampleHeading{
+	<span class="sampleName">CircularGauge-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>
+	}
+
+@section ControlsSection{
+ <div align="center">
+ @(Html.EJ().CircularGauge("circulargauge1")
+      .IsResponsive(true)
+                .BackgroundColor("transparent")
+                    .ClientSideEvents(cli=>cli.Load("loadGaugeTheme"))
+                .Scales(sc =>
+                {
+                    sc.Radius(130)
+                    .PointerCap(cap=>cap.Radius(10))
+                    .Minimum(0)
+                    .Maximum(120)
+                    .MajorIntervalValue(20)
+                    .MinorIntervalValue(10)
+                    .ShowScaleBar(true)
+                    .Size(1)
+                    .ShowRanges(true)
+                    .Ranges(ran =>
+                    {
+                        ran.Size(5).DistanceFromScale(-30).StartValue(0).EndValue(70).Add();
+                        ran.Size(5).DistanceFromScale(-30).StartValue(70).EndValue(110).BackgroundColor(ConsoleColor.Red.ToString()).Border(bor=>bor.Color(ConsoleColor.Red.ToString())).Add();
+                        ran.Size(5).DistanceFromScale(-30).StartValue(110).EndValue(120).BackgroundColor(ConsoleColor.Yellow.ToString()).Border(bor=>bor.Color(ConsoleColor.Yellow.ToString())).Add();
+                    })
+                    .Pointers(po =>
+                    {
+                        po.Value(60)
+                        .Length(90)
+                        .Width(8)
+                        .ShowBackNeedle(true)
+                        .BackNeedleLength(15).Add();
+                    }).Add();
+                })
+                .Radius(140)
+                .Height(360)
+                .Width(500)
+                )
+</div>
+}
+@section MetaTags{
+   <meta name="description" content="This sample demonstrates default rendering of the Syncfusion ASP.NET Web Forms Circular gauge control.">
+}
+
+
+
+
+

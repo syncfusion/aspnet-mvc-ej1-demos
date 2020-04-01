@@ -1,0 +1,81 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart-Smart Labels-ASP.NET MVC-SYNCFUSION</span>}
+
+@section MetaTags{
+    <meta name="description" content="This sample demonstrates how to render smart data labels using Syncfusion ASP.NET MVC Chart Control">
+}
+
+@section ControlsSection{
+
+    <div>
+        @(Html.EJ().Chart("container").PrimaryXAxis(xaxis => xaxis.Range(ra => ra.Min(2004).Max(2013).Interval(1)).Title(tl => tl.Text("Months")).EdgeLabelPlacement(EdgeLabelPlacement.Hide))
+           .PrimaryYAxis(pr => pr.LabelFormat("{value}%").Range(ra => ra.Min(20).Max(40).Interval(4)).Title(tl => tl.Text("Profit percentage")))
+              .CommonSeriesOptions(cm => cm.EnableAnimation(true).Tooltip(tl=>tl.Visible(true)).Border(br=>br.Width(2)).Type(SeriesType.Line)
+                  .Marker(mr => mr.DataLabel(dt => dt.Visible(true).Shape(ChartShape.Rectangle).EnableContrastColor(true).ConnectorLine(cl=>cl.Width(1))).Shape(ChartShape.Circle).Size(sz => sz.Height(8).Width(8)).Visible(true)))
+                .Series(sr =>
+               {
+                 sr.Points(po =>
+                     {
+
+                         po.X("2005").Y(28).Add();
+                         po.X("2006").Y(24).Add();
+                         po.X("2006").Y(24).Add();
+                         po.X("2006").Y(24).Add();
+                         po.X("2007").Y(26).Add();
+                         po.X("2008").Y(27).Add();
+                         po.X("2008").Y(27).Add();
+                         po.X("2009").Y(32).Add();
+                         po.X("2010").Y(34).Add();
+                         po.X("2010").Y(34).Add();
+                         po.X("2010").Y(34).Add();
+                         po.X("2010").Y(34).Add();
+                         po.X("2011").Y(29).Add();
+                         po.X("2012").Y(31).Add();
+                     }).Name("Profit percentage").EnableSmartLabels(true).Fill("#1ab0b0").Add();
+             })
+              .Load("loadTheme")
+              .Size(sz=>sz.Height("600"))
+              .IsResponsive(true)
+              .Title(title => title.Text("Sum of profit percentage from various share investments"))
+              .Legend(lg => { lg.Visible(false); }))
+    </div>
+}
+
+@section PropertiesSection
+{
+    <div id="sampleProperties">
+        <div class="prop-grid">
+            <div class="row">
+                <div> <br/>
+                   <center>
+                    <input type="checkbox" id="enableSmartLabels" Checked/> EnableSmartLabels
+                   </center>
+
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@section ScriptSection
+{
+<script>
+
+    $("#enableSmartLabels").change(function () {
+        var chart = $("#container").ejChart("instance");
+        if ($("#enableSmartLabels").is(":checked"))
+            chart.model.series[0].enableSmartLabels = true;
+        else 
+            chart.model.series[0].enableSmartLabels = false;
+        chart.redraw();
+    });
+
+    $("#sampleProperties").ejPropertiesPanel();
+    </script>
+}
+
+
+
+
+
