@@ -1,0 +1,132 @@
+@section SampleHeading{<span class="sampleName">Spreadsheet-Events-ASP.NET MVC-SYNCFUSION</span>}
+
+@section MetaTags{
+   <meta name="description" content="This demo shows client-side events that trigger on specific actions in the Syncfusion ASP.NET MVC Spreadsheet control">
+}
+
+<link href="@Url.Content("~/Content/Samples/SpreadsheetStyles.css")" rel="stylesheet" />
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+}
+@section ControlsSection{
+    @(Html.EJ().Spreadsheet<object>("Spreadsheet")
+    .AllowFormulaBar(false)
+    .ShowRibbon(false)
+    .EnableContextMenu(false)
+    .ScrollSettings(scroll => { scroll.Height(450); })
+    .Sheets(sheet =>
+    {
+        sheet.RangeSettings(range =>
+        {
+            range.Datasource((IEnumerable<object>)ViewBag.Datasource).Add();
+        }).Add();
+    })
+    .ClientSideEvents(events => {
+        events.ActionBegin("actionBegin");
+        events.ActionComplete("actionComplete");
+        events.BeforeCellFormat("beforeCellFormat");
+        events.Drag("drag");
+        events.CellEdit("cellEdit");
+        events.CellClick("cellClick");
+        events.Load("load");
+        events.LoadComplete("loadComplete");
+        events.CellHover("cellHover");
+        events.CellSave("cellSave");
+        events.BeforeCellSelect("beforeCellSelect");
+    })
+    )
+}
+@section EventsDropDown{
+    <div id="ddl">
+        <ul>
+            <li>actionBegin</li>
+            <li>actionComplete</li>
+            <li>beforeCellFormat</li>
+            <li>drag</li>
+            <li>cellEdit</li>
+            <li>cellClick</li>
+            <li>load</li>
+            <li>loadComplete</li>
+            <li>cellHover</li>
+            <li>cellSave</li>
+            <li>beforeCellSelect</li>
+        </ul>
+    </div>
+    @(Html.EJ().DropDownList("selectControls_input")
+          .TargetID("ddl")
+          .ClientSideEvents(eve => { eve.Change("changeevent").PopupShown("adjustpopupposition"); })
+          .ShowCheckbox()
+          .CheckAll()
+    )
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            xlObj = $("#Spreadsheet").data("ejSpreadsheet");
+            ddObj = $("#selectControls_input").data("ejDropDownList");
+            ddObj.unselectItemByIndex(8);
+            ddObj.unselectItemByIndex(10);
+            xlObj.XLFormat.format({ "style": { "font-weight": "bold", "vertical-align": "middle", "text-align": "center", "background-color": "#559ad9", "color": "#FFFFFF" } }, "A1:F1");
+            xlObj.setWidthToColumns([ 132, 141, 131, 137, 122, 122 ]);
+            xlObj.performSelection("A2");
+        });
+
+        function changeevent(args) {
+            if (args.isChecked && xlObj != undefined) {
+                switch (args.value) {
+                    case "actionBegin": xlObj.option(args.value, "actionBegin"); break;
+                    case "actionComplete": xlObj.option(args.value, "actionComplete"); break;
+                    case "beforeCellFormat": xlObj.option(args.value, "beforeCellFormat"); break;
+                    case "drag": xlObj.option(args.value, "drag"); break;
+                    case "cellEdit": xlObj.option(args.value, "cellEdit"); break;
+                    case "cellClick": xlObj.option(args.value, "cellClick"); break;
+                    case "load": xlObj.option(args.value, "load"); break;
+                    case "loadComplete": xlObj.option(args.value, "loadComplete"); break;
+                    case "cellHover": xlObj.option(args.value, "cellHover"); break;
+                    case "cellSave": xlObj.option(args.value, "cellSave"); break;
+                    case "beforeCellSelect": xlObj.option(args.value, "beforeCellSelect"); break;
+                }
+            }
+            else xlObj.option(args.value, null);
+        }
+        function actionBegin(args) {
+            jQuery.addEventLog("Spreadsheet <span class='eventTitle'>actionBegin</span> event called");
+        }
+        function actionComplete(args) {
+            jQuery.addEventLog("Spreadsheet <span class='eventTitle'>actionComplete</span> event called");
+        }
+        function beforeCellFormat(args) {
+            jQuery.addEventLog("Spreadsheet <span class='eventTitle'>beforeCellFormat</span> event called");
+        }
+        function drag(args) {
+            jQuery.addEventLog("Spreadsheet <span class='eventTitle'>drag</span> event called");
+        }
+        function cellEdit(args) {
+            jQuery.addEventLog("Spreadsheet <span class='eventTitle'>cellEdit</span> event called");
+        }
+        function cellClick(args) {
+            jQuery.addEventLog("Spreadsheet <span class='eventTitle'>cellClick</span> event called");
+        }
+        function load(args) {
+            jQuery.addEventLog("Spreadsheet <span class='eventTitle'>load</span> event called");
+        }
+        function loadComplete(args) {
+            jQuery.addEventLog("Spreadsheet <span class='eventTitle'>loadComplete</span> event called");
+        }
+        function cellHover(args) {
+            jQuery.addEventLog("Spreadsheet <span class='eventTitle'>cellHover</span> event called");
+        }
+        function cellSave(args) {
+            jQuery.addEventLog("Spreadsheet <span class='eventTitle'>cellSave</span> event called");
+        }
+        function beforeCellSelect(args) {
+            jQuery.addEventLog("Spreadsheet <span class='eventTitle'>beforeCellSelect</span> event called");
+        }
+        function onClear() {
+            $("#EventLog").html("");
+        }
+
+    </script>    
+}
+

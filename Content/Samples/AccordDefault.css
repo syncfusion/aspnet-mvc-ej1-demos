@@ -1,0 +1,26 @@
+﻿#basicAccordion img {    
+    float: left;
+    height: 40px;
+    padding-right: 6px;
+}
+
+.emp-list {
+    border-bottom: 1px solid #BBBCBB;
+    margin-bottom: 9px;
+    padding-bottom: 9px;
+}
+
+.emp-list:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.time-panel {
+    float: right;
+    color: #2382C3;
+}
+
+.headername {
+    font-size: 16px;
+    font-weight: 600;
+}

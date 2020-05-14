@@ -1,0 +1,106 @@
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName">Editor-Keyboard Navigation-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+    <div class="frame">
+     <div class="row">
+            <div class="col-xs-6 col-sm-5">
+                            <span>Numeric TextBox</span>
+                        </div>
+            <div class="col-xs-6 col-sm-4">
+                            @Html.EJ().NumericTextbox("numeric").Value("1000").Width("100%")
+                        </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-5">
+                            <span>Percentage TextBox</span>
+                       </div>
+            <div class="col-xs-6 col-sm-4">
+                            @Html.EJ().PercentageTextbox("percent").Value("100").Width("100%")
+                        </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-5">
+                            <span>Currency TextBox</span>
+                        </div>
+            <div class="col-xs-6 col-sm-4">
+                            @Html.EJ().CurrencyTextbox("currency").Value("50").Width("100%")
+                        </div>
+        </div>
+    </div>
+        
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Alt + j 
+        </div>
+        <div class="col-md-3">
+            Focuses the control.
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Up
+        </div>
+        <div class="col-md-3">
+            Increments the value
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Down
+        </div>
+        <div class="col-md-3">
+            Decrements the value
+        </div>
+    </div>
+     
+     <div class="row">
+        <div class="col-md-3">
+            Tab
+        </div>
+        <div class="col-md-3">
+            Focus the next element
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+            $(document).on("keydown", function (e) {
+                if (e.altKey && e.keyCode === 74) { // j- key code.
+                    $("#numeric").siblings(".e-input").focus();
+                }
+            });
+        });
+    </script>
+}
+@section StyleSection{
+
+    <style type="text/css" class="cssStyles">
+        .frame {
+            width: 50%;
+        }
+
+        .control {
+            color: gray;
+            font-size: medium;
+        }
+
+        .editors label {
+            display: block;
+            width: 160px;
+        }
+          .col-xs-6.col-sm-5 {
+            margin-top: 10px;
+        }
+       .col-xs-6.col-sm-4 {
+            padding-top: 7px;
+        }
+    </style>
+}
+

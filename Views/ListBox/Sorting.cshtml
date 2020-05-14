@@ -1,0 +1,121 @@
+@{
+    ViewBag.Title = "Sorting";
+}
+
+@section SampleHeading{
+    <span class="sampleName">ListBox-Sorting-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to sort items in either ascending or descending order in the Syncfusion ASP.NET MVC ListBox component.">
+}
+@section ControlsSection{
+    <div class="frame">
+        <div class="row">
+            <div class="contents">
+                <span class="txt">Select skill</span>
+                @Html.EJ().ListBox("skillset").Datasource((IEnumerable<SkillSet>)ViewBag.DataSource1).SortOrder(SortOrder.None).ListBoxFields(df => df.Value("skill")).ClientSideEvents(evt => evt.Create("setheight"))
+
+            </div>
+            <div class="contents col-sm-offset-2">
+                <span class="txt">Select vegetables</span>
+                @Html.EJ().ListBox("groupedlist").Datasource((IEnumerable<GroupList>)ViewBag.DataSource2).SortOrder(SortOrder.None).ListBoxFields(df => df.Value("skill").GroupBy("category")).ClientSideEvents(evt => evt.Create("setheight"))
+            </div>
+        </div>
+    </div>
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">Choose sorting Type</div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("dropdown").Width("120px").SelectedItemIndex(0).ClientSideEvents(evt => evt.Change("onValueChange")).TargetID("Targetid")
+             <div id="Targetid">
+                <ul>
+                    <li value="None">None</li>
+                    <li value="Ascending">Ascending</li>
+                    <li value="Descending">Descending</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+@section StyleSection{
+    <style class="cssStyles">
+        .txt {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+
+        .contents {
+            padding-left: 36px;
+            position: relative;
+            margin: 0 auto;
+            float: left;
+        }
+
+        .content-container-fluid .row {
+            margin: 0;
+        }
+
+        .frame {
+            width: 500px;
+        }
+    </style>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+
+        function onValueChange(args) {
+            ej.support.stableSort = false;
+            SortingOrderGrp = $('#groupedlist').data("ejListBox");
+            SortingOrder = $('#skillset').data("ejListBox");
+               switch (args.value) {
+                case "Descending":
+                    $('#skillset').ejListBox({
+                        fields: { text: "skill" },
+                        sortOrder: ej.SortOrder.Descending
+                    });
+                    $('#groupedlist').ejListBox({
+                        fields: { text: "skill", groupBy: "category" },
+                        sortOrder: ej.SortOrder.Descending
+                    });
+                    break;
+                case "Ascending":
+                    $('#skillset').ejListBox({
+                        fields: { text: "skill" },
+                        stableSort:false,
+                        sortOrder: ej.SortOrder.Ascending
+                    });
+                    $('#groupedlist').ejListBox({
+                        fields: { text: "skill", groupBy: "category" },
+                        sortOrder: ej.SortOrder.Ascending
+                    });
+                    break;
+                case "None":
+                    $('#skillset').ejListBox({
+                        fields: { text: "skill" },
+                        sortOrder: ej.SortOrder.None
+                    });
+                    $('#groupedlist').ejListBox({
+                        fields: { text: "skill", groupBy: "category" },
+                        sortOrder: ej.SortOrder.None
+                    });
+                    break;
+            }
+        }
+        function setheight() {
+            if (document.body.firstElementChild.className == "htmljssamplebrowser material" || "htmljssamplebrowser office-365") {
+                setTimeout(function () {
+
+                    var obj1 = $("#skillset").ejListBox("instance");
+                    var obj2 = $("#groupedlist").ejListBox("instance");
+                    obj1._refreshScroller();
+                    obj2._refreshScroller();
+                }, 500);
+            }
+        } 
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+    </script>
+}
+

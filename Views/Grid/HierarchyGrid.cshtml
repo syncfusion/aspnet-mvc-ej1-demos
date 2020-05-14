@@ -1,0 +1,46 @@
+@section SampleHeading{<span class="sampleName">Grid-Hierarchy Grid-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This demo explains how to display a datagrid with parent and child relation using the Syncfusion ASP.NET MVC DataGrid control.">
+}
+@section ControlsSection{
+    @(Html.EJ().Grid<EmployeeView>("HierarchyGrid")
+        .Datasource((IEnumerable<object>)ViewBag.datasource)
+         
+
+        .Columns(col =>
+        {
+            col.Field("EmployeeID").HeaderText("Employee ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(75).Add();
+            col.Field("FirstName").HeaderText("First Name").Width(100).Add();
+            col.Field("Title").Width(120).Add();
+            col.Field("City").Width(100).Add();
+            col.Field("Country").Width(100).Add();
+        })
+                 .ChildGrid(child =>
+                 {
+                     child.Datasource("//js.syncfusion.com/demos/ejServices/Wcf/Northwind.svc/Orders/")
+                        .QueryString("EmployeeID")
+                        .AllowPaging()
+                        .Columns(col =>
+                        {
+                            col.Field("OrderID").HeaderText("OrderID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(75).Add();
+                            col.Field("ShipCity").HeaderText("ShipCity").Width(100).Add();
+                            col.Field("Freight").Width(120).Add();
+                            col.Field("ShipName").Width(100).Add();
+                        })
+                        .ChildGrid(d =>
+                        {
+                            d.Datasource("//js.syncfusion.com/demos/ejServices/Wcf/Northwind.svc/Customers/")
+                           .QueryString("CustomerID")
+                           .Columns(col =>
+                        {
+                            col.Field("CustomerID").HeaderText("CustomerID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(75).Add();
+                            col.Field("Phone").HeaderText("Phone").Width(100).Add();
+                            col.Field("Address").Width(120).Add();
+                            col.Field("Country").Width(100).Add();
+                        });
+                        });
+                 })
+
+    )
+}
+

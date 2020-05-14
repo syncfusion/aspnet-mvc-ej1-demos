@@ -1,0 +1,25 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to specify the palette and picker model type in a ASP.NET MVC ColorPicker">
+}
+
+@section SampleHeading{<span class="sampleName">ColorPicker-Color Palette-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            <div class="element">
+                Choose a Color 
+            @Html.EJ().ColorPicker("Palette").Value("#ba4").ModelType(ModelType.Palette)
+            </div>
+        </div>
+    </div>
+}
+
+@section StyleSection{
+    <style>
+        .frame .control {
+            margin-left: 40%;
+        }
+    </style>
+
+}
+

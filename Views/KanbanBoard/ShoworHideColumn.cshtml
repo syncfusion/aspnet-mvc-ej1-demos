@@ -1,0 +1,122 @@
+@section SampleHeading{
+    <span class="sampleName">KanbanBoard-Show or Hide Column-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to show or hide the column behavior in the Syncfusion ASP.NET MVC Kanban component.">
+}
+@using Syncfusion.JavaScript.Models;
+    @section ControlsSection{
+    @(Html.EJ().Kanban("Kanban")
+                   .DataSource((IEnumerable<object>)ViewBag.datasource)
+                   .Columns(col =>
+                   {
+                       col.HeaderText("Backlog").Key("Open").Add();
+                       col.HeaderText("In Progress").Key("InProgress").Add();
+                       col.HeaderText("Testing").Key("Testing").Add();
+                       col.HeaderText("Done").Key("Close").Add();
+                   })
+                  
+                  .AllowTitle(true)
+                  .KeyField("Status")
+                  .AllowSelection(false)
+                  .Fields(field =>
+                  {
+                      field.Color("Type")
+                           .Content("Summary")
+                           .ImageUrl("ImgUrl")
+                           .PrimaryKey("Id");
+                           
+                  })
+    )
+
+}
+@section PropertiesSection{
+
+    <div id="ddl1" style="width: 100px" data-bind="value: field">
+        <ul>
+            <li>Backlog</li>
+            <li>In Progress</li>
+            <li>Testing</li>
+            <li>Done</li>
+        </ul>
+    </div>
+    <div class="row" style="margin-top: 8px;">
+    <div class="col-md-3">
+        Column
+    </div>
+    <div class="col-md-3">
+        @(Html.EJ().DropDownList("columnName")
+                .TargetID("ddl1")
+                .SelectedItemIndex(0)
+                .Width("120px")
+        )
+    </div>
+
+
+
+    <div class="col-md-3">
+        @(Html.EJ().Button("btnHide")
+                .Size(ButtonSize.Small)
+                .Text("Hide")
+                .ClientSideEvents(eve => { eve.Click("showhide"); })
+        )
+    </div>
+    <div class="col-md-3">
+        @(Html.EJ().Button("btnShow")
+                .Size(ButtonSize.Small)
+                .Text("Show")
+                .ClientSideEvents(eve => { eve.Click("showhide"); })
+        )
+    </div>
+</div>
+
+
+    <div class="row" style="margin-top: 5px;">
+        <div class="col-md-3">
+            Hidden Columns
+        </div>
+        <div class="col-md-3">
+            <textarea id="hideColumns" class="ejinputtext" style="width: 104px;height:40px" readonly="readonly"></textarea>
+        </div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3">
+        </div>
+
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+           
+        });
+   
+        function showhide() {
+            var kanbanObj = $("#Kanban").data("ejKanban");
+            var selectedItem = $("#columnName").ejDropDownList("getSelectedValue");
+           // alert(selectedItem);
+            if (this.element[0].id == "btnHide") {
+                if (kanbanObj.getColumnByHeaderText(selectedItem).visible) {
+                    if (kanbanObj.getVisibleColumnNames().length > 1) {
+                        kanbanObj.hideColumns(selectedItem);
+                        $("#hideColumns").val().indexOf(selectedItem) == -1 && $("#hideColumns").val($("#hideColumns").val() + (selectedItem + "\n"));
+                    } else
+                        alert("Atleast one column must be displayed in kanban");
+                }
+            } else {
+                $("#hideColumns").val($("#hideColumns").val().replace(selectedItem + "\n", ""));
+                kanbanObj.showColumns(selectedItem);
+            }
+        }
+
+    </script>
+}
+

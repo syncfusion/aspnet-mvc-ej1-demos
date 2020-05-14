@@ -1,0 +1,80 @@
+
+@{
+    ViewBag.Title = "Events";
+}
+
+@section SampleHeading{
+    <span class="sampleName">Signature-Events-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates client-side events and triggered events when pparticular operations are performed in the Syncfusion ASP.NET MVC Signature component.">
+}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+		 <h3>Sign here</h3>
+            @Html.EJ().Signature("signature").Height("400px").StrokeWidth(3).IsResponsive(true).ClientSideEvents(se => se.MouseDown("onmousedown").Change("onchange").MouseMove("onmousemove").MouseUp("onmouseup"))
+        </div>
+    </div>
+}
+@section EventsDropdown{
+    @{
+        Html.EJ()
+            .DropDownList("selectControls_input")
+            .TargetID("evntname")
+            .ShowCheckbox(true)
+            .CheckAll(true)
+            .ClientSideEvents(e => e.Change("evtpropscheckedevent"))
+            .Render();
+    }
+    <div id="evntname">
+        <ul>
+            <li>mouseDown</li>
+            <li>mouseMove</li>
+            <li>mouseUp</li>
+            <li>change</li>
+        </ul>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript" class="jsScript">
+        var signatureObj;
+        function evtpropscheckedevent(args) {
+            signatureObj = $("#signature").data("ejSignature");
+            if (args.isChecked) {
+                switch (args.selectedText) {
+                    case "mouseDown": signatureObj.option(args.selectedText, "onmousedown"); break;
+                    case "mouseMove": signatureObj.option(args.selectedText, "onmousemove"); break;
+                    case "mouseUp": signatureObj.option(args.selectedText, "onmouseup"); break;
+                    case "change": signatureObj.option(args.selectedText, "onchange"); break;
+                }
+            }
+            else signatureObj.option(args.selectedText, null);
+        }
+        // Client side Events
+        function onmousedown(args) {
+            jQuery.addEventLog("Signature <span class='eventTitle'>mousedown</span> is triggered.");
+        }
+        function onmousemove(args) {
+            jQuery.addEventLog("Signature <span class='eventTitle'>mousemove</span> is triggered.");
+        }
+        function onmouseup(args) {
+            jQuery.addEventLog("Signature <span class='eventTitle'>mouseup</span> is triggered.");
+        }  
+        function onchange(args) {
+            jQuery.addEventLog("Signature <span class='eventTitle'>change</span> is triggered.");
+        }
+        function onClear() {
+            $("#EventLog").html("");
+        }
+    </script>
+<style type="text/css" class="cssStyles">
+    .frame {
+        width: 80%;
+    }
+</style>
+}
+
+
+
+
+
