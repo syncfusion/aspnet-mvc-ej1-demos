@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -47,15 +47,15 @@
   <ItemGroup>
     <Reference Include="Microsoft.AspNet.SignalR.Core">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>ReferenceAssemblies\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <HintPath>packages\Microsoft.AspNet.SignalR.Core.1.1.0\lib\net40\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.Owin">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>ReferenceAssemblies\Microsoft.AspNet.SignalR.Owin.dll</HintPath>
+      <HintPath>packages\Microsoft.AspNet.SignalR.Owin.1.1.0\lib\net40\Microsoft.AspNet.SignalR.Owin.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>ReferenceAssemblies\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+      <HintPath>packages\Microsoft.AspNet.SignalR.SystemWeb.1.1.0\lib\net40\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Web.Infrastructure">
       <SpecificVersion>False</SpecificVersion>
@@ -70,7 +70,7 @@
     </Reference>
     <Reference Include="Microsoft.Owin.Host.SystemWeb">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>ReferenceAssemblies\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+      <HintPath>packages\Microsoft.Owin.Host.SystemWeb.1.0.0\lib\net40\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <SpecificVersion>False</SpecificVersion>
@@ -78,7 +78,7 @@
     </Reference>
     <Reference Include="Owin">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>ReferenceAssemblies\Owin.dll</HintPath>
+      <HintPath>packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Chart.WPF">
       <HintPath>packages\Syncfusion.Chart.WPF.18.1.0.52\lib\net45\Syncfusion.Chart.WPF.dll</HintPath>
@@ -97,19 +97,19 @@
       <HintPath>packages\Syncfusion.Web.Base45.18.1.0.52\lib\net45\Syncfusion.EJ.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.EJ.Export">
-      <HintPath>packages\Syncfusion.EJ.Export.18.1.0.52\lib\net45\Syncfusion.EJ.Export.dll</HintPath>
+      <HintPath>packages\Syncfusion.Web.Base45.18.1.0.52\lib\net45\Syncfusion.EJ.Export.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.EJ.MVC">
       <HintPath>packages\Syncfusion.AspNet.Mvc5.18.1.0.52\lib\net45\Syncfusion.EJ.MVC.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.EJ.Pivot">
-      <HintPath>packages\Syncfusion.EJ.Pivot.18.1.0.52\lib\net45\Syncfusion.EJ.Pivot.dll</HintPath>
+      <HintPath>packages\Syncfusion.AspNet.Mvc5.Pivot.18.1.0.52\lib\net45\Syncfusion.EJ.Pivot.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.EJ.ReportViewer">
-      <HintPath>packages\Syncfusion.EJ.ReportViewer.18.1.0.52\lib\net45\Syncfusion.EJ.ReportViewer.dll</HintPath>
+      <HintPath>packages\Syncfusion.AspNet.Mvc5.ReportViewer.18.1.0.52\lib\net45\Syncfusion.EJ.ReportViewer.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.EJ.ReportDesigner">
-      <HintPath>packages\Syncfusion.EJ.ReportDesigner.18.1.0.52\lib\net45\Syncfusion.EJ.ReportDesigner.dll</HintPath>
+      <HintPath>packages\Syncfusion.ReportDesigner.AspNet.Mvc5.18.1.0.52\lib\net45\Syncfusion.EJ.ReportDesigner.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.EJ.PdfViewer">
       <HintPath>packages\Syncfusion.AspNet.Mvc5.PdfViewer.18.1.0.52\lib\net45\Syncfusion.EJ.PdfViewer.dll</HintPath>
@@ -142,7 +142,7 @@
       <HintPath>packages\Syncfusion.PivotAnalysis.Base.18.1.0.52\lib\net45\Syncfusion.PivotAnalysis.Base.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.PMML.Base">
-      <HintPath>packages\Syncfusion.PMML.Base.18.1.0.52\lib\net45\Syncfusion.PMML.Base.dll</HintPath>
+      <HintPath>packages\Syncfusion.PMML.AspNet.Mvc5.18.1.0.52\lib\net45\Syncfusion.PMML.Base.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Presentation.Base">
       <HintPath>packages\Syncfusion.Presentation.AspNet.Mvc5.18.1.0.52\lib\net45\Syncfusion.Presentation.Base.dll</HintPath>
@@ -158,9 +158,6 @@
     </Reference>
     <Reference Include="Syncfusion.Gauge.WPF">
       <HintPath>packages\Syncfusion.Gauge.WPF.18.1.0.52\lib\net45\Syncfusion.Gauge.WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.RichtextBoxAdv.WPF">
-      <HintPath>packages\Syncfusion.RichTextBoxAdv.Wpf.Classic.18.1.0.52\lib\net45\Syncfusion.RichtextBoxAdv.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Shared.Base">
       <HintPath>packages\Syncfusion.Shared.Base.18.1.0.52\lib\net45\Syncfusion.Shared.Base.dll</HintPath>
@@ -1979,11 +1976,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\AirLineReservation\Sample.js" />
-    <Content Include="ReferenceAssemblies\Microsoft.AspNet.SignalR.Core.dll" />
-    <Content Include="ReferenceAssemblies\Microsoft.AspNet.SignalR.Owin.dll" />
-    <Content Include="ReferenceAssemblies\Microsoft.AspNet.SignalR.SystemWeb.dll" />
-    <Content Include="ReferenceAssemblies\Microsoft.Owin.Host.SystemWeb.dll" />
-    <Content Include="ReferenceAssemblies\Owin.dll" />
     <Content Include="Scripts\ej.unobtrusive.min.js" />
     <Content Include="Scripts\excanvas.min.js" />
     <Content Include="Scripts\ej.web.all.min.js" />
