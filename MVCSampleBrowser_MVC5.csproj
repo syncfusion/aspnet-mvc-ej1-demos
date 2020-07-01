@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -45,30 +45,30 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ReferenceAssemblies\Microsoft.AspNet.SignalR.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.Owin, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.AspNet.SignalR.Owin">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ReferenceAssemblies\Microsoft.AspNet.SignalR.Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ReferenceAssemblies\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Web.Infrastructure">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.mshtml, Version=7.0.3300.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <Reference Include="Microsoft.mshtml">
       <SpecificVersion>False</SpecificVersion>
       <EmbedInteropTypes>True</EmbedInteropTypes>
       <HintPath>App_Data\PDF\Microsoft.mshtml.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="Microsoft.Owin.Host.SystemWeb">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ReferenceAssemblies\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
     </Reference>
@@ -76,75 +76,104 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\Newtonsoft.Json.6.0.4\lib\net40\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+    <Reference Include="Owin">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>ReferenceAssemblies\Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Chart.WPF, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.Chart.WPF">
+      <HintPath>packages\Syncfusion.Chart.WPF.18.1.0.52\lib\net45\Syncfusion.Chart.WPF.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Compression.Base, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.Compression.Base">
+      <HintPath>packages\Syncfusion.Compression.Base.18.1.0.52\lib\net45\Syncfusion.Compression.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.DocIO.Base, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.DocIO.Base">
+      <HintPath>packages\Syncfusion.DocIO.AspNet.Mvc5.18.1.0.52\lib\net45\Syncfusion.DocIO.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.DocToPdfConverter.Base, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.DocToPdfConverter.Base">
+      <HintPath>packages\Syncfusion.DocToPDFConverter.AspNet.Mvc5.18.1.0.52\lib\net45\Syncfusion.DocToPdfConverter.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.EJ, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
-      <HintPath>bin\Syncfusion.EJ.dll</HintPath>
+    <Reference Include="Syncfusion.EJ">
       <Private>False</Private>
+      <HintPath>packages\Syncfusion.Web.Base45.18.1.0.52\lib\net45\Syncfusion.EJ.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.EJ.Export, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.EJ.Export">
+      <HintPath>packages\Syncfusion.Web.Base45.18.1.0.52\lib\net45\Syncfusion.EJ.Export.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.EJ.MVC, Version=18.1500.0.52, processorArchitecture=MSIL">
-      <HintPath>bin\Syncfusion.EJ.MVC.dll</HintPath>
+    <Reference Include="Syncfusion.EJ.MVC">
+      <HintPath>packages\Syncfusion.AspNet.Mvc5.18.1.0.52\lib\net45\Syncfusion.EJ.MVC.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.EJ.Pivot, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.EJ.Pivot">
+      <HintPath>packages\Syncfusion.AspNet.Mvc5.Pivot.18.1.0.52\lib\net45\Syncfusion.EJ.Pivot.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.EJ.ReportViewer, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.EJ.ReportViewer">
+      <HintPath>packages\Syncfusion.AspNet.Mvc5.ReportViewer.18.1.0.52\lib\net45\Syncfusion.EJ.ReportViewer.dll</HintPath>
     </Reference>
-	<Reference Include="Syncfusion.EJ.ReportDesigner, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.EJ.ReportDesigner">
+      <HintPath>packages\Syncfusion.ReportDesigner.AspNet.Mvc5.18.1.0.52\lib\net45\Syncfusion.EJ.ReportDesigner.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.EJ.PdfViewer, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.EJ.PdfViewer">
+      <HintPath>packages\Syncfusion.AspNet.Mvc5.PdfViewer.18.1.0.52\lib\net45\Syncfusion.EJ.PdfViewer.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.ExcelChartToImageConverter.WPF, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.ExcelChartToImageConverter.WPF">
+      <HintPath>packages\Syncfusion.ExcelChartToImageConverter.AspNet.Mvc5.18.1.0.52\lib\net45\Syncfusion.ExcelChartToImageConverter.WPF.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.ExcelToPDFConverter.Base, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.ExcelToPDFConverter.Base">
+      <HintPath>packages\Syncfusion.ExcelToPdfConverter.AspNet.Mvc5.18.1.0.52\lib\net45\Syncfusion.ExcelToPDFConverter.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.HTMLConverter.Base, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.HTMLConverter.Base">
+      <HintPath>packages\Syncfusion.HtmlToPdfConverter.IE.AspNet.Mvc5.18.1.0.52\lib\net45\Syncfusion.HTMLConverter.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Linq.Base, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.Linq.Base">
+      <HintPath>packages\Syncfusion.Linq.Base.18.1.0.52\lib\net45\Syncfusion.Linq.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.OfficeChart.Base, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.OfficeChart.Base">
+      <HintPath>packages\Syncfusion.OfficeChart.Base.18.1.0.52\lib\net45\Syncfusion.OfficeChart.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.OfficeChartToImageConverter.WPF, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.OfficeChartToImageConverter.WPF">
+      <HintPath>packages\Syncfusion.OfficeChartToImageConverter.AspNet.Mvc5.18.1.0.52\lib\net45\Syncfusion.OfficeChartToImageConverter.WPF.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Olap.Base, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.Olap.Base">
+      <HintPath>packages\Syncfusion.Olap.Base.18.1.0.52\lib\net45\Syncfusion.Olap.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Pdf.Base, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.Pdf.Base">
+      <HintPath>packages\Syncfusion.Pdf.AspNet.Mvc5.18.1.0.52\lib\net45\Syncfusion.Pdf.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.PivotAnalysis.Base, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.PivotAnalysis.Base">
+      <HintPath>packages\Syncfusion.PivotAnalysis.Base.18.1.0.52\lib\net45\Syncfusion.PivotAnalysis.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.PMML.Base, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.PMML.Base">
+      <HintPath>packages\Syncfusion.PMML.AspNet.Mvc5.18.1.0.52\lib\net45\Syncfusion.PMML.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Presentation.Base, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.Presentation.Base">
+      <HintPath>packages\Syncfusion.Presentation.AspNet.Mvc5.18.1.0.52\lib\net45\Syncfusion.Presentation.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.PresentationToPdfConverter.Base, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.PresentationToPdfConverter.Base">
+      <HintPath>packages\Syncfusion.PresentationToPdfConverter.AspNet.Mvc5.18.1.0.52\lib\net45\Syncfusion.PresentationToPdfConverter.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.SfChart.WPF, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.SfChart.WPF">
+      <HintPath>packages\Syncfusion.SfChart.WPF.18.1.0.52\lib\net45\Syncfusion.SfChart.WPF.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.SfMaps.WPF, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.SfMaps.WPF">
+      <HintPath>packages\Syncfusion.SfMaps.WPF.18.1.0.52\lib\net45\Syncfusion.SfMaps.WPF.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Gauge.WPF, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.Gauge.WPF">
+      <HintPath>packages\Syncfusion.Gauge.WPF.18.1.0.52\lib\net45\Syncfusion.Gauge.WPF.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Shared.Base, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.Shared.Base">
+      <HintPath>packages\Syncfusion.Shared.Base.18.1.0.52\lib\net45\Syncfusion.Shared.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Shared.WPF, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.Shared.WPF">
+      <HintPath>packages\Syncfusion.Shared.WPF.18.1.0.52\lib\net45\Syncfusion.Shared.WPF.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.SpellChecker.Base, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.SpellChecker.Base">
+      <HintPath>packages\Syncfusion.SpellChecker.Base.18.1.0.52\lib\net45\Syncfusion.SpellChecker.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.XlsIO.Base, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=3d67ed1f87d44c89, processorArchitecture=MSIL">
+    <Reference Include="Syncfusion.XlsIO.Base">
+      <HintPath>packages\Syncfusion.XlsIO.AspNet.Mvc5.18.1.0.52\lib\net45\Syncfusion.XlsIO.Base.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Licensing, Version=18.1450.0.52, Culture=neutral, PublicKeyToken=632609B4D040F6B4, processorArchitecture=MSIL">
-    </Reference> 
+    <Reference Include="Syncfusion.Licensing">
+      <HintPath>packages\Syncfusion.Licensing.18.1.0.52\lib\net45\Syncfusion.Licensing.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data.SqlServerCe" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -168,19 +197,19 @@
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Helpers">
       <Private>True</Private>
       <HintPath>packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Http">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\Microsoft.AspNet.WebApi.Core.5.1.1\lib\net45\System.Web.Http.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Http.WebHost">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>packages\Microsoft.AspNet.WebApi.WebHost.5.1.1\lib\net45\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.Mvc, Version=5.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Mvc">
       <Private>True</Private>
       <HintPath>packages\Microsoft.AspNet.Mvc.5.0.0\lib\net45\System.Web.Mvc.dll</HintPath>
     </Reference>
@@ -188,19 +217,19 @@
       <HintPath>packages\Microsoft.AspNet.Web.Optimization.1.1.0\lib\net40\System.Web.Optimization.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Razor">
       <Private>True</Private>
       <HintPath>packages\Microsoft.AspNet.Razor.3.0.0\lib\net45\System.Web.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.WebPages">
       <Private>True</Private>
       <HintPath>packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.WebPages.Deployment">
       <Private>True</Private>
       <HintPath>packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.WebPages.Razor">
       <Private>True</Private>
       <HintPath>packages\Microsoft.AspNet.WebPages.3.0.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
@@ -3327,4 +3356,7 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
 </Project>
