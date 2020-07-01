@@ -1053,6 +1053,11 @@
     <Content Include="Images\treegrid\Steven Buchanan.png" />
     <Content Include="Images\treegrid\Tedd Lawson.png" />
     <Content Include="Images\treegrid\{{data.FullName}}.png" />
+    <Content Include="ReferenceAssemblies\Microsoft.AspNet.SignalR.Core.dll" />
+    <Content Include="ReferenceAssemblies\Microsoft.AspNet.SignalR.Owin.dll" />
+    <Content Include="ReferenceAssemblies\Microsoft.AspNet.SignalR.SystemWeb.dll" />
+    <Content Include="ReferenceAssemblies\Microsoft.Owin.Host.SystemWeb.dll" />
+    <Content Include="ReferenceAssemblies\Owin.dll" />
     <Content Include="Scripts\CodeMirror\clike.js" />
     <Content Include="Scripts\CodeMirror\codemirror.js" />
     <Content Include="Scripts\CodeMirror\codemirror.min.css" />
@@ -3322,7 +3327,4 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
-  <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
 </Project>
