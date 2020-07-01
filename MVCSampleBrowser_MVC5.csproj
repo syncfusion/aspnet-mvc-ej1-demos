@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -1947,11 +1947,6 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\AirLineReservation\Sample.js" />
-    <Content Include="ReferenceAssemblies\Microsoft.AspNet.SignalR.Core.dll" />
-    <Content Include="ReferenceAssemblies\Microsoft.AspNet.SignalR.Owin.dll" />
-    <Content Include="ReferenceAssemblies\Microsoft.AspNet.SignalR.SystemWeb.dll" />
-    <Content Include="ReferenceAssemblies\Microsoft.Owin.Host.SystemWeb.dll" />
-    <Content Include="ReferenceAssemblies\Owin.dll" />
     <Content Include="Scripts\ej.unobtrusive.min.js" />
     <Content Include="Scripts\excanvas.min.js" />
     <Content Include="Scripts\ej.web.all.min.js" />
