@@ -1,0 +1,15 @@
+@section MetaTags{
+   <meta name="description" content="This demo explains how to bind the local data as a datasource to the Syncfusion ASP.NET MVC DropDownList contol." >
+}
+
+@section SampleHeading{
+    <span class="sampleName">Dropdownlist-Local Data-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().DropDownList("bikeList").Datasource((IEnumerable<Bikes>)ViewBag.datasource).DropDownListFields(df => df.ID("empid").Text("text").Value("text")).WatermarkText("Select a bike").Width("100%")
+        </div>
+    </div>
+}
+
+

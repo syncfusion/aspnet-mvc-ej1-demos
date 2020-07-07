@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Category>
+  <Samples url="/Dropdownlist/Cascading">
+    <DependentFiles displayname="Group Model" url="/Models/groups.cs"></DependentFiles>
+    <DependentFiles displayname="Countries Model" url="/Models/Countries.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/Dropdownlist/Checkbox">
+    <DependentFiles displayname="Model" url="/Models/Languages.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/Dropdownlist/DatabindingLocal">
+    <DependentFiles displayname="Model" url="/Models/Bikes.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/Dropdownlist/DropdownlistFor">
+    <DependentFiles displayname="CarsList Model" url="/Models/CarsList.cs"></DependentFiles>
+    <DependentFiles displayname="DDL Model" url="/Models/DDL.cs"></DependentFiles>
+  </Samples>
+<Samples url="/Dropdownlist/IntegrationwithWidgets">
+    <DependentFiles displayname="Model" url="/Models/TreeDropDown.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/Dropdownlist/Keyboard">
+    <DependentFiles displayname="Model" url="/Models/Fonts.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/Dropdownlist/Methods">
+    <DependentFiles displayname="Model" url="/Models/Books.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/Dropdownlist/Multiselect">
+    <DependentFiles displayname="Model" url="/Models/Languages.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/Dropdownlist/Rtl">
+    <DependentFiles displayname="Model" url="/Models/Languages.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/Dropdownlist/Template">
+    <DependentFiles displayname="Model" url="/Models/EmployeeSpecialists.cs"></DependentFiles>
+  </Samples>
+</Category>

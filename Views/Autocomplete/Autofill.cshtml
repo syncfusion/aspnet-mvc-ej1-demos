@@ -1,0 +1,21 @@
+@section SampleHeading{
+    <span class="sampleName">Autocomplete-Auto Fill-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This example demonstrates how to fill the Syncfusion ASP.NET MVC Autocomplete with the first matching item in the suggestion list based on the entered text.">
+}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @{
+                Html.EJ()
+                    .Autocomplete("selectFlower")
+                    .Width("100%")
+                    .EnableAutoFill(true)
+                    .Datasource((IEnumerable<Flowers>)ViewBag.datasource)
+                    .WatermarkText("Select a flower")
+                    .Render();
+            }
+        </div>
+    </div>
+}
+

@@ -1,0 +1,93 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates the various methods like disableItem, enableItem, and disableAll/enableAll in a ASP.NET MVC Menu control."  >
+}
+
+@section SampleHeading{
+    <span class="sampleName">Menu-Methods-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+<div class="controlframe" style="width:525px">
+    @Html.EJ().Menu("JobSearch").Items(items =>
+               {
+                   items.Add().Url("").Id("Home").Text("Home");
+                   items.Add().Url("").Text("Search Jobs").Children(child =>
+                       {
+                           child.Add().Url("").Text("Advanced Search");
+                           child.Add().Url("").Text("Jobs by Company");
+                           child.Add().Url("").Text("Jobs by Category");
+                           child.Add().Url("").Text("Jobs by Location");
+                           child.Add().Url("").Text("Jobs by Skills");
+                           child.Add().Url("").Text("Jobs by Designation");
+                       });
+                   items.Add().Url("").Id("Post Resume").Text("Post Resume");
+                   items.Add().Url("").Id("Job Seeker").Text("JobSeeker Login");
+                   items.Add().Url("").Id("Fast Forward").Text("Fast Forward").Children(child =>
+                       {
+                           child.Add().Url("").Text("Resume writing");
+                           child.Add().Url("").Text("Certification");
+                           child.Add().Url("").Text("Resume Spotlight");
+                           child.Add().Url("").Text("Jobs4u");
+                       });
+                   items.Add().Url("").Id("More").Text("More").Children(child =>
+                      {
+                          child.Add().Url("").Text("Mobile");
+                          child.Add().Url("").Text("Pay check");
+                          child.Add().Url("").Text("Blog");
+                      });
+               })
+    </div>
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Disable Item
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("Disable").Width("105px").Datasource((IEnumerable<Menumethods>)ViewBag.datasource).DropDownListFields(df => df.Text("text").Value("text")).ClientSideEvents(e => e.Change("onChange2")).WatermarkText("Select")
+        </div>
+        <div class="col-md-3">
+            Enable Item
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("Enable").Width("105px").Datasource((IEnumerable<Menumethods>)ViewBag.datasource).DropDownListFields(df => df.Text("text").Value("text")).ClientSideEvents(e => e.Change("onChange1")).WatermarkText("Select")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Disable All\Enable All
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().ToggleButton("butonchkunchk").Width("105px").DefaultText("Disable").ActiveText("Enable").ClientSideEvents(e => e.Change("onCheckUncheckAll"))
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        var menuObj;
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        function onChange1(args) {
+            var mobj = $("#JobSearch").data("ejMenu");
+            mobj.enableItem(args.value);
+            $("#Disable").ejDropDownList("clearText");
+        }
+        function onChange2(args) {
+            var mobj = $("#JobSearch").data("ejMenu");
+            mobj.disableItem(args.value);
+            $("#Enable").ejDropDownList("clearText");
+        }
+        function onCheckUncheckAll(args) {
+            menuObj = $("#JobSearch").data("ejMenu");
+            $("#Disable").ejDropDownList("clearText");
+            $("#Enable").ejDropDownList("clearText");
+            if (args.isChecked) {
+                menuObj.disable();
+            }
+            else {
+                menuObj.enable();
+            }
+        }
+
+    </script>
+}
+

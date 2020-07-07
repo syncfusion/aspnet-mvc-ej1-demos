@@ -1,0 +1,53 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates the various methods like getValue, enable and disable in a ASP.NET MVC Slider control.">
+}
+
+@section SampleHeading{ <span class="sampleName">Slider-Methods-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+
+    <div class="frame">
+        @Html.EJ().Slider("rangeSlider").SliderType(SlideType.Range).Values("20, 40")
+    </div>
+}
+@section PropertiesSection{
+
+    <div class="row">
+        <div class="col-md-6">Enable / Disable</div>
+        <div class="col-md-6">
+            @(Html.EJ().ToggleButton("check21").DefaultText("Disable").ActiveText("Enable").Width("105px")
+                       .ClientSideEvents(evt => evt.Click("changeState")))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">Get the Slider value</div>
+        <div class="col-md-6">
+            @(Html.EJ().Button("GetValue").Text("Get Value").Width("105px").ClientSideEvents(evt => evt.Click("getValue")))
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script>
+        var target;
+        $(document).ready(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+            target = $("#rangeSlider").data("ejSlider");
+        });
+        function changeState(args) {
+            if (args.isChecked) target.disable();
+            else target.enable();
+        }
+        function getValue() {
+            alert(target.getValue());
+        }
+
+    </script>
+}
+@section StyleSection{
+    <style>
+        .cols-sample-area .frame {
+            width: 50%;
+        }
+    </style>
+}
+

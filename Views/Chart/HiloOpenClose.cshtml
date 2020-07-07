@@ -1,0 +1,101 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart-Hilo Open Close-ASP.NET MVC-SYNCFUSION</span>}
+
+@section MetaTags{
+    <meta name="description" content="This sample demonstrates how to render hilo open close series using Syncfusion ASP.NET MVC Chart Control">
+}
+
+@section ControlsSection{
+    <div id="Tooltip" style="display: none; height: 125px; width: 125px; padding-top: 10px; padding-bottom: 10px">
+        <div align="center" style="font-weight: bold">
+            #point.x#
+        </div>
+        <table>
+            <tr>
+                <td>Open:
+                </td>
+                <td>$#point.open#
+                </td>
+            </tr>
+            <tr>
+                <td>High:
+                </td>
+                <td>$#point.high#
+                </td>
+            </tr>
+            <tr>
+                <td>Low:
+                </td>
+                <td>$#point.low#
+                </td>
+            </tr>
+            <tr>
+                <td>Close:
+                </td>
+                <td>$#point.close#
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        @(Html.EJ().Chart("container")
+        .ChartArea(ca => ca.Border(br => br.Color("transparent")))
+        .PrimaryXAxis(pr => pr.Title(tl => tl.Text("Date")).ValueType(AxisValueType.Datetime).LabelFormat("MM/dd/yyyy")
+        .IntervalType(ChartIntervalType.Years).Range(ra => ra.Min(new DateTime(1949, 1, 1)).Max(new DateTime(2009, 1, 1)).Interval(20)))
+        .PrimaryYAxis(pr => pr.Range(ra => ra.Max(250).Min(0).Interval(50)).Title(tl => tl.Text("Price in Dollars")).LabelFormat("${value}"))
+        .Series(sr =>
+            {
+                sr.Points(pt =>
+                    {
+                        pt.X("1950/ 1/ 12").High(125.45).Low(70.23).Open(115.22).Close(90.44).Add();
+                        pt.X("1953/ 1/ 12").High(150.99).Low(60.23).Open(120.55).Close(70.90).Add();
+                        pt.X("1956/ 1/ 12").High(200.19).Low(130.37).Open(160.13).Close(190.78).Add();
+                        pt.X("1959/ 1/ 12").High(160.23).Low(90.16).Open(140.38).Close(110.24).Add();
+                        pt.X("1962/ 1/ 12").High(200.89).Low(100.23).Open(180.90).Close(120.29).Add();
+                        pt.X("1965/ 1/ 12").High(100).Low(45).Open(70).Close(50).Add();
+                        pt.X("1968/ 1/ 12").High(150).Low(70).Open(140).Close(130).Add();
+                        pt.X("1971/ 1/ 12").High(90).Low(60).Open(65).Close(80).Add();
+                        pt.X("1974/ 1/ 12").High(225).Low(170).Open(175).Close(220).Add();
+                        pt.X("1977/ 1/ 12").High(250).Low(180).Open(223).Close(190).Add();
+                        pt.X("1980/ 1/ 12").High(200.12).Low(140.69).Open(160.74).Close(190.28).Add();
+                        pt.X("1983/ 1/ 12").High(160.17).Low(90.67).Open(140.26).Close(110.34).Add();
+                        pt.X("1986/ 1/ 12").High(200).Low(100).Open(180).Close(120).Add();
+                        pt.X("1989/ 1/ 12").High(130.12).Low(95.78).Open(120.38).Close(100.23).Add();
+                        pt.X("1991/ 1/ 12").High(100.90).Low(70.19).Open(92.79).Close(75.23).Add();
+                        pt.X("1994/ 1/ 12").High(85.23).Low(50.90).Open(65.89).Close(80.45).Add();
+                        pt.X("1997/ 1/ 12").High(185.45).Low(110.90).Open(130.23).Close(170.56).Add();
+                        pt.X("2000/ 1/ 12").High(90.89).Low(30.23).Open(80).Close(50).Add();
+                        pt.X("2003/ 1/ 12").High(200).Low(140).Open(160).Close(190).Add();
+                        pt.X("2006/ 1/ 12").High(170).Low(90).Open(140).Close(110).Add();
+                        pt.X("2008/ 1/ 12").High(200).Low(100).Open(180).Close(120).Add();
+                    }).Name("Candle").Type(SeriesType.HiloOpenClose).Tooltip(tootip => tootip.Visible(true).Template("Tooltip")).Add();
+            })
+        .Load("loadTheme")
+        .CommonSeriesOptions(cr => cr.EnableAnimation(true))
+        .IsResponsive(true)
+        .Title(title => title.Text("Financial Analysis"))
+        .Size(sz => sz.Height("600"))
+        .Legend(lg => { lg.Visible(false); })
+        )
+        <script>
+            $("#controlarea").css("visibility", "visible");
+        </script>
+    </div>
+}
+@section StyleSection
+{<style class="cssStyles">
+     .tooltipDivcontainer table, table th, table tr, table td {
+         border: 0px none;
+         margin: 0 auto;
+     }
+     .tooltipDivcontainer {
+         border: 2px transparent;
+         color: white;
+     }
+     #Tooltip td {
+         color: white;
+     }
+ </style>
+}
+

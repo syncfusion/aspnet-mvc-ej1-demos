@@ -1,0 +1,39 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{ <span class="sampleName">DocIO-XML Mapping-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+@{ViewBag.Title = "    Essential DocIO (Word) : Content Control, XML Mapping : Syncfusion";}
+@{Html.BeginForm("XMLMapping", "DocIO", FormMethod.Post);
+    {
+        <div class="Common">
+            <div class="tablediv">
+                <div class="rowdiv">
+                    This sample demonstrates how to map custom XML parts to content controls in the Word document using Essential DocIO.
+                </div>
+                &nbsp;
+                <div class="rowdiv" style="border-width: 0.5px;border-style:solid; border-color: lightgray; padding: 1px 5px 7px 5px">
+                    Click the button to view the generated Word document. Please note that Microsoft Word Viewer or Microsoft Word is required to view the resultant Word document.
+                    <div class="rowdiv" style="margin-top: 8px">
+                        <input class="buttonStyle" name="Button" type="submit" value="Generate Document" style="width:150px;height:27px" />
+                    </div>
+                </div>
+                <br />
+                <div class="rowdiv">
+                    DocIO allows you to bind content controls to XML elements that are embedded in the document. When you bind a content control to a custom XML part, two-way data binding is automatically enabled.
+                </div>
+                <div class="rowdiv" style="margin-top: 15px">
+                    More information about the content controls can be found in this
+                    <a href="https://help.syncfusion.com/file-formats/docio/working-with-content-controls#data-binding-with-content-controls-xml-mapping">documentation</a>
+                    section.
+                </div>
+            </div>
+        </div>
+        Html.EndForm();
+    }}
+}
+@section StyleSection
+{
+
+}
+

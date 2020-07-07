@@ -1,0 +1,25 @@
+@section SampleHeading{<span class="sampleName">Grid-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This demo explains the basic functionalities of grouping and how to group a column in the initial rendering of Syncfusion ASP.NET MVC DataGrid control">
+}
+@section ControlsSection{
+    @(Html.EJ().Grid<EditableOrder>("Grouping")
+        .Datasource((IEnumerable<object>)ViewBag.datasource)
+        .AllowGrouping()
+        .AllowSorting()
+        .AllowPaging()
+
+                .GroupSettings(group => { group.GroupedColumns(col => { col.Add("ShipCountry"); }).EnableDropAreaAnimation(false); })
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(65).Add();
+            col.Field("CustomerID").HeaderText("Customer ID").Width(90).Add();
+            col.Field("ShipCity").HeaderText("Ship City").Width(90).Add();
+            col.Field("ShipCountry").HeaderText("Ship Country").Width(90).Add();
+            col.Field("EmployeeID").HeaderText("Employee ID").TextAlign(TextAlign.Right).Width(90).Add();
+            col.Field("Verified").HeaderText("Verified").Width(70).Add();
+            col.Field("OrderDate").HeaderText("Order Date").TextAlign(TextAlign.Right).Format("{0:MM/dd/yy}").Width(90).Add();
+        })
+    )
+}
+

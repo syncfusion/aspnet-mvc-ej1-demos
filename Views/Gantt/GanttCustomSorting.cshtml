@@ -1,0 +1,116 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates the sorting method available in the Syncfusion Gantt chart control for external sorting actions.">
+}
+@section SampleHeading{<span class="sampleName">Gantt-Sorting API-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+    <div id="ganttsample2" style="width: 100%; height: 450px;">
+        @(Html.EJ().Gantt("ganttsample2")
+              .TaskIdMapping("Id")
+              .TaskNameMapping("Name")
+              .StartDateMapping("StartDate")
+              .EndDateMapping("EndDate")
+              .ProgressMapping("PercentDone")
+              .ScheduleStartDate("02/23/2017")
+              .ScheduleEndDate("03/15/2017")
+              .HighlightWeekends(true)
+              .IncludeWeekend(true)
+              .AllowColumnResize(true)
+              .TreeColumnIndex(1)
+              .ChildMapping("Children")
+              .AllowSelection(true)
+              .AllowGanttChartEditing(false)
+              .ClientSideEvents(cs => cs.Load("load"))
+              .IsResponsive(true)
+              .AllowSorting(true)
+              .Datasource(ViewBag.datasource)
+        )
+    </div>
+}
+@section PropertiesSection{
+    <div id="sampleProperties">
+        <div class="prop-grid">
+            <div id="ddl1">
+                <ul>
+                    <li value="Id">ID</li>
+                    <li value="Name">Task Name</li>
+                    <li value="StartDate">Start Date</li>
+                    <li value="EndDate">End Date</li>
+                    <li value="PercentDone">Progress</li>
+                </ul>
+            </div>
+            <div id="ddl2">
+                <ul>
+                    <li>Ascending</li>
+                    <li>Descending</li>
+                </ul>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Column Name
+                </div>
+                <div class="col-md-3">
+                    @(Html.EJ().DropDownList("columnName")
+                        .TargetID("ddl1")
+                        .Width("120px")
+                        .SelectedItemIndex(0)
+                    )
+                </div>
+                <div class="col-md-3">
+                    Sort Direction
+                </div>
+                <div class="col-md-3">
+                    @(Html.EJ().DropDownList("directions")
+                        .TargetID("ddl2")
+                        .Width("120px")
+                        .SelectedItemIndex(0)
+                    )
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    @(Html.EJ().Button("doSorting")
+                        .Width("100px")
+                        .ClientSideEvents(eve => { eve.Click("onClick"); })
+                        .Text("Sort")
+                    )
+                </div>
+                <div class="col-md-3">
+                    @(Html.EJ().Button("clearSort")
+                        .Width("100px")
+                        .ClientSideEvents(eve => { eve.Click("onClick"); })
+                        .Text("Clear")
+                    )
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        function onClick(args) {
+            var ganttObj = $("#ganttsample2").data("ejGantt");
+            if (ganttObj != undefined) {
+                if (this.element.attr("id") == "doSorting") {
+                    var name = $("#columnName").data("ejDropDownList");
+                    var direction = $("#directions").data("ejDropDownList");
+                    var columnName = name.getSelectedValue();
+                    var sortDirection = direction.getValue().toLowerCase();
+                    ganttObj.sortColumn(columnName, sortDirection);
+                }
+                else
+                {
+                     ganttObj.clearSorting();
+                }
+            }
+        }
+        function load(args) {
+            var columns = this.getColumns();
+            columns[0].width = 60;
+        }
+    </script>
+}
+
