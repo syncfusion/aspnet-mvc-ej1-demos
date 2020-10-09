@@ -1,0 +1,110 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how the disable the specific range of time in a ASP.NET MVC TimePicker">
+}
+
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+
+@section SampleHeading{<span class="sampleName">TimePicker-Keyboard Navigation-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().TimePicker("TimePick").Width("100%")
+
+        </div>
+    </div>
+}
+
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Alt + j 
+        </div>
+        <div class="col-md-3">
+            Focuses the control
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Alt + Down
+        </div>
+        <div class="col-md-3">
+            Opens/Hides the popup
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Right / Left
+        </div>
+        <div class="col-md-3">
+            Moves to the adjacent part
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Up
+        </div>
+        <div class="col-md-3">
+            Increments the value
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Down
+        </div>
+        <div class="col-md-3">
+            Decrements the value
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            After popup opened:
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Up
+        </div>
+        <div class="col-md-3">
+            Selects the previous time
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Down
+        </div>
+        <div class="col-md-3">
+            Selects the next time
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Home / End
+        </div>
+        <div class="col-md-3">
+            Moves to the first / last item
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Esc
+        </div>
+        <div class="col-md-3">
+            Closes the popup
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+            $(document).on("keydown", function (e) {
+                if (e.altKey && e.keyCode === 74) { // j- key code.
+                    $("#TimePick").focus();
+                }
+            });
+        });
+    </script>
+}
+

@@ -1,0 +1,5 @@
+﻿.e-errorword { 
+    background-image: url('ej/common-images/spellcheck/highlight.png');
+    background-repeat: repeat-x;
+    background-position: bottom;
+}

@@ -1,0 +1,100 @@
+@section SampleHeading{<span class="sampleName">Grid-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This demo explains the default functionalities of filtering and how to define the template for filter bar in Syncfusion ASP.NET MVC DataGrid.">
+}
+@section ControlsSection{
+    @(Html.EJ().Grid<EditableOrder>("Filtering")
+        .Datasource((IEnumerable<object>)ViewBag.datasource)
+        .AllowFiltering()
+        .AllowPaging()
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(75).Add();
+            col.Field("CustomerID").HeaderText("Customer ID").FilterBarTemplate(filterbar => filterbar.Create("autoComplete_create").Write("autoComplete_write").Read("autoComplete_read")).Width(90).Add();
+            col.Field("EmployeeID").HeaderText("Employee ID").FilterBarTemplate(filterbar => filterbar.Write("dropdown_write").Read("dropdown_read")).TextAlign(TextAlign.Right).Width(75).Add();
+            col.Field("Freight").HeaderText("Freight").FilterBarTemplate(filterbar => filterbar.Write("numeric_write").Read("numeric_read")).TextAlign(TextAlign.Right).Width(75).Format("{0:C}").Add();
+            col.Field("ShipCountry").HeaderText("Ship Country").Width(90).Add();
+            col.Field("Verified").HeaderText("Verified").TextAlign(TextAlign.Center).FilterBarTemplate(filterbar => filterbar.Write("check_write").Read("check_read")).Width(80).Add();
+        })
+    )
+	  <div id="clflr">
+                <ul>
+                    <li>Freight</li>
+                    <li>Verified</li>
+                </ul>
+            </div>
+}
+@section PropertiesSection{
+ 
+    <div class="row">
+        <div class="col-md-3">
+            Clear Filter
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("clDr").TargetID("clflr").Width("100%").ClientSideEvents(e => e.Change("clearFilter"))
+        </div>
+    </div>
+}
+
+@section ScriptSection{
+    <script type="text/javascript">
+		$(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        function autoComplete_create(args) {
+            return "<input>"
+        }
+
+        function autoComplete_write(args) {
+			var gridObj = $("#Filtering").ejGrid("instance");
+            var data = ej.DataManager(gridObj.model.dataSource).executeLocal(new ej.Query().select("CustomerID"));
+            args.element.ejAutocomplete({ width: "100%", dataSource: data, enableDistinct: true, focusOut: ej.proxy(args.column.filterBarTemplate.read, this, args) });
+        }
+
+        function autoComplete_read(args) {
+            this.filterColumn(args.column.field, "equal", args.element.val(), "and", true)
+        }
+
+        function dropdown_write(args) {
+            var data = [{ text: "clear", value: "clear" }, { text: "1", value: 1 }, { text: "2", value: 2 }, { text: "3", value: 3 }, { text: "4", value: 4 },
+                                                            { text: "5", value: 5 }, { text: "6", value: 6 }, { text: "7", value: 7 }, { text: "8", value: 8 }, { text: "9", value: 9 }
+            ]
+            args.element.ejDropDownList({ width: "100%", dataSource: data, change: ej.proxy(args.column.filterBarTemplate.read, this, args) })
+        }
+
+        function dropdown_read(args) {
+            if (args.element.val() == "clear") {
+                this.clearFiltering(args.column.field);
+                args.element.val("")
+            }
+            this.filterColumn(args.column.field, "equal", args.element.val(), "and", true)
+        }
+        function numeric_write(args) {
+            args.element.ejNumericTextbox({ width: "100%",decimalPlaces: 2, focusOut: ej.proxy(args.column.filterBarTemplate.read, this, args) });
+        }
+
+        function numeric_read(args) {
+            this.filterColumn(args.column.field, "equal", args.element.val(), "and", true)
+        }
+
+        function check_write(args) {
+            args.element.ejCheckBox({ change: ej.proxy(args.column.filterBarTemplate.read, this, args) });
+        }
+        function check_read(args) {
+            this.filterColumn(args.column.field, "equal", args.element.parent().attr('aria-checked'), "and", true)
+        }
+		function clearFilter(args){
+			var obj = $("#Filtering").ejGrid("instance");
+			obj.clearFiltering(args.text)
+			if(args.text == "Verified")
+				$("#ej" + args.text + "_filterBarcell").find('.e-icon').removeClass('e-checkmark').parent().removeClass("e-chk-act").addClass("e-chk-inact").parents()[1].setAttribute("aria-checked", false);
+			if(args.text == "Frieght")
+			{
+				var numObj = $("#Freight_filterBarcell").ejNumericTextbox('instance');
+				numObj.option("value"," ")
+			}
+			$("#clDr").ejDropDownList("model.selectedIndex",-1) 
+		}
+    </script>
+}
+

@@ -1,0 +1,26 @@
+@section MetaTags{
+   <meta name="description" content="This demo shows templates using Syncfusion ASP.NET MVC WaitingPopup control."  >
+}
+
+@section SampleHeading{<span class="sampleName">WaitingPopup-Template-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+<div class="controlframe" style="position:relative;">
+    <div id="target"></div>
+    @Html.EJ().WaitingPopup("target").ShowOnInit(true).Template("#content").AppendTo(".controlframe")
+    <div id="content">
+        <div class="block">
+            <div class="logo"></div>
+            <div class="txt">
+                <p>Create cutting-edge </p>
+                <p><b>HTML5</b> web applications </p>
+                <p>with ease </p>
+            </div>
+        </div>
+        <div class="loader"></div>
+    </div>
+    </div>
+}
+@section StyleSection{
+    <link href="@Url.Content("~/Content/Samples/WaitingPopupTemplate.css")" rel="stylesheet" />
+}
+

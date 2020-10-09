@@ -1,0 +1,74 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates the various methods like show, hide, enable, getSelectedRange and disable in a ASP.NET MVC DateRangePicker">
+}
+
+@section SampleHeading{<span class="sampleName">DateRangePicker-Methods-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().DateRangePicker("dateRange").Value("05/28/2018-06/28/2018").Width("100%")
+        </div>
+    </div>
+}
+
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EJ().ToggleButton("togbtn").Width("95px").DefaultText("Disable").ActiveText("Enable").ClientSideEvents(s => s.Click("changeState"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EJ().Button("gettime").Width("95px").Size(ButtonSize.Small).Text("Get Range").ClientSideEvents(s => s.Click("getTime"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EJ().ToggleButton("togvisible").Width("95px").DefaultText("Show").ActiveText("Hide").ClientSideEvents(s => s.Click("changeVisible"))
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        function changeState(args) {
+            var dateRangeObj = $('#dateRange').data("ejDateRangePicker");
+            var toggleObj = $("#togvisible").data("ejToggleButton");
+            if (args.isChecked) {
+                dateRangeObj.disable();
+                toggleObj.disable();
+            }
+            else {
+                dateRangeObj.enable();
+                toggleObj.enable();
+            }
+        }
+        function changeVisible(args) {
+            var dateRangeObj = $('#dateRange').data("ejDateRangePicker");
+            if (args.isChecked)
+                dateRangeObj.popupShow();
+            else dateRangeObj.popupHide();
+        }
+        function getTime(args) {
+            var dateRangeObj = $('#dateRange').data("ejDateRangePicker");
+            alert("StartDate - " + dateRangeObj.getSelectedRange().startDate);
+            alert("endDate - " + dateRangeObj.getSelectedRange().endDate);
+
+        }
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+    </script>
+}
+@section StyleSection{
+    <style>
+        .control {
+            width: 210px;
+        }
+
+        .control .e-daterangewidget {
+            width: 225px;
+            margin:auto;
+        }
+    </style>
+}
+

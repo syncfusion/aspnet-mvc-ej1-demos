@@ -1,0 +1,93 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Sunburst-Animation-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{  
+    @{
+        var datasource = ViewData["animationData"];
+    } 
+    <div>
+        @(Html.EJ().SunburstChart("container")
+                    .ValueMemberPath("Population")
+                    .DataSource(datasource)
+                    .Levels(lv =>
+                     {
+                        lv.GroupMemberPath("Continent").Add();
+                        lv.GroupMemberPath("Country").Add();
+                        lv.GroupMemberPath("State").Add();
+                      })
+                     .DataLabelSettings(dt => dt.Visible(true))  
+					 .Tooltip(tp => tp.Visible(true))
+                     .InnerRadius(0.2)
+                     .EnableAnimation(true)                    
+                     .Size(sz => sz.Height("600"))
+                     .Title(ti => ti.Text("Population Details"))                    
+                     .Legend(lg => lg.Visible(true).Position(SunburstLegendPosition.Top))
+					 .Load("loadSunBurstTheme")
+
+        )
+    </div>
+}
+@section PropertiesSection
+{
+    <div class="prop-grid">
+    <div class="row">
+        <div class="col-md-3">
+            Enable Animation
+        </div>
+        <div class="col-md-3 aligntop">
+            <input type="checkbox" checked="checked" id="enable" onchange="visible()" />
+        </div>
+    </div>
+    <div class="row" style="margin: 10px 0;">
+        <div class="col-md-3">
+            Animation Type
+        </div>
+        <div class="col-md-3 aligntop">
+            <select name="selectIndex" autocomplete="off" id="animationtype" style="width:115px;">
+                <option value="0" selected>Rotation</option>
+                <option value="1">FadeIn</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+}
+@section ScriptSection
+{
+    <script type="text/javascript">
+        function visible() {
+            var sunburst = $("#container").ejSunburstChart("instance");
+            if ($("#enable").is(":checked"))
+                sunburst.model.enableAnimation = true;
+            else {
+                sunburst.model.enableAnimation = false;
+            }
+            sunburst.redraw();
+        }
+      	
+		function animationTypeChanged(sender)
+		{
+		var option = sender.selectedText;
+		var sunburst = $("#container").ejSunburstChart("instance");
+		switch (option) {
+			  case 'Rotation':
+			    sunburst.model.animationType = 'rotation';
+                break;
+            case 'FadeIn':
+                sunburst.model.animationType = 'fadeIn';
+                break;
+        }
+		sunburst.redraw();	
+	
+	}
+	
+	$("#animationtype").ejDropDownList({ "change": "animationTypeChanged", width: "100px",selectedItemIndex:0 });
+
+        $("#sampleProperties").ejPropertiesPanel();
+    </script>
+}
+@section MetaTags{
+   <meta name="description" content="This sample demonstrates the animation feature based on population details in the Syncfusion ASP.NET Web Forms Sunburst control.">
+}
+
