@@ -1,0 +1,38 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to upload multiple files synchronously using Syncfusion ASP.NET MVC Upload control." >
+}
+
+@section SampleHeading{
+    <span class="sampleName">Upload-Synchronous Upload-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        @using (Html.BeginForm("SaveSynchronous", "Upload", FormMethod.Post, null))
+        {
+            <div class="control">
+                <div class="element">Select a file to upload</div>
+                <div class="posupload">
+                    @Html.EJ().Uploadbox("Synchronous").AsyncUpload(false)@*Uploading files will be done only on clicking submit button after selecting the files*@
+                    @Html.EJ().Button("post").Type(ButtonType.Submit).Text("Submit")@*Once the  submit button is clicked it triggers SaveActionResult and file is saved.*@
+
+                </div>
+                <div id="successmsg">@ViewBag.status</div>
+            </div>
+        }
+    </div>
+}
+@section StyleSection{
+    <style class="cssStyles">
+        #post {
+            margin: 12px 0px 10px 60px;
+        }
+
+        .element {
+            text-align:center;
+            padding: 10px;
+        }
+        #Synchronous {
+            margin: 0 auto;
+        }
+    </style>
+}
+

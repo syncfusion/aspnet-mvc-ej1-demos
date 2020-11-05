@@ -114,4 +114,4 @@ Refer the Syncfusion Essential JS 1 for ASP.NET MVC Product Release Notes in [on
 
 * To renew the subscription, click [here](https://www.syncfusion.com/sales/products?utm_source=github&utm_medium=listing) or contact our sales team at <salessupport@syncfusion.com>.
 
-<p>Copyright © 2001-2020 Syncfusion, Inc. Updated on 2020-10-09 at precisely 14:06:57 EST.</p>
+<p>Copyright © 2001-2020 Syncfusion, Inc. Updated on 2020-11-05 at precisely 19:33:56 EST.</p>

@@ -1,0 +1,50 @@
+@section SampleHeading{<span class="sampleName">Rotator-Template-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to customize the Syncfusion ASP.NET MVC Rotator component slides with different needs.">
+}
+@section ControlsSection{
+    <div class="frame">
+        @Html.EJ().Rotator("rotator").Datasource((IEnumerable<localdata>)ViewBag.datasource).AnimationSpeed(1200).ShowPlayButton(true).SlideWidth("100%").SlideHeight("223px").IsResponsive(true).Template("<div style='background-color:${color}; height:300px'> <div style='padding: 32px 10px 20px 40px'> <img class='eimgs' src='../Images/rotator/${eimg}.png' alt='Employee' /> </div>  <div style='padding: 0 100px 0 250px'><div class='ename'> ${text} </div> <div class='desig'> ${desig} </div><div class='cont'> ${country} </div></div></div>")
+    </div>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .frame {
+        width: 452px;
+        height: 250px;
+    }
+
+    .eimgs {
+        border-radius: 50%;
+        background-color: #DDDDDD;
+        float: left;
+        height: 159px !important;
+        width: 159px !important;
+    }
+
+    .ename {
+        font-family: segoe UI;
+        font-weight: bold;
+        font-size: 20px;
+        padding-top: 10px;
+        color: white;
+    }
+
+    .desig {
+        font-family: segoe UI;
+        font-size: 14px;
+        opacity: 0.8;
+        color: white;
+        padding-bottom: 3px;
+    }
+
+    .cont {
+        font-family: segoe UI;
+        font-size: 14px;
+        padding-top: 3px;
+        border-top: 1px solid white;
+    }
+    </style>
+}
+
+

@@ -1,0 +1,32 @@
+@section MetaTags{
+   <meta name="description" content="DropDownList for ASP.NET MVC with the strongly typed extension support. Value is set from the code behind by invoking DropDownListFor helper." >
+}
+
+@section SampleHeading{
+    <span class="sampleName">Dropdownlist-DropDownListFor-ASP.NET MVC-SYNCFUSION</span>}
+
+@model MVCSampleBrowser.Models.DDL
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true) 
+                    
+                @Html.EJ().DropDownListFor(model => model.ddl, (Syncfusion.JavaScript.Models.DropDownListProperties)ViewData["ddl"]).WatermarkText("Select a car").Width("100%")
+                @Html.ValidationMessageFor(model => model.ddl)
+
+                @Html.EJ().Button("btn").Size(ButtonSize.Small).Text("Post").Type(ButtonType.Submit).Width("50%")
+            }
+        </div>
+    </div>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        #btn {
+            margin-left: 25%;
+            margin-top: 20px;
+        }
+    </style>
+}
+

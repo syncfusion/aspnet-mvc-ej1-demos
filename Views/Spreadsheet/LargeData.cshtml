@@ -1,0 +1,29 @@
+@section SampleHeading{<span class="sampleName">Spreadsheet-Large Data-ASP.NET MVC-SYNCFUSION</span>}
+
+@section MetaTags{
+   <meta name="description" content="This demo shows how to import the large data using Syncfusion ASP.NET MVC Spreadsheet control">
+}
+
+<link href="@Url.Content("~/Content/Samples/SpreadsheetStyles.css")" rel="stylesheet" />
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+}
+@section ControlsSection{
+    @(Html.EJ().Spreadsheet<object>("Spreadsheet")
+    .ColumnWidth(100)
+    .AllowFormulaBar(false)
+    .ShowRibbon(false)
+    .EnableContextMenu(false)
+    .ScrollSettings(scroll =>
+    {
+        scroll.Height(450);
+    })
+    .ImportSettings(import =>
+        {
+            import.ImportUrl("https://js.syncfusion.com/demos/ejservices/data/Spreadsheet/LargeData.xlsx");
+            import.ImportMapper("Import");
+        })
+        )
+}
+

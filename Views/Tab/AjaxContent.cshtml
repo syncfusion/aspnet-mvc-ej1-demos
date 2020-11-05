@@ -1,0 +1,16 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates loading the Syncfusion ASP.NET MVC Tab control content using Ajax requests." >
+}
+
+@section SampleHeading{ <span class="sampleName">Tab-Ajax Content-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+    <div class="controlframe">
+    @{Html.EJ().Tab("ajaxTab").Items(data =>
+           {
+               data.Add().ID("asp.netMvc").Text("ASP.NET MVC").Url("../Content/samplecontent/gridcontent.html");
+               data.Add().ID("wpf").Text("WPF").Url("../Content/samplecontent/wpfcontent.html");
+           }).AjaxSettings(ajax => ajax.ContentType("html").DataType("html").Async(true)).Render();}
+</div>
+}
+

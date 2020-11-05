@@ -1,0 +1,36 @@
+﻿.darktheme .frame,
+.frame {
+    background: url("../../Images/datepicker/daterange-bg.png") no-repeat scroll 0 0 transparent;
+    padding: 109px 0;
+    padding: 0;
+    width: 600px;
+    min-height: 300px;
+    border: 0;
+    height: 470px;
+}
+
+.acc {
+    display: block;
+    margin-bottom: 70px;
+    margin-left: 275px;
+    padding-top: 80px;
+}
+
+.firstdp {
+    margin-left: 67px;
+}
+
+.seconddp {
+    margin-left: 55px;
+}
+
+.innerdp {
+    display: inline-block;
+}
+@media (max-width: 979px) and (min-width: 0px) {
+            .frame {
+                margin: 0px !important;
+                padding: 0px !important;
+                width: auto !important;
+            }
+        }

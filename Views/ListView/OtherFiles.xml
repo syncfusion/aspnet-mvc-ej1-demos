@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Category>
+  <Samples url="/ListView/DataBindingLocal">
+    <DependentFiles displayname="Model" url="/Models/ListData.cs"></DependentFiles>
+  </Samples>
+</Category>
