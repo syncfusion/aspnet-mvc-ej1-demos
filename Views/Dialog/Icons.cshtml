@@ -1,0 +1,57 @@
+@section SampleHeading{ <span class="sampleName">Dialog-Action Buttons-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates the close, maximize, minimize, pin, unpin, collapse, and expand behaviors in the Syncfusion ASP.NET MVC Dialog component.">
+}
+@section ControlsSection{
+    @{List<string> icon = new List<string>() { "close", "collapsible", "maximize", "minimize", "pin" }; }
+    @Html.EJ().Button("btnOpen").Text("Click to open dialog").ClientSideEvents(evt => evt.Click("onclick"))
+    <div class="control">
+        @{Html.EJ().Dialog("dialogIcon").Title("Audi Q8").Containment(".control").ContentTemplate(@<div>
+            <img class="r8Audi" src="@Url.Content("~/Images/dialog/r8-coupe.png")" />
+            The Audi R8 was initially equipped with a 4.2 litre V8 engine. Specifically, it is an all-aluminum alloy 32-valve (four valves per cylinder) petrol engine, utilising Fuel Stratified Injection (FSI), and has a displacement of 4,163 cubic centimetres (254.0 cu in).
+        </div>).Width(295).EnableResize(false).IsResponsive(true).ClientSideEvents(evt => evt.Close("onDialogClose")).ActionButtons(icon).Render();}
+    </div>
+}
+@section ScriptSection{
+    <script>
+        $("#btnOpen").hide();
+        function onclick() {
+            $("#dialogIcon").ejDialog("open");
+            $("#btnOpen").hide();
+        }
+        function onDialogClose(args) {
+            $("#btnOpen").show();
+        }
+    </script>
+}
+@section StyleSection{
+    <style class="cssStyles">
+
+        .control {
+            height: 450px;            
+            z-index: 99999;
+            position:relative;
+        }
+        .htmljssamplebrowser.material .control {
+            height: 600px;
+        }
+		
+		.r8Audi{
+		    width: 266px;
+		}
+        
+         .htmljssamplebrowser:not(.material):(.office-365) #dialogIcon {
+            padding: 10px;
+        }
+         .htmljssamplebrowser.material #dialogIcon img {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        .htmljssamplebrowser.office-365 img {
+            width: 245px;
+        }
+    </style>
+
+}
+

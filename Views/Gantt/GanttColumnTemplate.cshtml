@@ -1,0 +1,64 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates how to display custom columns and column templates in the Syncfusion Gantt chart control.">
+}
+@section SampleHeading{<span class="sampleName">Gantt-Column Template-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+<script type="text/x-jsrender" id="columnTemplate">
+    {{if #data['resourceNames']}}
+    <div style="display:inline-block;position:relative;left:10px;top:1px">
+        <img src="../images/gantt/{{:#data['resourceNames']}}.png" height="40px" />
+    </div>
+    <div style='display:inline-block;width:100%;position:relative;left:10px;top:2px'>{{:#data['resourceNames']}}</div>
+    {{/if}}
+</script>
+    @(Html.EJ().Gantt("ganttsample")
+    .TaskIdMapping("TaskID")
+    .TaskNameMapping("TaskName")
+    .StartDateMapping("StartDate")
+    .EndDateMapping("EndDate")
+    .DurationMapping("Duration")
+    .ProgressMapping("Progress")
+    .ScheduleStartDate("02/01/2017")
+    .ScheduleEndDate("03/14/2017")
+    .DateFormat("MM/dd/yyyy")
+    .HighlightWeekends(true)
+    .TreeColumnIndex(1)
+    .ShowGridCellTooltip(true)
+    .ChildMapping("SubTasks")
+    .AllowSelection(true)
+    .PredecessorMapping("Predecessors")
+    .AllowColumnResize(true)
+    .IncludeWeekend(false)
+    .ResourceInfoMapping("ResourceID")
+    .ResourceNameMapping("ResourceName")
+    .ResourceIdMapping("ResourceID")
+    .ShowResourceNames(true)
+    .IsResponsive(true)
+    .EnableVirtualization(false)
+    .SizeSettings(ss => ss.Width("100%").Height("450px"))
+    .SplitterSettings(sp=>sp.Position("50%"))
+    .ShowGridCellTooltip(false)
+    .AllowGanttChartEditing(false)
+    .RowHeight(42)
+    .TaskbarHeight(32)
+    .ClientSideEvents(eve=>eve.Load("load"))
+    .Resources(ViewBag.datasource1)
+    .Datasource(ViewBag.datasource)
+    )
+}
+@section ScriptSection{
+
+    <script>
+        function load(args) {
+            var gantt = $("#ganttsample").ejGantt("instance");
+            var columns = gantt.getColumns();
+            columns[0].width = 60;
+            columns[2].visible = columns[3].visible = false;
+            columns[4].isTemplateColumn = true;
+            columns[4].templateID = "columnTemplate";
+            columns[4].width = "172";
+        }
+    </script>
+}
+

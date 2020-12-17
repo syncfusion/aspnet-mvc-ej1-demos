@@ -1,0 +1,84 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates how to export the formatted UI for tasks and cells in the Gantt chart control.">
+}
+@section SampleHeading{<span class="sampleName">Gantt-Conditional Formatting-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+
+
+   @(Html.EJ().Gantt("GanttContainer")
+              .ChildMapping("SubTasks")
+             .TreeColumnIndex(1)
+             .TaskIdMapping("TaskID")
+             .TaskNameMapping("TaskName")
+             .StartDateMapping("StartDate")
+             .EndDateMapping("EndDate")
+             .ProgressMapping("Progress")
+              .EditSettings(es => es.AllowDeleting(false))
+              .SizeSettings(ss => ss.Width("100%").Height("450px"))
+              .IsResponsive(true)             
+              .ClientSideEvents(cs => cs.Load("load").ToolbarClick("toolbarClick")
+                  .QueryCellInfo("queryCell").QueryTaskbarInfo("queryTaskbar"))
+              .ToolbarSettings(tool =>
+              {
+                 tool.ShowToolbar(true);
+                 tool.ToolbarItems(new List<GanttToolBarItems>()
+                 {                      
+					  GanttToolBarItems.ExcelExport,
+                      GanttToolBarItems.PdfExport
+                 });
+               })
+             .Datasource(ViewBag.datasource)             
+    )
+}
+
+@section ScriptSection{
+    <script type="text/javascript">       
+        function toolbarClick(args)
+        {
+            var id = $(args.currentTarget).attr("id");
+            this.exportGrid = this["export"];
+            if (id == "GanttContainer_pdfExport") {
+                this.exportGrid("ConditionalPdf", "", false);
+                args.cancel = true;
+            }
+            else if (id == "GanttContainer_excelExport") {
+                this.exportGrid("ConditionalExcel", "", false);
+                args.cancel = true;
+            }
+        }
+        function load(args) {
+            var proxy = this;
+            proxy.getColumns()[0].width = 70;
+            var progressColumn = proxy.getColumns()[4];
+            proxy.getColumns().splice(4, 1);
+            proxy.getColumns().splice(2, 0, progressColumn);
+        }
+        function queryTaskbar(args) {
+            var data = args.data.item;
+            if (data.Progress > 80) {
+                args.progressbarBorder = args.progressbarBackground = "#6C3483";
+                args.taskbarBorder = args.taskbarBackground = "#A569BD";
+                $(args.taskbar).find(".e-gantt-childtaskbar-progress").css("background-image", "none");
+            }
+            else if (data.Progress < 20) {
+                args.progressbarBorder = args.progressbarBackground = "#CD5C5C";
+                args.taskbarBorder = args.taskbarBackground = "#F08080";
+                $(args.taskbar).find(".e-gantt-childtaskbar-progress").css("background-image", "none");
+            }
+        }
+
+        function queryCell(args) {
+            var data = args.data.item;
+            if (args.column.mappingName == "Progress") {
+                if (data.Progress > 80) {
+                    $(args.cellElement).css("background-color", "#A569BD");
+                }
+                else if (data.Progress < 20) {
+                    $(args.cellElement).css("background-color", "#F08080");
+                }
+            }
+        }
+
+    </script>
+}
+

@@ -1,0 +1,115 @@
+@section SampleHeading{<span class="sampleName">Grid-Show or Hide Column-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This demo explains how to hide or show the columns of datagrid dynamically using Syncfusion ASP.NET MVC DataGrid methods.">
+}
+@section ControlsSection{
+    @(Html.EJ().Grid<OrdersView>("HideColumn")
+        .Datasource((IEnumerable<object>)ViewBag.datasource)
+        .AllowPaging()
+        .PageSettings(page => { page.PageCount(7); })
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(90).Add();
+            col.Field("CustomerID").HeaderText("Customer ID").Width(90).Add();
+            col.Field("EmployeeID").HeaderText("Employee ID").TextAlign(TextAlign.Right).Width(75).Add();
+            col.Field("Freight").HeaderText("Freight").TextAlign(TextAlign.Right).Width(75).Format("{0:C}").Add();
+            col.Field("OrderDate").HeaderText("Order Date").TextAlign(TextAlign.Right).Width(80).Format("{0:MM/dd/yyyy}").Add();
+        })
+    )
+}
+@section PropertiesSection{
+    <div id="ddl1" style="width: 100px" data-bind="value: field">
+        <ul>
+            <li>Order ID</li>
+            <li>Customer ID</li>
+            <li>Employee ID</li>
+            <li>Freight</li>
+            <li>Order Date</li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Column
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().DropDownList("columnname")
+                .TargetID("ddl1")
+                .SelectedItemIndex(0)
+                .Width("120px")
+                .ClientSideEvents(eve => { eve.Change("Onchange"); })
+            )
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().Button("btnHide")
+                .Size(ButtonSize.Small)
+                .Text("Hide")
+                .ClientSideEvents(eve => { eve.Click("showhide"); })
+            )
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().Button("btnShow")
+                .Size(ButtonSize.Small)
+                .Text("Show")
+                .ClientSideEvents(eve => { eve.Click("showhide"); })
+            )
+        </div>
+    </div>
+    <div class="row" style="margin-top: 5px;">
+        <div class="col-md-3">
+            Hidden Columns
+        </div>
+        <div class="col-md-3">
+            <textarea id="hideColumns" class="ejinputtext" style="width: 104px;height:40px" readonly="readonly"></textarea>
+        </div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+            $("#btnShow").ejButton({ enabled: false });
+        });
+        function Onchange() {
+            var dropDownObj = $("#columnname").data("ejDropDownList");
+            var selectedItem = dropDownObj.getSelectedValue();
+            if ($("#hideColumns").val().indexOf(selectedItem) != -1) {
+                $("#btnHide").ejButton({ enabled: false });
+                $("#btnShow").ejButton({ enabled: true });
+            }
+            else {
+                $("#btnHide").ejButton({ enabled: true });
+                $("#btnShow").ejButton({ enabled: false });
+            }
+        }
+        function showhide() {
+            var gridObj = $("#HideColumn").data("ejGrid");
+            var dropDownObj = $("#columnname").data("ejDropDownList");
+            var selectedItem = dropDownObj.getSelectedValue();
+            if (this.element[0].id == "btnHide") {
+                if (gridObj.getColumnByHeaderText(selectedItem).visible) {
+                    if (gridObj.getVisibleColumnNames().length > 1) {
+                        gridObj.hideColumns(selectedItem);
+                        $("#hideColumns").val().indexOf(selectedItem) == -1 && $("#hideColumns").val($("#hideColumns").val() + (selectedItem + "\n"));
+                        $("#btnHide").ejButton({ enabled: false });
+                        $("#btnShow").ejButton({ enabled: true });
+                    }
+                    else
+                        alert("Atleast one column must be displayed in grid");
+                }
+            }
+            else {
+                $("#hideColumns").val($("#hideColumns").val().replace(selectedItem + "\n", ""));
+                gridObj.showColumns(selectedItem);
+                $("#btnHide").ejButton({ enabled: true });
+                $("#btnShow").ejButton({ enabled: false });
+            }
+        }
+
+
+    </script>
+}
+

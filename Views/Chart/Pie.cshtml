@@ -1,0 +1,54 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart-Pie-ASP.NET MVC-SYNCFUSION</span>}
+
+@section MetaTags{
+    <meta name="description" content="This sample demonstrates how to render pie series using Syncfusion ASP.NET MVC Chart Control">
+}
+
+@section ControlsSection{
+    <div>
+    @(Html.EJ().Chart("container")
+          .Series(sr =>
+                    {
+                        sr.Points(pt =>
+                                       {
+                                           pt.X("Other Personal").Y(94658).Text("Other Personal, 88.47%").Add();
+                                           pt.X("Medical care").Y(9090).Text("Medical care, 8.49%").Add();
+                                           pt.X("Housing").Y(2577).Text("Housing, 2.40%").Add();
+                                           pt.X("Transportation").Y(473).Text("Transportation, 0.44%").Add();
+                                           pt.X("Education").Y(120).Text("Education, 0.11%").Add();
+                                           pt.X("Electronics").Y(70).Text("Electronics, 0.06%").Add();
+                                       }).LabelPosition(ChartLabelPosition.OutsideExtended).Border(bo => bo.Width(2).Color("white"))
+                                          .EnableSmartLabels(true).StartAngle(145)
+                                          .Marker(mr =>
+                                          {
+                                              mr.DataLabel(db =>
+                                              {
+                                                  db.Visible(true).EnableContrastColor(true).ConnectorLine(cl => cl.Color("black")
+                                                      .Height(60).Type(ConnectorType.Bezier)).Shape(ChartShape.None)
+                                                      .Font(fn => { fn.Size("14px"); });
+                                              });
+                                          }).Name("Expenses").Type(SeriesType.Pie).Add();
+                    })
+            .CommonSeriesOptions(cr => cr.EnableAnimation(true))
+            .Load("loadTheme")
+            .Title(title => title.Text("Expenditures"))
+            .IsResponsive(true)
+            .SeriesRendering("seriesRender")
+            .Size(sz => sz.Height("600"))
+            .Legend(lg => { lg.Visible(false); })
+                            )
+        <script>
+            function seriesRender(sender) {
+                if (sender.model.theme == "flatdark" || sender.model.theme == "gradientdark" || sender.model.theme == "high-contrast-01")
+                    sender.data.series.marker.dataLabel.connectorLine.color = "white";
+                else
+                    sender.data.series.marker.dataLabel.connectorLine.color = "black";
+            }
+            $("#controlarea").css("visibility", "visible");
+        </script>
+    </div>
+}
+
+

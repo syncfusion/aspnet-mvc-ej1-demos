@@ -1,0 +1,53 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to enable the rtl property in a ASP.NET MVC Menu control." >
+}
+
+@section SampleHeading{
+    <span class="sampleName">Menu-RTL-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+<div class="controlframe" style="width: 334px;">
+    @Html.EJ().Menu("menuRTL").Items(items =>
+               {
+                   items.Add().Url("").Text("كتب").Children(child =>
+                       {
+                           child.Add().Url("").Text("الإصدارات الجديدة");
+                           child.Add().Url("").Text("جديد إصدارات الكتب السمعية");
+                           child.Add().Url("").Text("أكثر الكتب مبيعا");
+                           child.Add().Url("").Text("قادمة");
+                           child.Add().Url("").Text("مجموعات مربع");
+                       });
+                   items.Add().Url("").Text("الألعاب").Children(child =>
+                   {
+                       child.Add().Url("").Text("قادمة");
+                       child.Add().Url("").Text("PC");
+                       child.Add().Url("").Text("PS فيتا");
+                       child.Add().Url("").Text("PS3");
+                       child.Add().Url("").Text("اكس بوكس");
+                       child.Add().Url("").Text("لوحات المفاتيح");
+                   });
+                   items.Add().Url("").Text("متنقل").Children(child =>
+                   {
+                       child.Add().Url("").Text("القادمون الجدد");
+                       child.Add().Url("").Text("أكثر الكتب مبيعا");
+                       child.Add().Url("").Text("منخفض السعر");
+                       child.Add().Url("").Text("أقراص");
+                   });
+                   items.Add().Url("").Text("الكاميرات").Children(child =>
+                   {
+                       child.Add().Url("").Text("حدد و صور");
+                       child.Add().Url("").Text("SLR الرقمية");
+                       child.Add().Url("").Text("كاميرات الفيديو الرقمية");
+                       child.Add().Url("").Text("أكثر الكتب مبيعا");
+                   });
+                   items.Add().Url("").Text("موسيقى").Children(child =>
+                   {
+                       child.Add().Url("").Text("الإصدارات الجديدة");
+                       child.Add().Url("").Text("أكثر الكتب مبيعا");
+                       child.Add().Url("").Text("موسيقى الروك");
+                       child.Add().Url("").Text("التعبدية والروحية");
+                       child.Add().Url("").Text("الصوفية وغزال");
+                   });
+               }).EnableRTL(true)
+</div>
+}
+

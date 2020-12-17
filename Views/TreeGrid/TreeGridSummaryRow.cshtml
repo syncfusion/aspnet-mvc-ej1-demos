@@ -1,0 +1,83 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates displaying rows to summarize the column fields in a tree grid.">
+}
+@section SampleHeading{<span class="sampleName">TreeGrid-Summary Row-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+
+
+    <style>
+        .cols-sample-area {
+            height: 440px;
+        }
+    </style>
+
+    @(Html.EJ().TreeGrid("TreeGridContainer")
+              .ChildMapping("Children")
+              .TreeColumnIndex(0)
+              .Columns(co =>
+                  {
+                      co.Field("FreightID").HeaderText("Freight ID").EditType(TreeGridEditingType.String).Width(85).Add();
+                      co.Field("FreightName").HeaderText("Freight Name").EditType(TreeGridEditingType.String).Width(125).Add();
+                      co.Field("TotalUnits").HeaderText("Total Units").EditType(TreeGridEditingType.Numeric).Width(125).Add();
+                      co.Field("TotalCosts").HeaderText("Total Costs").EditType(TreeGridEditingType.Numeric).Width(150).Add();
+                      co.Field("UnitWeight").HeaderText("Unit Weight").EditType(TreeGridEditingType.Numeric).Width(125).Add();
+                  }
+               )
+              .SizeSettings(ss => ss.Width("100%").Height("350px"))
+              .IsResponsive(true)
+              .AllowColumnResize(true)
+              .ShowSummaryRow(true)
+              .TotalSummaryHeight(120)
+              .CollapsibleTotalSummary(true)
+              .ShowTotalSummary(true)
+              .SummaryRows(rows =>
+              {
+                  rows.Title("Maximum").SummaryColumns(col =>
+                  {
+                      col.SummaryType(TreeGridSummaryType.Maximum)
+                          .DataMember("TotalUnits")
+                          .Prefix("Maximum unit = ")
+                          .DisplayColumn("TotalUnits").Add();
+                      col.SummaryType(TreeGridSummaryType.Maximum)
+                          .DataMember("TotalCosts")
+                          .Prefix("Maximum cost = ")
+                          .DisplayColumn("TotalCosts")
+                          .Format("{0:C}").Add();
+
+                  }).Add();
+                  rows.Title("Minimum").SummaryColumns(col =>
+                  {
+                      col.SummaryType(TreeGridSummaryType.Minimum)
+                          .DataMember("TotalUnits")
+                          .Prefix("Minimum unit = ")
+                          .DisplayColumn("TotalUnits").Add();
+
+                  }).Add();
+                  rows.Title("Total").SummaryColumns(scol =>
+                  {
+                      scol.SummaryType(TreeGridSummaryType.Sum)
+                          .DataMember("TotalCosts")
+                          .Prefix("Total costs = ")
+                          .DisplayColumn("TotalCosts")
+                          .Format("{0:C}").Add();
+                      scol.SummaryType(TreeGridSummaryType.Sum)
+                          .DataMember("UnitWeight")
+                          .Prefix("Total weight = ")
+                          .DisplayColumn("UnitWeight")
+                          .Suffix("Pounds").Add();
+
+                  }).Add();
+                  rows.Title("Average").SummaryColumns(col =>
+                  {
+                      col.SummaryType(TreeGridSummaryType.Average)
+                          .DataMember("TotalCosts")
+                          .Prefix("Total costs = ")
+                          .DisplayColumn("TotalCosts").Add();
+
+                  }).Add();
+              })
+       .Datasource(ViewBag.datasource)
+    )
+    @(Html.EJ().ScriptManager())
+}
+

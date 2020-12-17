@@ -1,0 +1,51 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{ <span class="sampleName">Presentation-Merging Presentations-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+    @{Html.BeginForm("MergingPresentation", "Presentation", FormMethod.Post);
+    {
+        <div class="Common">
+            <div class="tablediv">
+                <div class="rowdiv">
+                <p>Essential Presentation library has support for merging two presentation documents into one.</p>
+                <p>This sample demonstrates merging two PowerPoint presentation documents with paste options - use destination theme and source formatting.</p>
+                    <br />
+                    <b>Features:</b>
+                    <br />
+                 <ul>
+                        <li>Copied slides can be merged with 'source' or 'destination' paste options equivalent to Microsoft PowerPoint.</li>
+                        <li>Merge an entire presentation with another Presentation by merging all the copied slides of the presentation to another.</li>
+                 </ul>
+             </div>	
+                <br />
+                <div class="rowdiv">
+                    <div class="celldiv">
+                        <input type="radio" id="Radio3" name="Group1" value="DestinationTheme" checked="checked"/>
+                        <label for="Radio3">
+                            Use Destination Theme
+                        </label>
+                        <input type="radio" id="Radio4" name="Group1" style="margin-left: 7px" value="SourceFormatting" />
+                        <label for="Radio4">
+                            Keep Source Formatting
+                        </label>
+                    </div>
+                </div>
+                <br />
+                <div class="rowdiv">
+                    <div class="celldiv">
+                        <input class="buttonStyle" type="submit" value="Generate Document" style="width:200px;" />
+                    </div>
+                    <br />
+                </div>
+            </div>
+        </div>
+        Html.EndForm();
+    }}
+}
+@section StyleSection
+{
+
+}
+
+

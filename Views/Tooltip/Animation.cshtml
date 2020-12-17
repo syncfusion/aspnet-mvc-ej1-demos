@@ -1,0 +1,142 @@
+@section MetaTags{
+   <meta name="description" content="This sample demonstrates the animation feature in the Syncfusion ASP.NET MVC Tooltip." >
+}
+
+@section SampleHeading{
+    <span class="sampleName">Tooltip-Animation Effects-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+
+    <div class="content-container-fluid">
+        <div class="row">
+            <div class="cols-sample-area">
+                <div class="frame" id="custom">
+
+                    <div class="image">
+                        <img src="../Content/images/tooltip/template-04.png" alt="Roslyn Succinctly">
+                    </div>
+                    <div class="desc">Roslyn Succinctly</div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    @Html.EJ().Tooltip("custom").Content("Microsoft has only recently embraced the world of open source software, offering many pieces of the .NET Framework architecture as open source projects. More...").Width("25%").ClientSideEvents(events => events.Create("onCreate").BeforeClose("onHide").BeforeOpen("onOpen")).Position(pos => pos.Stem(stem => stem.Horizontal("left").Vertical("center")).Target(target => target.Horizontal("right").Vertical("center"))).Animation(anim => anim.Effect(Effect.Slide).Speed(4000))
+
+}
+
+@section PropertiesSection{
+    <div id="sampleProperties">
+        <div class="prop-grid">
+            <div class="row">
+                <div class="col-md-6"> Animation </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"> Effects </div>
+                <div class="col-md-6">
+                    @Html.EJ().DropDownList("effect").TargetID("list").SelectedIndex(1).Width("110px").ClientSideEvents(e => e.Change("onChange"))
+                    <div id="list">
+                    <ul >
+                        <li value="none">None</li>
+                        <li value="slide">Slide</li>
+                        <li value="fade">Fade</li>
+                        <li value="easeInOutQuad">EaseInOutQuad</li>
+                        <li value="easeInOutCubic">EaseInOutCubic</li>
+                        <li value="easeInOutQuart">EaseInOutQuart</li>
+                        <li value="easeInOutQuint">EaseInOutQuint</li>
+                        <li value="easeInOutExpo">EaseInOutExpo</li>
+                        <li value="easeInOutSine">EaseInOutSine</li>
+                        <li value="easeInOutCirc">EaseInOutCirc</li>
+                        <li value="easeInOutElastic">EaseInOutElastic</li>
+                        <li value="easeInOutBack">EaseInOutBack</li>
+                        <li value="easeInOutBounce">EaseInOutBounce</li>
+                    </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"> Speed </div>
+                <div class="col-md-6">
+                    @Html.EJ().NumericTextbox("speed").DecimalPlaces(0).Value(1000).Width("110px").ClientSideEvents(e => e.Change("onChange"))
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section StyleSection{
+    <style>
+        .frame {
+            box-sizing: border-box;
+            border: 1px solid #ccc !important;
+            border-radius: 0px;
+            padding: 0px;
+            text-align: center;
+            width: 160px;
+        }
+
+            .frame img {
+                width: 100%;
+            }
+
+        .frame {
+            width: 160px !important;
+        }
+
+        .image {
+            background-color: #ccc;
+        }
+
+        img {
+            padding-top: 8px;
+        }
+    </style>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        var target;
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        function onCreate() { target = $("#custom").data("ejTooltip"); }
+        function onChange() {
+            var numObj = $("#speed").data("ejNumericTextbox");
+            var DropDownListObj = $("#effect").data("ejDropDownList");
+            var value = DropDownListObj.getSelectedValue();
+            var speed = $("#speed").ejNumericTextbox("getValue");
+            if (value != "none") {
+                if (speed == 0)
+                    numObj.setModel({ value: 1000 });
+                numObj.enable();
+            }
+            if (value == "none") {
+                numObj.setModel({ value: 0 });
+                numObj.disable();
+            }
+            speed = numObj.getValue();
+            if (value == "slide" || value == "fade" || value == "none")
+                target.setModel({ animation: { effect: value, speed: speed } });
+        }
+        function onOpen(args) {
+
+            var DropDownListObj = $("#effect").data("ejDropDownList");
+            var value = DropDownListObj.getSelectedValue();
+            var speed = $("#speed").ejNumericTextbox("getValue");
+            if (value != "slide" && value != "fade" && value != "none") {
+                $(target.tooltip).animate({ height: "show" }, speed, value);
+                args.cancel = true;
+            }
+
+        }
+        function onHide(args) {
+            var DropDownListObj = $("#effect").data("ejDropDownList");
+            var value = DropDownListObj.getSelectedValue();
+            var speed = $("#speed").ejNumericTextbox("getValue");
+            if (value != "slide" && value != "fade" && value != "none") {
+                $(target.tooltip).animate({ height: "hide" }, speed, value);
+                args.cancel = true;
+            }
+        }
+
+    </script>
+}
+
