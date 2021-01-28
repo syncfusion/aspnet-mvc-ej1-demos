@@ -1,0 +1,119 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+@section ScriptReferenceSection{
+    <script src="~/Scripts/jsondatachart.js"></script>
+}
+@section SampleHeading{<span class="sampleName">Chart-Flexible Axis Layout-ASP.NET MVC-SYNCFUSION</span>}
+
+@section MetaTags{
+    <meta name="description" content="This sample demonstrates how to render flexible layout for axis using Syncfusion ASP.NET MVC Chart Control">
+}
+
+@section ControlsSection{   
+<div id="Tooltip" style="display: none; height:100px; width:125px;padding-top: 10px;padding-bottom:10px">
+        <div align="center" style="font-weight:bold">
+            #point.x#
+        </div>  
+        <table>
+            <tr>
+                <td>
+                    Open:
+                </td>
+                <td>
+                    $#point.open#
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    High:
+                </td>
+                <td>
+                    $#point.high#
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Low:
+                </td>
+                <td >
+                    $#point.low#
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    Close:
+                </td>
+                <td>
+                    $#point.close#
+                </td>
+            </tr>
+       </table>    
+  </div>
+  <div>
+       @(Html.EJ().Chart("container")
+             .ChartArea(ca => ca.Border(br => br.Color("black").Opacity(1)))
+             .RowDefinitions(rd => {
+                                       rd.RowHeight(25).Unit("percentage").Add();
+                                       rd.RowHeight(75).Unit("percentage").Add();
+                                   })
+             .PrimaryXAxis(pr=>pr.Title(tl=>tl.Text("Month")).ColumnIndex(0).MajorTickLines(mr=>mr.Visible(false))
+             .Range(ra=>ra.Min(new DateTime(2013,05,1) ).Max(new DateTime(2013,10,1)).Interval(20))
+             .IntervalType(ChartIntervalType.Days).LabelFormat("dd/MM/yyyy").ValueType(AxisValueType.Datetime))
+             .PrimaryYAxis(pr=>pr.RowIndex(0).RowSpan(2).Range(ra=>ra.Max(87).Min(83).Interval(1)).Font(fn=>fn.Size("14px"))
+             .Title(tl=>tl.Text("Million USD")))
+             .Axes(ax =>
+                 {
+                  ax.Orientation("vertical").Name("y1SecondQuater").Range(ra=>ra.Max(88).Min(82).Interval(2)).OpposedPosition(true).Font(fn => fn.Size("14px"))
+                       .Title(tl => tl.Text("Million USD")).RowIndex(0).Add();
+                 })
+             .Series(sr =>
+                 {
+                     sr.Name("series1").YAxisName("y1SecondQuater").Tooltip(tt => tt.Visible(true)
+                       .Format("Date : #point.x#<br/>Stock: #point.y#")).Type(SeriesType.Column).Fill("#94D3F1")
+                       .Opacity(0.7).Border(st => st.Width(3).Color("#1FA3E3")).Add();
+                     sr.Name("Series5").Type(SeriesType.HiloOpenClose).Tooltip(tl=>tl.Visible(true).Template("Tooltip"))
+                       .Border(st => st.Width(2)).Add();
+             })
+             .Load("onchartload")
+             .IsResponsive(true)
+             .CommonSeriesOptions(cr=>cr.EnableAnimation(true))
+             .Title(title=>title.Text("Conn's,Inc Stock Details"))
+             .Size(sz=>sz.Height("600"))
+             .Legend(lg=>lg.Visible(false))
+             )
+     </div>                
+ }
+<script>
+        function onchartload(sender) {
+		    loadTheme(sender);
+		    sender.model.series[0].dataSource = window.chartData;
+		    sender.model.series[0].xName= "xDate";
+		    sender.model.series[0].yName= "High";
+		    sender.model.series[1].dataSource = window.chartData;
+		    sender.model.series[1].xName= "xDate";
+		    sender.model.series[1].high= "High";
+		    sender.model.series[1].low="Low";
+		    sender.model.series[1].open="Open";
+		    sender.model.series[1].close = "Close";
+        }
+        $("#controlarea").css("visibility", "visible");
+</script>
+@section StyleSection
+{<style class="cssStyles">
+           .tooltipDivcontainer table, table th, table tr , table td{
+                border:0px none;
+                margin: 0 auto;
+            }
+  			.tooltipDivcontainer 
+			{
+                border:2px transparent;
+                color:white;
+            }
+			#Tooltip td
+			{
+			color:white;
+			}
+ </style>
+}
+
+

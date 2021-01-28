@@ -1,0 +1,72 @@
+@section SampleHeading{
+    <span class="sampleName">Diagram-Network Symbols-ASP.NET MVC-SYNCFUSION</span>
+}
+@section MetaTags{
+    <meta name="description" content="This sample demonstrates how to build a network diagram by using ASP.NET MVC diagram's native nodes (SVG) feature.">
+}
+
+@section ScriptSection{
+
+
+}
+@section ControlsSection{
+    <script src="@Url.Content("~/Scripts/DiagramScripts/networkshapetemplates.js")">
+    </script>
+    <link href="@Url.Content("~/Content/diagram/network.css")" rel="stylesheet" />
+    <div class="control_section" style="float:left;">
+    <div class="symPalette_section">
+        @Html.EJ().SymbolPalette("SymbolPalette", ViewData["SymbolPaletteModel"] as Syncfusion.JavaScript.DataVisualization.Models.SymbolPaletteProperties)
+        </div>
+        <div class="middle_section"></div>
+                  <div class="diagram_section" style="border: 1px solid #D9DEDD">
+                @Html.EJ().Diagram("DiagramContent", ViewData["diagramModel"] as Syncfusion.JavaScript.DataVisualization.Models.DiagramProperties)
+            </div>
+    </div>
+    <script>
+        function created(args) {
+            var diagram = diagram = $("#DiagramContent").ejDiagram("instance");
+            function CreateDiagramNode(name, width, height, fillColor, rotate, text, x, y, path) {
+                var node = { name: name, width: width, height: height, offsetX: x, offsetY: y, borderColor: "black", fillColor: fillColor, rotateAngle: rotate, shape: ej.datavisualization.Diagram.BasicShapes.Path, pathData: "M 0 26.4576 L 26.4576 0 L 26.4576 0 L 26.4576 17.46239 L 26.4576 17.46239 L 113.3856 17.46239 L 113.3856 17.46239 L 113.3856 35.45279 L 113.3856 35.45279 L 26.4576 35.45279 L 26.4576 35.45279 L 26.4576 52.91519 L 26.4576 52.91519 L 0 26.4576 Z" }
+                return node;
+            }
+            diagram.add(CreateDiagramNode("arrow1", 60, 30, "white", 270, "", 99, 175, true));
+            diagram.add(CreateDiagramNode("arrow2", 60, 30, "white", 0, "", 250, 125, true));
+            diagram.add(CreateDiagramNode("arrow3", 60, 30, "white", 270, "", 99, 300, true));
+            diagram.add(CreateDiagramNode("arrow4", 60, 30, "white", 270, "", 178, 435, true));
+            diagram.add(CreateDiagramNode("arrow5", 60, 30, "white", 270, "", 378, 435, true));
+            diagram.add(CreateDiagramNode("arrow6", 60, 30, "white", 0, "", 370, 380, true));
+            diagram.clearSelection();
+        }
+    </script>
+}
+
+<style>
+    .cols-sample-area {
+        width: 600px;
+    }
+
+    .control_section {
+        height: 600px;
+        width: 100%;
+        background-color: transparent;
+    }
+
+    .diagram_section {
+        width: calc(98% - 255px);
+        height: 100%;
+        float: left;
+    }
+
+    .middle_section {
+        float: left;
+        width: 5px;
+        height: 100%;
+    }
+
+    .symPalette_section {
+        width: 250px;
+        height: 100%;
+        float: left;
+    }
+</style>
+

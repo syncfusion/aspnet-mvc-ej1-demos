@@ -1,0 +1,21 @@
+﻿@section SampleHeading{ <span class="sampleName">ReportViewer/SSRS</span>}
+
+@using Syncfusion.JavaScript
+@using Syncfusion.MVC.EJ
+
+@section StyleSection{
+    <style>
+        #reportviewer {
+            min-height: 650px;
+            min-width: 100%;
+        }
+    </style>
+}
+@section ScriptReferenceSection{
+}
+
+@section ControlsSection{
+   <div style="width:100%">
+        @(Html.EJ().ReportViewer("reportviewer").ProcessingMode(Syncfusion.JavaScript.ReportViewerEnums.ProcessingMode.Remote).ReportServiceUrl( VirtualPathUtility.ToAbsolute("~/api/SSRSReport")).ReportServerUrl("http://104.207.134.201/reportserver").ReportPath("/SSRSSamples2/Territory Sales new"))    
+    </div>
+}

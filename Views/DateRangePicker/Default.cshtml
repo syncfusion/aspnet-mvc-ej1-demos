@@ -1,0 +1,35 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates a simple, mobile-friendly and responsive ASP.NET MVC DateRangePicker to select a date.">
+}
+@section SampleHeading{<span class="sampleName">DateRangePicker-Default-ASP.NET MVC-SYNCFUSION</span>}
+@section ActionDescription{
+    <div class="action-description">
+    <p>
+        This sample demonstrates rendering DateRangePicker control which allows the user to select date range from two calendars in the popup. Also, DateRangePicker has the flexible options to navigate back and forth from month and years and pick the start and end date in any month.DateRangePicker provides the easiest way to get the details within the date ranges in application.
+    </p>
+    </div>
+}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().DateRangePicker("DateRange").Value("05/28/2018-06/27/2018").Width("100%")
+        </div>
+    </div>
+}
+@section StyleSection{
+    <style>
+        .control {
+            width: 100%;
+        }
+
+        .frame{
+            width: 75%;
+        }
+
+        .control .e-daterangewidget {
+            width: 225px;
+            margin: auto;
+        }
+    </style>
+}
+

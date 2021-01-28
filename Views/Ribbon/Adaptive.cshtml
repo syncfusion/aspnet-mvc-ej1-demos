@@ -1,0 +1,27 @@
+@section MetaTags{
+   <meta name="description" content="This example shows how the ASP.NET MVC Ribbon adapts to mobile devices.">
+}
+
+@section SampleHeading{<span class="sampleName">Ribbon-Adaptive-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="emulatordesk">
+        <div class="sample-container">
+            <iframe id="sample" frameborder="0" tabindex="1" style="height: 493px;width: 320px" src='@Url.Action("AdaptiveRibbon", "Ribbon")'></iframe>
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        window.loadRibbonFrameTheme = function () {
+            browser = ej.browserInfo();
+            if (browser.name == "msie" && parseInt(browser.version, 10) <= 8)
+                alert("Details view not support in IE" + parseInt(browser.version, 10));
+            else {
+                var iframe = document.getElementById('sample');
+                iframe.contentWindow.postMessage("theme_" + window.theme, iframe.src);
+            }
+        }
+    </script>
+}
+
+

@@ -1,0 +1,178 @@
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName">Editor-Events-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+      <div class="frame">
+     <div class="row">
+            <div class="col-xs-6 col-sm-5">
+                            <span>Numeric TextBox</span>
+                        </div>
+            <div class="col-xs-6 col-sm-4">
+                            @(Html.EJ().NumericTextbox("numeric").Value("1000").Width("100%").ClientSideEvents(s => s.Create("onNumericCreate")
+                                       .Change("numericValChange").FocusIn("numericFocusIn").FocusOut("numericFocusOut")))
+                        </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-5">
+                            <span>Percentage TextBox</span>
+                       </div>
+            <div class="col-xs-6 col-sm-4">
+                            @(Html.EJ().PercentageTextbox("percent").Value("100").Width("100%").ClientSideEvents(s => s.Create("onPercentageCreate")
+                                       .Change("percentValChange").FocusIn("percentFocusIn").FocusOut("percentFocusOut")))
+                        </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-5">
+                            <span>Currency TextBox</span>
+                        </div>
+            <div class="col-xs-6 col-sm-4">
+                            @(Html.EJ().CurrencyTextbox("currency").Value("50").Width("100%").ClientSideEvents(s => s.Create("onCurrencyCreate"))
+                                       .ClientSideEvents(s2 => s2.Change("currencyValChange")).ClientSideEvents(s3 => s3.FocusIn("currencyFocusIn"))
+                                       .ClientSideEvents(s4 => s4.FocusOut("currencyFocusOut")))
+                        </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-5">
+                            <span>Mask Edit</span>
+                        </div>
+            <div class="col-xs-6 col-sm-4">
+                            @(Html.EJ().MaskEdit("maskedit").InputMode(InputMode.Text).MaskFormat("(999)999-9999").CustomCharacter("$")
+                                               .WatermarkText("(999)999-9999").Width("100%").ClientSideEvents(s => s.Create("onMaskCreate"))
+                                       .ClientSideEvents(s2 => s2.Change("maskValueChange")).ClientSideEvents(s3 => s3.FocusIn("maskFocusIn"))
+                                       .ClientSideEvents(s4 => s4.FocusOut("maskFocusOut"))
+                                       .WatermarkText("99-999-99999"))
+                        </div>
+        </div>
+         <div class="row">
+              <div class="col-xs-6 col-sm-3"></div>
+              <div class="col-xs-6 col-sm-3 paybill">
+
+                @Html.EJ().Button("btn").Size(ButtonSize.Small).Text("PayBill")
+            </div>
+        </div>
+    </div>
+        
+}
+<div id="target">
+    <ul>
+        <li>focusIn</li>
+        <li>focusOut</li>
+        <li>change</li>
+    </ul>
+</div>
+@section EventsDropdown{
+    @(Html.EJ().DropDownList("selectControls_input").TargetID("target").ShowCheckbox(true).CheckAll(true)
+               .ClientSideEvents(s => s.Change("evtpropscheckedevent")))
+}
+@section ScriptSection{
+
+    <script type="text/javascript">
+        function onNumericCreate(args) {
+            jQuery.addEventLog("NumericTextbox has been <span class='eventTitle'>created</span>");
+        }
+        function onPercentageCreate(args) {
+            jQuery.addEventLog("PercentageTextbox has been <span class='eventTitle'>created</span>");
+        }
+        function onCurrencyCreate(args) {
+            jQuery.addEventLog("CurrencyTextbox has been <span class='eventTitle'>created</span>");
+        }
+        function onMaskCreate(args) {
+            jQuery.addEventLog("MaskEditTextbox has been <span class='eventTitle'>created</span>");
+        }
+        function numericValChange(args) {
+            jQuery.addEventLog("NumericTextbox value has been <span class='eventTitle'>changed</span> to " + args.value + ".<br/>");
+        }
+        function percentValChange(args) {
+            jQuery.addEventLog("PercentageTextbox value has been <span class='eventTitle'>changed</span> to " + args.value + ".<br/>");
+        }
+        function currencyValChange(args) {
+            jQuery.addEventLog("CurrencyTextbox value has been <span class='eventTitle'>changed</span> to " + args.value + ".<br/>");
+        }
+        function maskValueChange(args) {
+            jQuery.addEventLog("MaskEditTextbox value has been <span class='eventTitle'>changed</span> to " + args.value + ".<br/>");
+        }
+        function numericFocusIn(args) {
+            jQuery.addEventLog("NumericTextbox is in <span class='eventTitle'>Focus</span>");
+        }
+        function numericFocusOut(args) {
+            jQuery.addEventLog("NumericTextbox is out of <span class='eventTitle'>Focus</span>");
+        }
+        function percentFocusIn(args) {
+            jQuery.addEventLog("PercentTextbox is in <span class='eventTitle'>Focus</span>");
+        }
+        function percentFocusOut(args) {
+            jQuery.addEventLog("PercentTextbox is out of <span class='eventTitle'>Focus</span>");
+        }
+        function currencyFocusIn(args) {
+            jQuery.addEventLog("CurrencyTextbox is in <span class='eventTitle'>Focus</span>");
+        }
+        function currencyFocusOut(args) {
+            jQuery.addEventLog("CurrencyTextbox is out of <span class='eventTitle'>Focus</span>");
+        }
+        function maskFocusIn(args) {
+            jQuery.addEventLog("MaskEditTextbox is in <span class='eventTitle'>Focus</span>");
+        }
+        function maskFocusOut(args) {
+            jQuery.addEventLog("MaskEditTextbox is out of <span class='eventTitle'>Focus</span>");
+        }
+        function onClear() {
+            jQuery.clearEventLog();
+        }
+        function evtpropscheckedevent(args) {
+            var numericObj, percentObj, currencyObj, maskObj;
+            numericObj = $("#numeric").data("ejNumericTextbox");
+            percentObj = $("#percent").data("ejPercentageTextbox");
+            currencyObj = $("#currency").data("ejCurrencyTextbox");
+            maskObj = $("#maskedit").data("ejMaskEdit");
+            if (args.isChecked) {
+                switch (args.selectedText) {
+                    case "change": numericObj.option(args.selectedText, "numericValChange");
+                        percentObj.option(args.selectedText, "percentValChange");
+                        currencyObj.option(args.selectedText, "currencyValChange");
+                        maskObj.option(args.selectedText, "maskValueChange"); break;
+                    case "focusIn": numericObj.option(args.selectedText, "numericFocusIn");
+                        percentObj.option(args.selectedText, "percentFocusIn");
+                        currencyObj.option(args.selectedText, "currencyFocusIn");
+                        maskObj.option(args.selectedText, "maskFocusIn"); break;
+                    case "focusOut": numericObj.option(args.selectedText, "numericFocusOut");
+                        percentObj.option(args.selectedText, "percentFocusOut");
+                        currencyObj.option(args.selectedText, "currencyFocusOut");
+                        maskObj.option(args.selectedText, "maskFocusOut"); break;
+                }
+
+            }
+            else {
+                numericObj.option(args.selectedText, null);
+                percentObj.option(args.selectedText, null);
+                currencyObj.option(args.selectedText, null);
+                maskObj.option(args.selectedText, null);
+            }
+        }
+    </script>
+}
+@section StyleSection{
+
+    <style>
+        .frame {
+            width: 50%;
+        }
+
+        .control {
+            color: gray;
+            font-size: medium;
+        }
+        
+          .col-xs-6.col-sm-5 {
+            margin-top: 10px;
+        }
+       .col-xs-6.col-sm-4,.col-xs-6.col-sm-3 {
+            padding-top: 7px;
+        }
+        .paybill{
+            margin-left: 85px;
+        }
+    </style>
+}
+

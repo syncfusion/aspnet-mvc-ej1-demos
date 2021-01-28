@@ -1,0 +1,47 @@
+@section SampleHeading{<span class="sampleName">Grid-Header Template-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This demo explains how to customize column headers to show additional HTML elements, such as icons, images, etc. in Syncfusion ASP.NET MVC DataGrid control.">
+}
+@section StyleSection{
+    <style type="text/css">
+        .headericon
+        {
+            background-image: url(../Content/ejthemes/common-images/icons-gray.png);
+            padding-left: 20px;
+        }
+        
+        .date
+        {
+            background-position: -3px -86px;
+        }
+        
+        .employee
+        {
+            background-position: -82px -62px;
+        }
+    </style>
+}
+@section ControlsSection{
+    @(Html.EJ().Grid<OrdersView>("HeaderTemplate")
+        .Datasource((IEnumerable<object>)ViewBag.datasource)
+        .AllowPaging()
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(75).Add();
+            col.Field("CustomerID").HeaderText("Customer ID").Width(90).Add();
+            col.Field("ShipCity").HeaderText("Ship City").TextAlign(TextAlign.Right).Width(90).Add();
+            col.Field("OrderDate").HeaderText("Order Date").HeaderTemplateID("#datetemplate").TextAlign(TextAlign.Right).Width(100).Format("{0:MM/dd/yyyy}").Add();
+            col.Field("ShipCountry").HeaderText("Ship Country").Width(110).Add();
+            col.Field("EmployeeID").HeaderText("Emp ID").HeaderTemplateID("#employeetemplate").TextAlign(TextAlign.Right).Width(90).Add();
+        })
+        )
+}
+@section ScriptSection{
+    <script id="datetemplate" type="text/x-jsrender">  
+        <span class="date headericon"></span>Order Date
+    </script>
+    <script id="employeetemplate" type="text/x-jsrender">      
+        <span class="headericon employee"></span>Emp ID    
+    </script>
+}
+

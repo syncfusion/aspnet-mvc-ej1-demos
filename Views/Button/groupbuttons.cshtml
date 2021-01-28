@@ -1,0 +1,40 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates the default functionalities of the GroupButton and its various property like height, width, showroundedcorner, groupbuttonmode in a ASP.NET MVC">
+}
+
+@section SampleHeading{
+    <span class="sampleName">Button-Group Button-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            <div class="element">
+                @Html.EJ().GroupButton("GroupButton").GroupButtonMode(GroupButtonMode.RadioButton).ShowRoundedCorner(true).Datasource((IEnumerable<GroupJson>)ViewBag.datasource)
+            </div>
+        </div>
+    </div>
+}
+
+@section StyleSection{
+    <style>
+ .control .element, label {
+        display: table;
+        margin: 0 auto;
+    }
+        .element {
+            width: 100%;
+        }
+          .frame{
+        width: auto;
+    }
+        @@media (max-width: 450px) and (min-width: 0px) {
+            .frame {
+                margin: 0 !important;
+            }
+
+            .row .cols-sample-area {
+                padding: 0 !important;
+            }
+        }
+    </style>
+}
+

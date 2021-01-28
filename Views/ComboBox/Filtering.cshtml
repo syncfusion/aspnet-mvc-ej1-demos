@@ -1,0 +1,31 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to enable the filtering in a ASP.NET MVC ComboBox control.">
+}
+
+@section SampleHeading{
+    <span class="sampleName">ComboBox-Filtering-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @{
+                 Html.EJ()
+                    .ComboBox("selectCountry")
+                    .AllowFiltering(true)
+                    .ComboBoxFields(h => h.Text("text").Value("category"))
+                    .Query("new ej.Query().select(['text','category']).take(5)")
+                    .ClientSideEvents(h => h.Filtering("filtering"))
+                    .Datasource((IEnumerable<Countries>)ViewBag.datasource)
+                    .Placeholder("Select a country")
+                    .Render();
+            }
+        </div>
+    </div>
+    <script type="text/javascript">
+        function filtering(e) {
+            var query = new ej.Query().select(['text','category']);
+            query = (e.text !== '') ? query.where('text', 'startswith', e.text, true) : query;
+            e.updateData(e.model.dataSource, query);
+        }
+    </script>
+}
+

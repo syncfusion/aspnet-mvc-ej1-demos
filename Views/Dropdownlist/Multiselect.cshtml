@@ -1,0 +1,23 @@
+@section MetaTags{
+   <meta name="description" content="This sample demonstrates multiple items selection with ASP.NET MVC DropDownList control." >
+}
+
+@section SampleHeading{
+    <span class="sampleName">Dropdownlist-Multi-Select-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().DropDownList("skillsets").Datasource((IEnumerable<Languages>)ViewBag.datasource).DropDownListFields(f => f.Text("skill")).MultiSelectMode(MultiSelectModeTypes.VisualMode).ShowCheckbox(true).Width("200").WatermarkText("Select a skill").Width("100%")
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        var target;
+        $(function () {
+            target = $('#skillsets').data("ejDropDownList");
+        });
+    </script>
+}
+
+

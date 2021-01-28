@@ -1,0 +1,60 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{ <span class="sampleName">ReportWriter/Grouping</span>}
+
+@section ControlsSection{
+
+    @{ViewBag.Title = "Syncfusion Essential ReportWriter : Grouping Demo";}
+    @{Html.BeginForm("Grouping", "ReportWriter", FormMethod.Post);
+    {
+        <div class="Common">
+            <div class="tablediv">
+                <div class="rowdiv">
+                    <label id="design">
+                            This sample showcases the following capabilities of the ReportWriter.
+                        <br />
+                        <br />
+                            •	Grouping
+                        <br />
+                        <br />
+                            •	Tablix
+                    </label>
+                </div>
+                <br />
+                <div class="rowdiv">
+                    <div class="celldiv" style="padding:20px 5px 5px 5px" align="center">
+                        <label>
+                            <strong>  Save As :</strong>
+                        </label>
+                        <input id="rbtnPDf" type="radio" name="writerFormat" value="PDF" checked="checked" style="margin-left: 25px" />
+                        <label for="rbtnPDf" style="padding:0px 5px 0px 15px">
+                            PDF
+                        </label>
+                        <input id="rbtnWord" type="radio" name="writerFormat" value="Word" style="margin-left: 15px" />
+                        <label for="rbtnWord" style="padding:0px 5px 0px 15px">
+                            Word
+                        </label>
+                        <input id="rbtnxls" type="radio" name="writerFormat" value="xls" style="margin-left: 15px" />
+                        <label for="rbtnxls" style="padding:0px 5px 0px 15px">
+                            Excel
+                        </label>
+                        <input id="rbtnHtml" type="radio" name="writerFormat" value="Html" style="margin-left: 15px" />
+                        <label for="rbtnHtml" style="padding:0px 25px 0px 15px ">
+                            Html
+                        </label>
+                        <input class="buttonStyle" type="submit" name="button" value="Generate" style="width:140px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        Html.EndForm();
+    }}
+}
+@section StyleSection
+{
+    <style>
+        #design {
+            font: normal 16px Calibri !important;
+        }
+    </style>
+}
