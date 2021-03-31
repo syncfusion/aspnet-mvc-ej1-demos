@@ -1,0 +1,38 @@
+@section SampleHeading{
+    <span class="sampleName">Autocomplete-AutocompleteFor-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This example demonstrates strongly typed HTML helpers and value access from the model in the Syncfusion ASP.NET MVC Autocomplete component.">
+}
+@model MVCSampleBrowser.Models.Autocmplete
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            <span class="txt">Select a car</span>
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true)                     
+                
+                @Html.EJ().AutocompleteFor(model => model.auto1, (Syncfusion.JavaScript.Models.AutocompleteProperties)ViewData["auto"]).Width("100%")
+                                    
+                @Html.ValidationMessageFor(model => model.auto1)
+                               
+                @Html.EJ().Button("btn").Size(ButtonSize.Small).Text("Post").Type(ButtonType.Submit)                   
+               
+            }
+        </div>
+    </div>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .txt
+        {
+            margin-bottom: 10px;
+        }
+        
+        #btn
+        {
+            margin-top: 20px;
+        }
+    </style>
+}
+

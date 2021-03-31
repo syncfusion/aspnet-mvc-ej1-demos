@@ -1,0 +1,154 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates the localization support available for various cultures in the Syncfusion Gantt chart control.">
+}
+@section SampleHeading{<span class="sampleName">Gantt-Localization-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ScriptReferenceSection
+{
+    <script src="~/Scripts/cultures/ej.culture.en-US.min.js"></script>
+    <script src="~/Scripts/cultures/ej.culture.fr-FR.min.js"></script>
+    <script src="~/Scripts/cultures/ej.culture.vi-VN.min.js"></script>
+}
+
+
+
+@section ControlsSection{
+
+    <div id="ddlist" style="float:right;padding-bottom:5px;">
+        <ul>
+            <li>en-US</li>
+            <li>fr-FR</li>
+            <li>vi-VN</li>
+        </ul>
+    </div>
+    <div style="float:right;padding-bottom:5px;">
+        @(Html.EJ().DropDownList("language")
+                          .TargetID("ddlist")
+                          .SelectedItemIndex(1)
+                          .Value("fr-FR")
+                          .Text("fr-FR")
+                          .ClientSideEvents(eve => eve.Change("onChange"))
+                          .Width("120px")
+        )
+    </div>
+
+    <div id="ganttsample5" style="width:100%;height: 450px;">
+        @(Html.EJ().Gantt("ganttsample5")
+                  .TaskIdMapping("Id")
+                  .TaskNameMapping("Name")
+                  .StartDateMapping("StartDate")
+                  .DurationMapping("Duration")
+                  .ProgressMapping("PercentDone")
+                  .ScheduleStartDate("10/20/2017")//new DateTime(2017,10,10))
+                  .ScheduleEndDate("11/10/2017")//new DateTime(2017,11,02))
+                  .HighlightWeekends(true)
+                  .TreeColumnIndex(1)
+                  .DateFormat("MM/dd/yyyy")
+                  .ChildMapping("Children")
+                  .AllowGanttChartEditing(false)
+                  .AllowSelection(true)
+                  .AllowColumnResize(true)
+                  .Locale("fr-FR")
+                  .IsResponsive(true)
+                  .ClientSideEvents(cs => cs.Load("load"))
+                  .Datasource(ViewBag.datasource)
+        )
+    </div>
+}
+
+@section ScriptSection{
+    <script type="text/javascript">
+
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+
+        function onChange(args) {
+            if (args.itemId == 0)
+                $("#ganttsample5").ejGantt("model.locale", "en-US");
+            else if (args.itemId == 1)
+                $("#ganttsample5").ejGantt("model.locale", "fr-FR");
+            else
+                $("#ganttsample5").ejGantt("model.locale", "vi-VN");
+        }
+        function load() {
+            var columns = this.getColumns();
+            columns.splice(0, 1);
+            columns.splice(2, 3);
+            columns[1].width = 143;
+        }
+
+        ej.Gantt.Locale["fr-FR"] = {
+            //string to display with dataSource contains 0 objects
+            emptyRecord: "Aucun enregistrement à afficher",
+
+            //headerText to be displayed in gridtree
+            columnHeaderTexts: {
+                taskId: "Tâche Ia",
+                taskName: "Tâche Tâche",
+                startDate: "Démarrer Date",
+                endDate: "Fin Date",
+                resourceInfo: "Resources",
+                duration: "Durée",
+                status: "Progrès",
+                predecessor: "Prédécesseur",
+                baselineStartDate: "Baseline Démarrer Date",
+                baselineEndDate: "Baseline Fin Date"
+            },
+
+            //String to display in tooltip duration Unit.
+            durationUnitTexts: {
+                minutes: "procès-verbal",
+                hours: "heures",
+                days: "journées",
+            },
+
+            //string to display in dialog
+            editDialogTexts: {
+                addFormTitle: "Nouveau Tâche",
+                editFormTitle: "Modifier Tâche",
+                saveButton: "Sauver",
+                cancelButton: "Annuler"
+            }
+        },
+
+        ej.Gantt.Locale["vi-VN"] = {
+            //string to display with dataSource contains 0 objects
+            emptyRecord: "tr?ng tr?ng",
+
+            //headerText to be displayed in gridtree
+            columnHeaderTexts: {
+                taskId: "nhiệm vụ Ia",
+                taskName: "Tâche các",
+                startDate: "bắt đầu ngày",
+                endDate: "cuối ngày",
+                resourceInfo: "tài nguyên thông tin",
+                duration: "thời gian",
+                status: "tình trạng",
+                predecessor: "người tiền nhiệm",
+                baselineStartDate: "cơ sở bắt đầu ngày",
+                baselineEndDate: "cơ sở cuối ngày"
+            },
+
+            //String to display in tooltip duration Unit.
+            durationUnitTexts: {
+                minutes: "từ phút",
+                hours: "giờ",
+                days: "ngày",
+            },
+
+            //string to display in dialog
+            editDialogTexts: {
+                addFormTitle: "thêm  hình thức tiêu đề",
+                editFormTitle: "chỉnh sửa  hình thức tiêu đề",
+                saveButton: "tiết kiệm",
+                cancelButton: "hủy bỏ"
+            }
+        }
+        function load(args) {
+            var columns = this.getColumns();
+            columns[0].width = 60;
+        }
+    </script>
+}
+
