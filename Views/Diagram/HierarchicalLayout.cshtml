@@ -1,0 +1,212 @@
+@section SampleHeading{ <span class="sampleName">Diagram-Hierarchical Tree-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This sample illustrates a generating hierarchical tree with an external data source and ASP.NET MVC diagram’s built-in hierarchical layout algorithm.">
+}
+<style>
+    #resizeBorder {
+        stroke: black;
+        stroke-width: 3px;
+        stroke-dasharray: none;
+        opacity: 1;
+    }
+
+    #nw-resize, #n-resize, #ne-resize, #w-resize, #e-resize, #sw-resize, #s-resize, #se-resize {
+        fill: none;
+        stroke: transparent;
+    }
+</style>
+
+@section ControlsSection{
+    <div>
+        @Html.EJ().Diagram("HierarchicalLayout", ViewData["diagramModel"] as Syncfusion.JavaScript.DataVisualization.Models.DiagramProperties)
+    </div>
+}
+@section PropertiesSection{
+    <div id="Propertiespanel">
+        <div>
+            <div class="row">
+                <div class="col-md-6 aligntop">
+                    <b>Layout Settings</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 aligntop" style="margin-right: -25px;">
+                    Orientation
+                </div>
+                <div class="col-md-6">
+                    <input type="text" id="orientation" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6 aligntop" style="margin-right: -25px;">
+                    Margin X
+                </div>
+                <div class="col-md-6">
+                    @Html.EJ().NumericTextbox("marginX").Width("130px").WatermarkText("Margin X").Value(0).MinValue(-30).MaxValue(10000).ClientSideEvents(s => s.Change("marginXChange"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 aligntop" style="margin-right: -25px;">
+                    Margin Y
+                </div>
+                <div class="col-md-6">
+                    @Html.EJ().NumericTextbox("marginY").Width("130px").WatermarkText("Margin Y").Value(10).MinValue(0).MaxValue(10000).ClientSideEvents(s => s.Change("marginYChange"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 aligntop" style="margin-right: -25px;">
+                    <b>Spacing</b>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 aligntop" style="margin-right: -25px;">
+                    Horizontal
+                </div>
+                <div class="col-md-6">
+                    @Html.EJ().NumericTextbox("horizontalSpacing").Width("130px").WatermarkText("Horizontal Spacing").Value(25).MinValue(1).MaxValue(10000).ClientSideEvents(s => s.Change("horizontalChange"))
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 aligntop" style="margin-right: -25px;">
+                    Vertical
+                </div>
+                <div class="col-md-6">
+                    @Html.EJ().NumericTextbox("verticalSpacing").Width("130px").WatermarkText("Vertical Spacing").Value(35).MinValue(1).MaxValue(10000).ClientSideEvents(s => s.Change("verticalChange"))
+                </div>
+            </div>
+            <div class="row">
+            </div>
+            <div class="row" id="hide">
+                <div class="col-md-6 aligntop" style="margin-right: -25px;">
+                    Expand
+                </div>
+                <div class="col-md-6">
+                    <input id="expand" />
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+    <div id="list">
+        <ul>
+            <li value="toptobottom">Top-Bottom</li>
+            <li value="lefttoright">Left-Right</li>
+            <li value="righttoleft">Right-Left</li>
+            <li value="bottomtotop">Bottom-Top</li>
+        </ul>
+    </div>
+}
+
+@section ScriptSection{
+    <script type="text/javascript">
+        function nodeTemplate(diagram, node) {
+            node.labels[0].text = node.Name;
+        }
+
+        function selectionChange(args) {
+            if (args.state === "changing") {
+                if (args.selectedItems.length == "1") {
+                    $("#hide").show();
+                    if (args.selectedItems[0].isExpanded) {
+                        $("#expand").ejCheckBox({
+                            "checked": true
+                        });
+                    }
+
+                    else {
+                        $("#expand").ejCheckBox({
+                            "checked": false
+                        });
+                    }
+                }
+                else {
+                    $("#hide").hide();
+
+                }
+            }
+        }
+
+        $("#hide").hide();
+        $("#Propertiespanel").ejPropertiesPanel();
+        $("#orientation").ejDropDownList({
+            watermarkText: "Orientation",
+            text: "Top-Bottom",
+            targetID: "list",
+            width: "130px",
+            "change": function (args) {
+                var marginx = 0, marginy = 0;
+                switch (args.value) {
+                    case "toptobottom":
+                    case "bottomtotop":
+                        marginy = 50;
+                        break;
+                    case "lefttoright":
+                        marginx = 10;
+                        break;
+                    case "righttoleft":
+                        marginx = -150;
+                        break;
+                }
+                $("#HierarchicalLayout").ejDiagram({
+                    layout: {
+                        orientation: args.value,
+                        marginX: marginx,
+                        marginY: marginy
+                    }
+                });
+
+                $("#marginX").ejNumericTextbox({ value: marginx });
+                $("#marginY").ejNumericTextbox({ value: marginy });
+            }
+
+        });
+        function horizontalChange(args) {
+            $("#HierarchicalLayout").ejDiagram({
+                layout: {
+                    horizontalSpacing: args.value
+                }
+            });
+        }
+
+        function verticalChange(args) {
+            $("#HierarchicalLayout").ejDiagram({
+                layout: {
+                    verticalSpacing: args.value
+                }
+            });
+        }
+
+        function marginXChange(args) {
+            $("#HierarchicalLayout").ejDiagram({
+                layout: {
+                    marginX: args.value
+                }
+            });
+        }
+
+        function marginYChange(args) {
+            $("#HierarchicalLayout").ejDiagram({
+                layout: {
+                    marginY: args.value
+                }
+            });
+        }
+
+        $("#expand").ejCheckBox({
+            "change": function (args) {
+                var diagram = $("#HierarchicalLayout").ejDiagram("instance");
+                if (diagram.model.selectedItems.children.length != 0)
+                    diagram.updateNode(diagram.model.selectedItems.children[0].name, { isExpanded: args.isChecked ? true : false })
+            }
+        });
+        function create(args) {
+            var diagram;
+            diagram = $("#HierarchicalLayout").ejDiagram("instance");
+            diagram.layout();
+        }
+    </script>
+    <script src="@Url.Content("~/Scripts/DiagramScripts/DiagramCommon.js")"></script>
+}
+

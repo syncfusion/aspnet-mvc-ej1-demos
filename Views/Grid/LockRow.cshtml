@@ -1,0 +1,68 @@
+@using Syncfusion.JavaScript.Models
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+   
+}
+@section SampleHeading{<span class="sampleName">Grid-Lock Row-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This demo explains how to disable editing for specific rows dynamically in Syncfusion ASP.NET MVC DataGrid control.">
+}
+@section ControlsSection{
+    @(Html.EJ().Grid<EditableOrder>("LockRow")
+        .Datasource(ds => ds.Json((IEnumerable<object>)ViewBag.dataSource).UpdateURL("LockRowUpdate").Adaptor(AdaptorType.RemoteSaveAdaptor))
+        .EditSettings(edit => { edit.AllowEditing(); })
+        .AllowSorting()
+        .AllowPaging()
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).ValidationRules(v=>v.AddRule("required",true).AddRule("number",true)).Width(75).Add();
+            col.Field("ShipCity").HeaderText("Ship City").Width(90).ValidationRules(v => v.AddRule("required", true)).Add();
+            col.Field("EmployeeID").HeaderText("Employee ID").TextAlign(TextAlign.Right).EditType(EditingType.NumericEdit).Width(80).ValidationRules(v => v.AddRule("required", true)).Add();
+            col.Field("Freight").HeaderText("Freight").TextAlign(TextAlign.Right).Width(80).EditType(EditingType.NumericEdit).Width(80).NumericEditOptions(new EditorProperties() { DecimalPlaces = 2 }).ValidationRules(v => v.AddRule("required",true).AddRule("range", "[0,1000]")).Format("{0:C}").Add();
+            col.Field("Verified").HeaderText("Verified").EditType(EditingType.BooleanEdit).Width(80).Add();
+        })
+        .ClientSideEvents(eve => { eve.BeginEdit("beginEdit").ActionBegin("begin").EndEdit("endEdit").EndAdd("endAdd").ActionComplete("complete"); })
+        )
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Disable Row
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().DropDownList("autoDefault")
+                .Datasource((IEnumerable<object>)ViewBag.datasource)
+                .DropDownListFields(field => { field.Text("OrderID"); })
+                .Width("120px")                
+                .ShowCheckbox()
+                )
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        function beginEdit(args) {
+            var selectItems = $("#autoDefault").ejDropDownList("model.value");
+			 if(selectItems != null)
+				selectItems = selectItems.split(',');
+            if ($.inArray(args.primaryKeyValue[0].toString(), selectItems) != -1)
+                args.cancel = true;
+        }
+        function begin(args) {
+            if (args.requestType == "save")
+                $("#LockRow").ejWaitingPopup("show");
+        }
+        function endEdit(args) {
+            $("#LockRow").ejWaitingPopup("hide");
+        }
+        function complete(args) {
+            if (args.requestType == "cancel")
+                $("#LockRow").ejWaitingPopup("hide");
+        }
+    </script>
+}
+

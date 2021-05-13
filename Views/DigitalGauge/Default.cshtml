@@ -1,0 +1,149 @@
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/excanvas.min.js")"></script>
+    }
+@section SampleHeading{
+    <span class="sampleName">DigitalGauge-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>
+}
+@section ControlsSection{
+ <div align="center">
+    @(Html.EJ().DigitalGauge("digitalGauge")
+            .IsResponsive(true)
+                    .ClientSideEvents(cli=>cli.Load("loadGaugeTheme")).Width(600).Height(455).Items(
+    items =>
+    {
+        items.Position(
+    loc =>
+    {
+        loc.X(32).Y(32);
+    }).SegmentSettings(seg=>seg.Spacing(0).Width(2))
+    .Value("123456789").Add();
+    }))
+
+</div>
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Segment Spacing
+        </div>
+        
+        <div class="col-md-3 aligntop">
+            @(Html.EJ().Slider("segmantSpacing").SliderType(SlideType.MinRange).Value("-1").Height("10").Width("110").MinValue(-2).MaxValue(1).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange").Slide("onchange"); }))
+        </div>
+        <div class="col-md-3">
+            Segment Width
+        </div>
+        <div class="col-md-3 aligntop">
+            @(Html.EJ().Slider("segmantWidth").SliderType(SlideType.MinRange).Value("2").Height("10").Width("110").MinValue(1).MaxValue(3).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange").Slide("onchange"); }))
+        </div>
+    </div>
+
+    
+
+    <div class="row">
+        <div class="col-md-3">
+            Label Text
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="ejinputtext" id="labeltext" value="123456789" style="width: 106px" />
+        </div>
+        <div class="col-md-3">
+            CharacterSpacing
+        </div>
+        <div class="col-md-3 aligntop">
+            @(Html.EJ().Slider("charSpacing").SliderType(SlideType.MinRange).Value("2").Height("10").Width("110").MinValue(1).MaxValue(4).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange").Slide("onchange"); }))
+        </div>
+    </div>
+
+    <div class="row">
+        
+        <div class="col-md-3">
+            Character Type
+        </div>
+
+    </div>
+    <div class="row">
+
+        <div class="col-md-3">
+            @(Html.EJ().DropDownList("charactertype").Datasource((IEnumerable<MVCSampleBrowser.Models.DigitalGauge.Types>)ViewBag.datasource).DropDownListFields(df => df.ID("Type").Text("Type").Value("Type")).SelectedItemIndex(3).Width("200").ClientSideEvents(cli => { cli.Select("onchange"); }))
+        </div>
+
+    </div>
+
+}
+@section StyleSection{
+    <style>
+        .col-md-3 .e-ddl .e-input {
+            line-height: 20px;
+        }
+    </style>
+}
+@section MetaTags{
+   <meta name="description" content="This sample demonstrates the default rendering of the Syncfusion ASP.NET Web Forms Digital Gauge control.">
+}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+            var textBox = $("#labeltext");
+            $(textBox).bind("keyup", function () {
+                var val = $("#labeltext").val();
+                var digitarget = $("#digitalGauge").data("ejDigitalGauge");
+                digitarget.setValue(0, val);
+            });
+
+        });
+
+        function onchange(args) {
+            var digitaltarget = $("#digitalGauge").data("ejDigitalGauge");
+            var charSpacing = $("#charSpacing").data("ejSlider");
+
+            if (args.id == "segmantSpacing") {
+                digitaltarget.model.items[0].segmentSettings.spacing = args.value;
+            }
+            else if (args.id == "segmantWidth") {
+                digitaltarget.model.items[0].segmentSettings.width = args.value;
+            }
+            else if (args.id == "charSpacing") {
+                digitaltarget.model.items[0].characterSettings.spacing = args.value;
+            }
+            if (args.text == "7 segment" || args.text == "14 segment" || args.text == "16 segment") {
+                digitaltarget.model.items[0].segmentSettings.length = 8;
+                digitaltarget.model.items[0].characterSettings.spacing = 10;
+                charSpacing.model.minValue = 7;
+                charSpacing.model.maxValue = 12;
+                charSpacing.setModel({ value: digitaltarget.model.items[0].characterSettings.spacing });
+            }
+            else if (args.text == "8x8 dotmatrix" || args.text == "8x8 squarematrix") {
+                digitaltarget.model.items[0].segmentSettings.length = 2;
+                digitaltarget.model.items[0].characterSettingsspacing = 2;
+                charSpacing.model.minValue = 1;
+                charSpacing.model.maxValue = 4;
+                charSpacing.setModel({ value: digitaltarget.model.items[0].characterSettings.spacing });
+            }
+            switch (args.text) {
+                case "7 segment":
+                    digitaltarget.model.items[0].characterSettings.type = "sevensegment";
+                    break;
+                case "14 segment":
+                    digitaltarget.model.items[0].characterSettings.type = "fourteensegment";
+                    break;
+                case "16 segment":
+                    digitaltarget.model.items[0].characterSettings.type = "sixteensegment"
+                    break;
+                case "8x8 dotmatrix":
+                    digitaltarget.model.items[0].characterSettings.type = "eightcrosseightdotmatrix";
+                    break;
+                case "8x8 squarematrix":
+                    digitaltarget.model.items[0].characterSettings.type = "eightcrosseightsquarematrix";
+                    break;
+                }
+            digitaltarget._setModel(digitaltarget.model.items);
+
+        }
+    </script>
+
+
+
+
+

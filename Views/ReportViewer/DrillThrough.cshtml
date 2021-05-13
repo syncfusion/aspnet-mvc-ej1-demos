@@ -1,0 +1,27 @@
+@section SampleHeading{ <span class="sampleName">ReportViewer-DrillThrough-ASP.NET MVC-SYNCFUSION</span>}
+
+@using Syncfusion.JavaScript
+@using Syncfusion.MVC.EJ
+
+@section StyleSection{
+    <style>
+        #reportviewer {
+            min-height: 650px;
+            min-width: 100%;
+        }
+    </style>
+}
+@section ScriptReferenceSection{
+}
+
+@section ControlsSection{
+   <div style="width:100%">
+        @(
+            Html.EJ().ReportViewer("reportviewer")
+              .ProcessingMode(Syncfusion.JavaScript.ReportViewerEnums.ProcessingMode.Local).ReportPath("~/App_Data/Reports/Sales_by_Region_2008.rdlc")
+              .ReportServiceUrl(VirtualPathUtility.ToAbsolute("~/api/RDLCReport")).ToolbarSettings(tb=>tb.Items(Syncfusion.JavaScript.ReportViewerEnums.ToolbarItems.All & ~Syncfusion.JavaScript.ReportViewerEnums.ToolbarItems.Parameters
+        ))
+        )
+    </div>
+}
+

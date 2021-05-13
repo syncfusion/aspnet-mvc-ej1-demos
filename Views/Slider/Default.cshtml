@@ -1,0 +1,89 @@
+@section MetaTags{
+   <meta name="description" content="This sample demonstrates initializing a simple ASP.NET MVC Slider control.">
+}
+
+@section SampleHeading{ <span class="sampleName">Slider-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ActionDescription{
+    <div class="action-description">
+    <p>
+        This sample demonstrates rendering Slider control which provides support to select a value from a particular range as well as selects a range value. 
+        The Slider has a sliding base on which the handles are moved. There are three types of Sliders such as default Slider, min-range Slider and range Slider.
+    </p>
+    </div>
+}
+
+@section ControlsSection{
+
+    <div class="frame">
+        <div id="loanheading">
+            Details of Loan
+        </div>
+
+        <span class="ColumnLeft">
+            <span class="loan">Loan Amount</span></span>
+        <span class="ColumnRight">
+            <span class="value">25000</span><span id="loantext">$ </span>
+        </span>
+        @(Html.EJ().Slider("loanSlider").Value("25000").MinValue(10000).MaxValue(1000000).IncrementStep(10)
+                   .ClientSideEvents(evt => evt.Change("onchange").Slide("onchange")))
+
+        <span class="ColumnLeft">
+            <span class="interest">Interest Rate</span></span>
+        <span class="ColumnRight">
+            <span id="interesttext">% pa</span><span class="value">4</span>
+        </span>
+        @(Html.EJ().Slider("interestSlider").Value("4").MinValue(1).MaxValue(20).IncrementStep(1)
+                   .ClientSideEvents(evt => evt.Change("onchange").Slide("onchange")))
+
+        <span class="ColumnLeft">
+            <span class="tenure">Tenure</span>
+        </span>
+        <span class="ColumnRight">
+            <span id="tenuretext">Years</span><span class="value">3</span>
+        </span>
+        @(Html.EJ().Slider("tenureSlider").Value("3").MinValue(1).MaxValue(20).IncrementStep(1)
+                   .ClientSideEvents(evt => evt.Change("onchange").Slide("onchange")))
+
+        <div id="result">
+            Your Monthly EMI Amount is 
+                       <span id="EventLog"></span>
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script>
+        var loanObj, interestObj, tenureObj;
+        function onchange(args) {
+            $('#' + args.id).parent().prev().find('.value').html(args.value)
+            calculate();
+        }
+        function calculate() {
+            loanObj = $('#loanSlider').data('ejSlider');
+            interestObj = $('#interestSlider').data('ejSlider');
+            tenureObj = $('#tenureSlider').data('ejSlider');
+            var loan = loanObj.getValue(), interest = interestObj.getValue(), tenure = tenureObj.getValue();
+
+            var P = loan;
+            var y = interest / 1200;
+            var tenureamt = tenure * 12;
+
+            //actual processing
+            var top = y * (Math.pow((1 + y), tenureamt));
+            var bottom = (Math.pow((1 + y), tenureamt)) - 1;
+            var ans = top / bottom;
+            var final = P * ans;
+            var z = Math.round(final);
+
+
+            $('#EventLog').html("$ " + z);
+        }
+        $(function () {
+            calculate();
+        });
+    </script>
+}
+@section StyleSection{
+    <link href="@Url.Content("~/Content/Samples/Sliderdefault.css")" rel="stylesheet" />
+}
+

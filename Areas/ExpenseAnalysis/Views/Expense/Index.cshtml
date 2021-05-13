@@ -1,0 +1,225 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+@{
+    Layout = "~/Areas/ExpenseAnalysis/Views/Shared/_Layout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Essential Studio for ASP.NET MVC : Expense Analysis";
+}
+<script src="@Url.Content("~/Scripts/expenseanalysis/expense.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+<link href="@Url.Content("~/Content/expense/theme.css")" rel="stylesheet" />
+<div class="sample-title">
+</div>
+<div class="container">
+    <div class="sample-container">
+        <div id="control-container">
+            <div class="text-title">
+                 <h1 style=" color: transparent; user-select: none; ">Expense Analysis</h1>
+            </div>
+            <div class="row imagetile">
+                <div class="col-md-5">
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="left-image">
+                                </div>
+                            </td>
+                            <td>
+                                <div style="horz-align: right;">
+                                    <div class="e-exptitle">
+                                        <label class="e-name">
+                                            David Carter</label><br />
+                                        <label class="e-phone">
+                                            Phone : +1 919.494.1974
+                                        </label>
+                                        <br />
+                                        <label class="e-mail">
+                                            email : davidc@syncfusion.com</label>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="col-md-7 e-values-td">
+                    <div class="initborder">
+                        <table class="e-values">
+                            <tr>
+                                <td class="pos-amt-td sideborder">
+                                    <p class="pos-amt"></p>
+                                    <p class="pos-text">
+                                        Positive
+                                    </p>
+                                    <p class="pos-transc">
+                                    </p>
+                                </td>
+                                <td class="neg-amt-td sideborder">
+                                    <p class="neg-amt"></p>
+                                    <p class="neg-text">
+                                        Negative
+                                    </p>
+                                    <p class="neg-transc"></p>
+                                </td>
+                                <td class="bal-amt-td">
+                                    <p class="bal-amt"></p>
+                                    <p class="bal-text">
+                                        Balance
+                                    </p>
+                                    <p class="bal-empty" style="visibility: hidden">
+                                        Transaction
+                                    </p>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="chartgridtable">
+                <div id="control-panel" class="add-filter-panel">
+                    <div class="row">
+                        <div class="col-md-1" style="DISPLAY: inline">
+                            <label class="sample-t">
+                                Transactions</label>
+                        </div>
+                        <div class="col-md-8" style="DISPLAY: inline"></div>
+                        <div class="col-md-3" style="DISPLAY: inline">
+                            <table style="float: left;">
+                                <tr>
+                                    <td>
+                                        <div>
+                                            @Html.EJ().DropDownList("selectMonth").Width("150px").Height("30px").ClientSideEvents(evt => evt.Select("changeMonth")).Datasource((List<string>)ViewBag.dropdown)
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <div class="add-image"/>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="expensegridborder">
+                    <div class="col-xs-13 grid-container">
+                        <div id="ExpenseGrid">
+                            @(Html.EJ().Grid<object>("grid")
+                                  .AllowPaging(true)
+                                  .AllowSorting(true)
+                                  .EnableRowHover(true)
+                                  .AllowKeyboardNavigation(true)
+                                  .IsResponsive(true)
+                                  .EnableResponsiveRow(false)                      
+                                  .EditSettings(c => { c.AllowEditing(false).AllowAdding(true).EditMode(EditMode.Dialog); })
+                                  .CssClass("metroblue").PageSettings(p => p.PageCount(4))
+                                  .Columns(col =>
+                                  {
+                                      col.Field("DateTime").HeaderText("Date").TextAlign(TextAlign.Right).Width(40).ValidationRules(v => v.AddRule("required", true)).EditType(EditingType.Datepicker).Format("{0:MMM dd yyyy}").Add();
+                                      col.Field("Description").ValidationRules(v => v.AddRule("required", true).AddRule("minlength", 3)).HeaderText("Description").Width(100).Add();
+                                      col.Field("CategoryName").HeaderText("CategoryName").ValidationRules(v => v.AddRule("required", true).AddRule("minlength", 3)).Width(100).Visible(true).Add();
+                                      col.Field("Amount").HeaderText("Amount").Width(50).EditType(EditingType.NumericEdit).Format("{0:C}").ValidationRules(s => s.AddRule("required", true)).Priority(4).Add();
+                                  })
+                                  )
+                        </div>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="col-xs-13 chart-inner">
+                        <div class="samplesec">
+                            <div>
+                                <div class="samplename">
+                                    <span>Expense Analysis Chart </span>
+                                </div>
+                                <div class="samplebody">
+                                    <div class="samplecontent">
+                                        <div class="chart-back-button">
+                                            @(Html.EJ().Button("btnBack")
+                                                                    .Size(ButtonSize.Mini)
+                                                                    .ClientSideEvents(evt => evt.Create("hidebutton")
+                                                                    .Click("btnClick"))
+                                                                    .Text("Back")
+                                                                    )
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <div id="ExpenseChart">
+                                                    @(Html.EJ().Chart("chart")
+                                                            .IsResponsive(true)
+                                                            .CommonSeriesOptions(c => c.Type(SeriesType.Pie))
+                                                            .Series(ser =>
+                                                            {
+                                                                ser.Name("ExpenseChart");
+                                                                ser.EnableAnimation(true);
+                                                                ser.LabelPosition(ChartLabelPosition.Outside);
+                                                                ser.Marker(m => m.DataLabel(dl => dl.Visible(true).ConnectorLine(cl => cl.Height(20))));
+                                                                ser.Explode(true);
+                                                                ser.XName("ExpenseCategory");
+                                                                ser.YName("Amount");
+                                                                ser.Add();
+                                                            })
+                                                              .PointRegionClick("onClick")
+                                                              .AnimationComplete("completeAnimation")
+                                                              .PreRender("seriesRender")
+                                                              .Background("transparent")                                                              
+                                                              .Legend(leg => { leg.Visible(false); })
+                                                            )
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="spend-div">
+                                                    <table cellspacing="10">
+                                                        <tr>
+                                                            <td class="most-spent">
+                                                                <p class="most-spent-text">
+                                                                    Most Spent
+                                                                </p>
+                                                                <p class="most-spent-amt">
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="least-spent">
+                                                                <p class="least-spent-text">
+                                                                    Least Spent
+                                                                </p>
+                                                                <p class="least-spent-amt">
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="avg-spent">
+                                                                <p class="avg-spent-text">
+                                                                    Average Spent
+                                                                </p>
+                                                                <p class="avg-spent-amt">
+                                                                </p>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="footer">
+                <div class="bottom-links">
+                <div class="left">
+                    <div class="sync-text">
+                        Copyright © 2001-2021 Syncfusion Inc.
+                    </div>
+                </div>  
+                <div class="right">
+                    <a href="https://www.syncfusion.com">
+                        <div class="syncfusion-image"></div>
+                    </a>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

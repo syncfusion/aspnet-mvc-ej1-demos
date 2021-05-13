@@ -1,0 +1,133 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how the datepicker supports the keyboard navigation(keyboard shortcuts) in a ASP.NET MVC">
+}
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName">DatePicker-Keyboard Navigation-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().DatePicker("DatePick").Width("100%")
+        </div>
+    </div>
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Alt + j
+        </div>
+        <div class="col-md-3">
+            Focuses the control
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Alt + Down
+        </div>
+        <div class="col-md-3">
+            Opens the popup
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Left
+        </div>
+        <div class="col-md-3">
+            Moves to previous date
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Right
+        </div>
+        <div class="col-md-3">
+            Moves to next date
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Up
+        </div>
+        <div class="col-md-3">
+            Moves one week upward
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Down
+        </div>
+        <div class="col-md-3">
+            Moves one week downward
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Enter
+        </div>
+        <div class="col-md-3">
+            Selects the focused date
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Alt + Enter
+        </div>
+        <div class="col-md-3">
+            Selects the today date
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Esc
+        </div>
+        <div class="col-md-3">
+            Closes the popup
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Ctrl + Up
+        </div>
+        <div class="col-md-3">
+            Navigates to top view
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Ctrl + Down
+        </div>
+        <div class="col-md-3">
+            Navigates to lower view
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Ctrl + Left
+        </div>
+        <div class="col-md-3">
+            Navigates to previous month
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Ctrl + Right
+        </div>
+        <div class="col-md-3">
+            Navigates to next month
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+            $(document).on("keydown", function (e) {
+                if (e.altKey && e.keyCode === 74) { // j- key code.
+                    $("#DatePick").focus();
+                }
+            });
+        });
+    </script>
+}
+
