@@ -30,29 +30,7 @@ var core = {
     "material": "/Content/ejthemes/",
     "office-365": "/Content/ejthemes/"
 };
-var rptDesignerThemes = {
-    "flat": "/Content/ejthemes/default-theme/ej.reportdesigner.theme.min.css",
-    "flatdark": "/Content/ejthemes/flat-azure-dark/ej.reportdesigner.theme.min.css",
-    "azure": "/Content/ejthemes/default-theme/ej.reportdesigner.theme.min.css",
-    "azuredark": "/Content/ejthemes/flat-azure-dark/ej.reportdesigner.theme.min.css",
-    "lime": "/Content/ejthemes/flat-lime/ej.reportdesigner.theme.min.css",
-    "limedark": "/Content/ejthemes/flat-lime-dark/ej.reportdesigner.theme.min.css",
-    "saffron": "/Content/ejthemes/flat-saffron/ej.reportdesigner.theme.min.css",
-    "saffrondark": "/Content/ejthemes/flat-saffron-dark/ej.reportdesigner.theme.min.css",
-    "gradient": "/Content/ejthemes/gradient-azure/ej.reportdesigner.theme.min.css",
-    "gradientdark": "/Content/ejthemes/gradient-azure-dark/ej.reportdesigner.theme.min.css",
-    "gradientazure": "/Content/ejthemes/gradient-azure/ej.reportdesigner.theme.min.css",
-    "gradientazuredark": "/Content/ejthemes/gradient-azure-dark/ej.reportdesigner.theme.min.css",
-    "gradientlime": "/Content/ejthemes/gradient-lime/ej.reportdesigner.theme.min.css",
-    "gradientlimedark": "/Content/ejthemes/gradient-lime-dark/ej.reportdesigner.theme.min.css",
-    "gradientsaffron": "/Content/ejthemes/gradient-saffron/ej.reportdesigner.theme.min.css",
-    "gradientsaffrondark": "/Content/ejthemes/gradient-saffron-dark/ej.reportdesigner.theme.min.css",
-    "bootstrap": "/Content/ejthemes/bootstrap-theme/ej.reportdesigner.theme.min.css",
-    "high-contrast-01": "/Content/ejthemes/high-contrast-01/ej.reportdesigner.theme.min.css",
-    "high-contrast-02": "/Content/ejthemes/high-contrast-02/ej.reportdesigner.theme.min.css",
-    "material": "/Content/ejthemes/material/ej.reportdesigner.theme.min.css",
-    "office-365": "/Content/ejthemes/office-365/ej.reportdesigner.theme.min.css"
-};
+
 if ((readCookie('themeName') != null) && (readCookie('themeName') != ""))
     window.theme = readCookie('themeName');
 replaceTheme();
@@ -970,46 +948,6 @@ function replaceTheme() {
                     $(links[i - 1])[0].href = serverconfig +'/Content/ejthemes/ej.widgets.core.min.css';
                 if ($(".e-prop").length && $(".e-prop").hasClass("e-office-365")) $(".e-prop").removeClass("e-office-365");
 				$("body").removeClass("office-365");
-            }
-            $(fileref).insertAfter(links[i]);
-            $(links[i]).remove();
-        }
-        else if (links[i].href.indexOf("ej.reportdesigner.theme.min.css") != -1) {
-            var cssref = links[i].href, serverconfig = cssref.substr(0, cssref.indexOf("Content") - 1),
-			fileref = $('<link rel="stylesheet" type="text/css" href="' + serverconfig + rptDesignerThemes[theme] + '" />');
-            if (window.theme == "bootstrap") {
-                var corefile = $('<link rel="stylesheet" type="text/css" href="' + serverconfig + core[theme] + "ej.reportdesigner.core.bootstrap.min.css" + '" />');
-                $(corefile).insertBefore(links[i]);
-                if ($(".e-prop").length) $(".e-prop").addClass("e-bootstrap");
-            }
-            else {
-                if (links[i - 1].href.indexOf("ej.reportdesigner.core.bootstrap.min.css") != -1)
-                    $(links[i - 1]).remove();
-                if ($(".e-prop").length && $(".e-prop").hasClass("e-bootstrap")) $(".e-prop").removeClass("e-bootstrap");
-            }
-            if (window.theme == "material") {
-                if (links[i - 1].href.indexOf("ej.reportdesigner.core.min.css") != -1 || links[i - 1].href.indexOf("ej.reportdesigner.core.office-365.min.css") != -1 || links[i - 1].href.indexOf("ej.reportdesigner.core.bootstrap.min.css") != -1)
-                    $(links[i - 1])[0].href = serverconfig + '/Content/ejthemes/ej.reportdesigner.core.material.min.css';
-                if ($(".e-prop").length) $(".e-prop").addClass("e-material");
-                $("body").addClass("material");
-            }
-            else {
-                if (links[i - 1].href.indexOf("ej.reportdesigner.core.material.min.css") != -1)
-                    $(links[i - 1])[0].href = serverconfig + '/Content/ejthemes/ej.reportdesigner.core.min.css';
-                if ($(".e-prop").length && $(".e-prop").hasClass("e-material")) $(".e-prop").removeClass("e-material");
-                $("body").removeClass("material");
-            }
-            if (window.theme == "office-365") {
-                if (links[i - 1].href.indexOf("ej.reportdesigner.core.min.css") != -1 || links[i - 1].href.indexOf("ej.reportdesigner.core.material.min.css") != -1 || links[i - 1].href.indexOf("ej.reportdesigner.core.bootstrap.min.css") != -1)
-                    $(links[i - 1])[0].href = serverconfig + '/Content/ejthemes/ej.reportdesigner.core.office-365.min.css';
-                if ($(".e-prop").length) $(".e-prop").addClass("e-ofice-365");
-                $("body").addClass("office-365");
-            }
-            else {
-                if (links[i - 1].href.indexOf("ej.reportdesigner.core.office-365.min.css") != -1)
-                    $(links[i - 1])[0].href = serverconfig + '/Content/ejthemes/ej.reportdesigner.core.min.css';
-                if ($(".e-prop").length && $(".e-prop").hasClass("e-office-365")) $(".e-prop").removeClass("e-office-365");
-                $("body").removeClass("office-365");
             }
             $(fileref).insertAfter(links[i]);
             $(links[i]).remove();

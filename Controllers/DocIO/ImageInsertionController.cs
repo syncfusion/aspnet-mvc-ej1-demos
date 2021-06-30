@@ -35,7 +35,7 @@ namespace MvcSampleBrowser_2012.Controllers
 
             //Adding a new section to the document.
             IWSection section = document.AddSection();
-
+            section.PageSetup.Margins.All = 72;
             //Adding a paragraph to the section
             IWParagraph paragraph = section.AddParagraph();
 
@@ -50,29 +50,29 @@ namespace MvcSampleBrowser_2012.Controllers
             //Inserting .gif .
             WPicture picture = (WPicture)paragraph.AppendPicture(Image.FromFile(System.IO.Path.Combine(dataPath2, "yahoo.gif")));
             //Adding Image caption
-            picture.AddCaption("Yahoo [.gif Image]", CaptionNumberingFormat.Roman, CaptionPosition.AboveImage);
-
+            picture.AddCaption("Figure", CaptionNumberingFormat.Roman, CaptionPosition.AfterImage);
+            ApplyFormattingForCaption(document.LastParagraph);
             paragraph = section.AddParagraph();
             paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Center;
             //Inserting .bmp
             picture = (WPicture)paragraph.AppendPicture(Image.FromFile(dataPath2 + "Reports.bmp"));
             //Adding Image caption
-            picture.AddCaption("Reports [.bmp Image]", CaptionNumberingFormat.Roman, CaptionPosition.AboveImage);
-
+            picture.AddCaption("Figure", CaptionNumberingFormat.Roman, CaptionPosition.AfterImage);
+            ApplyFormattingForCaption(document.LastParagraph);
             paragraph = section.AddParagraph();
             paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Center;
             //Inserting .png 
             picture = (WPicture)paragraph.AppendPicture(Image.FromFile(dataPath2 + "google.PNG"));
             //Adding Image caption
-            picture.AddCaption("Google [.png Image]", CaptionNumberingFormat.Roman, CaptionPosition.AboveImage);
-
+            picture.AddCaption("Figure", CaptionNumberingFormat.Roman, CaptionPosition.AfterImage);
+            ApplyFormattingForCaption(document.LastParagraph);
             paragraph = section.AddParagraph();
             paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Center;
             //Inserting .tif 
             picture = (WPicture)paragraph.AppendPicture(Image.FromFile(dataPath2 + "Square.tif"));
             //Adding Image caption
-            picture.AddCaption("Square [.tif Image]", CaptionNumberingFormat.Roman, CaptionPosition.AboveImage);
-
+            picture.AddCaption("Figure", CaptionNumberingFormat.Roman, CaptionPosition.AfterImage);
+            ApplyFormattingForCaption(document.LastParagraph);
             //Adding a new paragraph.
             paragraph = section.AddParagraph();
             //Setting Alignment for the image.
@@ -82,10 +82,10 @@ namespace MvcSampleBrowser_2012.Controllers
             //Scaling Image
             mImage.HeightScale = 50f;
             mImage.WidthScale = 50f;
-
             //Adding Image caption
-            mImage.AddCaption("Chart Vector Image", CaptionNumberingFormat.Roman, CaptionPosition.AboveImage);
-
+            mImage.AddCaption("Figure", CaptionNumberingFormat.Roman, CaptionPosition.AfterImage);
+            ApplyFormattingForCaption(document.LastParagraph);
+            document.UpdateDocumentFields();
             //Save as .doc format
             if (Group1 == "WordDoc")
             {
@@ -112,5 +112,19 @@ namespace MvcSampleBrowser_2012.Controllers
             return View();
         }
         #endregion ImageInsertion
+        #region Helper Method
+        /// <summary>
+        /// Apply formattings for image caption paragraph
+        /// </summary>
+        private void ApplyFormattingForCaption(WParagraph paragraph)
+        {
+            //Align the caption
+            paragraph.ParagraphFormat.HorizontalAlignment = Syncfusion.DocIO.DLS.HorizontalAlignment.Center;
+            //Sets after spacing
+            paragraph.ParagraphFormat.AfterSpacing = 1.5f;
+            //Sets before spacing
+            paragraph.ParagraphFormat.BeforeSpacing = 1.5f;
+        }
+        #endregion
     }
 }

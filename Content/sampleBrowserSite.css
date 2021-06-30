@@ -1372,10 +1372,6 @@ font-size:12px;
 {
     background: url('../Content/images/dashboard_img/invoiceDemo.png');
 }
-.reportdesigner1
-{
-    background: url('../Content/images/dashboard_img/reportbuilderdemo.png');
-}
 .img11
 {
     background: url('../Content/images/dashboard_img/Audit_Prediction.png');
@@ -2750,10 +2746,6 @@ border-left:none !important;
 .darktheme .listsampleimage .img10
 {
     background: url("../Content/images/dashboard_img/dark-theme-invoiceDemo.png");
-}
-.darktheme .listsampleimage .reportdesigner1
-{
-    background: url("../Content/images/dashboard_img/dark-theme-reportbuilderDemo.png");
 }
 .darktheme .listsampleimage .img11
 {

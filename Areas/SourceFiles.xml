@@ -31,10 +31,6 @@
       <DependentFiles displayname="View" url="\areas\ProjectTracker\Views\Projecttracker\index.cshtml"></DependentFiles>
       <DependentFiles displayname="Controller" url="\areas\ProjectTracker\Controllers\ProjecttrackerController.cs"></DependentFiles>
     </Samples>
-	<Samples url="InvoiceTemplate">
-      <DependentFiles displayname="View" url="\areas\invoice\Views\invoicetemplate\Invoice.cshtml"></DependentFiles>
-      <DependentFiles displayname="Controller" url="\areas\invoice\Controllers\invoicetemplatecontroller.cs"></DependentFiles>     
-    </Samples>
     <Samples url="SpreadsheetTemplate">
       <DependentFiles displayname="View" url="\areas\SpreadsheetTemplate\Views\Sample\spreadsheettemplate.cshtml"></DependentFiles>
       <DependentFiles displayname="Controller" url="\areas\SpreadsheetTemplate\Controllers\SampleController.cs"></DependentFiles>
@@ -46,10 +42,6 @@
     <Samples url="AppointmentPlanner">
       <DependentFiles displayname="View" url="\areas\AppointmentPlanner\Views\Home\Index.cshtml"></DependentFiles>
       <DependentFiles displayname="Controller" url="\areas\AppointmentPlanner\Controllers\HomeController.cs"></DependentFiles>
-    </Samples>
-    <Samples url="ReportBuilder">
-      <DependentFiles displayname="View" url="\areas\ReportBuilder\Views\reportbuildertemplate\ReportBuilder.cshtml"></DependentFiles>
-      <DependentFiles displayname="Controller" url="\areas\ReportBuilder\Controllers\ReportBuilderTemplateController.cs"></DependentFiles>
     </Samples>
   </Category>
 
