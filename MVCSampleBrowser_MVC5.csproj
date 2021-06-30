@@ -81,41 +81,41 @@
       <HintPath>ReferenceAssemblies\Owin.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Chart.WPF">
-      <HintPath>packages\Syncfusion.Chart.WPF.19.1.0.63\lib\net45\Syncfusion.Chart.WPF.dll</HintPath>
+      <HintPath>packages\Syncfusion.Chart.WPF.19.1.0.63\lib\net451\Syncfusion.Chart.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Compression.Base">
-      <HintPath>packages\Syncfusion.Compression.Base.19.1.0.63\lib\net45\Syncfusion.Compression.Base.dll</HintPath>
+      <HintPath>packages\Syncfusion.Compression.Base.19.1.0.63\lib\net451\Syncfusion.Compression.Base.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.DocIO.Base">
-      <HintPath>packages\Syncfusion.DocIO.AspNet.Mvc5.19.1.0.63\lib\net45\Syncfusion.DocIO.Base.dll</HintPath>
+      <HintPath>packages\Syncfusion.DocIO.AspNet.Mvc5.19.1.0.63\lib\net451\Syncfusion.DocIO.Base.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.DocToPdfConverter.Base">
-      <HintPath>packages\Syncfusion.DocToPDFConverter.AspNet.Mvc5.19.1.0.63\lib\net45\Syncfusion.DocToPdfConverter.Base.dll</HintPath>
+      <HintPath>packages\Syncfusion.DocToPDFConverter.AspNet.Mvc5.19.1.0.63\lib\net451\Syncfusion.DocToPdfConverter.Base.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.EJ">
       <Private>False</Private>
-      <HintPath>packages\Syncfusion.Web.Base45.19.1.0.63\lib\net45\Syncfusion.EJ.dll</HintPath>
+      <HintPath>packages\Syncfusion.Web.Base45.19.1.0.63\lib\net451\Syncfusion.EJ.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.EJ.Export">
-      <HintPath>packages\Syncfusion.EJ.Export.19.1.0.63\lib\net45\Syncfusion.EJ.Export.dll</HintPath>
+      <HintPath>packages\Syncfusion.EJ.Export.19.1.0.63\lib\net451\Syncfusion.EJ.Export.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.EJ.MVC">
-      <HintPath>packages\Syncfusion.AspNet.Mvc5.19.1.0.63\lib\net45\Syncfusion.EJ.MVC.dll</HintPath>
+      <HintPath>packages\Syncfusion.AspNet.Mvc5.19.1.0.63\lib\net451\Syncfusion.EJ.MVC.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.EJ.Pivot">
-      <HintPath>packages\Syncfusion.EJ.Pivot.19.1.0.63\lib\net45\Syncfusion.EJ.Pivot.dll</HintPath>
+      <HintPath>packages\Syncfusion.EJ.Pivot.19.1.0.63\lib\net451\Syncfusion.EJ.Pivot.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.EJ.ReportViewer">
-      <HintPath>packages\Syncfusion.EJ.ReportViewer.19.1.0.63\lib\net45\Syncfusion.EJ.ReportViewer.dll</HintPath>
+      <HintPath>packages\Syncfusion.EJ.ReportViewer.19.1.0.63\lib\net451\Syncfusion.EJ.ReportViewer.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.EJ.ReportDesigner">
-      <HintPath>packages\Syncfusion.EJ.ReportDesigner.19.1.0.63\lib\net45\Syncfusion.EJ.ReportDesigner.dll</HintPath>
+      <HintPath>packages\Syncfusion.EJ.ReportDesigner.19.1.0.63\lib\net451\Syncfusion.EJ.ReportDesigner.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.EJ.PdfViewer">
-      <HintPath>packages\Syncfusion.AspNet.Mvc5.PdfViewer.19.1.0.63\lib\net45\Syncfusion.EJ.PdfViewer.dll</HintPath>
+      <HintPath>packages\Syncfusion.AspNet.Mvc5.PdfViewer.19.1.0.63\lib\net451\Syncfusion.EJ.PdfViewer.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.ExcelChartToImageConverter.WPF">
-      <HintPath>packages\Syncfusion.ExcelChartToImageConverter.AspNet.Mvc5.19.1.0.63\lib\net45\Syncfusion.ExcelChartToImageConverter.WPF.dll</HintPath>
+      <HintPath>packages\Syncfusion.ExcelChartToImageConverter.AspNet.Mvc5.19.1.0.63\lib\net451\Syncfusion.ExcelChartToImageConverter.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.ExcelToPDFConverter.Base">
       <HintPath>packages\Syncfusion.ExcelToPdfConverter.AspNet.Mvc5.19.1.0.63\lib\net45\Syncfusion.ExcelToPDFConverter.Base.dll</HintPath>
@@ -156,9 +156,9 @@
     <Reference Include="Syncfusion.Gauge.WPF">
       <HintPath>packages\Syncfusion.Gauge.WPF.19.1.0.63\lib\net45\Syncfusion.Gauge.WPF.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.RichtextBoxAdv.WPF">
-      <HintPath>packages\Syncfusion.RichTextBoxAdv.Wpf.Classic.19.1.0.63\lib\net45\Syncfusion.RichtextBoxAdv.WPF.dll</HintPath>
-    </Reference>
+    <!-- <Reference Include="Syncfusion.RichtextBoxAdv.WPF"> -->
+      <!-- <HintPath>packages\Syncfusion.RichTextBoxAdv.Wpf.Classic.19.1.0.63\lib\net45\Syncfusion.RichtextBoxAdv.WPF.dll</HintPath> -->
+    <!-- </Reference> -->
     <Reference Include="Syncfusion.Shared.Base">
       <HintPath>packages\Syncfusion.Shared.Base.19.1.0.63\lib\net45\Syncfusion.Shared.Base.dll</HintPath>
     </Reference>

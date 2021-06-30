@@ -1,0 +1,2 @@
+D:\Work\GitHub\aspnet-mvc-ej1-demos\obj\Debug\MVCSampleBrowser_MVC5.csprojAssemblyReference.cache
+D:\Work\GitHub\aspnet-mvc-ej1-demos\obj\Debug\MVCSampleBrowser_MVC5.csproj.CoreCompileInputs.cache

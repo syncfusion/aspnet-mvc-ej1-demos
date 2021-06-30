@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<coreProperties xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.openxmlformats.org/package/2006/metadata/core-properties">
+  <dc:creator>Syncfusion Inc.</dc:creator>
+  <dc:description>Syncfusion advanced rich text box for WPF is a .NET library that allows you to add Microsoft Word-like document editing and formatting capabilities in WPF applications. It can also be used as a standard rich text box control.
+
+	Key features:
+	• Open and save Word documents (.doc, .docx), rich text format documents (.rtf), HTML documents (.htm, .html), XAML documents (.xaml), and text documents (.txt).
+	• Use all the common editing and formatting operations along with undo and redo.
+	• Cut, copy, and paste in rich text content. 
+	• Zoom, scroll, and select content through touch, mouse, and keyboard actions.
+	• Provide intuitive UI options like context menus, dialogs, and navigation panes.
+	• Localize all the static text to any desired language.
+	• Enter text in various languages by using the built-in input method editor and right-to-left text support.
+	• Check spellings and configure custom dictionaries.
+	• Display all commonly used Word document elements like text, inline images, tables, hyperlinks, sections, headers, footers, and comments.
+	• Modify commonly used Word document formatting like text, paragraphs, bullets, numbering, tables, and more.
+	• Find and replace text in documents.
+	• View the document in page-by-page, continuous (single-page), or block (non-editable) views.
+	• Print an entire document or a specific page.
+
+	Learn more: https://www.syncfusion.com/wpf-controls/richtextbox?utm_source=nuget&amp;utm_medium=listing
+
+	Documentation: https://help.syncfusion.com/wpf/richtextbox/getting-started?utm_source=nuget&amp;utm_medium=listing
+
+	Support:
+	Incident: https://www.syncfusion.com/support/directtrac/incidents/newincident?utm_source=nuget&amp;utm_medium=listing
+	Forum: https://www.syncfusion.com/forums/wpf?utm_source=nuget&amp;utm_medium=listing
+
+This is a commercial product and requires a paid license for possession or use. Syncfusion’s licensed software, including this component, is subject to the terms and conditions of Syncfusion's EULA (https://www.syncfusion.com/eula/es/?utm_source=nuget&amp;utm_medium=listing). To acquire a license, you can purchase one at https://www.syncfusion.com/sales/products?utm_source=nuget&amp;utm_medium=listing or start a free 30-day trial here (https://www.syncfusion.com/account/manage-trials/start-trials?utm_source=nuget&amp;utm_medium=listing).
+
+© Copyright 2021 Syncfusion, Inc. All Rights Reserved. The Syncfusion Essential Studio license and copyright applies to this distribution.</dc:description>
+  <dc:identifier>Syncfusion.SfRichTextBoxAdv.WPF</dc:identifier>
+  <version>19.1.0.63</version>
+  <keywords>syncfusion wpf syncfusion.wpf windows mvvm xaml netcoreapp sfrichtextboxadv rich-text-box rte print word docx html rtf</keywords>
+  <lastModifiedBy>NuGet, Version=4.9.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35;Microsoft Windows NT 6.2.9200.0;.NET Framework 4.6</lastModifiedBy>
+</coreProperties>
