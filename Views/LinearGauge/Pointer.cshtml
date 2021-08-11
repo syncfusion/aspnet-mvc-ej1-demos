@@ -1,0 +1,110 @@
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/excanvas.min.js")"></script>
+    }
+@section SampleHeading{
+	<span class="sampleName">LinearGauge-Pointer-ASP.NET MVC-SYNCFUSION</span>
+	}
+
+
+@section ControlsSection{
+<div id="linearframe" align="center">
+@(Html.EJ().LinearGauge("PointerGauge").LabelColor("#8c8c8c").Width(500)
+    .IsResponsive(true)
+                    .ClientSideEvents(cli=>cli.Load("loadGaugeTheme"))
+                    .Scales(s =>
+                    {
+                        s.Width(4)
+                            .BackgroundColor("transparent")
+                         .Border(bor=>bor.Color("transparent").Width(0))
+                         .ShowRanges(true)
+                         .Length(310)
+                         .Position(pos => { pos.X(51).Y(50); })
+                         .MarkerPointers(mp => { mp.Value(50).Length(10).MarkerDistanceFromScale(8).Width(10).MarkerBackgroundColor("#4D4D4D").Border(bor=>bor.Color("4D4D4D")).Add(); })
+                         .Labels(lbl => { lbl.Font(fnt => { fnt.Size("11px").FontFamily("Segoe UI").FontStyle("bold"); }).DistanceFromScale(dfs=>dfs.X(-13)).Add(); })
+                         .BarPointers(barptr => { barptr.BarPointerValue(50).Width(4).BarPointerDistanceFromScale(8).BarPointerBackgroundColor("#6FAAB0").Add(); })
+                         .Ticks(tic => { tic.Type(TickType.MajorInterval).Width(1).Color("#8c8c8c").Add(); })
+                            .Ranges(rng =>
+                            {
+                                rng.EndValue(60).StartValue(0).RangeBackgroundColor("#F6B53F").Border(bor=>bor.Color("#F6B53F")).StartWidth(4).EndWidth(4).Add();
+                                rng.EndValue(100).StartValue(60).RangeBackgroundColor("#E94649").Border(bor=>bor.Color("#E94649")).StartWidth(4).EndWidth(4).Add();
+                            })
+                         .Add();
+                    }))
+</div>
+}
+
+@section PropertiesSection{
+                    <div class="row">
+                        <div class="col-md-3">
+                            Pointer Width
+                        </div>
+                        <div class="col-md-3 aligntop">
+                           @(Html.EJ().Slider("pointerwidth").SliderType(SlideType.MinRange).Value("15").Height("10").Width("110").MinValue(10).MaxValue(25).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange").Slide("onchange"); }))
+                        </div>
+                        <div class="col-md-3">
+                            Pointer Value
+                        </div>
+                        <div class="col-md-3 aligntop">
+                           @(Html.EJ().Slider("pointervalue").SliderType(SlideType.MinRange).Value("60").Height("10").Width("110").MinValue(0).MaxValue(100).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange").Slide("onchange"); }))
+                            </div>
+                        </div>
+
+                    <div class="row">
+                        <div class="col-md-3">
+                            Placement
+                        </div>
+                        <div class="col-md-3">
+                            @Html.EJ().DropDownList("pointerplacement").Datasource((IEnumerable<MVCSampleBrowser.Models.LinearGauge.PoniterPlacement>)ViewBag.datasource).DropDownListFields(df=>df.ID("Placement").Text("Placement").Value("Placement")).SelectedItemIndex(0).Width("110").ClientSideEvents(cli => { cli.Select("onchange"); })
+                        </div>
+                        <div class="col-md-3">
+                            Marker Style
+                        </div>
+                        <div class="col-md-3 aligntop1">
+                            @Html.EJ().DropDownList("markerstyle").Datasource((IEnumerable<MVCSampleBrowser.Models.LinearGauge.MarkerStyle>)ViewBag.datasource1).DropDownListFields(df=>df.ID("markerStyle").Text("markerStyle").Value("markerStyle")).SelectedItemIndex(2).Width("110").ClientSideEvents(cli => { cli.Select("onchange"); })
+                        </div>
+                    </div>
+}
+
+@section StyleSection{
+ <style>
+        .col-md-3 .e-ddl .e-input {
+            line-height:20px;
+        }
+    </style>
+}
+
+@section ScriptSection{
+<script>
+    $(document).ready(function () {
+        $("#sampleProperties").ejPropertiesPanel();
+    });
+        function onchange(args) {
+            var linearpointer = $("#PointerGauge").data("ejLinearGauge");
+
+            if (args.id == "pointerwidth") {
+                linearpointer.setPointerWidth(0, 0, args.value);
+            }
+            else if (args.id == "pointervalue") {
+                linearpointer.setPointerValue(0, 0, args.value);
+                linearpointer.setBarPointerValue(0, 0, args.value);
+            }
+            else if (args.text == "far" || args.text == "near" || args.text == "center") {
+                linearpointer.setPointerPlacement(0, 0, args.text);
+            }
+            else if (args.text == "diamond" || args.text == "rectangle" || args.text == "triangle" || args.text == "ellipse" || args.text == "pentagon" || args.text == "circle" || args.text == "star" || args.text == "slider" || args.text == "pointer" || args.text == "wedge" || args.text == "trapezoid" || args.text == "rounded rect") {
+                if (args.text == "rounded rect")
+                    linearpointer.setMarkerStyle(0, 0, "roundedrectangle");
+                else
+                    linearpointer.setMarkerStyle(0, 0, args.text);
+            }
+        }
+    </script>
+}
+
+@section MetaTags{
+   <meta name="description" content="This sample demonstrates the pointer behavior in the Syncfusion ASP.NET Web Forms Linear gauge control.">
+}
+
+
+
+

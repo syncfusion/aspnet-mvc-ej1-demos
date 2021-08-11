@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Category>
+   <Samples url="/Spreadsheet/Adaptive">
+    <DependentFiles displayname="Model" url="/Models/Spreadsheet/ItemData.cs"></DependentFiles>    
+  </Samples>
+  <Samples url="/Spreadsheet/BorderWrapText">
+    <DependentFiles displayname="Model" url="/Models/Spreadsheet/BorderData.cs"></DependentFiles>    
+  </Samples>
+  <Samples url="/Spreadsheet/CellFormatting">
+    <DependentFiles displayname="Model" url="/Models/Spreadsheet/CellFormatData.cs"></DependentFiles>    
+  </Samples>
+  <Samples url="/Spreadsheet/CellType">
+    <DependentFiles displayname="Model" url="/Models/Spreadsheet/CellTypeData.cs"></DependentFiles>    
+  </Samples>
+  <Samples url="/Spreadsheet/Chart">
+    <DependentFiles displayname="Model" url="/Models/Spreadsheet/MarkDetail.cs"></DependentFiles>    
+  </Samples>
+  <Samples url="/Spreadsheet/ConditionalFormatting">
+    <DependentFiles displayname="Model" url="/Models/Spreadsheet/ConditionalFormatData.cs"></DependentFiles>    
+  </Samples>
+  <Samples url="/Spreadsheet/ContextMenu">
+    <DependentFiles displayname="Model" url="/Models/Spreadsheet/MarkDetail.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/Spreadsheet/DataValidation">
+    <DependentFiles displayname="Model" url="/Models/Spreadsheet/DataValidationData.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/Spreadsheet/Default">
+    <DependentFiles displayname="Model" url="/Models/Spreadsheet/ItemData.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/Spreadsheet/Formula">
+    <DependentFiles displayname="Model" url="/Models/Spreadsheet/FormulaData.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/Spreadsheet/FreezePane">
+    <DependentFiles displayname="Model" url="/Models/Spreadsheet/PersonDetail.cs"></DependentFiles>    
+  </Samples>
+  <Samples url="/Spreadsheet/HyperlinkComment">
+    <DependentFiles displayname="Model" url="/Models/Spreadsheet/HyperlinkData.cs"></DependentFiles>    
+  </Samples>
+  <Samples url="/Spreadsheet/MergeCell">
+    <DependentFiles displayname="Model" url="/Models/Spreadsheet/MergeData.cs"></DependentFiles> 
+  </Samples>
+  <Samples url="/Spreadsheet/MLTemplate">
+    <DependentFiles displayname="Model" url="/Models/Spreadsheet/MovieData.cs"></DependentFiles>    
+  </Samples>
+   <Samples url="/Spreadsheet/NumberFormatting">
+    <DependentFiles displayname="Model" url="/Models/Spreadsheet/NumberFormatData.cs"></DependentFiles>    
+  </Samples>
+  <Samples url="/Spreadsheet/Pivot">
+    <DependentFiles displayname="Model" url="/Models/Spreadsheet/PivotData.cs"></DependentFiles>    
+  </Samples>
+  <Samples url="/Spreadsheet/SparklineDetail">
+    <DependentFiles displayname="Model" url="/Models/Spreadsheet/SparklineDetail.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/Spreadsheet/Table">
+    <DependentFiles displayname="Model" url="/Models/Spreadsheet/TableData.cs"></DependentFiles>
+  </Samples>
+ <Samples url="/Spreadsheet/Templates">
+    <DependentFiles displayname="Model" url="/Models/Spreadsheet/FIFAData.cs"></DependentFiles>    
+  </Samples>
+</Category>

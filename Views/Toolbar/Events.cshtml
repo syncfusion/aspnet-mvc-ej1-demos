@@ -1,0 +1,76 @@
+@section SampleHeading{
+    <span class="sampleName">Toolbar-Events-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().Toolbar("toolbarEvents").Items(s =>
+                          {
+                              s.Add().SpriteCssClass("movetofolder").TooltipText("Mail");
+                              s.Add().SpriteCssClass("categorize").TooltipText("Scheduler");
+                              s.Add().SpriteCssClass("flag").TooltipText("Calculator");
+                              s.Add().SpriteCssClass("forward").TooltipText("Sticky Notes");
+                              s.Add().SpriteCssClass("newmail").TooltipText("Calender");
+                              s.Add().SpriteCssClass("reply").TooltipText("Notes");
+                              s.Add().SpriteCssClass("done").TooltipText("Delete");
+                          }).Orientation(Orientation.Horizontal).ClientSideEvents(e => e.Create("toolbarLoad").Click("toolbarClick").ItemHover("toolbarChecked").ItemLeave("toolbarUnChecked")).Width("100%")
+        </div>
+    </div>
+	<style>
+	.material .frame{
+			width: 430px;
+		}
+	</style>
+}
+@section EventsDropdown{
+    @Html.EJ().DropDownList("selectControls_input").TargetID("evntname").ShowCheckbox(true).CheckAll(true).ClientSideEvents(e => e.Change("evtpropscheckedevent").PopupShown("adjustpopupposition"))
+    <div id="evntname">
+        <ul>
+            <li>click</li>
+            <li>itemHover</li>
+            <li>itemLeave</li>
+        </ul>
+    </div>
+}
+@section StyleSection{
+    <link href="@Url.Content("~/Content/Samples/ToolbarEvents.css")" rel="stylesheet" />
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        var toolbarObj;
+        function toolbarLoad(args) {
+            jQuery.addEventLog("Toolbar control has been <span class='eventTitle'>created </span>.");
+        }
+        function toolbarClick(args) {
+            jQuery.addEventLog("Toolbar item " +args.text+ "is <span class='eventTitle'>clicked </span>.");
+        }
+        function toolbarChecked(args) {
+            jQuery.addEventLog("Mouse pointer <span class='eventTitle'>hovered on</span> toolbar item. </br>");
+        }
+        function toolbarUnChecked(args) {
+            jQuery.addEventLog("Mouse pointer <span class='eventTitle'>hovered away</span> from toolbar item. </br>");
+        }
+
+        function onClear() {
+            jQuery.clearEventLog();
+        }
+        function evtpropscheckedevent(args) {
+            toolbarObj = $("#toolbarEvents").data("ejToolbar");
+            if (args.isChecked) {
+                switch (args.selectedText) {
+                    case "create": toolbarObj.option(args.selectedText, "toolbarLoad"); break;
+                    case "click": toolbarObj.option(args.selectedText, "toolbarClick"); break;
+                    case "itemHover": toolbarObj.option(args.selectedText, "toolbarChecked"); break;
+                    case "itemLeave": toolbarObj.option(args.selectedText, "toolbarUnChecked"); break;
+                }
+            }
+            else toolbarObj.option(args.selectedText, null);
+        }
+    </script>
+	<style>
+	.material .frame{
+			width: 471px;
+		}
+		</style>
+}
+
+

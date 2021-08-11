@@ -1,0 +1,660 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+@using Syncfusion.MVC.EJ
+@{
+    Layout = "~/Areas/HealthTracker/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewBag.Title = "Essential Studio for ASP.NET MVC : Health Tracker";
+}
+
+
+<div class="trackerheader">
+    <div class="sampleheader container">
+        <div class="col-xs-12">
+            <div class="title">
+                <img class="heartsym" src="@Url.Content("~/Content/health-tracker/images/heart-img.png")" alt="Heart"/>
+                <h1 class="healthtext">Health Tracker</h1>
+            </div>
+            <div>
+                <div class="boardpicdiv">
+                    <div class="dashboardpic">
+                        <b>Dashboard</b>
+                    </div>
+                </div>
+                <div class="nopicdiv">
+                    <div class="nopic">
+                        <b>4</b>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="samplecontainer container">
+    <div class="row"></div>
+    <div id="heading row">
+        <div class="col-xs-6">
+            <img class="personpic" src="@Url.Content("~/Content/health-tracker/images/person.png")" alt="Person"/>
+            <p class="persondet">
+                <br />
+                <b>Andrew Fuller</b><br />
+                34 years / 175 cm
+            </p>
+            <img class="personsym" src="@Url.Content("~/Content/health-tracker/images/personimg.png")" alt="Person Symbol"/>
+        </div>
+        <div class="col-xs-6">
+
+            <div class="bmiwight">
+                <div class="bmidiv">
+                    <label>BMI</label>
+                    <div class="bmi">
+                        <b>21.7</b><br />
+                        <label>Kg/m2</label>
+                    </div>
+                </div>
+                <div class="weightdiv">
+                    <label>Weight</label>
+                    <div class="weight">
+                        <b>72.3</b><br />
+                        <label>Kg</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row"></div>
+    <div class="row topspace">
+        <div class="col-md-12 titlecss">Today</div>
+    </div>
+
+    <div id="stepAnnotation" style="display:none">
+        <img style="width:130px; height:130px" src="~/Content/health-tracker/images/step.png" alt="Step" />
+    </div>
+    <div id="floorAnnotation" style="display:none">
+        <img style="width:130px; height:130px" src="~/Content/health-tracker/images/floor.png" alt="Floor"/>
+    </div>
+
+    <div class="row" id="todayDetails">
+        <div class="col-md-6 ptiles">
+            <div class="col-sm-6  gauge1">
+                @(Html.EJ().CircularGauge("GaugeRDI")
+                          .Frame(frame => frame.FrameType(Frame.HalfCircle))
+                          .DistanceFromCorner(-5)
+                          .GaugePosition(GaugePosition.BottomCenter)
+                          .Width(170)
+                          .Height(155)
+                          .Scales(sc =>
+                          {
+                              sc.StartAngle(182)
+                                  .SweepAngle(176)
+                                  .ShowRanges(true)
+                                  .ShowLabels(false)
+                                  .Radius(120)
+                                  .Minimum(0)
+                                  .Maximum(2200)
+                                  .MajorIntervalValue(200)
+                                  .PointerCap(cap => cap.BackgroundColor("#3AB54B").BorderColor("#3AB54B"))
+                                  .Pointers(p =>
+                                  {
+                                      p.Border(bor => bor.Color("#3AB54B"))
+                                       .NeedleType(NeedleType.Rectangle)
+                                       .Width(1)
+                                       .Value(450)
+                                       .Length(70).Add();
+                                  })
+                                  .Ticks(tick =>
+                                  {
+                                      tick.Color("#FFFFFF").Height(16).Width(3).Add();
+                                      tick.Color("#FFFFFF").Height(7).Width(1).Add();
+                                  })
+                                  .Ranges(range =>
+                                  {
+                                      range.Size(10).StartValue(0).EndValue(449).BackgroundColor("#3AB54B").Border(bor => bor.Color("#3Ab54B")).Add();
+                                      range.Size(10).StartValue(449).EndValue(2200).BackgroundColor("#B0D2C8").Border(bor => bor.Color("#B0D2C8")).Add();
+                                  }).Add();
+
+                          })
+                )
+                <br />
+                <label class="todaylabel rdilabel">Calories Intake - 450/2200</label>
+                <br />
+                <label class="pending todaylabel rdipenlabel">1750 calories pending</label>
+            </div>
+            <div class="col-sm-6 gauge2">
+                @(Html.EJ().CircularGauge("GaugeBurnt")
+                .Frame(frame => frame.FrameType(Frame.HalfCircle))
+                .DistanceFromCorner(-5)
+                .GaugePosition(GaugePosition.BottomCenter)
+                .Width(170)
+                .Height(155)
+                .Scales(sc =>
+                {
+                    sc.StartAngle(182)
+                        .SweepAngle(176)
+                        .ShowRanges(true)
+                        .ShowLabels(false)
+                        .Radius(120)
+                        .Minimum(0)
+                        .Maximum(1000)
+                        .MajorIntervalValue(200)
+                        .PointerCap(cap => cap.BackgroundColor("#b24848").BorderColor("#b24848"))
+                        .Pointers(p =>
+                        {
+                            p.Border(bor => bor.Color("#b24848"))
+                                .NeedleType(NeedleType.Rectangle)
+                                .Width(1).Value(650)
+                                .Length(70).Add();
+                        })
+                        .Ticks(tick =>
+                        {
+                            tick.Color("#FFFFFF").Height(16).Width(3).Add();
+                            tick.Color("#FFFFFF").Height(7).Width(1).Add();
+                        })
+                        .Ranges(range =>
+                        {
+                            range.Size(10).StartValue(0).EndValue(649).BackgroundColor("#b24848").Border(bor => bor.Color("#c98c8b")).Add();
+                            range.Size(10).StartValue(649).EndValue(1000).BackgroundColor("#C9A5A6").Border(bor => bor.Color("#C9A5A6")).Add();
+                        }).Add();
+                })
+
+                )
+                <br />
+                <label class="todaylabel">Calories burnt - 650/1000</label>
+                <br />
+                <label class="todaylabel pending">350 calories pending</label>
+            </div>
+        </div>
+        <div class="col-md-6 ptiles">
+            <div class="col-sm-6 chart1">
+                <div class="chartimage" id="StepChartDiv">
+                    @(Html.EJ().Chart("ChartStep")
+                          .Series(s =>
+                          {
+                              s.Points(p =>
+                              {
+                                  p.X("Carbohydrate").Y(10).Fill("#D3C1D4").Visible(true).Add();
+                                  p.X("Fat").Y(90).Fill("#B26CAB").Visible(true).Add();
+                              })
+                                  .Name("Newyork")
+                                  .Type(SeriesType.Doughnut)
+                                  .LabelPosition(ChartLabelPosition.Inside)
+                                  .DoughnutSize(0.9f)
+                                  .DoughnutCoefficient(0.7f)
+                                  .EnableAnimation(false)
+                                   .Opacity(0.8f)
+                                  .Border(b => b.Color("#D3C1D4"))
+                                  .Marker(sty => { sty.Opacity(0.8f).Border(border => { border.Color("#D3C1D4"); }); }).Add();
+                          })
+                          .Margin(m => { m.Top(0).Bottom(0).Left(10).Right(10); })
+                              .Size(s => { s.Height("170").Width("200"); })
+                              .Legend(l => { l.Visible(false).Font(t => { }).Position(LegendPosition.Bottom); })
+                          .Annotations(an =>
+                          {
+                              an.Content("stepAnnotation").Visible(true).Region(Region.Series).Add();
+                          }))
+                    <br />
+                    <label class="todaylabel">Step - 90/100</label>
+                    <br />
+                    <label class="pending todaylabel">10 steps pending</label>
+                </div>
+            </div>
+            <div class="col-sm-6 chart2">
+                <div class="chartimage" id="FloorChartDiv">
+                    @(Html.EJ().Chart("ChartFloor")
+                          .Series(s =>
+                          {
+                              s.Points(p =>
+                              {
+                                  p.X("Carbohydrate").Y(6).Fill("#7D70B3").Visible(true).Add();
+                                  p.X("Fat").Y(4).Fill("#BFBED9").Visible(true).Add();
+                              })
+                                  .Name("Newyork")
+                                  .Type(SeriesType.Doughnut)
+                                  .LabelPosition(ChartLabelPosition.Inside)
+                                  .DoughnutSize(0.9f)
+                                  .DoughnutCoefficient(0.7f)
+                                  .Opacity(0.8f)
+                                  .Border(b => b.Color("#D3C1D4"))
+                                  .EnableAnimation(false).Add();
+                          })
+                               .CommonSeriesOptions(cs => { cs.Tooltip(tool => { tool.Visible(false); }); })
+                              .Size(s => { s.Height("170").Width("200"); })
+                              .Margin(m => { m.Top(0).Bottom(0).Left(10).Right(10); })
+                              .Legend(l => { l.Visible(false).Font(t => { t.Color("Black"); }).Position(LegendPosition.Bottom); })
+                              .Annotations(an =>
+                              {
+                                  an.Content("floorAnnotation").Visible(true).Region(Region.Series).Add();
+                              }))
+                    <br />
+                    <label class="todaylabel">Floor - 4/10</label>
+                    <br />
+                    <label class="pending todaylabel">6 floors pending</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="topspace row">
+        <div class="col-xs-6">
+            <label class="titlecss">
+                Meal Summary
+            </label>
+        </div>
+        <div class="addbutton col-xs-6">
+            <label class="addlabel">Add Meal</label>
+            <img class="add" src="@Url.Content("~/Content/health-tracker/images/Add.png")" alt="Add"/>
+        </div>
+    </div>
+    <div class="row" id="MealSummary">
+        <div class="col-md-6 ptiles">
+            <div class="chartimage1">
+                @(Html.EJ().Chart("Chart")
+                     .Series(ss =>
+                     {
+                         ss.Marker(m => { m.DataLabel(d => { d.Visible(true).Font(f => { f.Color("#707070").Size("15px").Opacity(1).FontWeight(ChartFontWeight.Lighter); }); }); })
+                         .Name("Newyork")
+                         .Type(SeriesType.Doughnut)
+                         .LabelPosition(ChartLabelPosition.Outside).DoughnutSize(0.9f).Add();
+                     })
+                    .IsResponsive(true)
+                    .Margin(m => { m.Left(10).Top(0).Right(0).Bottom(0); })
+                    .CommonSeriesOptions(cs => { cs.Tooltip(tool => { tool.Visible(false); }); })
+                    .Background("transparent")
+                    .Size(s => { s.Height("276"); })
+                    .Legend(l => { l.Visible(false); })
+                )
+            </div>
+        </div>
+        <div class="col-md-6 ptiles">
+            @(Html.EJ().Grid<object>("Grid")
+                      .ShowSummary(true)
+                      .EnableAltRow(false)
+                      .AllowKeyboardNavigation(true)
+                      .EditSettings(ep => { ep.AllowEditing(true).AllowAdding(true).AllowDeleting(true).EditMode(EditMode.DialogTemplate).DialogEditorTemplateID("#healthAddTemplate"); })
+                      .Columns(column =>
+                      {
+                          column.Field("Time").HeaderText("TIME").Width(80).TextAlign(TextAlign.Center).ValidationRules(vr => { vr.AddRule("required", true); }).Add();
+                          column.Field("FoodName").HeaderText("FOOD").Width(120).TextAlign(TextAlign.Center).ValidationRules(vr => { vr.AddRule("required", true); }).Add();
+                          column.Field("Fat").HeaderText("FAT").Width(60).TextAlign(TextAlign.Center).Format("{0:N0}g").ValidationRules(vr => { vr.AddRule("required", true); }).Add();
+                          column.Field("Carbohydrate").HeaderText("CARB").Width(70).TextAlign(TextAlign.Center).Format("{0:N0}g").ValidationRules(vr => { vr.AddRule("required", true); }).Priority(3).Add();
+                          column.Field("Protein").HeaderText("PROTEIN").Width(70).TextAlign(TextAlign.Center).Format("{0:N0}g").ValidationRules(vr => { vr.AddRule("required", true); }).Priority(4).Add();
+                          column.Field("Calorie").HeaderText("CALORIES").Width(70).TextAlign(TextAlign.Center).Format("{0:N0}cal").ValidationRules(vr => { vr.AddRule("required", true); }).Priority(5).Add();
+                          column.Field("FoodId").HeaderText("FoodID").IsPrimaryKey(true).Visible(false).Add();
+                      })
+
+                      .IsResponsive(true)
+                      .EnableResponsiveRow(false)
+                      .GridLines(GridLines.Horizontal)
+                      .ClientSideEvents(events => { events.ActionComplete("actionComplete"); })
+                      .SummaryRow(sr =>
+                      {
+                          sr.Title("Sum").SummaryColumns(sc =>
+                          {
+                              sc.SummaryType(SummaryType.Sum).DisplayColumn("Fat").DataMember("Fat").Suffix("g").Add();
+                              sc.SummaryType(SummaryType.Sum).DisplayColumn("Carbohydrate").DataMember("Carbohydrate").Suffix("g").Add();
+                              sc.SummaryType(SummaryType.Sum).DisplayColumn("Protein").DataMember("Protein").Suffix("g").Add();
+                              sc.SummaryType(SummaryType.Sum).DisplayColumn("Calorie").DataMember("Calorie").Suffix("cal").Add();
+                          }).Add();
+                      })
+            )
+        </div>
+    </div>
+    <div class="row topspace">
+        <div class="col-xs-6 titlecss loadondemand">
+            This Month
+        </div>
+    </div>
+    <div id="HistoryDetails" class="row">
+        <div class="col-md-6  chart3 burntCal loadondemand ptiles">
+            @(Html.EJ().Chart("ChartBurnt").ChartArea(c =>
+          {
+              c.Border(border => { border.Width(1); });
+          })
+          .PrimaryXAxis(px =>
+          {
+              px.HidePartialLabels(true)
+                  .RangePadding(ChartRangePadding.None)
+                  .Title(t =>
+                  {
+                      t.Text("Days")
+                          .Font(f =>
+                          {
+                              f.Opacity(1)
+                              .Size("14px")
+                              .FontWeight(ChartFontWeight.Regular);
+                          });
+                  })
+                  .Range(r => { r.Min(0).Max(31).Interval(3); })
+                  .MajorGridLines(m => { m.Visible(false); })
+                  .Font(f =>
+                  {
+                      f.Opacity(1).Size("8px")
+                      .FontWeight(ChartFontWeight.Regular);
+                  }).ValueType(AxisValueType.Double)
+                  .ColumnIndex(0);
+          })
+          .PrimaryYAxis(py =>
+          {
+              py.RowIndex(0)
+                  .RangePadding(ChartRangePadding.None)
+                  .Range(r =>
+                  {
+                      r.Min(0).Max(1200).Interval(100);
+                  }).ValueType(AxisValueType.Double).Title(t =>
+                  {
+                      t.Text("Steps")
+                          .Font(f =>
+                          {
+                              f.Opacity(1)
+                              .Size("14px")
+                              .FontWeight(ChartFontWeight.Regular);
+                          });
+
+                  }).Font(f =>
+          {
+              f.Opacity(1)
+               .Size("8px")
+               .FontWeight(ChartFontWeight.Regular);
+          });
+          })
+          .Series(s =>
+          {
+              s.Name("Steps Moved").Type(SeriesType.Column).EnableAnimation(true)
+                  .Tooltip(tool => { tool.Visible(true).Template("BurntTooltip"); })
+                  .Fill("#8CC640")
+                 .Add();
+          })
+          .IsResponsive(true)
+          .InitSeriesRender(false)
+          .Load("onChartBurntload")
+          .Background("transparent")
+          .Title(title => { title.Text("TOTAL STEPS"); })
+          .Size(s => { s.Height("500"); })
+          .Legend(l => { l.Position(LegendPosition.Bottom).ItemStyle(it => { it.Width(10).Height(10); }); })
+            )
+        </div>
+        <div class="col-md-6 chart4 ptiles">
+            @(Html.EJ().Chart("ChartCal")
+
+                    .CommonSeriesOptions(cs => { cs.Tooltip(tool => { tool.Visible(true); }); })
+          .PrimaryXAxis(px =>
+          {
+              px.HidePartialLabels(true)
+                  .RangePadding(ChartRangePadding.None)
+                  .Title(t =>
+                  {
+                      t.Text("Days")
+                      .Font(f =>
+                      {
+                          f.Opacity(1)
+                           .Size("14px")
+                           .FontWeight(ChartFontWeight.Regular);
+                      });
+                  }).ValueType(AxisValueType.Double)
+                  .Range(r => { r.Min(0).Max(31).Interval(3); })
+                  .MajorGridLines(m => { m.Visible(false); })
+                  .Font(f =>
+                  {
+                      f.Opacity(1).Size("8px")
+                          .FontWeight(ChartFontWeight.Regular);
+                  })
+                  .ColumnIndex(0);
+          })
+          .PrimaryYAxis(py =>
+          {
+              py.RowIndex(0)
+                  .RangePadding(ChartRangePadding.None)
+                  .Range(r =>
+                  {
+                      r.Min(0).Max(1200).Interval(100);
+                  }).ValueType(AxisValueType.Double)
+                  .Font(f => { f.Opacity(1).Size("8px").FontWeight(ChartFontWeight.Regular); })
+                  .Title(t =>
+                  {
+                      t.Text("Calorie")
+                      .Font(f =>
+                      {
+                          f.Opacity(1)
+                              .Size("14px")
+                              .FontWeight(ChartFontWeight.Regular);
+                      });
+
+                  });
+          })
+                   .Series(s =>
+                   {
+                       s.Name("Calories Burnt").Type(SeriesType.Spline).Marker(m => { m.Shape(ChartShape.Circle).Size(size => { size.Height(10).Width(10); }).Visible(true); })
+                           .EnableAnimation(true).Tooltip(tool => { tool.Visible(true).Template("CalTooltip"); }).Fill("#24B7E5").Add();
+                   })
+
+                  .IsResponsive(true)
+                  .InitSeriesRender(false)
+                  .Load("onChartCalLoad")
+                  .Background("transparent")
+                  .Size(size => { size.Height("500"); })
+                  .Title(title => { title.Text("CALORIES BURNT"); })
+                  .Legend(l =>
+          {
+              l.Visible(true)
+
+                  .Position(LegendPosition.Bottom)
+                  .ItemStyle(it => { it.Width(10).Height(10); });
+          })
+            )
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 ptiles chart5">
+            @(Html.EJ().Chart("MealDetails")
+           .ChartArea(c =>
+          {
+              c.Border(border => { border.Width(1); });
+          })
+          .CommonSeriesOptions(cs => { cs.Tooltip(tool => { tool.Visible(true); }); })
+
+           .PrimaryXAxis(px =>
+           {
+               px.HidePartialLabels(true)
+                   .RangePadding(ChartRangePadding.None)
+                   .Title(t =>
+                   {
+                       t.Text("Days")
+                           .Font(f =>
+                           {
+                               f.Opacity(1).Size("14px")
+                                   .FontWeight(ChartFontWeight.Regular);
+                           });
+                   }).ValueType(AxisValueType.Double)
+                           .Range(range => { range.Min(0).Max(31).Interval(3); })
+                           .MajorGridLines(mg => { mg.Visible(false); })
+                           .ColumnIndex(0);
+           })
+           .PrimaryYAxis(py =>
+           {
+               py.RowIndex(0)
+                   .RangePadding(ChartRangePadding.None)
+                   .Range(range =>
+                   {
+                       range.Min(0)
+                           .Max(1200)
+                           .Interval(100);
+                   }).ValueType(AxisValueType.Double)
+                   .Title(t =>
+                   {
+                       t.Text("Cal")
+                           .Font(font =>
+                           {
+                               font.Opacity(1).Size("14px")
+                                   .FontWeight(ChartFontWeight.Regular);
+                           });
+                   });
+           })
+           .Series(series =>
+           {
+               series.Name("Carb")
+                   .Type(SeriesType.Column)
+                   .EnableAnimation(true)
+                   .Fill("#8CAA55")
+                  .Tooltip(tool => { tool.Visible(true).Template("HydrateTooltip"); })
+                   .Add();
+               series.Name("Protein")
+                   .Type(SeriesType.Column)
+                   .EnableAnimation(true)
+                   .Fill("#B34949")
+                   .Tooltip(tool => { tool.Visible(true).Template("ProteinTooltip"); })
+                   .Add();
+               series.Name("Fat")
+                   .Type(SeriesType.Column)
+                   .EnableAnimation(true)
+                   .Fill("#58A7C6")
+                   .Tooltip(tool => { tool.Visible(true).Template("FatTooltip"); })
+                   .Add();
+           })
+           .IsResponsive(true)
+           .InitSeriesRender(false)
+           .Load("onChartLoad")
+           .Background("transparent")
+           .Title(title => { title.Text("MEAL INTAKE"); })
+            .Size(s => { s.Height("500"); })
+            .Legend(leg =>
+            {
+                leg.Visible(true)
+                    .Position(LegendPosition.Bottom)
+                    .ItemStyle(isize =>
+                    {
+                        isize.Width(10)
+                            .Height(10);
+                    });
+            })
+            )
+        </div>
+    </div>
+    <div id="footer">
+        <div class="bottom-links">
+            <div class="left">
+                <div class="sync-text">
+                    Copyright © 2001-2019 Syncfusion Inc.
+                </div>
+            </div>  
+            <div class="right">
+                <a href="https://www.syncfusion.com">
+                    <div class="syncfusion-image"></div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="healthAddTemplate" style="display: none">
+    <table cellspacing="14px">
+        <tr>
+            <td>
+                Food time:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" class="timelist valid" id="Time" value="{{:Time}}" aria-required="true" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Food type:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" class="foodlist ejinputtext valid" id="FoodName" value="{{:FoodName}}" aria-required="true" />
+            </td>
+        </tr>
+    </table>
+    <table cellspacing="14px">
+        <tr>
+            <td>
+                Fat:
+            </td>
+            <td>
+                Carb:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" id="Fat" value="{{:Fat}}" class="diatxt valid" aria-required="true" />
+            </td>
+            <td>
+                <input type="text" id="Carbohydrate" value="{{:Carbohydrate}}" class="diatxt valid" aria-required="true" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Protein:
+            </td>
+            <td>
+                Calorie:
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="text" id="Protein" value="{{:Protein}}" class="diatxt" aria-required="true" />
+            </td>
+            <td>
+                <input type="text" id="Calorie" value="{{:Calorie}}" class="diatxt" aria-required="true" />
+            </td>
+        </tr>
+        <tr>
+            <td id="validation">* All fields are mandatory</td>
+        </tr>
+    </table>
+
+</div>
+
+<div id="BurntTooltip" class="historytooltip">
+    <div id="stepTool"></div>
+    <div>
+        <label id="burntmonth">May #point.x#</label>
+        <label id="burntday">#point.y#</label><label class="burntlabel">  steps</label>
+    </div>
+</div>
+<div id="HydrateTooltip" class="historytooltip">
+    <div>
+        <div id="hydrateTool"></div>
+        <label class="tooltiplabel">May #point.x#</label>
+    </div>
+    <div class="hydlabel">
+        <label id="hydratemonth">Carb</label>
+        <label id="hydrateday">#point.y# g</label>
+    </div>
+</div>
+<div id="ProteinTooltip" class="historytooltip">
+    <div>
+        <div id="proteinTool"></div>
+        <label class="tooltiplabel">May #point.x#</label>
+    </div>
+    <div class="proLabel">
+        <label id="proteinmonth">Protein</label><br />
+        <label id="proteinday">#point.y# g</label>
+    </div>
+</div>
+<div id="FatTooltip" class="historytooltip">
+    <div>
+        <div id="fatTool"></div>
+        <label class="tooltiplabel">May #point.x#</label>
+    </div>
+    <div class="fatLabel">
+        <label id="fatmonth">Fat</label><br />
+        <label id="fatday">#point.y# g</label>
+    </div>
+</div>
+<div id="CalTooltip" class="historytooltip">
+    <div class="calldiv">
+        <span id="calday">#point.y# </span><span>cal</span>
+    </div>
+    <div class="monthdiv">
+        <span id="calmonth">May #point.x#</span>
+    </div>
+</div>
+@section scripts {
+    <script src="@Url.Content("~/scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/scripts/jquery.validate.unobtrusive.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/healthtracker.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/respond.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/excanvas.min.js")" type="text/javascript"></script>
+}

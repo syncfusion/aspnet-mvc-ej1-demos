@@ -1,0 +1,86 @@
+@section MetaTags{
+    <meta name="description" content="This example shows how to autofit the cells to the number of appointments in the ASP.NET MVC Scheduler.">
+}
+@section SampleHeading{<span class="sampleName">Schedule-Cell Auto Fit-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+@{
+    List<string> views = new List<string>() {"Week,WorkWeek,Month,Agenda"};
+}
+<div>
+        @(Html.EJ().Schedule("Schedule1")
+        .Width("100%")
+        .Height("525px")
+	    .CellWidth("40px")
+        .Orientation(Orientation.Horizontal)
+        .ShowCurrentTimeIndicator(false)
+        .Views(views)
+        .CurrentView(CurrentView.Month)
+        .ShowOverflowButton(false)
+        .CurrentDate(new DateTime(2017,6,5))
+        .Resources(res=> {
+            res.Field("OwnerId").Title("Owner").Name("Owners").AllowMultiple(true)
+            .ResourceSettings(flds => flds.Datasource((IEnumerable)ViewBag.Owners).Text("text").Id("id").Color("color")).Add();
+        })
+        .Group(gr=> {
+            gr.Resources(ViewBag.Resources);  
+        })  
+        .AppointmentSettings(fields => fields.Datasource((IEnumerable)ViewBag.datasource)
+            .Id("Id")
+            .Subject("Subject")
+            .StartTime("StartTime")
+            .EndTime("EndTime")
+            .Description("Description")
+            .AllDay("AllDay")
+            .Recurrence("Recurrence")
+            .RecurrenceRule("RecurrenceRule")
+            .ResourceFields("OwnerId"))
+
+        )
+</div>
+}
+<div id="orientation">
+    <ul>
+        <li>Vertical</li>
+        <li>Horizontal</li>
+    </ul>
+</div>
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Orientation
+        </div>
+        <div class="col-md-3">
+             @Html.EJ().DropDownList("scheduleview").TargetID("orientation").Width("120px").SelectedItemIndex(1).ClientSideEvents(evt => evt.Change("onOrientation"))
+        </div>
+    </div>
+	<div class="row">
+        <div class="col-md-3">
+          Disable Auto Cell Auto Fit
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().CheckBox("cellauto").Checked(false).ClientSideEvents(eve => { eve.Change("onAutoChangs"); })
+        </div>
+    </div>
+}
+<script>
+    var obj;
+    $(document).ready(function () {
+        $("#sampleProperties").ejPropertiesPanel();
+        obj = $("#Schedule1").data("ejSchedule");
+    });
+    function onOrientation(args) {
+        if (args.value == "Horizontal") {
+            $("#Schedule1").ejSchedule({ orientation: args.value.toLowerCase(),cellWidth:"40px" });
+        }
+        else {
+            $("#Schedule1").ejSchedule({ orientation: args.value.toLowerCase(), cellWidth: "40px" });
+        }
+    }
+    function onAutoChangs(args) {
+        if (args.isChecked)
+            $("#Schedule1").ejSchedule("option", "showOverflowButton", true);
+        else
+            $("#Schedule1").ejSchedule("option", "showOverflowButton", false);
+    }
+</script>
+

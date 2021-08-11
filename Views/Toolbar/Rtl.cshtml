@@ -1,0 +1,18 @@
+@section SampleHeading{
+    <span class="sampleName">Toolbar-RTL-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().Toolbar("edittools").Width("100%").Datasource((IEnumerable<ToolbarOrientation>)ViewBag.datasource).ToolbarFields(f => f.ID("edid").SpriteCssClass("spriteCss")).Orientation(Orientation.Horizontal).EnableRTL(true)
+        </div>
+    </div>
+}
+@section StyleSection{
+    <link href="@Url.Content("~/Content/Samples/ToolRtl.css")" rel="stylesheet" />
+	 <style>
+		.material .frame{
+			width: 760px;
+		}
+    </style>
+}
+

@@ -1,0 +1,188 @@
+﻿@section SampleHeading{<span class="sampleName">Product Showcase/Presentation Viewer</span> }
+@section ControlsSection{
+    <table >
+    <tr>
+        <td>
+             <div>
+                 
+                    @Html.EJ().Rotator("sliderContent").Items(elements =>
+                             {
+                                 foreach (string value in MVCSampleBrowser.Controllers.PresentationController.imageList)
+                 {
+                                 elements.Add().Caption("Image").Url(value);
+                               
+                 }
+                             }).SlideWidth("690px").SlideHeight("400px").FrameSpace("0px").DisplayItemCount("1").ShowNavigateButton(false).ShowPager(false).ShowThumbnail(false)
+
+            </div>
+       </td>
+    </tr>
+    <tr>
+        <td style="height:30px"></td>
+    </tr>
+    <tr>
+        <td>   @{Html.BeginForm("PdfExport_Click", "Presentation", FormMethod.Post);
+                {
+               <div class="col-md-3">
+                    <input type="image" name="pdfExport" style="width:27px;height:25px" src="../Images/presentation/PDF.png" alt="Pdfimage" />
+                </div>
+                 Html.EndForm();
+                }}
+            
+               <div class="col-md-3">
+                @Html.EJ().Button("previous").ContentType(ContentType.ImageOnly).Size(ButtonSize.Normal).PrefixIcon("e-uiLight e-arrowheadleft").ClientSideEvents(s => s.Click("previous"))
+              </div>
+             
+              <div class="col-md-3" >
+                @Html.EJ().Button("next").ContentType(ContentType.ImageOnly).Size(ButtonSize.Normal).PrefixIcon("e-uiLight e-arrowheadright").ClientSideEvents(s => s.Click("next"))
+              </div>
+        </td>
+      
+    </tr>
+
+</table>
+}
+@section PropertiesSection
+{
+
+    <table>
+@{Html.BeginForm("PresentationViewer", "Presentation", FormMethod.Post);
+ {
+        <tr>
+        <td>
+            <div>
+                <input type="image" name="Slide1" style="width:200px;height:120px" src="../Images/presentation/CreatePresentation/CreatePresentation1.jpg" alt="CreatePresentation.pptx"/>
+            </div>
+        </td>
+            </tr>
+    Html.EndForm();
+    }}
+    @{Html.BeginForm("PresentationViewer", "Presentation", FormMethod.Post);
+    {
+        <tr>
+            <td>
+                <div>
+                    <input type="image" name="Slide2"  style="width:200px;height:120px" src="../Images/presentation//Reporting/Reporting1.jpg" alt="Reporting.ppt" />
+                </div>
+            </td>
+        </tr>
+        Html.EndForm();
+    }}
+@{Html.BeginForm("Slide3_Click", "Presentation", FormMethod.Post);
+{
+        <tr>
+            <td>
+                <div>
+                    <input type="image" name="Slide3" style="width:200px;height:120px" src="../Images/presentation//Enterprises/Enterprises Java Bean1.jpg" alt="Enterprises.pptx" />
+                </div>
+            </td>
+        </tr>
+    Html.EndForm();
+    }}
+@{Html.BeginForm("Slide4_Click", "Presentation", FormMethod.Post);
+{
+        <tr>
+            <td>
+                <div>
+                    <input type="image" name="Slide4" style="width:200px;height:120px"  src="../Images/presentation/Overview/1 Overview1.jpg " alt=" Overview.pptx" />
+                </div>
+            </td>
+        </tr>
+      Html.EndForm();
+    }}
+    </table>
+  
+}
+
+
+
+
+@section ScriptSection{
+
+    <script type="text/javascript">
+        var slideObj, dropObj;
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        $(function () {
+            first = [{ text: "1" }];
+            second = [{ text: "1" }, { text: "2" }];
+            third = [{ text: "1" }, { text: "2" }, { text: "3" }];
+        });
+        function onPagerChange(args) {
+            var slideObj = $("#sliderContent").data("ejRotator");
+            slideObj.option({ pagerPosition: args.value });
+        }
+        function onAnimationChange(args) {
+            var slideObj = $("#sliderContent").data("ejRotator");
+            slideObj.option({ animationType: args.value });
+        }
+        function onDisplayChange(args) {
+            var slideObj = $("#sliderContent").data("ejRotator");
+            var dropObj = $('#itemMove').data('ejDropDownList');
+            slideObj.option({ displayItemsCount: args.text });
+            if (args.text == 1) {
+                dropObj.setModel({ dataSource: first, value: args.text });
+                slideObj.option({ navigateSteps: args.text })
+            }
+            else if (args.text == 2) {
+                dropObj.setModel({ dataSource: second, value: args.text });
+                slideObj.option({ navigateSteps: args.text })
+            }
+            else {
+                dropObj.setModel({ dataSource: third, value: args.text });
+                slideObj.option({ navigateSteps: args.text })
+            }
+        }
+        function onMoveChange(args) {
+            var slideObj = $("#sliderContent").data("ejRotator");
+            slideObj.option({ navigateSteps: args.text });
+        }
+        function onOrientationChange(args) {
+            var slideObj = $("#sliderContent").data("ejRotator");
+            slideObj.option({ orientation: args.text });
+        }
+
+        function onPager(args) {
+            var slideObj = $("#sliderContent").data("ejRotator");
+            slideObj.option({ showPager: args.isChecked });
+        };
+        function EnableDisable(args) {
+            var slideObj = $("#sliderContent").data("ejRotator");
+            if (args.isChecked)
+                slideObj.enable();
+            else
+                slideObj.disable();
+        };
+
+        function previous() {
+            var slideObj = $("#sliderContent").data("ejRotator");
+            slideObj.slidePrevious();
+        }
+        function next() {
+            var slideObj = $("#sliderContent").data("ejRotator");
+            slideObj.slideNext();
+
+        }
+        function getValue() {
+            var slideObj = $("#sliderContent").data("ejRotator");
+            alert("Current Slide Index : " + slideObj.getIndex());
+        }
+    </script>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+    .frame {
+        width: 690px;
+    }
+
+    #sliderContent > li .image {
+        width: 690px;
+        height: 400px;
+    }
+</style>
+
+}
+  
+    
+   

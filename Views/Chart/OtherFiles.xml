@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Category>
+  <Samples url= "/Chart/BoxPlot">
+    <DependentFiles displayname="Model.cs" url="/App_Data/BoxPlot.cs"></DependentFiles>
+  </Samples>
+ 
+</Category>

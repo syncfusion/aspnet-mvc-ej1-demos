@@ -1,0 +1,82 @@
+@section SampleHeading{<span class="sampleName">Sparkline-Real Time Usage-ASP.NET MVC-SYNCFUSION</span>}
+    <script src="~/Scripts/jsonspark.js"></script>
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .rowcell {
+            font-size: 15px !important;
+        }
+    </style>
+}
+@section ControlsSection{
+
+    @(Html.EJ().Grid<EmployeeView>("SparklineGrid")
+    .AllowSelection(false)
+    .AllowScrolling(true)
+    .ScrollSettings(scset=>scset.Height(400).Width(900))
+    .EnableRowHover(false)
+        .Columns(col =>
+        {
+            col.Field("EmployeeID").HeaderText("ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(60).Add();
+            col.Field("CustomerID").HeaderText("Customer ID").Width(85).Add();
+            col.Field("OrderDate").HeaderText("Order Date").Width(80).Format("{0:MM/dd/yyyy}").Add();
+            col.Field("ShipCountry").HeaderText("Ship Country").TextAlign(TextAlign.Right).Width(80).Add();
+            col.HeaderText("Tax per annum").Template("#columnTemplate1").Width(100).TextAlign(TextAlign.Center).Add();
+            col.HeaderText("One Day Index").Template("#columnTemplate3").Width(100).TextAlign(TextAlign.Center).Add();
+            col.HeaderText("Year GR").Template("#columnTemplate4").Width(100).TextAlign(TextAlign.Center).Add();
+           
+        })
+                .ClientSideEvents(ce => ce.Create("render").ActionComplete("render").Load("getdata"))
+    )
+}
+
+
+@section ScriptSection
+{
+    <script type="text/x-jsrender" id="columnTemplate1">
+    <span id="spkline{{:EmployeeID}}" />
+</script>
+<script type="text/x-jsrender" id="columnTemplate3">
+    <span id="spkarea{{:EmployeeID}}" />
+</script>
+<script type="text/x-jsrender" id="columnTemplate4">
+    <span id="spkwl{{:EmployeeID}}" />
+</script>		
+    <script type="text/javascript">
+        if (!!window.SVGSVGElement) {
+            $("#SparklineGrid").css('visibility', 'visible');
+        function getdata(args) {
+			if (!!window.SVGSVGElement) {
+				var employdata = window.gridData;
+				args.model.dataSource = employdata;
+			}
+        }
+        function render(args) {
+            for (var i = 0; i < 51; i++) {
+                $("#spkline" + i).ejSparkline({ size: { height: 50, width: 150 } });
+                $("#spkarea" + i).ejSparkline({ type: "column", size: { height: 50, width: 150 } });
+                $("#spkwl" + i).ejSparkline({ dataSource: winloss(), type: "winloss", size: { height: 50, width: 150 } });
+            }
+            if (args.type == "create")
+                this.getScrollObject().refresh();
+        }
+        function winloss() {
+            var windata = [], r;
+            for (var i = 1; i <= 12; i++) {
+                r = Math.random();
+                if (r <= 0.2)
+                    windata.push(-Math.random() * 10);
+                else
+                    windata.push(Math.random() * 10);
+            }
+            return windata;
+        }
+        } else {
+            $("#SparklineGrid").css("visibility", "hidden");
+            alert("Sparkline will not be supported in IE Version < 9");
+        }
+    </script>
+}
+@section MetaTags{
+   <meta name="description" content="This sample illustrates the countries based on taxes in the Syncfusion ASP.NET Web Forms Sparkline control.">
+}
+

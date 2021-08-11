@@ -1,0 +1,132 @@
+@section SampleHeading{
+    <span class="sampleName">Signature-Methods-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This example demonstrates how to dynamically customize the Syncfusion ASP.NET MVC Essential JS 1 Signature component.">
+}
+@section ControlsSection{
+    <div class="control frame">
+	 <h3>Sign here</h3>   
+      @Html.EJ().Signature("signature").Height("400px").StrokeWidth(3).BackgroundImage("../Images/progressbar/water.png").IsResponsive(true).saveWithBackground(true)
+    </div>
+}
+
+@section PropertiesSection{
+
+    <div id="sampleProperties">
+        <div class="prop-grid">
+            <div class="row-fluid">
+                <div class="row">
+                    <div class="col-md-3 col-xs-4">
+                        Stroke Color
+                    </div>
+                    <div class="col-md-3 col-xs-4">
+                        @Html.EJ().ColorPicker("signstroke").Value("#000000").ClientSideEvents(ce => ce.Change("onstrokecolorchange"))
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-xs-4">
+                        Stroke Width
+                    </div>
+                    <div class="col-md-3 col-xs-4">
+                        @Html.EJ().DropDownList("selectwidth").TargetID("numList").Width("100%").WatermarkText("Width").ClientSideEvents(de => de.Change("onchange"))
+                        <div id="numList">
+                            <ul>
+                                <li>1</li>
+                                <li>2</li>
+                                <li>3</li>
+                                <li>4</li>
+                                <li>5</li>
+                                <li>6</li>
+                                <li>7</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-xs-4">Undo</div>
+                    <div class="col-md-3 col-xs-4">
+                        @Html.EJ().Button("signundo").Text("Undo").ShowRoundedCorner(true).ClientSideEvents(evt => evt.Click("onundo"))
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-xs-4">Redo</div>
+                    <div class="col-md-3 col-xs-4">
+                        @Html.EJ().Button("signredo").Text("Redo").ShowRoundedCorner(true).ClientSideEvents(evt => evt.Click("onredo"))
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-3 col-xs-4">Clear</div>
+                    <div class="col-md-3 col-xs-4">
+                        @Html.EJ().Button("signclear").Text("Clear").ShowRoundedCorner(true).ClientSideEvents(evt => evt.Click("onclear"))
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-xs-4">Save</div>
+                       @Html.EJ().Button("signsave").Text("Save").ShowRoundedCorner(true).ClientSideEvents(evt => evt.Click("onsave"))
+                    <div class="col-md-3 col-xs-4">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-3 col-xs-4">Hide/Show</div>
+                    <div class="col-md-3 col-xs-4">
+                        @Html.EJ().ToggleButton("signshow").DefaultText("Hide").ActiveText("Show").ShowRoundedCorner(true).ClientSideEvents(te => te.Change("signshowChange"))
+                    </div>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+
+            $("#sampleProperties").ejPropertiesPanel();
+
+        });
+
+        function onstrokecolorchange(args) {
+            var sign = $("#signature").ejSignature("instance");
+            sign.model.strokeColor = args.value;
+        }
+
+        function onchange(args) {
+            var sign = $("#signature").ejSignature("instance");
+            sign.model.strokeWidth = parseInt(args.value);
+        }
+
+        function onclear() {
+            var sign = $("#signature").ejSignature("instance");
+            sign.clear();
+        }
+
+        function onundo() {
+            var sign = $("#signature").ejSignature("instance");
+            sign.undo();
+        }
+
+        function onredo() {
+            var sign = $("#signature").ejSignature("instance");
+            sign.redo();
+        }
+
+        function onsave() {
+            var sign = $("#signature").ejSignature("instance");
+            sign.save("MySignature");
+        }
+
+        function signshowChange(args) {
+            $("#signature").ejSignature(args.isChecked ? "hide" : "show");
+
+        }
+    </script>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .frame {
+            width: 80%;
+        }
+    </style>
+}
+

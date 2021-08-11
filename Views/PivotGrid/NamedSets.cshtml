@@ -1,0 +1,88 @@
+@section SampleHeading{ <span class="sampleName">PivotGrid-Named Sets-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This demo for ASP.NET MVC pivot grid control describes a named set, which is a set of dimension members predefined in the OLAP cube">
+}
+@using Syncfusion.JavaScript;
+@using Syncfusion.JavaScript.Olap;
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/ej.web.all.min.js")" type="text/javascript"></script>
+}
+@section StyleSection{
+    <style>
+        #PivotGrid1 {
+            width: 100%;
+            height: 350px;
+            overflow: auto;
+        }
+
+        #CodeViewTab ul > li:first-child + li {
+            display: none;
+        }
+
+        .row .cols-prop-area {
+            margin-top: 30px;
+            width: 30%;
+            height: 120px;
+            min-height: 0px;
+        }
+
+        .row .cols-sample-area {
+            width: 100%;
+        }
+		
+		@@media (min-width: 1920px) {.row .cols-prop-area { width: 21% !important; } }
+		
+    </style>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        var pivotGrid;
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+            $("#rdbServer, #rdbClient").ejRadioButton({ change: "renderGrid" });
+            pivotGrid = $("#PivotGrid1").data("ejPivotGrid");
+        });
+        function renderGrid(args) {
+            $(pivotGrid.element).html("");
+            if (args.model.id == "rdbClient") {
+                pivotGrid.model.url = "";
+                pivotGrid.model.operationalMode = "clientmode";
+                pivotGrid.model.dataSource = { data: "//bi.syncfusion.com/olap/msmdpump.dll", catalog: "Adventure Works DW 2008 SE", cube: "Adventure Works", rows: [{ fieldName: "[Date].[Fiscal]" }], columns: [{ fieldName: "[Core Product Group]", isNamedSets: true }], values: [{ measures: [{ fieldName: "[Measures].[Internet Sales Amount]", }], axis: "columns" }] };
+            }
+            else {
+                pivotGrid.model.dataSource = { data: null, cube: "" };
+                pivotGrid.model.operationalMode = "servermode";
+                pivotGrid.model.url = "../api/NamedSet";
+            }
+            pivotGrid._load();
+        }
+        window.loadPivotGridFrameTheme = function () {
+            window.setTimeout(function () {
+                var pivotGridElement = $("#PivotGrid1").data("ejPivotGrid");
+                if (pivotGridElement && pivotGridElement.model.enableGroupingBar && pivotGridElement.getJSONRecords() != null)
+                    pivotGridElement.renderControlFromJSON();
+            }, 2500);
+        }
+    </script>
+}
+@section ControlsSection{
+    @Html.EJ().Pivot().PivotGrid("PivotGrid1").DataSource(dataSource => dataSource.Rows(rows => { rows.FieldName("[Date].[Fiscal]").Add(); }).Columns(columns => { columns.FieldName("[Core Product Group]").IsNamedSets(true).Add(); }).Values(values => { values.Measures(measures => { measures.FieldName("[Measures].[Internet Sales Amount]").Add(); }).Axis(AxisName.Column).Add(); })
+.Data("//bi.syncfusion.com/olap/msmdpump.dll").Catalog("Adventure Works DW 2008 SE").Cube("Adventure Works"))
+}
+
+@section PropertiesSection{
+    <div class="prop-grid">
+        <div class="row">
+            <div class="col-md-3" style="width:20%">
+                Mode :
+            </div>
+            <div class="col-md-3" style="width:30%">
+                <input type="radio" name="dftView" id="rdbClient" checked="checked" /><label for="rdbClient" class="clslab">Client</label>
+            </div>
+            <div class="col-md-3" style="width:30%">
+                <input type="radio" name="dftView" id="rdbServer" /><label for="rdbServer" class="clslab">Server</label>
+            </div>
+        </div>
+    </div>
+}
+

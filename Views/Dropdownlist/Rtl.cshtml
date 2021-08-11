@@ -1,0 +1,15 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to enable the rtl property in a ASP.NET MVC DropDownList control." >
+}
+
+@section SampleHeading{
+    <span class="sampleName">Dropdownlist-RTL-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().DropDownList("skillsets").Datasource((IEnumerable<Languages>)ViewBag.datasource).DropDownListFields(f => f.Text("skill")).EnableRTL(true).WatermarkText("Select a language").Width("150").Width("100%")
+        </div>
+    </div>
+}
+
+

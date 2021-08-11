@@ -1,0 +1,28 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to initialize the Syncfusion ASP.NET MVC Slider control in vertical orientation.">
+}
+
+@section SampleHeading{ <span class="sampleName">Slider-Vertical Slider-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+
+    <div class="frame">
+        <div class="control">
+            @(Html.EJ().Slider("normalSlider").Orientation(Orientation.Vertical).SliderType(SlideType.Default).Value("30").Height("200"))
+            <span>Default</span>
+        </div>
+        <div class="control">
+            @(Html.EJ().Slider("minSlider").Orientation(Orientation.Vertical).SliderType(SlideType.MinRange).Value("70").Height("200"))
+            <span>Min-Range</span>
+        </div>
+        <div class="control">
+            @(Html.EJ().Slider("rangeSlider").Orientation(Orientation.Vertical).SliderType(SlideType.Range).Values("30, 70").EnableRTL(true)
+                       .Height("200"))
+            <span>Range</span>
+        </div>
+    </div>
+}
+@section StyleSection{
+    <link href="@Url.Content("~/Content/Samples/VerticalSlider.css")" rel="stylesheet" />
+}
+
