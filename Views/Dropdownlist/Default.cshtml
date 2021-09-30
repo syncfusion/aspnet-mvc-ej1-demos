@@ -1,0 +1,31 @@
+@section MetaTags{
+   <meta name="description" content="This demo explains how to initilalize a simple Syncfusion ASP.NET MVC DropDownList control." >
+}
+
+@section SampleHeading{
+    <span class="sampleName">Dropdownlist-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>}
+@section ActionDescription{
+    <div class="action-description">
+    <p>
+        This sample demonstrates rendering DropDownList control displays a single column list of items which enables you to select single or multiple items from the list. 
+        By default, there will be no selection made in the control and the user have to navigate through the items using mouse or keyboard actions to select an item.
+    </p>
+    </div>
+}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().DropDownList("selectCar").TargetID("carsList").Width("100%").WatermarkText("Select a Car")
+            <div id="carsList">
+                <ul>
+                    <li>Audi A4</li>
+                    <li>Audi A5</li>
+                    <li>Audi A6</li>
+                    <li>Audi A7</li>
+                    <li>Audi A8</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+}
+

@@ -1,0 +1,75 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates the resource allocation view for visualizing and mananging the project resources.">
+}
+
+@section SampleHeading{<span class="sampleName">Gantt-Resource View-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+	 <script id="columnTemplate" type="text/x-jsrender">
+        {{if eResourceTaskType=='resourceTask'}}
+        <span style='padding:10px;'> {{if eOverlapped}} Yes {{else}} No {{/if}} </span> {{/if}}
+    </script>
+        @(Html.EJ().Gantt("ResourceViewGantt")
+                   .TaskIdMapping("TaskID")
+                   .TaskNameMapping("TaskName")
+                   .StartDateMapping("StartDate")
+                   .EndDateMapping("EndDate")
+                   .DurationMapping("Duration")
+                   .ProgressMapping("Progress")
+                   .ScheduleStartDate("02/01/2017")
+                   .ScheduleEndDate("03/16/2017")
+                   .HighlightWeekends(true)
+                   .IncludeWeekend(false)
+                   .GroupNameMapping("TeamName")
+                   .GroupIdMapping("TeamId")
+                   .ViewType(GanttViewType.ResourceView)
+                   .EnableContextMenu(true)
+                   .ResourceIdMapping("ResourceId")
+                   .ResourceInfoMapping("ResourceID")
+                   .ResourceNameMapping("ResourceName")
+                   .AllowDragAndDrop(true)
+                   .AllowGanttChartEditing(true)
+                   .AllowColumnResize(true)
+                   .RowHeight(40)
+                   .TaskbarHeight(25)
+                   .IsResponsive(true)
+                   .EditSettings(es => es.AllowAdding(true).AllowDeleting(true).AllowEditing(true).EditMode("normal"))
+                   .ToolbarSettings(toolbar =>
+                        {
+                            toolbar.ShowToolbar(true);
+                            toolbar.ToolbarItems(new List<GanttToolBarItems>()
+                                {
+                                    GanttToolBarItems.Add,
+                                    GanttToolBarItems.Delete,
+                                    GanttToolBarItems.Update,
+                                    GanttToolBarItems.Cancel,
+                                    GanttToolBarItems.ExpandAll,
+                                    GanttToolBarItems.CollapseAll,
+                                    GanttToolBarItems.PrevTimeSpan,
+                                    GanttToolBarItems.NextTimeSpan,
+                                 });
+                         })
+                   .ClientSideEvents(cs => cs.Load("load"))
+                   .SplitterSettings(ss => ss.Position("310"))
+                   .GroupCollection(ViewBag.groups)
+                   .Resources(ViewBag.resources)
+                   .Datasource(ViewBag.datasource)
+        )
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        function load(args) {
+            this.getColumns()[0].width = 180;
+            var customColumn = {
+                field: "isOverallocated",
+                mappingName: "isOverallocated",
+                allowEditing: false,
+                headerText: "Is Overallocated",
+                isTemplateColumn: true,
+                template: "#columnTemplate"
+            };
+            this.getColumns().push(customColumn);
+        }
+    </script>
+}
+

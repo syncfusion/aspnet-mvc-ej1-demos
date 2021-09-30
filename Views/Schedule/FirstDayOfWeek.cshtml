@@ -1,0 +1,112 @@
+@section MetaTags{
+    <meta name="description" content="This example shows how to set the first day of the week in the ASP.NET MVC Scheduler.">
+}
+@section SampleHeading{<span class="sampleName">Schedule-First Day Of Week-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+<div>
+        @(Html.EJ().Schedule("Schedule1")
+        .Width("100%")
+        .Height("525px")
+        .CurrentDate(new DateTime(2017,6,5))
+        .FirstDayOfWeek(DayOfWeek.Monday)
+        .AppointmentSettings(fields => fields.Datasource((IEnumerable)ViewBag.datasource)
+            .Id("Id")
+            .Subject("Subject")
+            .StartTime("StartTime")
+            .EndTime("EndTime")
+            .Description("Description")
+            .AllDay("AllDay")
+            .Recurrence("Recurrence")
+            .RecurrenceRule("RecurrenceRule"))
+        )
+</div>
+}
+<div id="dayofweek">
+    <ul>
+        <li value="Sunday">Sunday</li>
+         <li value="Monday">Monday</li>
+         <li value="Tuesday">Tuesday</li>
+         <li value="Wednesday">Wednesday</li> 
+        <li value="Thursday">Thursday</li>
+         <li value="Friday">Friday</li>
+         <li value="Saturday">Saturday</li>
+       
+    </ul>
+</div>
+ <div id="workweek">
+    <ul>
+        <li value="Sunday">Sunday</li>
+         <li value="Monday">Monday</li>
+         <li value="Tuesday">Tuesday</li>
+         <li value="Wednesday">Wednesday</li> 
+        <li value="Thursday">Thursday</li>
+         <li value="Friday">Friday</li>
+         <li value="Saturday">Saturday</li>
+       
+    </ul>
+</div>
+
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            FirstDayOfWeek
+            </div>
+        <div class="col-md-3">
+        @Html.EJ().DropDownList("firstdayofweek").TargetID("dayofweek").Width("120px").ClientSideEvents(evt => evt.Change("onChange")).SelectedItems(new List<int>{1})
+        
+        </div>
+        </div>
+    <div class="row">
+        <div class="col-md-3">
+            WorkWeek
+        </div>
+   <div class="col-md-3">
+            @Html.EJ().DropDownList("workweeks").TargetID("workweek").Width("120px").ShowCheckbox(true).ClientSideEvents(evt=>evt.Change("workweeks")).SelectedItems(new List<int>{1,2,3,4,5})
+            
+        </div>
+    </div>
+    
+    }
+@section ScriptSection{
+    <script>
+      var obj;
+        $(document).ready(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+          obj = $("#Schedule1").data("ejSchedule");
+        });
+        
+        function onChange(args) {
+
+            $("#Schedule1").ejSchedule({ firstDayOfWeek: args.selectedValue });
+
+        }
+        function workweeks(args) {
+            var object = $('#workweeks').data("ejDropDownList");
+            var array = [];
+            var element = object.listitems;
+            for (var i = 0; i < element.length; i++) {
+                list = element.get(i);
+                var arr = list.textContent;
+                array.push(arr);
+            }
+            var items = args.model.selectedItems;
+            items.sort();
+            var workweek = [];
+            for (var j = 0; j < items.length; j++) {
+                var week = array[items[j]];
+                workweek.push(week);
+            }
+            $.unique(workweek);
+            if (args.isChecked)
+
+                $("#Schedule1").ejSchedule({ workWeek: workweek });
+            
+            else
+
+               $("#Schedule1").ejSchedule({ workWeek: workweek });
+             
+        }
+
+ </script>
+    }
+

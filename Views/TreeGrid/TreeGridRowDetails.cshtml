@@ -1,0 +1,109 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates the details view for tree grid rows.">
+}
+@section SampleHeading{<span class="sampleName">TreeGrid-Details Template-ASP.NET MVC-SYNCFUSION</span>}
+   
+@section ControlsSection{
+
+    <script id="descriptionTemplate" type="text/x-jsrender">
+
+        <div style="position: relative; display: inline-block; float: left; font-weight: bold; width: 10%">
+            <img src="../images/treegrid/{{:Name}}.png" style="margin-left: 10px;margin-top:15px;" />
+        </div>
+        <div style="padding-left: 10px; display: inline-block; width: 88%; text-wrap: normal;font-size:12px;font-family:'Segoe UI';margin-top:2px;">
+            <div class="e-description" style="word-wrap: break-word;">
+                <b>{{:Name}}</b> was born on {{:~_treeGridDateFormatter("DOB")}}. Now lives at {{:Address}},{{:Country}}. {{:Name}} holds a position of <b>{{:Designation}}</b> in our WA department, (Seattle USA). Joined our company on {{:~_treeGridDateFormatter("DOJ")}}.
+            </div>
+
+            <div class="e-description" style="word-wrap: break-word;margin-top:5px;">
+                <b style="margin-right:10px;">Contact:</b>{{:Contact}}
+            </div>
+
+        </div>
+    </script>
+
+
+    @(Html.EJ().TreeGrid("TreeGridRowDetails")
+          .ChildMapping("Children")
+          .ShowDetailsRow(true)
+          .DetailsRowHeight(100)
+          .IsResponsive(true)
+          .ShowDetailsRowInfoColumn(true)
+          .DetailsTemplate("descriptionTemplate")
+          .EditSettings(es=>es.AllowAdding(true).AllowDeleting(true).AllowEditing(true).EditMode(TreeGridEditMode.CellEditing).RowPosition(TreeGridRowPosition.BelowSelectedRow))
+          .ContextMenuSettings(cms => cms.ShowContextMenu(true)
+              .ContextMenuItems(new List<TreeGridContextMenuItems>() {
+              TreeGridContextMenuItems.Add,TreeGridContextMenuItems.Edit,TreeGridContextMenuItems.Delete
+          }))
+          .Columns(co =>
+              {
+                  co.Field("Name").HeaderText("First Name").EditType(TreeGridEditingType.String).Add();
+                  co.Field("DOB").HeaderText("DOB").EditType(TreeGridEditingType.Datepicker).Add();
+                  co.Field("Designation").HeaderText("Designation").EditType(TreeGridEditingType.String).Add();
+                  co.Field("Country").HeaderText("Country").EditType(TreeGridEditingType.String).Add();
+              }
+          )
+          .SizeSettings(ss => ss.Width("100%").Height("350px"))
+          .Datasource(ViewBag.datasource)
+    )
+}
+
+@section PropertiesSection{
+    <div class="prop-grid">
+        <div class="row">
+            <div class="col-md-3">
+                Show details view
+            </div>
+            <div class="col-md-3">
+                @(Html.EJ().CheckBox("showDetailsRow").Checked(true).ClientSideEvents(ce => ce.Change("showDetailsRowUpdate")))
+            </div>
+            <div class="col-md-3">
+                Show details view as a popup
+            </div>
+            <div class="col-md-3">
+                @(Html.EJ().CheckBox("showDetailsRowInfoColumn").Checked(true).ClientSideEvents(ce => ce.Change("showDetailsRowInfoColumnUpdate")))
+            </div>
+        </div>
+    </div>
+}
+
+@section ScriptSection{
+    <script>
+        function _dateFormating(data) {
+            var dateObj = ej.parseDate(this.data[data], "MM/dd/yyyy");
+            return dateObj ? ej.format(dateObj, "dddd , dd MMMM yyyy") : "";
+        }
+        var helpers = {};
+        helpers["_treeGridDateFormatter"] = _dateFormating;
+        $.views.helpers(helpers);
+    </script>
+
+    <script> 
+        
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+
+        function showDetailsRowUpdate(args) {
+            $("#TreeGridRowDetails").ejTreeGrid("model.showDetailsRow", args.isChecked);
+            $("#TreeGridRowDetails").ejTreeGrid("model.showDetailsRowInfoColumn", false);
+
+            if (!args.isChecked)
+                $("#showDetailsRowInfoColumn").ejCheckBox({ checked: false, enabled: false });
+            else
+                $("#showDetailsRowInfoColumn").ejCheckBox({ enabled: true });
+        }
+
+        function showDetailsRowInfoColumnUpdate(args) {
+            $("#TreeGridRowDetails").ejTreeGrid("model.showDetailsRowInfoColumn", args.isChecked);
+        }
+
+        $("#controlarea").scroll(function () {   
+            var treeGridObj = $("#TreeGridRowDetails").ejTreeGrid("instance");
+            if($("#" + treeGridObj._id + "detailscellwrapper").length > 0)
+                treeGridObj.showHideDetailsRow(treeGridObj.model.selectedRowIndex);
+        });
+
+    </script>
+}
+

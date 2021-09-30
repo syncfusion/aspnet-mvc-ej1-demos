@@ -1,0 +1,99 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates cell and row selection available in the Syncfusion Gantt chart control.">
+}
+
+@section SampleHeading{<span class="sampleName">Gantt-Selection-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+    <div id="ganttsample2" style="width: 100%; height: 450px;">
+        @(Html.EJ().Gantt("ganttselection")
+              .TaskIdMapping("Id")
+              .TaskNameMapping("Name")
+              .StartDateMapping("StartDate")
+              .EndDateMapping("EndDate")
+              .ProgressMapping("PercentDone")
+              .ScheduleStartDate("02/23/2017")
+              .ScheduleEndDate("03/20/2017")
+              .HighlightWeekends(true)
+              .IncludeWeekend(true)
+              .AllowColumnResize(true)
+              .TreeColumnIndex(1)
+              .ChildMapping("Children")
+              .SplitterPosition("60%")
+              .AllowSelection(true)
+              .ClientSideEvents(cs => cs.Load("load"))
+              .AllowGanttChartEditing(false)
+              .IsResponsive(true)
+              .Datasource(ViewBag.datasource)
+        )
+    </div>
+}
+@section PropertiesSection{
+<div class="prop-grid">
+    <div class="row">
+        <div class="col-md-3">
+            Selection Mode
+        </div>
+        <div class="col-md-3">
+            <div id="target">
+                <ul>
+                    <li>Row</li>
+                    <li>Cell</li>
+                </ul>
+            </div>
+            <div style="float:right;padding-bottom:5px; padding-left:1px;">
+                @(Html.EJ().DropDownList("mode")
+                           .TargetID("target")
+                           .Value("Row")
+                           .Text("Row")
+                           .ClientSideEvents(eve => eve.Change("onChange"))
+                           .Width("120px")
+                )
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Selection Type
+        </div>
+        <div class="col-md-3">
+            <div id="target1">
+                <ul>
+                    <li>Single</li>
+                    <li>Multiple</li>
+                </ul>
+            </div>
+            <div style="float:right;padding-bottom:5px; padding-left:1px;">
+                @(Html.EJ().DropDownList("type")
+                           .TargetID("target1")
+                           .Value("Single")
+                           .Text("Single")
+                           .ClientSideEvents(eve => eve.Change("onTypeChange"))
+                           .Width("120px")
+                )
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        function onChange(args) {
+            var ganttObject = $("#ganttselection").data("ejGantt");
+            ganttObject.option("selectionMode", args.text.toLowerCase());
+        }
+        function onTypeChange(args) {
+            var ganttObject = $("#ganttselection").data("ejGantt");
+            ganttObject.option("selectionType", args.text.toLowerCase());
+        }
+        function load(args) {
+            var columns = this.getColumns();
+            columns[0].width = 60;
+        }
+    </script>
+}
+
