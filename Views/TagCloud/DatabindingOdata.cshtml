@@ -1,8 +1,0 @@
-@section SampleHeading{ <span class="sampleName">TagCloud-Remote Data-ASP.NET MVC-SYNCFUSION</span>}
-
-@section ControlsSection{
-<div class="controlframe" style="width: 350px;">
-    @Html.EJ().TagCloud("customerList").Datasource(d => d.URL("//js.syncfusion.com/demos/ejServices/Wcf/Northwind.svc/").Offline(false).CrossDomain(true)).Query("ej.Query().from('Orders').take(10)").TagCloudFields(tag => tag.Text("CustomerID").Frequency("EmployeeID")).Title("Employee List")
-    </div>
-}
-
