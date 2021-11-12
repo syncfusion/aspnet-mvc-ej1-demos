@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Category>
+  <Samples url="/Toolbar/LocalDataBinding">
+    <DependentFiles displayname="Model" url="/Models/ToolbarLocalBinding.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/Toolbar/Methods">
+    <DependentFiles displayname="Model" url="/Models/ToolbarMethods.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/Toolbar/Orientation">
+    <DependentFiles displayname="Model" url="/Models/ToolbarOrientation.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/Toolbar/Rtl">
+    <DependentFiles displayname="Model" url="/Models/ToolbarOrientation.cs"></DependentFiles>
+  </Samples>
+  
+</Category>

@@ -1,0 +1,96 @@
+@section SampleHeading{<span class="sampleName">Grid-Cell Alignment-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This demo explains how to align the content inside the cells of datagrid columns and headers in Syncfusion ASP.NET MVC DataGrid control.">
+}
+@section StyleSection{
+    <link href="~/Content/ejthemes/responsive-css/ejgrid.responsive.css" rel="stylesheet" />
+}
+@section ControlsSection{
+    @(Html.EJ().Grid<OrdersView>("CellAlignment")
+                .Datasource((IEnumerable<object>)ViewBag.datasource)
+                .AllowPaging()
+				.AllowTextWrap()
+                .IsResponsive()
+                .Columns(col =>
+                {
+                    col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(90).Add();
+                    col.Field("CustomerID").HeaderText("Customer ID").Width(90).Add();
+                    col.Field("EmployeeID").HeaderText("Employee ID").TextAlign(TextAlign.Right).Width(75).Priority(2).Add();
+                    col.Field("Freight").HeaderText("Freight").TextAlign(TextAlign.Right).Width(75).Format("{0:C}").Priority(3).Add();
+                    col.Field("OrderDate").HeaderText("Order Date").TextAlign(TextAlign.Right).Width(80).Format("{0:MM/dd/yyyy}").Priority(3).Add();
+                    col.Field("ShipAddress").HeaderText("Ship Address").TextAlign(TextAlign.Justify).Width(80).Priority(4).Add();
+                })
+                )
+}
+@section PropertiesSection{
+    <div id="ddl1" style="width: 100px" data-bind="value: field">
+        <ul>
+            <li>Order ID</li>
+            <li>Customer ID</li>
+            <li>Employee ID</li>
+            <li>Freight</li>
+            <li>Order Date</li>
+			<li>Ship Address</li>
+        </ul>
+    </div>
+    <div id="ddl2" style="width: 100px" data-bind="value: field">
+        <ul>
+            <li>Right</li>
+            <li>Left</li>
+            <li>Center</li>
+            <li>Justify</li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Column
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().DropDownList("columnname")
+                .TargetID("ddl1")
+                .SelectedItemIndex(0)
+                .Width("120px")
+                        .ClientSideEvents(eve => { eve.Select("onAlignmentChange"); })
+                )
+        </div>
+        <div class="col-md-3">
+            Cell Alignment
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().DropDownList("columnalignment")
+                .TargetID("ddl2")
+                .SelectedItemIndex(0)               
+                .Width("120px")
+                        .ClientSideEvents(eve => { eve.Select("onAlignmentChange"); })
+                )
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        var columnname = 0;
+        function onAlignmentChange(args) {
+            if (this.element.attr("id") == "columnname") {
+                columnname = args.itemId;
+                var gridObj = $("#CellAlignment").data("ejGrid");
+                var dropObj = $("#columnalignment").ejDropDownList("instance");
+                var textAlign = gridObj.model.columns[columnname].textAlign;
+                if (!ej.isNullOrUndefined(textAlign))
+                    dropObj.setSelectedText(textAlign.charAt(0).toUpperCase() + textAlign.substring(1));
+                else
+                    dropObj.setSelectedText("Left");
+            }
+            else {
+                var gridObj = $("#CellAlignment").data("ejGrid");
+                if (gridObj != undefined) {
+                    gridObj.model.columns[columnname].textAlign = args.text;
+                    gridObj.refreshContent(true);
+                }
+            }
+        }
+    </script>
+}
+

@@ -1,0 +1,28 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates freezing and unfreezing columns from scrolling in the Syncfusion tree grid control.">
+}
+@section SampleHeading{<span class="sampleName">TreeGrid-Frozen Columns-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+
+
+    @(Html.EJ().TreeGrid("TreeGridContainer")
+             .ChildMapping("Children")
+             .TreeColumnIndex(1)
+             .ShowColumnChooser(true)
+             .IsResponsive(true)
+             .Columns(co =>
+               {
+                   co.Field("TaskId").HeaderText("ID").Width(100).IsFrozen(true).AllowFreezing(false).Add();
+                   co.Field("TaskName").HeaderText("Task Name").Width(200).IsFrozen(true).Add();
+                   co.Field("StartDate").HeaderText("Start Date").Add();
+                   co.Field("EndDate").HeaderText("End Date").Add();
+                   co.Field("Duration").HeaderText("Duration").Add();
+                   co.Field("Approved").HeaderText("Approved").Add();
+                   co.Field("Priority").HeaderText("Priority").Add();
+                   co.Field("Progress").HeaderText("Progress").Add();
+               })
+             .SizeSettings(ss => ss.Width("100%").Height("350px"))
+             .Datasource(ViewBag.datasource)
+    )
+}
+

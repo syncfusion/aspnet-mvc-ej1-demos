@@ -1,0 +1,21 @@
+@section MetaTags{
+    <meta name="description" content="This example shows how the ASP.NET MVC Scheduler layout adapts to mobile devices.">
+}
+@section SampleHeading{<span class="sampleName">Schedule-Adaptive-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="emulatordesk">
+        <div class="sample-container" >
+            <iframe id="sample"  frameborder="0" tabindex="1" style="height: 493px;width: 320px" src = '@Url.Action("AdaptiveSchedule", "Schedule")'  ></iframe>
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        window.loadScheduleFrameTheme = function () {
+            var iframe = document.getElementById('sample');
+            iframe.contentWindow.postMessage("theme_"+window.theme,iframe.src);
+        }
+    </script>
+}
+
+

@@ -1,0 +1,108 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates the various methods like clearText, enable and disable in a ASP.NET MVC DropDownList control."  >
+}
+
+@section SampleHeading{
+    <span class="sampleName">Dropdownlist-Methods-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().DropDownList("bokSelect").Datasource((IEnumerable<Books>)ViewBag.datasource).DropDownListFields(df => df.Text("category").Value("category")).WatermarkText("Select a section").Width("100%")
+        </div>
+    </div>
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Select an item by index
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("optionIndexChange").Width("105px").Datasource((IEnumerable<Books>)ViewBag.datasource).DropDownListFields(df => df.Text("text").ID("id")).ClientSideEvents(e => e.Change("onActiveIndexChange")).WatermarkText("Select")
+        </div>
+        <div class="col-md-3">
+            Select an item by value
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("optionValueChange").Width("105px").Datasource((IEnumerable<Books>)ViewBag.datasource).DropDownListFields(df => df.Text("category").Value("category")).ClientSideEvents(e => e.Change("onActiveValueChange")).WatermarkText("Select")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Select an item by text
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("optionTextChange").Width("105px").Datasource((IEnumerable<Books>)ViewBag.datasource).DropDownListFields(df => df.Text("category").Value("category")).ClientSideEvents(e => e.Change("onActiveTextChange")).WatermarkText("Select")
+        </div>
+        <div class="col-md-3">
+            TextBox Value
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().Button("Buton").Text("Value").Width("105px").ClientSideEvents(e => e.Click("valuetext"))
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Disable\Enable
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().ToggleButton("butonchkunchk").Width("105px").DefaultText("Disable").ActiveText("Enable").ClientSideEvents(e => e.Change("onCheckUncheckAll"))
+        </div>
+        <div class="col-md-3">
+            Filter Search
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().ToggleButton("incrementalbutton").Width("105px").DefaultText("Enable").ActiveText("Disable").ClientSideEvents(e => e.Change("incrementalchange"))
+        </div>
+        <div class="col-md-3">
+            Case-Sensitive Search
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().ToggleButton("casesensitivebutton").Width("105px").DefaultText("Enable").ActiveText("Disable").ClientSideEvents(e => e.Change("casesensitivechange"))
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        var target;
+        function onActiveIndexChange(args) {
+            target = $('#bokSelect').data("ejDropDownList");
+            $("#optionValueChange").ejDropDownList("clearText");
+            $("#optionTextChange").ejDropDownList("clearText");
+            target.option({ selectedIndex: args.itemId });
+        }
+        function onActiveValueChange(args) {
+            target = $('#bokSelect').data("ejDropDownList");
+            $("#optionIndexChange").ejDropDownList("clearText");
+            $("#optionTextChange").ejDropDownList("clearText");
+            target.selectItemByValue(args.selectedValue);
+        }
+        function onActiveTextChange(args) {
+            target = $('#bokSelect').data("ejDropDownList");
+            $("#optionIndexChange").ejDropDownList("clearText");
+            $("#optionValueChange").ejDropDownList("clearText");
+            target.selectItemByText(args.selectedValue);
+        }
+        function onCheckUncheckAll(args) {
+            target = $('#bokSelect').data("ejDropDownList");
+            (args.isChecked) ? target.disable() : target.enable();
+        }
+        function incrementalchange(args) {
+            target = $('#bokSelect').data("ejDropDownList");
+            (args.isChecked) ? target.option("enableFilterSearch", true) : target.option("enableFilterSearch", false);
+
+        }
+        function casesensitivechange(args) {
+            target = $('#bokSelect').data("ejDropDownList");
+            (args.isChecked) ? target.option("caseSensitiveSearch", true) : target.option("caseSensitiveSearch", false);
+
+        }
+        function valuetext(e, ui) {
+			target = $('#bokSelect').data("ejDropDownList");
+            alert("Selected Item is " + target.getValue());
+        }
+    </script>
+}
+

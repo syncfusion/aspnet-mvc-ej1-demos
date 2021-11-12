@@ -1,0 +1,322 @@
+@section MetaTags{
+   <meta name="description" content="This example shows how gallery type can be used to customize the items to display images or text in the ASP.NET Web Forms Ribbon." >
+}
+
+@section SampleHeading{
+    <span class="sampleName">Ribbon-Gallery-ASP.NET MVC-SYNCFUSION</span>
+}
+@using Syncfusion.JavaScript.Models;
+@section ControlsSection{    
+    @(Html.EJ().Ribbon("defaultRibbon")
+     .Width("100%")
+     .ExpandPinSettings(exPin =>
+       {
+         exPin.ToolTip("Collapse the Ribbon");
+       })
+     .CollapsePinSettings(colPin =>
+        {
+         colPin.ToolTip("Pin the Ribbon");
+        })   
+     .ApplicationTab(apptab =>
+    {
+        apptab.Type(ApplicationTabType.Menu).MenuItemID("ribbonmenu").MenuSettings(new MenuProperties()
+               {
+                   OpenOnClick = false
+               });
+    })
+    .RibbonTabs(tab =>
+    {
+        tab.Id("home").Text("HOME").TabGroups(tabgrp =>
+        {
+            tabgrp.Text("New").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("new").Text("New").ToolTip("New").ButtonSettings(new ButtonProperties()
+                        {
+                            ContentType = ContentType.ImageOnly,
+                            ImagePosition = ImagePosition.ImageTop,
+                            PrefixIcon = "e-icon e-ribbon e-new",
+                           
+                        }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("60px").Height("70px")).Add();
+            }).Add();
+            tabgrp.Text("Font").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("fontfamily").ToolTip("Font").DropdownSettings(new DropDownListProperties()
+                    {
+                        DataSource = (IEnumerable<FontFamily>)ViewBag.datasource,
+                        Text = "Segoe UI",
+                        Width = "150px",
+                    }).Add();
+                    cntgrp.Id("fontsize").ToolTip("FontSize").DropdownSettings(new DropDownListProperties()
+                    {
+                        DataSource = (IEnumerable<FontPoint>)ViewBag.datasource1,
+                        Text = "1pt",
+                        Width = "65px",
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.DropDownList).Height("28px")).Add();
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("bold").Text("Bold").ToolTip("Bold").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon bold"
+                    }).Add();
+                    cntgrp.Id("italic").Text("Italic").ToolTip("Italic").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-ribbonitalic"
+                    }).Add();
+                    cntgrp.Id("underline").Text("Underline").ToolTip("Underline").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-ribbonunderline"
+                    }).Add();
+                    cntgrp.Id("strikethrough").Text("Strikethrough").ToolTip("Strikethrough").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon strikethrough"
+                    }).Add();
+                    cntgrp.Id("superscript").Text("Superscript").ToolTip("Superscript").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-superscripticon"
+                    }).Add();
+                    cntgrp.Id("subscript").Text("Subscript").ToolTip("Subscript").EnableSeparator(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-subscripticon"
+                    }).Add();
+                    cntgrp.Id("uppercase").Text("Upper Case").ToolTip("Upper Case").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-uppercase"
+                    }).Add();
+                    cntgrp.Id("lowercase").Text("Lower Case").ToolTip("Lower Case").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-lowercase"
+                    }).Add();
+                  
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).IsBig(false)).Add();
+               
+            }).Add();
+
+            tabgrp.Text("Gallery").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("Galleryribbon").Type(RibbonButtonType.Gallery).ItemWidth("68").ItemHeight("54").Columns(3).ExpandedColumns(4).GalleryItems(gi =>
+                    {
+                        gi.Text("GalleryContent1").ToolTip("GalleryContent1").ButtonSettings(new ButtonProperties(){
+                        ContentType=ContentType.ImageOnly,
+                        PrefixIcon="e-icon e-gallerycontent1 e-gbtnimg",
+                        CssClass="e-gbtnposition"
+                        }).Add();
+                        gi.Text("GalleryContent2").ToolTip("GalleryContent2").ButtonSettings(new ButtonProperties()
+                        {
+                            ContentType = ContentType.ImageOnly,
+                            PrefixIcon = "e-icon e-gallerycontent2 e-gbtnimg",
+                            CssClass = "e-gbtnposition"
+                        }).Add();
+                        gi.Text("GalleryContent3").ToolTip("GalleryContent3").ButtonSettings(new ButtonProperties()
+                        {
+                            ContentType = ContentType.ImageOnly,
+                            PrefixIcon = "e-icon e-gallerycontent3 e-gbtnimg",
+                            CssClass = "e-gbtnposition"
+                        }).Add();
+                        gi.Text("GalleryContent4").ToolTip("GalleryContent4").ButtonSettings(new ButtonProperties()
+                        {
+                            ContentType = ContentType.ImageOnly,
+                            PrefixIcon = "e-icon e-gallerycontent4 e-gbtnimg",
+                            CssClass = "e-gbtnposition"
+                        }).Add();
+                        gi.Text("GalleryContent5").ToolTip("GalleryContent5").ButtonSettings(new ButtonProperties()
+                        {
+                            ContentType = ContentType.ImageOnly,
+                            PrefixIcon = "e-icon e-gallerycontent1 e-gbtnimg",
+                            CssClass = "e-gbtnposition"
+                        }).Add();
+                        gi.Text("GalleryContent6").ToolTip("GalleryContent6").ButtonSettings(new ButtonProperties()
+                        {
+                            ContentType = ContentType.ImageOnly,
+                            PrefixIcon = "e-icon e-gallerycontent6 e-gbtnimg",
+                            CssClass = "e-gbtnposition"
+                        }).Add();
+                        gi.Text("GalleryContent7").ToolTip("GalleryContent7").ButtonSettings(new ButtonProperties()
+                        {
+                            ContentType = ContentType.ImageOnly,
+                            PrefixIcon = "e-icon e-gallerycontent7 e-gbtnimg",
+                            CssClass = "e-gbtnposition"
+                        }).Add();
+                        gi.Text("GalleryContent8").ToolTip("GalleryContent8").ButtonSettings(new ButtonProperties()
+                        {
+                            ContentType = ContentType.ImageOnly,
+                            PrefixIcon = "e-icon e-gallerycontent8 e-gbtnimg",
+                            CssClass = "e-gbtnposition"
+                        }).Add();
+                        gi.Text("GalleryContent9").ToolTip("GalleryContent9").ButtonSettings(new ButtonProperties()
+                        {
+                            ContentType = ContentType.ImageOnly,
+                            PrefixIcon = "e-icon e-gallerycontent9 e-gbtnimg",
+                            CssClass = "e-gbtnposition"
+                        }).Add();
+                        
+                    }).CustomGalleryItems(gleit =>
+                    {
+                        gleit.Text("Save Selection as new quick style").ToolTip("Save Selection as new quick style").CustomItemType(CustomItemType.Button).ButtonSettings(new ButtonProperties()
+                        {
+                            CssClass = "e-extrabtnstyle"
+                        }).Add();
+                        gleit.CustomItemType(CustomItemType.Menu).MenuId("extramenu").MenuSettings(new MenuProperties()
+                        {
+                            OpenOnClick = false
+                        }).Add();
+                        gleit.Text("Clear Formatting").ToolTip("Clear Formatting").CustomItemType(CustomItemType.Button).ButtonSettings(new ButtonProperties()
+                        {
+                            CssClass = "e-extrabtnstyle"
+                        }).Add();
+                        gleit.Text("Apply Styles").ToolTip("Apply Styles").CustomItemType(CustomItemType.Button).ButtonSettings(new ButtonProperties()
+                        {
+                            CssClass = "e-extrabtnstyle"
+                        }).Add();
+                    }).Add();
+                    
+                    
+                
+                }).Add();
+            }).Add();
+        }).Add();
+        tab.Id("calculator").Text("CALCULATOR").TabGroups(tabgrp =>
+        {
+            tabgrp.Text("Numbers").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("Zero").Text("0").ToolTip("Zero").Add();
+                    cntgrp.Id("one").Text("1").ToolTip("One").Add();
+                    cntgrp.Id("two").Text("2").ToolTip("Two").Add();
+                    cntgrp.Id("three").Text("3").ToolTip("Three").Add();
+                    cntgrp.Id("four").Text("4").ToolTip("Four").Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).IsBig(false)).Add();
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("five").Text("5").ToolTip("Five").Add();
+                    cntgrp.Id("six").Text("6").ToolTip("Six").Add();
+                    cntgrp.Id("seven").Text("7").ToolTip("Seven").Add();
+                    cntgrp.Id("eight").Text("8").ToolTip("Eight").Add();
+                    cntgrp.Id("nine").Text("9").ToolTip("Nine").Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).IsBig(false)).Add();
+            }).Add();
+            tabgrp.Text("Point").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("dot").Text("dot").ToolTip("Dot").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-dot"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).IsBig(false)).Add();
+            }).Add();
+            tabgrp.Text("Operators").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("plus").Text("+").ToolTip("Plus").Add();
+                    cntgrp.Id("minus").Text("-").ToolTip("Minus").Add();
+                    cntgrp.Id("multiply").Text("*").ToolTip("Multiply").Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).IsBig(false)).Add();
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("divide").Text("/").ToolTip("Divide").Add();
+                    cntgrp.Id("modulo").Text("%").ToolTip("Modulo").Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).IsBig(false)).Add();
+            }).Add();
+        }).Add();
+    })
+    )
+        <ul id="ribbonmenu">
+				<li><a>FILE</a>
+                    <ul>
+                    <li><a>New</a></li>
+                    <li><a>Open</a></li>
+                    <li><a>Save</a></li>
+                    <li><a>Save As</a></li>
+                    <li><a>Print</a></li>
+			    	</ul>
+			    </li>
+                </ul>
+          
+		 <ul id="extramenu">
+				<li><a>New Quick Step</a>
+                    <ul>
+                    <li><a>Move to new folder</a></li>
+                    <li><a>Categorize & Move</a></li>
+                    <li><a>Flag & Move</a></li>
+			    	</ul>
+			    </li>
+                </ul>  
+    }
+
+
+@section StyleSection{
+     <link href="~/Content/ejthemes/ribbon-css/ej.icons.css" rel="stylesheet" />
+    <style type="text/css">
+        .e-gallerycontent1{
+		   background-position: 0 -105px;
+           }
+		   .e-gallerycontent2{
+		     background-position: -69px -105px;
+           }
+		  .e-gallerycontent3{
+		     background-position: -136px -105px;
+            }
+		  .e-gallerycontent4{
+		     background-position: 0 -53px;
+            }
+		  .e-gallerycontent5{
+		     background-position: -69px -53px;
+            }
+		  .e-gallerycontent6{
+		     background-position: -136px -53px;
+            }
+		  .e-gallerycontent7{
+		     background-position: 0 0px;
+            }
+		  .e-gallerycontent8{
+		     background-position: -69px 0px;
+            }
+		  .e-gallerycontent9{
+		     background-position: -136px 0px;
+            }
+		  .e-gbtnposition{
+		     margin-top:5px;
+           }
+		  .e-gbtnimg{
+		   background-image: url("../Content/ejthemes/common-images/ribbon/homegallery.png");
+		   background-repeat:no-repeat;
+		   height:64px;
+		   width:64px;
+		   }
+		  .e-ribbon.e-js .e-extracontent .e-btn.e-extrabtnstyle {
+		   padding-left: 28px;
+           text-align: left;
+	      }
+
+        .e-pastetip {
+            background-image: url("../Content/ejthemes/common-images/ribbon/paste.png");
+            background-repeat: no-repeat;
+            height: 64px;
+            width: 64px;
+        }
+		.row .cols-sample-area {
+           min-height: 490px !important;
+        }
+    </style>
+   
+}
+

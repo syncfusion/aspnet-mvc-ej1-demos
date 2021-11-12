@@ -1,0 +1,66 @@
+@section MetaTags{
+   <meta name="description" content="This sampple showcases the multiple target spell checking support in a ASP.NET MVC SpellCheck control." />
+}
+
+@section SampleHeading{<span class="sampleName">SpellCheck-Multiple Target-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+
+
+    <div id="control1">
+        London, one of the most popular touist destinations in the world for a reason. A cultural and hisorical hub, London has an excellent public transportation system that allows visitors to see all the fantatic sights without spending a ton of money on a rental car.
+        London contains four World Heritage Sites.
+    </div><br />
+    <textarea id="control2" style="width:99%;height:100px">
+        Paris, the city of lihts and love - this short guide is full of ideas for how to make the most of the romnticism that oozes from every one of its beautiful corners.You couldn't possibly visit Paris without seeing the Eiffel Tower.
+        Even if you do not want to visit this world famous structure, you will see its top from all over Paris.
+    </textarea><br />
+    <span id="control3">
+        Rome, one of the world's most facinating cities. The old adage that Rome was not built in a day - and that you won't see it in one or even in three - is true. For the intrepid traveler who can keep pace, here is a list of must-sees.
+        But reember what the Romans say: Even a lifetime isn't enough to see Rome.
+    </span><br /><br />
+
+    @Html.EJ().SpellCheck("TextArea").ControlsToValidate("#control1,#control2,#control3").DictionarySettings(dic => dic.CustomDictionaryUrl("../api/SpellCheck/AddToDictionary").DictionaryUrl("../api/SpellCheck/CheckWords")).ClientSideEvents(evts => evts.TargetUpdating("onTargetUpdating").DialogClose("onDialogClose"))
+
+    @Html.EJ().Button("SpellCheck").Text("Spell check using dialog").ClientSideEvents(evet => evet.Click("showDialog"))
+
+
+
+
+}
+
+@section ScriptSection{
+    <script type="text/javascript">
+        $("document").ready(function () {
+            if (window.themevarient === "dark")
+                document.getElementById("control2").style.backgroundColor = "#111111";
+            else
+                document.getElementById("control2").style.backgroundColor = "white";
+        });
+        function showDialog() {
+            var spellObj = $("#TextArea").data("ejSpellCheck");
+            spellObj.showInDialog();
+        }
+        function onTargetUpdating(args) {
+            onUpdate(args.previousElement);
+            $(args.currentElement)[0].style.border = "thin solid blue";
+        }
+        function onDialogClose(args) {
+            onUpdate(args.targetElement);
+        }
+        function onUpdate(element) {
+            if (!ej.isNullOrUndefined(element)) {
+                if ($(element)[0].attributes["id"].value === "control2")
+                    $(element)[0].style.borderColor = "rgb(169, 169, 169)";
+                else
+                    $(element)[0].style.border = "none";
+            }
+        }
+
+    </script>
+}
+
+
+
+
+

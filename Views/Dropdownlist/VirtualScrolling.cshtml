@@ -1,0 +1,85 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to achieve the virtual scrolling(loads dropdown items dynamically) in ASP.NET MVC DropDownList control."  >
+}
+
+@section SampleHeading{<span class="sampleName">Dropdownlist-VirtualScrolling-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @(Html.EJ().DropDownList("CompanyNames")
+                        .Datasource(ds => ds.URL("//js.syncfusion.com/demos/ejServices/Wcf/Northwind.svc/Customers").CrossDomain(true))
+                .DropDownListFields(f => f.Text("CompanyName").Value("ContactName"))
+                .Width("100%")
+                .AllowVirtualScrolling(true)
+                .VirtualScrollMode(VirtualScrollMode.Normal)
+                .ItemsCount(10).WatermarkText("Select a company name")
+
+            )
+        </div>
+    </div>
+
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .e-ddl-popup {
+            margin: 0 auto;
+        }
+        .frame {
+            width: 250px;
+        }
+    </style>
+}
+@section PropertiesSection{
+    <div id="ddl1">
+        <ul>
+            <li>Normal</li>
+            <li>Continuous</li>
+        </ul>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            VirtualScroll mode
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().DropDownList("scrollMode")
+                .TargetID("ddl1")
+                .Width("120px")
+                .SelectedIndex(0)
+                .ClientSideEvents(eve => { eve.Change("selectChange"); })
+            )
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+
+        function selectChange(args) {
+            var target = $('#CompanyNames').data("ejDropDownList");
+            target.destroy();
+
+            var dataManager = ej.DataManager({ url: "//js.syncfusion.com/demos/ejServices/Wcf/Northwind.svc/Customers", crossDomain: true });
+            
+            var controlProperty =
+			{
+			    dataSource: dataManager,
+			    fields: { text: "CompanyName", value: 'ContactName' },
+			    width: 260,
+			    itemsCount: 10,
+			    allowVirtualScrolling: true
+			};
+
+            controlProperty.virtualScrollMode = args.itemId == 1 ? "continuous" : "normal";
+
+            $('#CompanyNames').ejDropDownList(controlProperty);
+               
+        }
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+    </script>
+}
+
+
+
+
+

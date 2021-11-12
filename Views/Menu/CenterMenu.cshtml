@@ -1,0 +1,53 @@
+@section MetaTags{
+   <meta name="description" content="This sample demonstrates aligning the menu items to the center of the popup in a ASP.NET MVC Menu control." >
+}
+
+@section SampleHeading{
+    <span class="sampleName">Menu-Center Menu-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+<div class="controlframe">
+    @Html.EJ().Menu("docfile").Items(items =>
+               {
+                   items.Add().Url("").Text("File").Children(child =>
+                       {
+                           child.Add().Url("").Text("New");
+                           child.Add().Url("").Text("Open");
+                           child.Add().Url("").Text("Save");
+                           child.Add().Url("").Text("PrintPreview");
+                           child.Add().Url("").Text("Print");
+                       });
+                   items.Add().Url("").Text("Edit").Children(child =>
+                   {
+                       child.Add().Url("").Text("Undo");
+                       child.Add().Url("").Text("Redo");
+                       child.Add().Url("").Text("Mobile MVC");
+                       child.Add().Url("").Text("Silverlight");
+                   });
+                   items.Add().Url("").Text("View").Children(child =>
+                   {
+                       child.Add().Url("").Text("Print Layout");
+                       child.Add().Url("").Text("Show ruler");
+                       child.Add().Url("").Text("Show spelling suggestion");
+                       child.Add().Url("").Text("Compact controls");
+                       child.Add().Url("").Text("Full screen");
+                   });
+                   items.Add().Url("").Text("Insert").Children(child =>
+                   {
+                       child.Add().Url("").Text("Image");
+                       child.Add().Url("").Text("Link");
+                       child.Add().Url("").Text("Comments");
+                       child.Add().Url("").Text("Foot note");
+                       child.Add().Url("").Text("Header");
+                       child.Add().Url("").Text("Footer");
+                   });
+                   items.Add().Url("").Text("Help").Children(child =>
+                   {
+                       child.Add().Url("").Text("Docs Help");
+                       child.Add().Url("").Text("User Forums");
+                       child.Add().Url("").Text("Report an Issue");
+                       child.Add().Url("").Text("Keyboard Shortcuts");
+                   });
+               }).EnableCenterAlign(true)
+    </div>
+}
+
