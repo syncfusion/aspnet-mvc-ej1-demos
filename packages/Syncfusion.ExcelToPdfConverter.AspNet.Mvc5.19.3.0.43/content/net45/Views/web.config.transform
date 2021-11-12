@@ -1,9 +1,0 @@
-<configuration>
-	<system.web.webPages.razor>
-		<pages>
-			<namespaces>
-  
-			</namespaces>
-		</pages>
-	</system.web.webPages.razor>
-</configuration>

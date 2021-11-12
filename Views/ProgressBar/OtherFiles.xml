@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<Category>
-    <Samples url="/ProgressBar/Default">
-          <DependentFiles displayname="CSS" url="/Content/Samples/ProgressDefault.css"></DependentFiles>
-    </Samples>
-    <Samples url="/ProgressBar/Events">
-          <DependentFiles displayname="CSS" url="/Content/Samples/ProgressEvents.css"></DependentFiles>
-    </Samples>
-</Category>
