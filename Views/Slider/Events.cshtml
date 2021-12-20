@@ -1,0 +1,70 @@
+@section MetaTags{
+   <meta name="description" content="This sample demonstrates the various client events like create, slideout, slidestart, slidestop and change in a ASP.NET MVC Slider control.">
+}
+
+@section SampleHeading{ <span class="sampleName">Slider-Events-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+
+    <div class="frame">
+        @(Html.EJ().Slider("sliderEvents").SliderType(SlideType.MinRange).Value("30")
+                   .ClientSideEvents(evt => evt.Create("oncreate").Change("onchange")
+                   .Slide("onslide").Start("onstart").Stop("onstop")))
+    </div>
+}
+<div id="sliderTarget">
+    <ul>
+        <li>start</li>
+        <li>stop</li>
+        <li>change</li>
+        <li>slide</li>
+    </ul>
+</div>
+@section EventsDropdown{
+    @(Html.EJ().DropDownList("selectControls_input").TargetID("sliderTarget").ShowCheckbox(true).CheckAll(true)
+               .ClientSideEvents(evt => evt.Change("evtpropscheckedevent")))
+}
+@section ScriptSection{
+    <script>
+        function evtpropscheckedevent(args) {
+            sliderObj = $("#sliderEvents").data("ejSlider");
+            if (args.isChecked) {
+                switch (args.selectedText) {
+                    case "create": sliderObj.option(args.selectedText, "oncreate"); break;
+                    case "start": sliderObj.option(args.selectedText, "onstart"); break;
+                    case "stop": sliderObj.option(args.selectedText, "onstop"); break;
+                    case "change": sliderObj.option(args.selectedText, "onchange"); break;
+                    case "slide": sliderObj.option(args.selectedText, "onslide"); break;
+                }
+            }
+            else sliderObj.option(args.selectedText, null);
+        }
+
+        function oncreate(args) {
+            jQuery.addEventLog("Slider has been <span class='eventTitle'>created</span>.");
+        }
+        function onstart(args) {
+            jQuery.addEventLog("Slider has been <span class='eventTitle'>started</span> at " + args.value + ". <br/>");
+        }
+        function onstop(args) {
+            jQuery.addEventLog("Slider has been <span class='eventTitle'>stopped</span> at " + args.value + ". <br/>");
+        }
+        function onchange(args) {
+            jQuery.addEventLog("Slider value has been <span class='eventTitle'>changed</span> to " + args.value + ". <br/>");
+        }
+        function onslide(args) {
+            jQuery.addEventLog("Slider is being <span class='eventTitle'>changed</span> to " + args.value + ".");
+        }
+        function onClear() {
+            $("#EventLog").html("");
+        }
+    </script>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .frame {
+            width:50%;
+        }
+    </style>
+}
+

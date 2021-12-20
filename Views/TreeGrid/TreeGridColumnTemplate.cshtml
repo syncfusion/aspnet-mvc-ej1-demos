@@ -1,0 +1,70 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates how to display custom columns and column templates in the Syncfusion tree grid control.">
+}
+@section SampleHeading{<span class="sampleName">TreeGrid-Column Template-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+
+    <script type="text/x-jsrender" id="customColumnTemplate">
+        <div style='height:20px;' unselectable='on'>
+            {{if hasChildRecords}}<div class='intend' style='height:1px; float:left; width:{{:level*20}}px; display:inline-block;'></div>
+            {{else !hasChildRecords}}
+            <div class='intend' style='height:1px; float:left; width:{{:(level)*20}}px; display:inline-block;'></div>
+            {{/if}}
+            <div class='{{if expanded}}e-treegridexpand {{else hasChildRecords}}e-treegridcollapse {{/if}} {{if level===4}}e-doc{{/if}}' style='height:20px;width:30px;margin:auto;float:left;margin-left:10px;
+       style=' float left;display:inline-block; unselectable='on'></div>
+            <div class='e-cell' style='display:inline-block;width:100%' unselectable='on'>{{:#data['Name']}}</div>
+        </div>
+    </script>
+
+    <style>
+        .e-treegrid .e-treegridexpand {
+            background-image: url(../images/treegrid/folder-open.png);
+            background-repeat: no-repeat;
+            width: 14px;
+            height: 14px;
+        }
+
+        .e-treegrid .e-treegridcollapse {
+            background-image: url(../images/treegrid/Folder.png);
+            background-repeat: no-repeat;
+            width: 14px;
+            height: 14px;
+        }
+
+        .e-treegrid .e-doc {
+            background-image: url(../images/treegrid/Document.png);
+            background-repeat: no-repeat;
+            width: 14px;
+            height: 14px;
+        }
+
+        .e-treegrid .e-treegridexpand:before {
+            content: none;
+        }
+
+        .e-treegrid .e-treegridcollapse:before {
+            content: none;
+        }
+
+        .e-treegrid .e-treegridcollapse:after,
+        .e-treegrid .e-treegridexpand:after {
+            opacity: 0;
+        }
+    </style>
+
+    @(Html.EJ().TreeGrid("TreeGridContainer")
+             .Columns(co =>
+                 {
+                     co.Field("Name").HeaderText("Name").IsTemplateColumn(true).TemplateID("customColumnTemplate").Add();
+                     co.Field("Type").HeaderText("Type").Add();
+                     co.Field("DateCreated").HeaderText("Date Created").Add();
+                     co.Field("DateModified").HeaderText("Date Modified").Add();
+                 }
+              )
+             .IsResponsive(true)
+             .SizeSettings(ss => ss.Height("300px").Width("100%"))
+             .ChildMapping("Children")
+             .Datasource(ViewBag.datasource)
+    )
+}                   
+

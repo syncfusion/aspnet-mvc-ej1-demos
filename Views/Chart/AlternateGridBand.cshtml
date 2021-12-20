@@ -1,0 +1,167 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart-Alternate Grid Band-ASP.NET MVC-SYNCFUSION</span>}
+
+@section MetaTags{
+    <meta name="description" content="This sample demonstrates vertical and horizontal bands on the grid using Syncfusion ASP.NET MVC Chart control">
+}
+
+@section ControlsSection{
+    <div id="target1">
+        <ul>
+            <li>None</li>
+            <li>Even</li>
+            <li>Odd</li>
+
+        </ul>
+    </div>
+    <div id="target2">
+        <ul>
+            <li>None</li>
+            <li>Even</li>
+            <li>Odd</li>
+        </ul>
+    </div>
+    @(Html.EJ().Chart("container")
+        .PrimaryXAxis(pr => pr.AxisLine(al => al.Visible(false)).MajorTickLines(mt => mt.Visible(false))
+            .Range(ra => ra.Min(1965).Max(2010).Interval(5)).Title(tl => tl.Text("Year")).MajorGridLines(mg => mg.Color("transparent")))
+        .PrimaryYAxis(pr => pr.AlternateGridBand(ag => ag.Even(ev => ev.Fill("#A7A9AB").Opacity(0.1))).AxisLine(al => al.Visible(false))
+            .MajorTickLines(mt => mt.Visible(false)).Range(ra => ra.Min(0).Max(18000).Interval(2000)).Title(tl => tl.Text("Tons Per Day")))
+        .CommonSeriesOptions(cr => cr.EnableAnimation(true).Tooltip(Tt => Tt.Visible(true).Format("#series.name# <br/> Year: #point.x# <br/>Tons Per Day: #point.y#")))
+        .Series(sr =>
+            {
+                sr.Points(pt =>
+                    {
+                        pt.X("1970").Y(16500).Add();
+                        pt.X("1975").Y(16000).Add();
+                        pt.X("1980").Y(15400).Add();
+                        pt.X("1985").Y(15800).Add();
+                        pt.X("1990").Y(14000).Add();
+                        pt.X("1995").Y(10500).Add();
+                        pt.X("2000").Y(13300).Add();
+                        pt.X("2005").Y(12800).Add();
+                    }).Name("Voc Emission By All sources").Fill("#FF7F7F").Add();
+                sr.Points(pt =>
+                {
+                    pt.X("1970").Y(8000).Add();
+                    pt.X("1975").Y(7600).Add();
+                    pt.X("1980").Y(6400).Add();
+                    pt.X("1985").Y(3700).Add();
+                    pt.X("1990").Y(7200).Add();
+                    pt.X("1995").Y(2300).Add();
+                    pt.X("2000").Y(4000).Add();
+                    pt.X("2005").Y(4800).Add();
+                }).Name("Voc Emission By Autos and Light Trucks").Fill("#3E9C9C").Add();
+            })
+        .ChartArea(ca => ca.Border(br => br.Color("transparent")))
+        .IsResponsive(true)
+        .Load("loadTheme")
+        .Title(title => title.Text("World Pollution Report"))
+        .Size(sz => sz.Height("600"))
+        .Legend(lg => { lg.Visible(true); }))
+}
+@section PropertiesSection
+{
+    <label>
+        X Axis
+    </label>
+    <br />
+    AlternateGridBand
+    @Html.EJ().DropDownList("opt").TargetID("target1").SelectedItemIndex(0).ClientSideEvents(s => s.Change("xaxischanged"))
+    <br />
+    <label>
+        Y Axis
+    </label>
+    <br />
+    AlternateGridBand
+    @Html.EJ().DropDownList("opt1").TargetID("target2").SelectedItemIndex(1).ClientSideEvents(s => s.Change("yaxischanged"))
+}
+@section ScriptSection
+{
+    <script>
+
+        function yaxischanged(sender) {
+            var position = sender.selectedText.toLowerCase();
+            var chart = $("#container").ejChart("instance");
+            var xgridline = chart.model.primaryXAxis.alternateGridBand;
+            if (position == "odd") {
+                chart.model.primaryYAxis.alternateGridBand.even.fill = 'transparent';
+                chart.model.primaryYAxis.alternateGridBand.odd.fill = '#A7A9AB';
+                chart.model.primaryYAxis.alternateGridBand.odd.opacity = 0.1;
+                chart.model.primaryYAxis.majorGridLines.color = "#DFDFDF";
+                chart.model.primaryXAxis.majorGridLines.color = "transparent";
+                chart.model.primaryXAxis.axisLine.visible = false;
+                chart.model.primaryYAxis.axisLine.visible = false;
+            }
+            else if (position == "even") {
+                chart.model.primaryYAxis.alternateGridBand.odd.fill = 'transparent';
+                chart.model.primaryYAxis.alternateGridBand.even.fill = '#A7A9AB';
+                chart.model.primaryYAxis.alternateGridBand.even.opacity = 0.1;
+                chart.model.primaryYAxis.majorGridLines.color = "#DFDFDF";
+                chart.model.primaryXAxis.majorGridLines.color = "transparent";
+                chart.model.primaryXAxis.axisLine.visible = false;
+                chart.model.primaryYAxis.axisLine.visible = false;
+            }
+            else {
+                chart.model.primaryYAxis.alternateGridBand.even.fill = 'transparent';
+                chart.model.primaryYAxis.alternateGridBand.odd.fill = 'transparent';
+                chart.model.primaryXAxis.majorGridLines.color = "#DFDFDF";
+                if (xgridline.even.fill != "transparent" || xgridline.odd.fill != "transparent") {
+                    chart.model.primaryYAxis.majorGridLines.color = "transparent";
+                    chart.model.primaryYAxis.axisLine.visible = false;
+                    chart.model.primaryXAxis.axisLine.visible = false;
+                }
+                else {
+                    chart.model.primaryXAxis.axisLine.visible = true;
+                    chart.model.primaryYAxis.axisLine.visible = true;
+                }
+            }
+            chart.redraw();
+        }
+
+        function xaxischanged(sender) {
+            var position = sender.selectedText.toLowerCase();
+            var chart = $("#container").ejChart("instance");
+            var ygridline = chart.model.primaryYAxis.alternateGridBand;
+            if (position == "odd") {
+                chart.model.primaryXAxis.alternateGridBand.even.fill = 'transparent';
+                chart.model.primaryXAxis.alternateGridBand.odd.fill = '#A7A9AB';
+                chart.model.primaryXAxis.alternateGridBand.odd.opacity = 0.1;
+                chart.model.primaryXAxis.majorGridLines.color = "#DFDFDF";
+                chart.model.primaryYAxis.majorGridLines.color = "transparent";
+                chart.model.primaryXAxis.axisLine.visible = false;
+                chart.model.primaryYAxis.axisLine.visible = false;
+            }
+            else if (position == "even") {
+                chart.model.primaryXAxis.alternateGridBand.odd.fill = 'transparent';
+                chart.model.primaryXAxis.alternateGridBand.even.fill = '#A7A9AB';
+                chart.model.primaryXAxis.alternateGridBand.even.opacity = 0.1;
+                chart.model.primaryXAxis.majorGridLines.color = "#DFDFDF";
+                chart.model.primaryYAxis.majorGridLines.color = "transparent";
+                chart.model.primaryXAxis.axisLine.visible = false;
+                chart.model.primaryYAxis.axisLine.visible = false;
+            }
+            else {
+                chart.model.primaryXAxis.alternateGridBand.even.fill = 'transparent';
+                chart.model.primaryXAxis.alternateGridBand.odd.fill = 'transparent';
+                chart.model.primaryYAxis.majorGridLines.color = "#DFDFDF";
+                if (ygridline.even.fill != "transparent" || ygridline.odd.fill != "transparent") {
+                    chart.model.primaryXAxis.majorGridLines.color = "transparent";
+                    chart.model.primaryXAxis.axisLine.visible = false;
+                    chart.model.primaryYAxis.axisLine.visible = false;
+                }
+                else {
+                    chart.model.primaryXAxis.axisLine.visible = true;
+                    chart.model.primaryYAxis.axisLine.visible = true;
+                }
+            }
+
+            chart.redraw();
+        }
+        $("#sampleProperties").ejPropertiesPanel();
+        $("#controlarea").css("visibility", "visible");
+    </script>
+}
+
+
+

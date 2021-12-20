@@ -1,0 +1,55 @@
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/excanvas.min.js")"></script>
+    }
+@section SampleHeading{
+	<span class="sampleName">CircularGauge-User Interaction-ASP.NET MVC-SYNCFUSION</span>
+	}
+
+
+@section ControlsSection{
+ <div align="center">
+  @(Html.EJ().CircularGauge("circulargauge1")
+                .ReadOnly(false)
+                      .IsResponsive(true)
+                    .ClientSideEvents(cli=>cli.Load("loadGaugeTheme"))
+                .BackgroundColor("transparent")
+                .Scales(sc =>
+                {
+                    sc.Radius(130)
+                    .PointerCap(cap=>cap.Radius(10))
+                    .Minimum(0)
+                    .Maximum(120)
+                    .MajorIntervalValue(20)
+                    .MinorIntervalValue(10)
+                    .ShowScaleBar(true)
+                    .Size(1)
+                    .ShowRanges(true)
+                    .Ranges(ran =>
+                    {
+                        ran.Size(5).DistanceFromScale(-30).StartValue(0).EndValue(70).Add();
+                        ran.Size(5).DistanceFromScale(-30).StartValue(70).EndValue(110).BackgroundColor(ConsoleColor.Red.ToString()).Border(bor=>bor.Color(ConsoleColor.Red.ToString())).Add();
+                        ran.Size(5).DistanceFromScale(-30).StartValue(110).EndValue(120).BackgroundColor(ConsoleColor.Yellow.ToString()).Border(bor=>bor.Color(ConsoleColor.Yellow.ToString())).Add();
+                    })
+                    .Pointers(po =>
+                    {
+                        po.Value(60).Length(90).Width(8).ShowBackNeedle(true).BackNeedleLength(15).Add();
+                    }).Add();
+                })
+                .Radius(140)
+                .Height(360)
+                .Width(500)
+                )
+     <div align="center">
+         <h5> Hold and Drag the pointer needle to interact with it</h5>
+     </div>
+  </div>
+}
+@section MetaTags{
+   <meta name="description" content="This sample illustrates the dragging pointer functionality in Syncfusion ASP.NET Web Forms Circular gauge control.">
+}
+
+
+
+
+
+

@@ -1,0 +1,52 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates bulk edit and save options in the tree grid control for remote data.">
+}
+
+@section SampleHeading{<span class="sampleName">TreeGrid-Batch Editing-ASP.NET MVC-SYNCFUSION</span>}
+@using Syncfusion.JavaScript.Models;
+@section ControlsSection{
+
+@(Html.EJ().TreeGrid("TreeGridContainer")
+           .ChildMapping("Children")              
+           .TreeColumnIndex(1)
+           .AllowSorting(true)
+           .AllowPaging(true)
+           .Columns(co =>
+           {
+               co.Field("TaskId").HeaderText("Task Id").EditType(TreeGridEditingType.Numeric).Width(45).Add();
+               co.Field("TaskName").HeaderText("Task Name").EditType(TreeGridEditingType.String).Add();
+               co.Field("StartDate").HeaderText("Start Date").EditType(TreeGridEditingType.Datepicker).Add();
+               co.Field("EndDate").HeaderText("End Date").EditType(TreeGridEditingType.Datepicker).Add();
+               co.Field("Duration").HeaderText("Duration").EditType(TreeGridEditingType.Numeric).Add();
+               co.Field("Progress").HeaderText("Progress").EditType(TreeGridEditingType.Numeric).Add();
+           })
+           .PageSettings(ps=>ps.PageSize(2).PageSizeMode(TreeGridPageSizeMode.Root))
+           .SizeSettings(ss => ss.Width("100%"))
+           .IsResponsive(true)
+           .EditSettings(edit =>
+           {
+               edit.AllowEditing(true);
+               edit.AllowAdding(true);
+               edit.AllowDeleting(true);
+               edit.EditMode(TreeGridEditMode.BatchEditing);
+               edit.BeginEditAction(TreeGridBeginEditAction.Click);
+               edit.RowPosition(TreeGridRowPosition.Child);
+               edit.BatchEditSettings(be => { be.EditMode(TreeGridBatchEditMode.Cell); });                        
+           })
+           
+           .ToolbarSettings(tool =>
+           {
+               tool.ShowToolbar(true);
+               tool.ToolbarItems(new List<TreeGridToolBarItems>()
+               {
+                   TreeGridToolBarItems.Add,
+                   TreeGridToolBarItems.Delete,
+                   TreeGridToolBarItems.Update,
+                   TreeGridToolBarItems.Cancel,
+                   TreeGridToolBarItems.Search
+               });
+           })
+           .Datasource(ViewBag.datasource)
+           )
+    }
+

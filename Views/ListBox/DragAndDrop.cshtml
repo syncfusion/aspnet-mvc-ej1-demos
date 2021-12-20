@@ -1,0 +1,49 @@
+@section SampleHeading{
+    <span class="sampleName">ListBox-Drag and Drop-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to drag list items from one ListBox component and drop them into another Syncfusion ASP.NET MVC ListBox component.">
+}
+@section ControlsSection{
+    <div class="frame">
+        <div class="row">
+            <div class="ctrllabel">Drag and drop skills</div>
+            <div class="contents">
+                @Html.EJ().ListBox("List1").AllowDragAndDrop(true).Datasource((IEnumerable<Languages>)ViewBag.datasourcelang).ListBoxFields(df => df.Text("text")).ClientSideEvents(evt => evt.Create("setheight"))
+            </div>
+            <div class="contents col-sm-offset-2">
+                @Html.EJ().ListBox("List2").AllowDragAndDrop(true)
+            </div>
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+    function setheight(){
+         if (document.body.firstElementChild.className =="htmljssamplebrowser material" ||"htmljssamplebrowser office-365"){
+             setTimeout(function () {
+                 var obj = $("#List1").ejListBox("instance");
+                obj._refreshScroller(); }, 500);
+                 }
+    }
+    </script>
+}
+@section StyleSection{
+    <style class="cssStyles">
+        .ctrllabel {
+            padding: 0px 0px 12px 36px;
+            font-weight: 600;
+        }
+
+        .contents {
+            padding-left: 36px;
+            position: relative;
+            margin: 0 auto;
+            float: left;
+        }
+        
+        .frame {
+            width: 500px;
+        }
+    </style>
+}
+

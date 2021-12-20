@@ -1,0 +1,192 @@
+@section SampleHeading{
+    <span class="sampleName">KanbanBoard-Keyboard Interaction-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to access the Syncfusion ASP.NET MVC Kanban component functionalities using keyboard interactions.">
+}
+@using Syncfusion.JavaScript.Models;
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+}
+    @section ControlsSection{
+    @(Html.EJ().Kanban("Kanban")
+                   .DataSource((IEnumerable<object>)ViewBag.datasource)
+                   .Columns(col =>
+                   {
+                       col.HeaderText("Backlog").Key("Open").Add();
+                       col.HeaderText("In Progress").Key("InProgress").Add();
+                       col.HeaderText("Testing").Key("Testing").Add();
+                       col.HeaderText("Done").Key("Close").Add();
+                   })
+                                  .EditSettings(edit =>
+                                  {
+                                      edit.AllowAdding(true)
+                                          .AllowEditing(true)                                          
+                                          .EditItems(e =>
+                                          {
+                                              e.Field("Id").ValidationRules(rule => { rule.AddRule("required", true).AddRule("number", true); }).Add();
+                                              e.Field("Status").EditType(KanbanEditingType.Dropdown).Add();
+                                              e.Field("Assignee").EditType(KanbanEditingType.Dropdown).Add();
+                                              e.Field("Estimate").EditType(KanbanEditingType.Numeric).NumericEditOptions(new EditorProperties() { DecimalPlaces = 2 }).ValidationRules(rule => { rule.AddRule("range", "[0,1000]"); }).Add();
+                                              e.Field("Summary").EditType(KanbanEditingType.TextArea).ValidationRules(rule => { rule.AddRule("required", true); }).Add();
+                                          }).EditMode(KanbanEditMode.Dialog);
+                                  })
+                  .AllowTitle(true)
+                  .AllowScrolling(true)
+                  .SelectionType(SelectionType.Multiple)
+                  .ScrollSettings(sSettings => { sSettings.Width(700).Height(800); })          
+                  .AllowKeyboardNavigation(true)
+                  .KeyField("Status")
+                  .Fields(field =>
+                  {
+                      field.Color("Type")
+                           .Content("Summary")
+                           .ImageUrl("ImgUrl")
+                           .PrimaryKey("Id")
+                           .SwimlaneKey("Assignee");
+                  })
+    )
+
+}
+@section PropertiesSection{
+  
+    <div class="row">
+        <div class="col-md-3 colwidth">
+            <b>Keys</b>
+        </div>
+        <div class="col-md-3 colwidth">
+            <b>Description</b>
+        </div>
+        <div class="col-md-3 colwidth">
+            <b>Alt + j</b>
+        </div>
+        <div class="col-md-3 colwidth">
+            <p>Focus</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 colwidth">
+            <b>Insert</b>
+        </div>
+        <div class="col-md-3 colwidth">
+            Insert Card
+        </div>
+        <div class="col-md-3 colwidth">
+            <b>Delete</b>
+        </div>
+        <div class="col-md-3 colwidth">
+            <p>Delete Card</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 colwidth">
+            <b>Home</b>
+        </div>
+        <div class="col-md-3 colwidth">
+            First Card Selection
+        </div>
+        <div class="col-md-3 colwidth">
+            <b>End</b>
+        </div>
+        <div class="col-md-3 colwidth">
+            Last Card Selection
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 colwidth">
+            <b>Ctrl + Down Arrow</b>
+        </div>
+        <div class="col-md-3 colwidth">
+            Swimlane Expand All
+        </div>
+        <div class="col-md-3 colwidth">
+            <b>Ctrl + Up Arrow</b>
+        </div>
+        <div class="col-md-3 colwidth">
+            Swimlane Collapse All
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 colwidth">
+            <b>F2</b>
+        </div>
+        <div class="col-md-3 colwidth">
+            Edit Card
+        </div>
+        <div class="col-md-3 colwidth">
+            <b>Enter</b>
+        </div>
+        <div class="col-md-3 colwidth">
+            Save Request
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 colwidth">
+            <b>Esc</b>
+        </div>
+        <div class="col-md-3 colwidth">
+            Cancel Request
+        </div>
+        <div class="col-md-3 colwidth">
+            <b>Shift + UpArrow</b>
+        </div>
+        <div class="col-md-3 colwidth">
+            Multi Selection By Up Arrow
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 colwidth">
+            <b>Shift + Down Arrow</b>
+        </div>
+        <div class="col-md-3 colwidth">
+            Multi Selection By Down Arrow
+        </div>
+        <div class="col-md-3 colwidth">
+            <b>Shift + Left Arrow</b>
+        </div>
+        <div class="col-md-3 colwidth">
+            Multi Selection By Left Arrow
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3 colwidth">
+            <b>Shift + Right Arrow</b>
+        </div>
+        <div class="col-md-3 colwidth">
+            Multi Selection By Right Arrow
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        $(document).on("keydown", function (e) {
+            if (e.altKey && e.keyCode === 74) { // j- key code.
+                $("#Kanban").focus();
+            }
+        });
+    </script>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+       .cols-prop-area [class^="span"] {
+            margin-bottom: 5px;
+            margin-top: 5px;
+        }
+
+        .propertiesdiv {
+            height: 626px;
+        }
+
+        .propertypanelcontent {
+            height: 585px;
+        }
+
+        *.colwidth {
+            width: 32.9%;
+        }
+    </style>
+}
+

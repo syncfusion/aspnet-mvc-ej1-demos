@@ -1,0 +1,17 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to enable the rtl property in a ASP.NET MVC DatePicker">
+}
+
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName">DatePicker-RTL-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame ">
+        <div class="control">
+            @Html.EJ().DatePicker("DatePick").EnableRTL(true).Width("100%")
+
+        </div>
+    </div>
+}
+
