@@ -1,0 +1,68 @@
+﻿@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">XlsIO-Excel To JSON-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+	@{ViewBag.Title = " Essential XlsIO (Excel) : Excel To JSON : Syncfusion";}
+    @{Html.BeginForm("ExcelToJSON", "XlsIO", FormMethod.Post);
+        {
+        <div class="Common">
+            <div class="tablediv">
+                <div class="rowdiv">
+                    <p>
+                        Essential XlsIO supports to convert Excel data to JSON files by simply saving the workbook using the SaveAsJson method.
+                    </p>
+                    <br />
+                    <b>Features:</b>
+                    <br />
+                    <br />
+                    <ul>
+                        <li>Save as a simple JSON file or a JSON file with XML schema</li>
+                        <li>Save a workbook to JSON</li>
+                        <li>Save a worksheet to JSON</li>
+                        <li>Save a range to JSON</li>
+                        <li>Save as a stream with the above features</li>
+                    </ul>
+                    <br />
+                    <br />
+                    <label>
+                        Click the “Input Template” button to view the input Excel document. Please note that the Microsoft Excel viewer  or Microsoft Excel is required to view the Excel document.
+                    </label>
+					<br />
+                    <label>
+                        Click the “Convert to JSON” button to view the converted JSON file.
+                    </label>
+                </div>
+                <br />
+                <div class="rowdiv">
+                    <div class="celldiv">
+                        <label>
+                            Convert
+                        </label>
+                        &nbsp;&nbsp;&nbsp;
+                        <select name="ConvertOptions" id="convertOption" style="width:120px;">
+                            <option>Workbook</option>
+                            <option>Worksheet</option>
+                            <option>Range</option>
+                        </select>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <input type="checkbox" id="checkBoxAsSchema" name="checkBox" checked="checked" value="Schema" />
+                        <label for="checkBoxAsSchema">
+                            As Schema
+                        </label>
+                    </div>
+                    <br />
+                </div>
+                <div class="rowdiv">
+                    <div class="celldiv">
+                        <input class="buttonStyle" type="submit" name="button" value="Input Template" style="width:150px;" />
+                        &nbsp;&nbsp;&nbsp;
+                        <input class="buttonStyle" type="submit" name="button" value="Convert to JSON" style="width:150px;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+            Html.EndForm();
+        }
+    }
+}

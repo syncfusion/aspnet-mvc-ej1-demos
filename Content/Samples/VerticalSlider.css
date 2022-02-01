@@ -1,0 +1,22 @@
+﻿.frame {
+    border-radius: 10px 10px 10px 10px;
+    height: 250px;
+    width: 290px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+.e-slider-wrap {
+    margin: 15px 35px;
+}
+
+.control {
+    float: left;
+}
+
+.control span {
+   color: #676767;
+   display: block;
+   font-size: 11px;
+   text-align: center;
+}

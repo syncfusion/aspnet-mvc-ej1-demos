@@ -1,0 +1,82 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart-Stacked Bar-ASP.NET MVC-SYNCFUSION</span>}
+
+@section MetaTags{
+    <meta name="description" content="This sample demonstrates how to render stacked bar series using Syncfusion ASP.NET MVC Chart Control">
+}
+
+@section ControlsSection{
+    <div>
+  @(Html.EJ().Chart("container")
+        .PrimaryXAxis(pr => pr.Title(tl => tl.Text("Month")).Range(ra => ra.Max(2012).Min(2005).Interval(1))
+        .LabelRotation(45))
+        .PrimaryYAxis(pr => pr.Range(ra => ra.Max(100).Min(-20).Interval(20))
+        .Title(tl => tl.Text("Percentage")).LabelFormat("{value}%"))
+        .CommonSeriesOptions(cr => cr.Type(SeriesType.StackingBar).EnableAnimation(true).Tooltip(tooltip => tooltip.Visible(true)
+        .Format("#series.name#  <br/> #point.x# : #point.y#")))
+        .Series(sr =>
+            {
+                sr.Points(pt =>
+                    {
+                        pt.X("Jan").Y(6).Add();
+                        pt.X("Feb").Y(8).Add();
+                        pt.X("Mar").Y(12).Add();
+                        pt.X("Apr").Y(15.5).Add();
+                        pt.X("May").Y(20).Add();
+                        pt.X("June").Y(24).Add();
+                        pt.X("July").Y(28).Add();
+                        pt.X("Aug").Y(32).Add();
+                        pt.X("Sep").Y(33).Add();
+                        pt.X("Oct").Y(35).Add();
+                        pt.X("Nov").Y(40).Add();
+                        pt.X("Dec").Y(42).Add();
+                    }).Name("Apple").Fill("#1ABC9C").Add();
+                sr.Points(pt =>
+                {
+                    pt.X("Jan").Y(6).Add();
+                    pt.X("Feb").Y(8).Add();
+                    pt.X("Mar").Y(11).Add();
+                    pt.X("Apr").Y(16).Add();
+                    pt.X("May").Y(21).Add();
+                    pt.X("June").Y(25).Add();
+                    pt.X("July").Y(27).Add();
+                    pt.X("Aug").Y(31).Add();
+                    pt.X("Sep").Y(34).Add();
+                    pt.X("Oct").Y(34).Add();
+                    pt.X("Nov").Y(41).Add();
+                    pt.X("Dec").Y(42).Add();
+                }).Name("Orange").Fill("#3498DB").Add();
+                sr.Points(pt =>
+                {
+                    pt.X("Jan").Y(-1).Add();
+                    pt.X("Feb").Y(-1.5).Add();
+                    pt.X("Mar").Y(-2).Add();
+                    pt.X("Apr").Y(-2.5).Add();
+                    pt.X("May").Y(-3).Add();
+                    pt.X("June").Y(-3.5).Add();
+                    pt.X("July").Y(-4).Add();
+                    pt.X("Aug").Y(-4.5).Add();
+                    pt.X("Sep").Y(-5).Add();
+                    pt.X("Oct").Y(-5.5).Add();
+                    pt.X("Nov").Y(-6).Add();
+                    pt.X("Dec").Y(-6.5).Add();
+                }).Name("Wastage").Fill("#34495E").Opacity(0.7).Add();
+            })
+
+        .IsResponsive(true)
+        .Load("loadTheme")
+        .Title(title => title.Text("Sales Comparison"))
+        .Size(sz => sz.Height("600"))
+        .Legend(lg =>
+        {
+            lg.Visible(true).Position(LegendPosition.Right)
+                .Alignment(Syncfusion.JavaScript.DataVisualization.TextAlignment.Near);
+        })
+        )
+        <script>
+            $("#controlarea").css("visibility", "visible");
+        </script>
+    </div>
+}
+

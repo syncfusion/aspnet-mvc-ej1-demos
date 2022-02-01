@@ -1,0 +1,24 @@
+﻿.posupload {
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.frame {
+    margin-top: 10%;
+}
+
+.control {
+    margin-left: 10%;
+}
+
+.tb6 {
+    width: 80px;
+    border-radius: 4px 4px 4px 4px;
+    line-height: normal;
+    height: 24px;
+    padding-left: 4px;
+}
+
+.leftalign #upbutton1.e-button.e-inpttxt, .leftalign #upbutton2.e-button.e-inpttxt {
+    padding: 2px 8px;
+}

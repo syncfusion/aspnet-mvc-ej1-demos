@@ -1,0 +1,38 @@
+
+@section MetaTags{
+   <meta name="description" content="TimePicker for ASP.NET MVC with the strongly typed extension support. Value is set from the code behind by invoking TimePickerFor helper">
+}
+
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+
+@section SampleHeading{
+    <span class="sampleName">TimePicker-TimePickerFor-ASP.NET MVC-SYNCFUSION</span>}
+
+@model MVCSampleBrowser.Models.timepicker
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true) 
+                    
+                @Html.EJ().TimePickerFor(model => model.time).Width("100%")
+                @Html.ValidationMessageFor(model => model.time)               
+
+                @Html.EJ().Button("btn").Size(ButtonSize.Small).Text("Post").Type(ButtonType.Submit)
+            }
+        </div>
+    </div>
+}
+@section StyleSection{
+    <style>
+        #btn {
+            margin-left: 35px;
+            margin-top: 20px;
+        }
+    </style>
+}
+

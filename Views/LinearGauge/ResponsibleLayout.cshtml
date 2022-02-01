@@ -1,0 +1,38 @@
+﻿@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/excanvas.min.js")"></script>
+    }
+@section SampleHeading{
+	<span class="sampleName">Responsible Layout</span>
+	}
+
+
+@section ControlsSection{
+
+<div id="linearframe" align="center">
+                  @(Html.EJ().LinearGauge("CoreResponsibleLinearGauge").IsResponsive(true).LabelColor("#8c8c8c").Width(500).ClientSideEvents(lo => lo.Load("loadGaugeTheme"))
+                    .Scales(s =>
+                    {
+                        s.Width(4)
+                         .Border(bor=>bor.Color("transparent").Width(0))
+                         .ShowBarPointers(false)
+                         .ShowRanges(true)
+                         .Length(310)
+                         .Position(pos => { pos.X(50).Y(50); })
+                         .MarkerPointers(mp => { mp.Value(50).Length(10).Width(10).MarkerBackgroundColor("#4D4D4D").Border(bor=>bor.Color("4D4D4D")).Add(); })
+                         .Labels(lbl => { lbl.Font(fnt => { fnt.Size("11px").FontFamily("Segoe UI").FontStyle("bold"); }).DistanceFromScale(dfs=>dfs.X(-13)).Add(); })
+                         .Ticks(tic => { tic.Type(TickType.MajorInterval).Width(1).Color("#8c8c8c").Add(); })
+                            .Ranges(rng =>
+                            {
+                                rng.EndValue(60).StartValue(0).RangeBackgroundColor("#F6B53F").Border(bor=>bor.Color("#F6B53F")).StartWidth(4).EndWidth(4).Add();
+                                rng.EndValue(100).StartValue(60).RangeBackgroundColor("#E94649").Border(bor=>bor.Color("#E94649")).StartWidth(4).EndWidth(4).Add();
+                            })
+                         .Add();
+                    }))
+</div>
+
+}
+
+
+
+
+

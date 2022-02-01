@@ -1,0 +1,78 @@
+@section SampleHeading{<span class="sampleName">Spreadsheet-Print and Gridlines-ASP.NET MVC-SYNCFUSION</span>}
+
+@section MetaTags{
+   <meta name="description" content="This demo shows print the entire spreadsheet or only selected data using Syncfusion ASP.NET MVC Spreadsheet control.">
+}
+
+<link href="@Url.Content("~/Content/Samples/SpreadsheetStyles.css")" rel="stylesheet" />
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+}
+@section ControlsSection{
+    @(Html.EJ().Spreadsheet<object>("Spreadsheet")
+    .ShowRibbon(false)
+    .AllowFormulaBar(false)
+    .EnableContextMenu(false)
+    .ScrollSettings(scroll => { scroll.Height(450); })
+    .Sheets(sheet =>
+    {
+        sheet.RangeSettings(range =>
+        {
+            range.Datasource((IEnumerable<object>)ViewBag.Datasource).Add();
+        }).Add();
+    })
+    .ClientSideEvents(events => events.LoadComplete("loadComplete"))
+    )
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            @(Html.EJ().Button("button_large")
+                .Size(ButtonSize.Small)
+                .ShowRoundedCorner(true)
+                .Width("105")
+                .Text("Print")
+                .ClientSideEvents(events => events.Click("btnClick"))
+            )
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().ToggleButton("gridlines")
+                .Size(ButtonSize.Small)
+                .ShowRoundedCorner(true)
+                .DefaultText("Hide Gridlines")
+                .ActiveText("Show Gridlines")
+                .Width("105")
+                .ClientSideEvents(events => events.Change("tglebtnChange"))
+            )
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+
+        function loadComplete(args) {
+            var xlFormat = this.XLFormat;
+            this.setWidthToColumns([ 175, 194 , 114, 180 ]);
+            this.sheetRename("Print and Gridlines");
+            xlFormat.format({ "style": { "font-weight": "bold", "vertical-align": "middle", "text-align": "center" } }, "A1:G1");
+            xlFormat.format({ "style": { "text-align": "left" } }, "E2:E21");
+            xlFormat.format({ "style": { "text-align": "left" } }, "D2:D199");
+            xlFormat.format({ "style": { "text-align": "left" } }, "D2:D199");       
+            this.performSelection("A1");
+        }
+        function tglebtnChange(e) {
+            var xlObj = $("#Spreadsheet").data("ejSpreadsheet");
+            xlObj.option({sheets: [{ "showGridlines": !e.isChecked, "printGridlines": !e.isChecked }]});
+        }
+        function btnClick(e) {
+            var xlObj = $("#Spreadsheet").data("ejSpreadsheet");
+            xlObj.XLPrint.printSheet();
+        }
+
+    </script>
+}
+

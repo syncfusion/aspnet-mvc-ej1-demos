@@ -1,0 +1,15 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates the full row selection that highlight entire nodes in a row in ASP.NET MVC TreeView." >
+}
+
+@section SampleHeading{<span class="sampleName">TreeView-Full Row Select-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div style="width: 250px">
+        @Html.EJ().TreeView("fullrowtree").TreeViewFields(field => 
+            field.Datasource((IEnumerable<loadondemand>)ViewBag.datasource)
+            .Id("id").ParentId("pid").Text("name")
+            .HasChild("hasChild").Expanded("expanded")
+        ).FullRowSelect(true)
+    </div>
+}
+

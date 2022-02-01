@@ -1,0 +1,73 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">XlsIO-Collection Objects-ASP.NET MVC-SYNCFUSION</span>}
+
+ @section ControlsSection{                                
+	     @{
+             ViewBag.Title = " Essential XlsIO (Excel) : CollectionObjects : Syncfusion";
+}
+     
+@{Html.BeginForm("CollectionObjects", "XlsIO", FormMethod.Post);
+{
+    <div class="Common">
+        <div class="tablediv">
+            <div class="rowdiv">
+                Essential XlsIO allows you to import/export data from/to Collection Objects. Collection object usually holds a set of instance variables or properties, also known as attributes.
+                <br />
+                <br />This sample demonstrates the usage of Collection objects using Essential XlsIO.
+                <br />
+                Click the 'Import From Excel' button to import data from nested class into the ListView. The 'Export To Excel' button will generate a new Microsoft Excel document by exporting the nested class data from the ListView using Essential XlsIO. Please note that you need to have a MS Excel viewer installed in order to view the generated excel file.
+            </div>
+        </div>
+    </div>       
+
+@(Html.EJ().Grid<MVCSampleBrowser.Controllers.Brand>("Export")
+        .Datasource(ds => ds.Json((IEnumerable<object>)ViewBag.datasource).UpdateURL("Update").Adaptor(AdaptorType.RemoteSaveAdaptor))
+        .EditSettings(edit => { edit.AllowAdding().AllowDeleting().AllowEditing().EditMode(EditMode.Normal);  })
+        .AllowScrolling()
+        .ScrollSettings(scroll => { scroll.Height(250).Width(550); })
+        .Columns(col =>
+        {
+            col.Field("ID").HeaderText("ID").Visible(false).IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(15).ValidationRules(v => v.AddRule("required", true).AddRule("number", true)).Add();
+            col.Field("BrandName").HeaderText("Brand").Width(50).TextAlign(TextAlign.Left).Add();
+            col.Field("VehicleType.VehicleName").HeaderText("Vehicle Type").Width(50).TextAlign(TextAlign.Left).Add();
+            col.Field("VehicleType.Model.ModelName").HeaderText("Model").Width(50).TextAlign(TextAlign.Left).Add();            
+        })
+)
+        <br />
+        <div class="rowdiv">
+            <div class="celldiv">
+                <label>
+                    <strong> Save As :</strong>
+                </label>
+                <input id="rbtnXls" type="radio" name="SaveOption" value="Xls" />
+                <label for="rbtnXls">
+                    XLS
+                </label>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <input id="rbtnXlsx" type="radio" name="SaveOption" value="Xlsx" checked="checked" />
+                <label for="rbtnXlsx">
+                    XLSX
+                </label>
+            </div>
+            <br />
+            <div class="celldiv">
+                <input id="input" class="buttonStyle" type="submit" name="button" value="Input Template" style="width:165px;" />
+                <input id="import" class="buttonStyle" type="submit"  name="button" value="Import From Excel" style="width:165px;" />
+                <input id="export" class="buttonStyle" @ViewBag.exportButtonState type="submit" name="button" value="Export To Excel" style="width:165px;"/>
+            </div>
+        </div>
+
+    <script type="text/javascript">
+        
+        function EnableExport()
+        {
+            $('#export').prop("disabled", false);
+
+        }
+    </script>
+    
+ Html.EndForm();
+    } }
+     }
+
