@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<Category>
-  <Samples url="/TreeMap/Customization">
-    <DependentFiles displayname="Model" url="/Models/TreeMap/MedalData.cs"></DependentFiles>    
-  </Samples>
-  <Samples url="/TreeMap/DrillDown">
-    <DependentFiles displayname="Model" url="/Models/TreeMap/DrillDownPopulationData.cs"></DependentFiles>
-  </Samples>
-</Category>
