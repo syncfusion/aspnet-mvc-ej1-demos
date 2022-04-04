@@ -1,0 +1,34 @@
+
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to enable the rtl property in a ASP.NET MVC Slider control.">
+}
+
+@section SampleHeading{ <span class="sampleName">Slider-RTL-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+
+    <div class="frame">
+        <div class="txt">Range</div>
+        @(Html.EJ().Slider("slider2rtl").SliderType(SlideType.Range).Values("30, 70").EnableRTL(true))
+        <br />
+        <br />
+        <div class="txt">Min-Range</div>
+        @(Html.EJ().Slider("slider1rtl").SliderType(SlideType.MinRange).Value("60").EnableRTL(true))
+    </div>
+
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .frame {
+            width: 50%;
+        }
+
+        .txt {
+            direction: rtl;
+            font-size: 15px;
+            margin-bottom: 13px;
+            text-align: right;
+        }
+    </style>
+}
+

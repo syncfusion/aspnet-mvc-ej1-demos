@@ -1,0 +1,271 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart-Legend Position-ASP.NET MVC-SYNCFUSION</span>}
+
+@section MetaTags{
+    <meta name="description" content="This sample demonstrates how to customize legend position using Syncfusion ASP.NET MVC Chart Control">
+}
+
+@section ControlsSection{
+    <div id="target1">
+        <ul>
+            <li>Right</li>
+            <li>Left</li>
+            <li>Top</li>
+            <li>Bottom</li>
+        </ul>
+    </div>
+    <div id="target">
+        <ul>
+            <li>Near</li>
+            <li>Center</li>
+            <li>Far</li>
+        </ul>
+    </div>
+    <div id="target2">
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>10</li>
+        </ul>
+    </div>
+    <div id="target3">
+        <ul>
+            <li>1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+            <li>5</li>
+            <li>6</li>
+            <li>7</li>
+            <li>8</li>
+            <li>9</li>
+            <li>10</li>
+        </ul>
+        </div>
+          <div id="target4" >
+              <ul>
+                  <li>None</li>
+                  <li>Trim</li>
+                  <li>Wrap</li>
+                  <li>WrapAndTrim</li>
+                  </ul>
+</div>
+        
+                  @(Html.EJ().Chart("container")
+                        .Series(sr =>
+                        {
+                            sr.Points(pt =>
+                                  {
+                                      pt.X("United States").Y(84).Fill("#FF0066").Add();
+                                      pt.X("United Kingdom").Y(89).Fill("#CC3399").Add();
+                                      pt.X("United Arab Emirates").Y(88).Fill("#6699FF").Add();
+                                      pt.X("New Caledonia").Y(66).Fill("#005277").Add();
+                                      pt.X("French Polynesia").Y(56).Fill("#CC99FF").Add();
+                                      pt.X("Switzerland").Y(86).Fill("#C4C24A").Add();
+                                      pt.X("Singapore").Y(73).Fill("#E27F2D").Add();
+                                      pt.X("New Zealand").Y(82).Fill("#F6B53F").Add();
+                                      pt.X("Saudi Arabia").Y(60).Fill("#6A4B82").Add();
+                                      pt.X("Sweden").Y(94).Fill("#69D2E7").Add();
+                                      pt.X("Indonesia").Y(60).Fill("#E94649").Add();
+                                      pt.X("Philippines").Y(37).Fill("#FB954F").Add();
+                                      pt.X("South Africa").Y(48).Fill("#FF9900").Add();
+                                      pt.X("South Korea").Y(84).Fill("#009933").Add();
+                                      pt.X("Hong Kong").Y(74).Fill("#6FAAB0").Add();
+                                      pt.X("Netherlands").Y(93).Fill("#8BC652").Add();
+                                  }).LabelPosition(ChartLabelPosition.Inside).Border(bo => bo.Width(1).Color("white"))
+                                      .EnableSmartLabels(true).StartAngle(270)
+                                      .Marker(mr =>
+                                      {
+                                          mr.DataLabel(db =>
+                                          {
+                                              db.Visible(true).Shape(ChartShape.None).EnableContrastColor(true)
+                                                  .Font(fn => { fn.Size("14px"); });
+                                          });
+                                      })
+                                      .Name("Internet users (per 100 people) in 2013").Type(SeriesType.Pie).Add();
+                        })
+                            .CommonSeriesOptions(cr => cr.EnableAnimation(false))
+                            .Title(title => title.Text("Internet users (per 100 people) in 2013"))
+                            .Load("loadTheme")
+                            .PreRender("legendBorder")
+                            .IsResponsive(true)
+                            .Size(sz => sz.Height("550"))
+                            .Legend(lg =>
+                            {
+                                lg.Visible(true).Position(LegendPosition.Bottom).TextOverflow(TextOverflow.None)
+                                    .Alignment(Syncfusion.JavaScript.DataVisualization.TextAlignment.Center)
+                                    .Title(title => title.Text("Countries").Font(ft => ft.Size("15px"))).Border(br => br.Color("black").Width(1));
+                            })
+)
+}
+
+@section PropertiesSection
+
+{
+    <div class="row">
+        <div class="col-md-3">
+            Position
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("opt1").TargetID("target1").SelectedItemIndex(3).Width("110").ClientSideEvents(s => s.Change("positionChanged"))
+        </div>
+        <div class="col-md-3">
+            Alignment
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("opt").TargetID("target").SelectedItemIndex(1).Width("110").ClientSideEvents(s => s.Change("alignmentChanged"))
+        </div>
+        <div class="col-md-3">
+            Height
+        </div>
+        <div class="col-md-3">
+            @Html.TextBox("legendHeight")
+        </div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3">
+            (eg. 10% or 100)
+        </div>
+        <div class="col-md-3">
+            Width
+        </div>
+        <div class="col-md-3">
+            @Html.TextBox("legendWidth")
+        </div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3">
+            eg. 10% or 100)
+        </div>
+        <div class="col-md-3">
+            Row Count
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("opt2").TargetID("target2").SelectedItemIndex(0).Width("110").ClientSideEvents(s => s.Change("rowcountChanged"))
+        </div>
+        <div class="col-md-3">
+            Column Count
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("opt3").TargetID("target3").SelectedItemIndex(0).Width("110").ClientSideEvents(s => s.Change("columncountChanged"))
+        </div>
+        <div class="col-md-3">
+            Text Overflow
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("opt4").TargetID("target4").SelectedItemIndex(0).Width("110").ClientSideEvents(s => s.Change("textoverflowChanged"))
+        </div>
+        <div class="col-md-3">
+          Text Width
+        </div>
+        <div class="col-md-3">
+            @Html.TextBox("textWidth")
+        </div>
+    </div>
+}
+@section ScriptSection
+{
+    <script>
+        $("#legendHeight").val("").width("104");
+        $("#legendWidth").val("").width("104");
+        $("#textWidth").val("").width("104");
+        function alignmentChanged(sender) {
+            $("#container").ejChart("option", { "legend": legend(sender, sender.selectedText) });
+            changeHeightWidth();
+        }
+
+        function positionChanged(sender) {
+            $("#container").ejChart("option", { "legend": legend(sender, sender.selectedText) });
+            changeHeightWidth();
+        }
+        function rowcountChanged(sender) {
+            $("#container").ejChart("option", { "legend": legend(sender, sender.selectedText) });
+            changeHeightWidth();
+        }
+        function columncountChanged(sender) {
+            $("#container").ejChart("option", { "legend": legend(sender, sender.selectedText) });
+            changeHeightWidth();
+        }
+         function textoverflowChanged(sender) {
+            $("#container").ejChart("option", { "legend": legend(sender, sender.selectedText) });
+            changeHeightWidth();
+        }
+        function legendBorder(sender) {
+            if (sender.model.theme == "flatdark" || sender.model.theme == "gradientdark")
+                sender.model.legend.border.color = "white";
+            else
+                sender.model.legend.border.color = "black";
+         }
+        function legend(sender, data) {
+            switch (sender.model.change) {
+                case "positionChanged":
+                    var legendPosition = data.toLowerCase();
+                    return {
+                        position: legendPosition
+                    }; break;
+                case "alignmentChanged":
+                    var legendAlignment = data.toLowerCase();
+                    return {
+                        alignment: legendAlignment
+                    };
+                    break;
+                case "textoverflowChanged":
+                    var textoverflow = data.toLowerCase();
+                    return {
+                        textOverflow: textoverflow
+                    };
+                    break;
+                case "rowcountChanged":
+                    var count = data;
+                    return { rowCount: count };
+                    break;
+               
+                case "columncountChanged":
+                    var count = data;
+                    return { columnCount: count };
+                    break;
+            }
+        }
+        $('#legendWidth').change(changeHeightWidth);
+        $('#legendHeight').change(changeHeightWidth);
+        $('#textWidth').change(changeTextWidth);
+
+        function changeTextWidth() {
+            var textwidth = parseInt($("#textWidth").val());
+            var chart = $("#container").ejChart("instance");
+            chart.model.legend.textWidth = textwidth;
+            chart.redraw();
+        }
+        function changeHeightWidth() {
+            var newWidth = "", newHeight = "";
+        var width = $("#legendWidth").val();
+        var height = $("#legendHeight").val();
+        var chart = $("#container").ejChart("instance");
+		
+		for(var i=0; i<width.length; i++){
+		   if (width.charCodeAt(i)== 37 || (width.charCodeAt(i)>=48 && width.charCodeAt(i)<=57))
+		      newWidth+= width[i];
+		}
+		
+		for(var i=0; i<height.length; i++){
+		   if (height.charCodeAt(i)== 37 || (height.charCodeAt(i)>=48 && height.charCodeAt(i)<=57))
+		      newHeight+= height[i];
+		}
+		
+       chart.model.legend.size.width = newWidth;
+        chart.model.legend.size.height = newHeight;
+        chart.redraw();
+        }
+        $("#sampleProperties").ejPropertiesPanel();
+        $("#controlarea").css("visibility", "visible");
+    </script>
+}
+

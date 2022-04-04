@@ -1,0 +1,51 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to show the other months dates in a ASP.NET MVC DatePicker">
+}
+
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName">DatePicker-Dates In Other Month-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().DatePicker("DatePick").Value("5/28/2018").ShowOtherMonths(false).Width("100%")
+        </div>
+    </div>
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            <span>Show Dates In Other Month
+            </span>
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().CheckBox("check").ClientSideEvents(s => s.Change("onchange"))
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+
+        function onchange(args) {
+            var datebject = $("#DatePick").data("ejDatePicker");
+            if (args.isChecked)
+                datebject.setModel({ showOtherMonths: true });
+            else {
+                datebject.setModel({ showOtherMonths: false });
+            }
+        }
+    </script>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .cols-prop-area .content {
+            overflow-y: visible;
+        }
+    </style>
+}
+

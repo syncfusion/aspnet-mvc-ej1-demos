@@ -1,0 +1,140 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart-Events-ASP.NET MVC-SYNCFUSION</span>}
+
+@section MetaTags{
+    <meta name="description" content="This sample demonstrates how to trigger events in Syncfusion ASP.NET MVC Chart Control">
+}
+
+@section ControlsSection{
+    <div>
+  @(Html.EJ().Chart("container")
+        .PrimaryXAxis(pr => pr.Title(tl => tl.Text("Country")).MajorGridLines(mr => mr.Visible(false)))
+        .PrimaryYAxis(pr => pr.Title(tl => tl.Text("Population(millions)")).AxisLine(ax => ax.Visible(false)))
+        .Series(sr =>
+            {
+                sr.Points(pt =>
+                    {
+                        pt.X("China").Y(1268).Add();
+                        pt.X("India").Y(1004).Add();
+                        pt.X("United States").Y(282).Add();
+                        pt.X("Indonesia").Y(213).Add();
+                        pt.X("Brazil").Y(176).Add();
+                    }).Fill("#69D2E7").Name("Population").Type(SeriesType.Column).EnableAnimation(false)
+                      .Tooltip(tt => { tt.Visible(true).Format("#point.x# : #point.y# millions <br/>"); }).Add();
+            })
+            .TitleRendering("ontitlerender")
+            .PointRegionClick("onpointclick")
+            .PointRegionMouseMove("onpointmousemove")
+            .LegendItemMouseMove("onlegendmousemove")
+            .LegendItemClick("onlegendclicked")
+            .ChartClick("onchartclick")
+            .ChartDoubleClick("onchartdoubleclick")
+            .AxisLabelClick("onaxislabelclick")
+            .ChartMouseMove("onchartmousemove")
+            .ChartMouseLeave("onchartmouseleave")
+            .AxisLabelMouseMove("onaxislabelmousemove")
+        .Load("loadTheme")
+        .IsResponsive(true)
+        .Title(title => title.Text("Most Populated Countries"))
+        .Size(sz => sz.Height("600"))
+        .Legend(lg => { lg.Visible(true); })
+    )
+    </div>
+}
+@section EventsDropdown{
+    @Html.EJ().DropDownList("selectControls1").TargetID("evntname").CssClass("metroblue").ShowCheckbox(true).CheckAll(true).ClientSideEvents(e => e.Change("evtpropscheckedevent"))
+    <div id="evntname">
+        <ul>
+            <li>pointRegionClick</li>
+            <li>pointRegionMouseMove</li>
+            <li>legendItemMouseMove</li>
+            <li>legendItemClick</li>
+            <li>chartClick</li>
+            <li>chartDoubleClick</li>
+            <li>chartMouseMove</li>
+            <li>chartMouseLeave</li>
+            <li>axisLabelClick</li>
+            <li>axisLabelMouseMove</li>
+        </ul>
+    </div>
+}
+@section ScriptSection
+{
+    <script>
+        $("#controlarea").css("visibility", "visible");
+        function evtpropscheckedevent(args) {
+            var chartObj = $("#container").data("ejChart");
+            if (args.isChecked) {
+                switch (args.selectedText) {
+                    case "pointRegionClick": chartObj.option(args.selectedText, "onpointclick"); break;
+                    case "pointRegionMouseMove": chartObj.option(args.selectedText, "onpointmousemove"); break;
+                    case "legendItemMouseMove": chartObj.option(args.selectedText, "onlegendmousemove"); break;
+                    case "legendItemClick": chartObj.option(args.selectedText, "onlegendclicked"); break;
+                    case "chartClick": chartObj.option(args.value, "onchartclick"); break;
+                    case "chartDoubleClick": chartObj.option(args.value, "onchartdoubleclick"); break;
+                    case "chartMouseMove": chartObj.option(args.value, "onchartmousemove"); break;
+                    case "chartMouseLeave": chartObj.option(args.value, "onchartmouseleave"); break;
+                    case "axisLabelClick": chartObj.option(args.value, "onaxislabelclick"); break;
+                    case "axisLabelMouseMove": chartObj.option(args.value, "onaxislabelmousemove"); break;
+                }
+            }
+            else chartObj.option(args.selectedText, "");
+        }
+        function onchartmouseleave(sender) {
+            var str = stringName(sender);
+            jQuery.addEventLog("Leaving on <span class='eventTitle'>" + str + "</span>");
+        }
+        function onaxislabelclick(sender) {
+            jQuery.addEventLog("Clicked on <span class='eventTitle'>" + sender.data.text + "</span>");
+        }
+        function onaxislabelmousemove(sender) {
+            jQuery.addEventLog("Moved on <span class='eventTitle'>" + sender.data.text + "</span>");
+        }
+        function onchartclick(sender) {
+            var str = stringName(sender);
+            jQuery.addEventLog("Clicked on <span class='eventTitle'>" + str + "</span>");
+        }
+        function onchartdoubleclick(sender) {
+            var str = stringName(sender);
+            jQuery.addEventLog("Double Clicked on <span class='eventTitle'>" + str + "</span>");
+        }
+        function onchartmousemove(sender) {
+            var str = stringName(sender);
+            jQuery.addEventLog("Moved on <span class='eventTitle'>" + str + "</span>");
+        }
+        function onlegendclicked(sender) {
+            jQuery.addEventLog("Clicked on <span class='eventTitle'>Legend</span>");
+        }
+        function onpointclick(sender) {
+            jQuery.addEventLog("Clicked on <span class='eventTitle'> " + sender.model.primaryXAxis.labels[sender.data.region.Region.PointIndex] + "</span>");
+
+        }
+        function onpointmousemove(sender) {
+            jQuery.addEventLog("Moved on <span class='eventTitle'> " + sender.model.primaryXAxis.labels[sender.data.region.Region.PointIndex] + "</span>");
+
+        }
+        function onlegendmousemove(sender) {
+            jQuery.addEventLog("Moved on <span class='eventTitle'>Legend</span>");
+        }
+        function stringName(sender) {
+            var id = sender.data.id, str;
+            if (id.indexOf("ChartTitle") > 0) str = "ChartTitle";
+            else if (id.indexOf("Series") > 0) str = "Series";
+            else if (id.indexOf("Legend") > 0) str = "Legend";
+            else if (id.indexOf("SvgRect") > 0) str = "Chart";
+            else if (id.indexOf("ChartArea") > 0) str = "ChartArea";
+            else if (id.indexOf("SecondaryAxis") > 0) str = "YAxisLabel";
+            else if (id.indexOf("PrimaryAxis") > 0) str = "XAxisLabel";
+            else if (id.indexOf("XAxisTitle") > 0) str = "XAxisTitle";
+            else if (id.indexOf("YAxisTitle") > 0) str = "YAxisTitle";
+            else str = "Chart";
+            return str;
+        }
+        function onClear() {
+            jQuery.clearEventLog();
+        }
+    </script>
+}
+
+

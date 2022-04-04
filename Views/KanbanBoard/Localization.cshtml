@@ -1,0 +1,99 @@
+@section SampleHeading{
+    <span class="sampleName">KanbanBoard-Localization-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to change the localization text dynamically in the Syncfusion ASP.NET MVC Kanban component.">
+}
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.de-DE.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.es-ES.min.js")"></script>
+}
+@using Syncfusion.JavaScript.Models;
+    @section ControlsSection{
+    @(Html.EJ().Kanban("Localization")
+                           .DataSource((IEnumerable<object>)ViewBag.datasource)
+                   .Columns(col =>
+                   {
+                       col.HeaderText("Backlog").Key("Open").Add();
+                       col.HeaderText("In Progress").Key("InProgress").Constraints(con => { con.Max(2); }).Add();
+                       col.HeaderText("Done").Key("Close").Add();
+                   })
+                  .AllowTitle(true)
+                  .EnableTotalCount(true)
+                  .AllowSelection(false)
+                  .Locale("de-DE")
+                  .KeyField("Status")
+                  .Fields(field =>
+                  {
+                      field.Color("Type")
+                           .Content("Summary")
+                           .ImageUrl("ImgUrl")
+                           .PrimaryKey("Id")
+                           .SwimlaneKey("Assignee");
+                  })
+    )
+
+}
+@section PropertiesSection{
+   <div id="ddl">
+    <ul>
+        <li>English</li>
+        <li>Deutsch</li>
+        <li>Espa�ol</li>
+    </ul>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        Selection Type
+    </div>
+    <div class="col-md-3">
+        @(Html.EJ().DropDownList("language")
+                .TargetID("ddl")
+                .SelectedItemIndex(1)
+                .ClientSideEvents(eve => eve.Change("onChange"))
+                .Width("120px")
+        )
+    </div>
+</div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        function onChange(args) {
+            if (args.itemId == 0)
+                $("#Localization").ejKanban("model.locale", "en-US");
+            else if (args.itemId == 1)
+                $("#Localization").ejKanban("model.locale", "de-DE");
+            else
+                $("#Localization").ejKanban("model.locale", "es-ES");
+        }
+        ej.Kanban.Locale["es-ES"] = {
+            EmptyCard: "No hay tarjetas para mostrar",
+            SaveButton: "guardar",
+            CancelButton: "cancelar",
+            EditFormTitle: "Detalles de ",
+            AddFormTitle: "A�adir nueva tarjeta",
+            SwimlaneCaptionFormat: "- {{:count}}{{if count == 1 }} art�culo {{else}} art�culos {{/if}}",
+            QuickFilters: "Filtros r�pidos:",
+            FilterOfText: "De",
+            Max: "M�x.",
+            Min: "Min",
+            ItemsCount: "Art�culos Contar :"
+        };
+        ej.Kanban.Locale["de-DE"] = {
+            EmptyCard: "Keine Karten angezeigt werden",
+            SaveButton: "Speichern",
+            CancelButton: "stornieren",
+            EditFormTitle: "Details von ",
+            AddFormTitle: "Neue Karte hinzuf�gen",
+            SwimlaneCaptionFormat: "- {{:count}}{{if count == 1 }} Artikel {{else}} Artikel {{/if}}",
+            FilterSettings: "Filter:",
+            FilterOfText: "Von",
+            Max: "Max.",
+            Min: "Min.",
+            ItemsCount: "Artikel Graf :"
+        };
+    </script>
+}
+

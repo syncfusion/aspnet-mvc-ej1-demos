@@ -1,0 +1,21 @@
+@section SampleHeading{<span class="sampleName">Grid-Group Button-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This demo explains how to show a group button in the column header that is used to group columns in Syncfusion ASP.NET MVC DataGrid control">
+}
+@section ControlsSection{
+    @(Html.EJ().Grid<OrdersView>("Grouping")
+        .Datasource((IEnumerable<object>)ViewBag.datasource)
+        .AllowGrouping()
+        .AllowPaging()
+                .GroupSettings(group => { group.ShowToggleButton(true).EnableDropAreaAnimation(false); })
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(75).Add();
+            col.Field("CustomerID").HeaderText("Customer ID").Width(90).Add();
+            col.Field("EmployeeID").HeaderText("Employee ID").TextAlign(TextAlign.Right).Width(90).Add();
+            col.Field("Freight").HeaderText("Freight").Width(75).TextAlign(TextAlign.Right).Format("{0:C}").Add();
+            col.Field("ShipName").HeaderText("Ship Name").Width(110).Add();
+        })
+    )
+}
+

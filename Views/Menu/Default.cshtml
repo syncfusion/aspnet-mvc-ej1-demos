@@ -1,0 +1,118 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to initialize a simple menu using Syncfusion ASP.NET MVC Menu control." >
+}
+
+@section SampleHeading{
+    <span class="sampleName">Menu-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>}
+@section ActionDescription{
+    <div class="action-description">
+    <p>
+        This sample demonstrates rendering Menu control which supports displaying a Menu created from list items. 
+        The Menu is based on a hierarchy of Parent and Child elements where the Child items are rendered as sub-menu items.
+    </p>
+    </div>
+}
+@section ControlsSection{
+    <div class="imgframe controlframe" style="width: 510px">
+        @Html.EJ().Menu("syncfusionProducts").Items(items =>
+               {
+                   items.Add().Url("#").Id("Products").Text("Products").Children(child =>
+                       {
+                           child.Add().Url("").Text("ASP.NET");
+                           child.Add().Url("").Text("ASP.NET MVC");
+                           child.Add().Url("").Text("Mobile MVC");
+                           child.Add().Url("").Text("Silverlight");
+                           child.Add().Url("").Text("Windows Forms");
+                           child.Add().Url("").Text("Windows Phone");
+                           child.Add().Url("").Text("WinRT (XMAL)");
+                           child.Add().Url("").Text("WPF");
+                           child.Add().Url("").Text("Orubase Studio");
+                           child.Add().Url("").Text("Metro Studio");
+                           child.Add().Url("").Text("What's New").Children(child1 =>
+                               {
+                                   child1.Add().Url("").Text("ASP.NET");
+                                   child1.Add().Url("").Text("WPF");
+                                   child1.Add().Url("").Text("Silverlight");
+                                   child1.Add().Url("").Text("Windows Forms");
+                                   child1.Add().Url("").Text("Windows Phone");
+                                   child1.Add().Url("").Text("ASP.NET MVC");
+                                   child1.Add().Url("").Text("ASP.NET");
+                               });
+                       });
+                   items.Add().Url("").Text("Support").Children(child =>
+                       {
+                           child.Add().Url("").Text("Direct-Trac Support");
+                           child.Add().Url("").Text("Community Forums");
+                           child.Add().Url("").Text("Knowledge Base");
+                           child.Add().Url("").Text("Online Documentation");
+                           child.Add().Url("").Text("Services").Children(child1 =>
+                               {
+                                   child1.Add().Url("").Text("Consulting");
+                                   child1.Add().Url("").Text("Training");
+                               });
+                       });
+                   items.Add().Url("").Id("Purchase").Text("Purchase");
+                   items.Add().Url("").Id("Downloads").Text("Downloads").Children(child =>
+                       {
+                           child.Add().Url("").Text("Evaluation");
+                           child.Add().Url("").Text("Free E-Books");
+                           child.Add().Url("").Text("Metro Studio");
+                           child.Add().Url("").Text("Latest Version");
+                           child.Add().Url("").Text("Version History");
+                       });
+                   items.Add().Id("Resources").Url("").Text("Resources").Children(child =>
+                      {
+                          child.Add().Url("").Text("Technology Resource Portal").Children(child1 =>
+                                      {
+                                          child1.Add().Url("").Text("E-Books");
+                                          child1.Add().Url("").Text("White Papers");
+                                      });
+                          child.Add().Url("").Text("Case Studies");
+                          child.Add().Url("").Text("Bouchers & Datasheets");
+                          child.Add().Url("").Text("FAQ");
+                      });
+                   items.Add().Url("").Id("Company").Text("Company").Children(child =>
+                   {
+                       child.Add().Url("").Text("About Us").Children(child1 =>
+                           {
+                               child1.Add().Url("").Text("More About Us");
+                               child1.Add().Url("").Text("Management");
+                               child1.Add().Url("").Text("News & Events");
+                               child1.Add().Url("").Text("Customer Quotes");
+                               child1.Add().Url("").Text("Customer Lists");
+                               child1.Add().Url("").Text("Case Studies");
+                               child1.Add().Url("").Text("Awards");
+                               child1.Add().Url("").Text("Media Kit");
+                           });
+                       child.Add().Url("").Text("Company Blog");
+                       child.Add().Url("").Text("Technical Blog");
+                       child.Add().Url("").Text("Newsletter");
+                       child.Add().Url("").Text("Partners").Children(child1 =>
+                           {
+                               child1.Add().Url("").Text("Technology Partners");
+                               child1.Add().Url("").Text("Training Partners");
+                               child1.Add().Url("").Text("Consulting Partners");
+                           });
+                       child.Add().Url("").Text("Locations").Children(child1 =>
+                       {
+                           child1.Add().Url("").Text("RDU");
+                           child1.Add().Url("").Text("Chennai");
+                       });
+                       child.Add().Url("").Text("Contact Us");
+                       child.Add().Url("").Text("Careers");
+                   });
+
+               }).Width("100%")
+    </div>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .imgframe
+        {
+            background: url("../images/menu/menu-bg.png") no-repeat scroll 0 0 transparent;
+            height: 213px;
+            background-size: 100% 100%;
+        }
+    </style>
+}
+
