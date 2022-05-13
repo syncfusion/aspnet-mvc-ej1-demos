@@ -1,0 +1,108 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates cell and row selection, available in the Syncfusion tree grid control.">
+}
+@section SampleHeading{<span class="sampleName">TreeGrid-Selection API-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+  
+    @(Html.EJ().TreeGrid("TreeGridContainer")
+             .ChildMapping("Children")
+             .TreeColumnIndex(1)
+             .IsResponsive(true)                          
+             .Columns(co =>
+               {
+                   co.Field("TaskId").HeaderText("Task Id").Width(45).Add();
+                   co.Field("TaskName").HeaderText("Task Name").Add();
+                   co.Field("StartDate").HeaderText("Start Date").Add();
+                   co.Field("EndDate").HeaderText("End Date").Add();
+                   co.Field("Duration").HeaderText("Duration").Add();                   
+               }
+             )
+             .SizeSettings(ss => ss.Width("100%").Height("350px"))
+             .Datasource(ViewBag.datasource)
+    )
+}
+
+@section PropertiesSection{
+ <div class="prop-grid">
+    <div class="row">
+        <div class="col-md-3">
+            Selection Mode
+        </div>
+        <div class="col-md-3">           
+            <div id="target">
+                <ul>
+                    <li>Row</li>
+                    <li>Cell</li>                    
+                </ul>
+            </div>
+            <div style="float:right;padding-bottom:5px; padding-left:1px;">
+                @(Html.EJ().DropDownList("mode")
+                           .TargetID("target")
+                           .Value("Row")
+                           .Text("Row")
+                           .ClientSideEvents(eve => eve.Change("onChange"))
+                           .Width("120px")
+                )
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Selection Type
+        </div>
+        <div class="col-md-3">           
+            <div id="target1">
+                <ul>
+                    <li>Single</li>
+                    <li>Multiple</li>
+                    <li>CheckBox</li>
+                </ul>
+            </div>
+            <div style="float:right;padding-bottom:5px; padding-left:1px;">
+                @(Html.EJ().DropDownList("type")
+                           .TargetID("target1")
+                           .Value("Single")
+                           .Text("Single")
+                           .ClientSideEvents(eve => eve.Change("onTypeChange"))
+                           .Width("120px")
+                )
+            </div>
+        </div>
+    </div>
+</div>
+}
+
+@section ScriptSection{
+   <script type="text/javascript">
+    $(function () {
+        $("#sampleProperties").ejPropertiesPanel();
+    });
+    function onChange(args) {
+        var treeGridObject = $("#TreeGridContainer").data("ejTreeGrid");
+        if (args.text === "Row")
+            treeGridObject.option("selectionMode", "row");
+        if (args.text === "Cell")
+            treeGridObject.option("selectionMode", "cell");
+    }
+    function onTypeChange(args) {
+        var treeGridObject = $("#TreeGridContainer").data("ejTreeGrid");                        
+        $("#mode").ejDropDownList("enable");        
+        if (args.text === "Single")
+            treeGridObject.option("selectionType", "single");
+        if (args.text === "Multiple")
+            treeGridObject.option("selectionType", "multiple");
+        if (args.text === "CheckBox") {
+            if (treeGridObject.model.selectionMode === "cell") {                
+                $("#mode").ejDropDownList({ text: "Row" });
+            }
+            var selectionSettings = { selectionType: "checkbox", selectionMode: "row" };
+            treeGridObject.option("selectionType", "checkbox");
+            $("#mode").ejDropDownList("disable");
+        }
+    }
+
+</script>
+
+}
+

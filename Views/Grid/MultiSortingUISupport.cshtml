@@ -1,0 +1,40 @@
+﻿@using Syncfusion.JavaScript.Models
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName"> Grid/Sorting/MultiSortUISupport</span>}
+@section ControlsSection{
+@(Html.EJ().Grid<OrdersView>("FlatGrid")
+        .Datasource((IEnumerable<object>)ViewBag.datasource)
+            .EditSettings(edit =>
+            {
+                edit.AllowAdding().AllowDeleting().AllowEditing();
+             })
+        .ToolbarSettings(toolbar =>
+            {
+                toolbar.ShowToolbar().ToolbarItems(items =>
+                {
+                    items.AddTool(ToolBarItems.Add);
+                    items.AddTool(ToolBarItems.Edit);
+                    items.AddTool(ToolBarItems.Delete);
+                    items.AddTool(ToolBarItems.Update);
+                    items.AddTool(ToolBarItems.Cancel);
+                });
+            })  
+        .AllowPaging() 
+        .AllowSorting()
+        .AllowMultiSorting()
+        .AllowGrouping()
+       
+         .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(90).ValidationRules(v => v.AddRule("required", true)).Add();
+            col.Field("CustomerID").HeaderText("Customer ID").Width(90).ValidationRules(v => v.AddRule("required", true)).Add();
+            col.Field("EmployeeID").HeaderText("Employee ID").Width(90).TextAlign(TextAlign.Right).ValidationRules(v => v.AddRule("required", true)).Add();
+            col.Field("Freight").HeaderText("Freight").TextAlign(TextAlign.Right).Width(75).EditType(EditingType.NumericEdit).Format("{0:C}").NumericEditOptions(new EditorProperties() { DecimalPlaces = 2 }).Width(75).ValidationRules(v => v.AddRule("required", true)).Add();
+        })
+
+)
+    }
+      

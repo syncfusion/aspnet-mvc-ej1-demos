@@ -1,0 +1,93 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart-Column-ASP.NET MVC-SYNCFUSION</span>}
+
+@section MetaTags{
+    <meta name="description" content="This sample demonstrates how to render and configure 3D column series using Syncfusion ASP.NET MVC Chart Control">
+}
+
+@section ControlsSection{
+<div id="target1">
+    <ul>
+        <li>rectangle</li>
+        <li>cylinder</li>
+    </ul>
+</div>
+    <div>
+        @(Html.EJ().Chart("container")
+                      .PrimaryXAxis(pr  => pr.LabelIntersectAction(LabelIntersectAction.MultipleRows).ValueType(AxisValueType.Category).LabelFormat("MMMM")
+              .MajorGridLines(mgl => mgl.Visible(true).Color("#a9a9a9").Opacity(0.12)))
+              .PrimaryYAxis(pr => pr.MajorGridLines(mgl => mgl.Visible(true).Color("#a9a9a9").Opacity(0.12)))
+              .CommonSeriesOptions(cr => cr.Tooltip(tt => tt.Visible(true).Format("#series.name# <br/> #point.x# : #point.y#mg"))
+              .Type(SeriesType.Column))
+              .Series(sr =>
+            {
+                sr.Points(pt =>
+                    {
+                        pt.X("Calcium sulfate(Gypsum hydrated)").Y(11).Add();
+                        pt.X("Phosphorus pentachloride").Y(20).Add();
+                        pt.X("Sodium permanganate monohydrate").Y(8).Add();
+                        pt.X("Magnesium permanganate").Y(9).Add();
+                        pt.X("Pottasium permanganate").Y(8.5).Add();
+                        pt.X("Sodium bicarbonate").Y(6.3).Add();
+                    }).Name("Chemicals in Soap X").Add();
+                sr.Points(pt =>
+                {
+                    pt.X("Calcium sulfate(Gypsum hydrated)").Y(6).Add();
+                    pt.X("Phosphorus pentachloride").Y(26).Add();
+                    pt.X("Sodium permanganate monohydrate").Y(7).Add();
+                    pt.X("Magnesium permanganate").Y(32).Add();
+                    pt.X("Pottasium permanganate").Y(9.6).Add();
+                    pt.X("Sodium bicarbonate").Y(8.1).Add();
+                }).Name("Chemicals in Soap Y").Add();
+            })
+        .Load("onchartload")
+                .Title(t => t.Text("Chemicals in Soaps"))
+        .Depth(100)
+        .WallSize(2)
+        .Tilt(0)
+        .Rotation(14)
+        .PerspectiveAngle(20)
+        .SideBySideSeriesPlacement(true)
+        .IsResponsive(true)
+        .EnableRotation(true)
+        .Enable3D(true)
+        .Size(sz => sz.Height("600"))
+        .Legend(lg => { lg.Visible(true); })
+        )
+    </div>
+    }
+@section PropertiesSection
+
+{
+<div id="sampleProperties">
+    <div class="prop-grid">
+        <div class="row">
+            <div class="col-md-3" style="width:200px;">
+                Column Facet
+            </div>
+            <div class="col-md-3">
+                @Html.EJ().DropDownList("opt1").TargetID("target1").SelectedItemIndex(0).Width("110").ClientSideEvents(s => s.Change("columnFacetChanged"))
+            </div>
+        </div>
+    </div>
+</div>
+}
+@section ScriptSection
+{
+    <script>
+        function columnFacetChanged(e) {
+            $('#container').ejChart('option', { commonSeriesOptions: { columnFacet: e.value } });
+        }
+        function onchartload(sender) {
+            loadTheme(sender);
+            sender.model.primaryXAxis.majorGridLines.color = "#a9a9a9";
+            sender.model.primaryXAxis.majorGridLines.opacity = 0.12;
+            sender.model.primaryYAxis.majorGridLines.color = "#a9a9a9";
+            sender.model.primaryYAxis.majorGridLines.opacity = 0.12;
+        }
+        $("#sampleProperties").ejPropertiesPanel();
+        $("#controlarea").css("visibility", "visible");
+    </script>
+}
+

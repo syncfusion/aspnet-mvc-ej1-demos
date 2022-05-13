@@ -1,0 +1,106 @@
+@section SampleHeading{<span class="sampleName">Grid-Selection API-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This demo explains how to select and clear multiple rows using methods of Syncfusion ASP.NET MVC DataGrid control.">
+}
+@section ControlsSection{
+    @(Html.EJ().Grid<OrdersView>("RowSelection")
+        .Datasource((IEnumerable<object>)ViewBag.datasource)
+        .AllowSelection()
+        .SelectionType(SelectionType.Multiple)
+        .AllowPaging()
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").IsPrimaryKey(true).TextAlign(TextAlign.Right).Width(80).Add();
+            col.Field("CustomerID").HeaderText("Customer ID").Width(85).Add();
+            col.Field("EmployeeID").HeaderText("Employee ID").TextAlign(TextAlign.Right).Width(75).Add();
+            col.Field("Freight").HeaderText("Freight").TextAlign(TextAlign.Right).Width(75).Format("{0:C}").Add();
+            col.Field("OrderDate").HeaderText("Order Date").TextAlign(TextAlign.Right).Format("{0:MM/dd/yyyy}").Width(80).Add();
+        })
+    )
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            <b>Select Row</b>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Start
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().NumericTextbox("rowIndex")
+                .Value("0")
+                .Width("70px")
+                .MinValue(0)
+                .MaxValue(11)
+                )
+        </div>
+        <div class="col-md-3">
+            To
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().NumericTextbox("toIndex")
+                .Value("0")
+                .Width("70px")
+                .MinValue(0)
+                .MaxValue(11)
+                )
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            @(Html.EJ().Button("selectRow")
+                .Width("100px")
+                .Size(ButtonSize.Medium)
+                .ClientSideEvents(eve => { eve.Click("selectRow"); })
+                .Text("Select Row")
+                )
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3" style="margin-top: 10px;">
+            <b>Clear Selection </b>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Row Index
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().NumericTextbox("clearRowIndex")
+                .Value("0")
+                .Width("70px")
+                .MinValue(0)
+                .MaxValue(11)
+                )
+        </div>
+        <div class="col-md-3">
+            @(Html.EJ().Button("clearSectionByIndex")
+                .Size(ButtonSize.Medium)
+                .ClientSideEvents(eve => { eve.Click("clearSectionByIndex"); })
+                .Text("Clear Selection")
+                )
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+         function selectRow(args) {
+            var rowIndex = $('#rowIndex').ejNumericTextbox('option', 'value');
+            var toIndex = $('#toIndex').ejNumericTextbox('option', 'value');
+            var gridObj = $("#RowSelection").ejGrid("instance");
+            gridObj.selectRows(parseInt(rowIndex), parseInt(toIndex));
+        };
+
+         function clearSectionByIndex(args) {
+            var rowIndex = $('#clearRowIndex').ejNumericTextbox('option', 'value');
+            var gridObj = $("#RowSelection").ejGrid("instance");
+            gridObj.clearSelection(parseInt(rowIndex));
+        };
+    </script>
+}
+

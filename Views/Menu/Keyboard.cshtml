@@ -1,0 +1,126 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how the menu control supports the keyboard navigation(keyboard shortcuts) in a ASP.NET MVC." >
+}
+
+@section SampleHeading{
+    <span class="sampleName">Menu-Keyboard Navigation-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+<div class="controlframe" style="width: 380px;">
+    @Html.EJ().Menu("keyboard").Items(items =>
+               {
+                   items.Add().Url("").Text("Books").Children(child =>
+                       {
+                           child.Add().Url("").Text("New Releases");
+                           child.Add().Url("").Text("New Releases audio books");
+                           child.Add().Url("").Text("Bestsellers");
+                           child.Add().Url("").Text("Upcoming");
+                           child.Add().Url("").Text("Box Sets");
+                       });
+                   items.Add().Url("").Text("Gaming").Children(child =>
+                   {
+                       child.Add().Url("").Text("Upcoming");
+                       child.Add().Url("").Text("PC");
+                       child.Add().Url("").Text("PS Vista");
+                       child.Add().Url("").Text("PS3");
+                       child.Add().Url("").Text("XBox");
+                       child.Add().Url("").Text("Consoles");
+                   });
+                   items.Add().Url("").Text("Mobiles").Children(child =>
+                   {
+                       child.Add().Url("").Text("New Arrivals");
+                       child.Add().Url("").Text("Bestsellers");
+                       child.Add().Url("").Text("Low Price");
+                       child.Add().Url("").Text("Tablets");
+                   });
+                   items.Add().Url("").Text("Cameras").Children(child =>
+                   {
+                       child.Add().Url("").Text("Point & Shoots");
+                       child.Add().Url("").Text("Digital SLR");
+                       child.Add().Url("").Text("Camcorders");
+                       child.Add().Url("").Text("Bestsellers");
+                   });
+                   items.Add().Url("").Text("Music's").Children(child =>
+                   {
+                       child.Add().Url("").Text("New Releases");
+                       child.Add().Url("").Text("Bestsellers");
+                       child.Add().Url("").Text("Rock Music");
+                       child.Add().Url("").Text("Devotional & Spiritual");
+                       child.Add().Url("").Text("Sufi & Ghazal");
+                   });
+               })
+</div>
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Alt + j
+        </div>
+        <div class="col-md-3">
+            Focuses the control
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Up
+        </div>
+        <div class="col-md-3">
+            Navigates up or previous item
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Down
+        </div>
+        <div class="col-md-3">
+            Navigates down or next item
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Left
+        </div>
+        <div class="col-md-3">
+            Navigates to previous group
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Right
+        </div>
+        <div class="col-md-3">
+            Navigates to next group
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Esc
+        </div>
+        <div class="col-md-3">
+            Closes the menu group
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            Enter
+        </div>
+        <div class="col-md-3">
+            Selects the focused item
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        jQuery(function ($) {
+            //Control focus key
+            $(document).on("keydown", function (e) {
+                if (e.altKey && e.keyCode === 74) { // j- key code.
+                    $("#keyboard").focus();
+                }
+            });
+
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+    </script>
+}
+

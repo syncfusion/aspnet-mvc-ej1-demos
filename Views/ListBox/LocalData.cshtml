@@ -1,0 +1,37 @@
+@section SampleHeading{
+    <span class="sampleName">ListBox-Databinding - Local Data-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to bind the local data source key value mapping in the Syncfusion ASP.NET MVC ListBox component.">
+}
+@section ControlsSection{
+        <div class="control frame">
+            <div class="ctrllabel">
+                Select a bike</div>
+            @Html.EJ().ListBox("bikeList").Datasource((IEnumerable<Bikes>)ViewBag.datasource).ListBoxFields(df => df.ID("empid").Text("text").Value("text")).ClientSideEvents(evt => evt.Create("setheight"))
+        </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+    function setheight(){
+         if (document.body.firstElementChild.className =="htmljssamplebrowser material" ||"htmljssamplebrowser office-365"){
+             setTimeout(function () {
+                 var obj = $("#bikeList").ejListBox("instance");
+                obj._refreshScroller(); }, 500);
+                 }
+    }
+    </script>
+}
+@section StyleSection{
+    <style class="cssStyles">
+        .ctrllabel {
+            padding: 0px 0px 12px 3px;
+            font-weight: 600;
+        }
+
+        .e-ddl-popup {
+            margin: 0 auto;
+        }
+
+    </style>
+}
+

@@ -1,0 +1,72 @@
+@section MetaTags{
+   <meta name="description" content="This example illustrates how to resize columns dynamically in the Syncfusion tree grid control.">
+}
+
+@section SampleHeading{<span class="sampleName">TreeGrid-Column Resize-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+
+    @(Html.EJ().TreeGrid("TreeGridContainer")
+             .ChildMapping("Children")
+             .TreeColumnIndex(1)
+             .IsResponsive(true)
+             .AllowColumnResize(true)
+             .ColumnResizeSettings(rs => rs.ResizeMode(TreeGridColumnResizeMode.FixedColumns))
+             .Columns(co =>
+               {
+                   co.Field("TaskId").HeaderText("Task Id").Width(45).Add();
+                   co.Field("TaskName").HeaderText("Task Name").Add();
+                   co.Field("StartDate").HeaderText("Start Date").Add();
+                   co.Field("EndDate").HeaderText("End Date").Add();
+                   co.Field("Progress").HeaderText("Progress").Add();
+               }
+             )
+             .SizeSettings(ss => ss.Width("100%").Height("450px"))
+             .Datasource(ViewBag.datasource)
+    )
+}
+@section PropertiesSection{
+    <div class="prop-grid">
+        <div class="row">
+            <div class="col-md-3">
+                Resize Mode
+            </div>
+            <div class="col-md-3">
+                <div id="resizeMode">
+                    <ul>
+                        <li>Normal</li>
+                        <li>Next Column</li>
+                        <li>Fixed Columns</li>
+                    </ul>
+                </div>
+                <div style="float:right;padding-bottom:5px; padding-left:1px;">
+                    @(Html.EJ().DropDownList("resizeSettings")
+                        .TargetID("resizeMode")
+                        .SelectedItemIndex(2)
+                        .ClientSideEvents(eve => eve.Change("onModeChange"))
+                        .Width("120px")
+                    )
+                </div>
+            </div>
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        function onModeChange(args) {
+            var treeObject = $("#TreeGridContainer").data("ejTreeGrid"),
+                 value = args.text,
+                 columnResizeSettings = {
+                     columnResizeMode: ej.TreeGrid.ColumnResizeMode.Normal
+                 };
+            if (args.text == "Next Column")
+                columnResizeSettings.columnResizeMode = ej.TreeGrid.ColumnResizeMode.NextColumn;
+            else if (args.text == "Fixed Columns")
+                columnResizeSettings.columnResizeMode = ej.TreeGrid.ColumnResizeMode.FixedColumns;
+            treeObject.option("columnResizeSettings", columnResizeSettings);
+        }
+    </script>
+}
+

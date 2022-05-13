@@ -1,0 +1,86 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates the various events available in a ASP.NET MVC File Explorer"  >
+}
+
+@section SampleHeading{ <span class="sampleName">FileExplorer-Events-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+    @(Html.EJ().FileExplorer("fileExplorer").Path("~/FileExplorerContent/").Layout(LayoutType.Tile)
+               .AjaxAction(@Url.Content("FileActionEvents")).Width("100%").MinWidth("150px").IsResponsive(true)
+               .ClientSideEvents(evt => evt.LayoutChange("onLayoutChange").Select("onSelect").Select("onSelect")
+               .CreateFolder("onCreateFolder").Remove("onRemove").Cut("onCut").Copy("onCopy").Paste("onPaste")
+               .Open("onOpen").Unselect("onUnselect")))
+}
+@section EventsDropdown{
+    @(Html.EJ().DropDownList("selectControls_input").TargetID("selectControls").ShowCheckbox(true).CheckAll(true)
+               .ClientSideEvents(e => e.Change("evtpropscheckedevent")))
+    <div id="selectControls">
+        <ul>
+            <li>layoutChange</li>
+            <li>select</li>
+            <li>unselect</li>
+            <li>createFolder</li>
+            <li>remove</li>
+            <li>cut</li>
+            <li>copy</li>
+            <li>paste</li>
+            <li>open</li>
+        </ul>
+    </div>
+}
+@section ScriptSection{
+    <script>
+        var fileExplorerObj;
+        function evtpropscheckedevent(args) {
+            fileExplorerObj = $("#fileExplorer").data("ejFileExplorer");
+            if (args.isChecked) {
+                switch (args.selectedValue) {
+                    case "layoutChange": fileExplorerObj.option(args.selectedValue, "onLayoutChange"); break;
+                    case "select": fileExplorerObj.option(args.selectedValue, "onSelect"); break;
+                    case "unselect": fileExplorerObj.option(args.selectedValue, "onUnselect"); break;
+                    case "createFolder": fileExplorerObj.option(args.selectedValue, "onCreateFolder"); break;
+                    case "remove": fileExplorerObj.option(args.selectedValue, "onRemove"); break;
+                    case "cut": fileExplorerObj.option(args.selectedValue, "onCut"); break;
+                    case "copy": fileExplorerObj.option(args.selectedValue, "onCopy"); break;
+                    case "paste": fileExplorerObj.option(args.selectedValue, "onPaste"); break;
+                    case "open": fileExplorerObj.option(args.selectedValue, "onOpen"); break;
+                }
+            }
+            else fileExplorerObj.option(args.selectedValue, null);
+        }
+
+        function onLayoutChange(args) {
+            jQuery.addEventLog("<span class='eventTitle'>Layout changed</span> to '" + args.layoutType + "' view.");
+        }
+        function onSelect(args) {
+            jQuery.addEventLog("'" + args.name + "' " + args.nodeType + " has been <span class='eventTitle'>selected</span>.");
+        }
+        function onUnselect(args) {
+            jQuery.addEventLog("'" + args.name + "' " + args.nodeType + " has been <span class='eventTitle'>unselected</span>.");
+        }
+        function onCreateFolder(args) {
+            jQuery.addEventLog("'" + args.data.files[0].name + "' Directory has been <span class='eventTitle'>created</span>.");
+        }
+        function onRemove(args) {
+            jQuery.addEventLog("'" + args.name + "' " + args.selectedItems[0].type + " has been <span class='eventTitle'>removed</span>.");
+        }
+        function onCut(args) {
+            jQuery.addEventLog("'" + args.name + "' " + args.selectedItems[0].type + " has been <span class='eventTitle'>cut</span>.");
+        }
+        function onCopy(args) {
+            jQuery.addEventLog("'" + args.name + "' " + args.selectedItems[0].type + " has been <span class='eventTitle'>copied</span>.");
+        }
+        function onPaste(args) {
+            jQuery.addEventLog("'" + args.selectedItems[0].name + "' " + args.selectedItems[0].type + " has been <span class='eventTitle'>pasted</span>.");
+        }
+        function onOpen(args) {
+            jQuery.addEventLog("'" + args.selectedItems[0].name + "' " + args.itemType + " has been <span class='eventTitle'>opened</span>.");
+        }
+        function onClear() {
+            jQuery.clearEventLog();
+        }
+    </script>
+}
+
+
+
