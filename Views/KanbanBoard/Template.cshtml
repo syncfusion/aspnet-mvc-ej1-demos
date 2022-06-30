@@ -1,0 +1,109 @@
+@section SampleHeading{
+    <span class="sampleName">KanbanBoard-Template-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to customize the card layout of the Syncfusion ASP.NET MVC Kanban component.">
+}
+@using Syncfusion.JavaScript.Models;
+    @section ControlsSection{
+    @(Html.EJ().Kanban("Kanban")
+                   .DataSource((IEnumerable<object>)ViewBag.datasource)
+                   .Columns(col =>
+                   {
+                       col.HeaderText("Backlog").Key("Open").Add();
+                       col.HeaderText("In Progress").Key("InProgress").Add();
+                       col.HeaderText("Done").Key("Close").Add();
+                   })
+                          
+                  .AllowTitle(true)
+                  .AllowSelection(false)
+                  
+                  .KeyField("Status")
+                  .Fields(field =>
+                  {
+                      field.Color("Type")
+                           .PrimaryKey("Id");
+                           
+                  })
+                          .CardSettings(card =>
+                                  {
+                                      card.Template("#cardtemplate");
+                                      card.ColorMapping(color =>
+                                      {
+                                          color.Add("#cb2027", "Bug,Story")
+                                               .Add("#67ab47", "Improvement")
+                                               .Add("#fbae19", "Epic");
+                                            
+                                      });
+                                  })
+    )
+
+}
+
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+      .e-templatetable {
+            width: 100%;
+        }
+        .details >table {
+            margin-left:2px;            
+			border-collapse: separate;
+            border-spacing: 2px;
+            width: 100%;
+        }
+	    .details td {
+	        vertical-align: top;
+	    }
+        .details {
+            padding: 8px 8px 10px 0;
+        }
+        .photo {
+            padding: 8px 6px 10px 6px;
+            text-align: center;
+        }
+        .CardHeader {
+            font-weight: bolder;
+            padding-right: 10px;
+        }
+    </style>
+}
+
+@section ScriptSection{
+<script id="cardtemplate" type="text/x-jsrender">
+    <table class="e-templatetable">
+        <colgroup>
+            <col width="10%">
+            <col width="90%">
+        </colgroup>
+        <tbody>
+            <tr>
+                <td class="photo">
+                    <img src="../content/images/kanban/{{:Priority}}.png">
+                </td>
+                <td class="details">
+                    <table>
+                        <colgroup>
+                            <col width="10%">
+                            <col width="90%">
+                        </colgroup>
+                        <tbody>
+                            <tr>
+                                <td class="CardHeader">   Assignee: </td>
+                                <td>{{:Assignee}}</td>
+                            </tr>
+                            <tr>
+                                <td class="CardHeader">   Summary: </td>
+                                <td>{{:Summary}}</td>
+                            </tr>
+                            <tr>
+                                <td class="CardHeader">   Type: </td>
+                                <td>{{:Type}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</script>
+}
+

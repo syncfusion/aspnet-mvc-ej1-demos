@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Category>
+    <Samples url="/Tab/Images">
+          <DependentFiles displayname="CSS" url="/Content/Samples/AccordDefault.css"></DependentFiles>
+ </Samples>
+</Category>

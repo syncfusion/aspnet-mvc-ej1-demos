@@ -1,0 +1,140 @@
+@using Syncfusion.JavaScript.Models
+@section MetaTags{
+   <meta name="description" content="This example illustrates how to perform predicate filtering on column fields in the Syncfusion tree grid control.">
+}
+
+@section SampleHeading{<span class="sampleName">TreeGrid-Column Filtering-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <style>
+    </style>
+
+    @(Html.EJ().TreeGrid("TreeGridContainer")
+             .ChildMapping("Children")
+             .TreeColumnIndex(1)
+             .AllowFiltering(true)
+             .AllowSorting(true)
+             .Columns(co =>
+                  {
+                      co.Field("TaskId").HeaderText("Task Id").EditType(TreeGridEditingType.Numeric).AllowFiltering(false).Width(55).Add();
+                      co.Field("TaskName").HeaderText("Task Name").EditType(TreeGridEditingType.String).FilterEditType(TreeGridFilterEditType.String).Add();
+                      co.Field("FilterStartDate").HeaderText("Start Date").EditType(TreeGridEditingType.Datepicker).Format("{0:MM/dd/yyyy}").FilterEditType(TreeGridFilterEditType.Datepicker).Add();
+                      co.Field("FilterEndDate").HeaderText("End Date").EditType(TreeGridEditingType.Datepicker).Format("{0:MM/dd/yyyy}").FilterEditType(TreeGridFilterEditType.Datepicker).Add();
+                      co.Field("Approved").HeaderText("Approved").IsTemplateColumn(true).TemplateID("customColumnTemplate").FilterEditType(TreeGridFilterEditType.Dropdown).DropDownData((IEnumerable<object>)ViewBag.stateData).AllowFilteringBlankContent(false).Add();
+                      co.Field("Priority").HeaderText("Priority").EditType(TreeGridEditingType.Dropdown).DropDownData((IEnumerable<object>)ViewBag.dropData).FilterEditType(TreeGridFilterEditType.Dropdown).Add();
+                      co.Field("Progress").HeaderText("Progress").EditType(TreeGridEditingType.Numeric).FilterEditType(TreeGridFilterEditType.Numeric).Add();
+                  }
+             )
+             .SizeSettings(ss => ss.Width("100%").Height("450px"))
+             .IsResponsive(true)
+             .ClientSideEvents(cse=>{
+                 cse.BeginEdit("BeginEdit");
+             })
+             .EditSettings(edit =>
+             {
+                 edit.AllowEditing(true);
+                 edit.AllowAdding(true);
+                 edit.AllowDeleting(true);
+                 edit.EditMode(TreeGridEditMode.CellEditing);
+             })
+             .FilterSettings(fs=>fs.FilterHierarchyMode(TreeGridFilterHierarchyMode.Parent))
+             .Datasource(ViewBag.datasource)
+    )
+}
+@section PropertiesSection{
+    <div class="prop-grid">
+    <div class="row">
+        <div class="col-md-3">
+            Filter Type
+        </div>
+        <div class="col-md-3">
+            <div id="filterMode">
+                <ul>
+                    <li>Menu</li>
+                    <li>Filter Bar</li>
+                    <li>Excel</li>
+                </ul>
+            </div>
+            <div style="float:right;padding-bottom:5px; padding-left:1px;">
+                @(Html.EJ().DropDownList("editing")
+                        .TargetID("filterMode")
+                        .SelectedItemIndex(0)
+                        .Value("Filter Bar")
+                        .Text("Filter Bar")
+                        .ClientSideEvents(eve => eve.Change("onModeChange"))
+                        .Width("120px")
+                )
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            Filter Hierarchy Mode
+        </div>
+        <div class="col-md-3">
+            <div id="filterHierarchyMode">
+                <ul>
+                    <li>Parent</li>
+                    <li>Child</li>
+                    <li>Both</li>
+                    <li>None</li>
+                </ul>
+            </div>
+            <div style="float:right;padding-bottom:5px; padding-left:1px;">
+                @(Html.EJ().DropDownList("filtering")
+                        .TargetID("filterHierarchyMode")
+                        .SelectedItemIndex(0)
+                        .Value("Parent")
+                        .Text("Parent")
+                        .ClientSideEvents(eve => eve.Change("onHierarchyModeChange"))
+                        .Width("120px")
+                )
+            </div>
+        </div>
+    </div>
+</div>
+}
+@section ScriptSection{
+<script type="text/x-jsrender" id="customColumnTemplate">
+    <div style="margin-left:20px;">{{if Approved}} <input class="customCheckbox" type="checkbox" checked="checked" onclick="checkUncheck(event); return true;" value="" />{{else}} <input class="customCheckbox" type="checkbox" onclick="checkUncheck(event); return true;" value="" />{{/if}}</div>
+</script>
+
+<script type="text/javascript">
+    function BeginEdit(args) {
+        if (args.columnIndex == 4)
+            args.cancel = true;
+    }
+    function checkUncheck(e) {
+        e = e || window.event;
+        var targetEle = e.target || e.srcElement,
+            $tr = $(targetEle).closest('tr'),
+            treeObj = $("#TreeGridContainer").data("ejTreeGrid"),
+            checkStatus = $(targetEle).is(':checked'),
+            rowIndex = ($tr).index(),
+            record = treeObj.model.currentViewData && treeObj.model.currentViewData[rowIndex];
+        record["Approved"] = checkStatus;
+
+    }
+    $(function () {
+        $("#sampleProperties").ejPropertiesPanel();
+    });
+    function onModeChange(args) {
+        var treeObject = $("#TreeGridContainer").data("ejTreeGrid");
+        var value = args.text == "Menu" ? "menu" : (args.text == "Excel" ? "excel" : "filterbar");
+        var isResponsive = args.text == "Excel" ? false : true;
+        var setting = {
+            filterType: value
+        }
+        treeObject.option("filterSettings", setting);
+        treeObject.option("isResponsive", isResponsive);
+    }
+    function onHierarchyModeChange(args) {
+        var treeObject = $("#TreeGridContainer").data("ejTreeGrid");
+        var value = args.text == "Child" ? "child" : (args.text == "Both" ? "both" : args.text == "None" ? "none" : "parent");
+        var setting = {
+            filterHierarchyMode: value
+        }
+        treeObject.option("filterSettings", setting);
+    }
+</script>
+    }
+

@@ -1,0 +1,20 @@
+@section SampleHeading{
+    <span class="sampleName">ListView-Data Binding - Local Data-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to bind the local data source key value mapping to the Syncfusion ASP.NET MVC ListView component.">
+}
+@section ControlsSection{
+    @model List<ListData>
+    @{
+        @Html.EJ().ListView("locallistview").ShowHeader(false).Height(206).Width(400).DataSource(Model).FieldSettings(f => { f.Text("texts"); }).ClientSideEvents(evt =>evt.LoadComplete("setheight"));
+    }
+}
+<script type="text/javascript">
+        function setheight () {
+            if (document.body.firstElementChild.className == "htmljssamplebrowser material"){
+                var obj = $("#locallistview").ejListView("instance");
+                obj.option("_refreshScroller", true);
+                            }
+                };
+</script>
+

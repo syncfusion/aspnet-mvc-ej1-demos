@@ -1,0 +1,65 @@
+@section SampleHeading{
+    <span class="sampleName">ListBox-Reordering-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to move the Syncfusion ASP.NET MVC ListBox component items up or down into another position.">
+}
+@section ControlsSection{
+    <div class="control frame">
+        <div class="ctrllabel">
+            Reorder skills
+        </div>
+        @Html.EJ().ListBox("skillsets").Datasource((IEnumerable<Languages>)ViewBag.datasource).ListBoxFields(df => df.Text("text")).ClientSideEvents(evt => evt.Create("setheight"))
+
+    </div>
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EJ().Button("Moveup").Text("Move up").Width("107px").ClientSideEvents(ef => ef.Click("Moveup")).Width("130px")
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.EJ().Button("Movedown").Text("Move down").Width("107px").ClientSideEvents(ef => ef.Click("Movedown")).Width("130px")
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        var target;
+        $(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        function Moveup(e) {
+            var target = $('#skillsets').data("ejListBox");
+            target.moveUp();
+        }
+        function Movedown(e) {
+            var target = $('#skillsets').data("ejListBox");
+            target.moveDown();
+        }
+        function setheight() {
+            if (document.body.firstElementChild.className == "htmljssamplebrowser material" || "htmljssamplebrowser office-365") {
+                setTimeout(function () {
+                    var obj = $("#skillsets").ejListBox("instance");
+                    obj._refreshScroller();
+                }, 500);
+            }
+        }
+
+    </script>
+}
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .ctrllabel {
+            padding: 0px 0px 12px 3px;
+            font-weight: 600;
+        }
+
+        .e-ddl-popup {
+            margin: 0 auto;
+        }
+
+    </style>
+}
+

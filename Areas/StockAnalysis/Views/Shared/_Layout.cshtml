@@ -1,0 +1,32 @@
+﻿@using Syncfusion.MVC.EJ
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title</title>
+        <link href="@Url.Content("~/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />    
+        <meta name="description" content="Displays the historical stock price and volume in a graphical form using chart control | ASP.NET MVC">    
+        <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+        <link href="@Url.Content("~/Content/stockCss.css")" rel="stylesheet" type="text/css" />
+        <link href="@Url.Content("~/Content/ejthemes/default-theme/ej.widgets.all.css")" rel="stylesheet" type="text/css" />
+        <link href="@Url.Content("~/Content/ejthemes/responsive-css/ej.responsive.css")" rel="stylesheet" type="text/css" />
+        <!--[if lt IE 9]>
+		<script src="@Url.Content("~/Scripts/jquery-1.11.3.min.js")"></script>
+		<![endif]-->
+		<!--[if gte IE 9]><!-->
+		<script src="@Url.Content("~/Scripts/jquery-3.4.1.min.js")"></script>
+		<!--<![endif]-->
+        <script src="@Url.Content("~/Scripts/jsrender.min.js")" type="text/javascript"></script>
+       
+        <script src="@Url.Content("~/Scripts/ej.web.all.min.js")" type="text/javascript"></script>
+    </head>
+    <body>  
+        @RenderBody()
+       @if (IsSectionDefined("ControlsSection"))
+       {
+            @RenderSection("ControlsSection", required: false)
+       }
+        @(Html.EJ().ScriptManager())
+    </body>
+</html>

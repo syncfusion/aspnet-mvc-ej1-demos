@@ -1,0 +1,81 @@
+@section MetaTags{
+   <meta name="description" content="This demo explains how to render the Syncfusion ASP.NET MVC TreeView control with a local data." >
+}
+
+@section SampleHeading{<span class="sampleName">TreeView-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div style="width: 250px">
+        @(Html.EJ().TreeView("tree").Items(items =>
+                {
+                    items.Add().Text("File").Children(child =>
+                    {
+                        child.Add().Text("New");
+                        child.Add().Text("Open");
+                        child.Add().Text("Save");
+                        child.Add().Text("Save As");
+                        child.Add().Text("Print Preview");
+                        child.Add().Text("Print");
+                        child.Add().Text("Close");
+                    });
+                    items.Add().Text("Edit").Children(child =>
+                    {
+                        child.Add().Text("Undo");
+                        child.Add().Text("Redo");
+                        child.Add().Text("Cut");
+                        child.Add().Text("Copy");
+                        child.Add().Text("Paste");
+                    });
+                    items.Add().Text("Insert").Children(child =>
+                    {
+                        child.Add().Text("Page Numbers");
+                        child.Add().Text("Table");
+                        child.Add().Text("Picture");
+                        child.Add().Text("Comment");
+                        child.Add().Text("Links");
+                        child.Add().Text("Symbols");
+                        child.Add().Text("Diagram");
+                        child.Add().Text("TextBox");
+                        child.Add().Text("Data Time");
+                    });
+                    items.Add().Text("Format").Expanded(true).Children(child =>
+                    {
+                        child.Add().Text("Font").Children(childs =>
+                        {
+                            childs.Add().Text("Arial");
+                            childs.Add().Text("Arial Black");
+                            childs.Add().Text("Arial Narrow");
+                            childs.Add().Text("Courier");
+                            childs.Add().Text("Gaurand");
+                            childs.Add().Text("Times New Roman");
+                            childs.Add().Text("Vrendra");
+                            childs.Add().Text("Helvatica");
+                            childs.Add().Text("Impact");
+                        });
+                        child.Add().Text("Paragraph");
+                        child.Add().Text("Bullets and Numbering");
+                        child.Add().Text("Borders and Shading");
+                        child.Add().Text("Columns");
+                        child.Add().Text("Tabs");
+                        child.Add().Text("Change Case");
+                    });
+                    items.Add().Text("View").Children(child =>
+                    {
+                        child.Add().Text("Normal");
+                        child.Add().Text("Web Layout");
+                        child.Add().Text("Print Layout");
+                        child.Add().Text("Task Pane");
+                    });
+                    items.Add().Text("Tools").Children(child =>
+                    {
+                        child.Add().Text("Spelling and Grammar");
+                        child.Add().Text("Research");
+                        child.Add().Text("Language");
+                        child.Add().Text("Word Count");
+                        child.Add().Text("Track Changes");
+                        child.Add().Text("Merge Documents");
+                    });
+                }))
+
+    </div>
+}
+
