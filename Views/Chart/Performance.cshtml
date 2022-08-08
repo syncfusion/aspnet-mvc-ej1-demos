@@ -1,0 +1,76 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart-Performance-ASP.NET MVC-SYNCFUSION</span>}
+
+@section MetaTags{
+    <meta name="description" content="This sample demonstrates performance of Syncfusion ASP.NET MVC Chart Control">
+}
+
+@section ControlsSection{
+
+    <div>
+        @(Html.EJ().Chart("container").PrimaryXAxis(xaxis => xaxis.MajorGridLines(mj => mj.Visible(false)))
+              .CommonSeriesOptions(cm => cm.Type(SeriesType.Line).EnableAnimation(false))
+              .Series(ser =>
+              {
+                  ser.Name("Series1").Fill("#369EAD").Add();
+              })
+              .Load("loadTheme")
+              .IsResponsive(true)
+              .EnableCanvasRendering(true)
+              .Legend(lg => { lg.Visible(false); }))
+    </div>
+}
+
+@section PropertiesSection
+{
+    <div id="sampleProperties" class="cols-prop-area">
+        <div class="prop-grid">
+            <div class="row">
+                <div class="col-md-3">
+                    <input type="button" id="loadPoints" style="color:initial" value="Load 100K Points" onclick="loadPoints()" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    Time taken
+                </div>
+                <div class="col-md-3">
+                    <span id="timeTaken">0 ms</span>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+    function loadPoints() {
+        var chart = $("#container").ejChart("instance");
+        var data = GetData(100000);
+        chart.model.series[0].dataSource = data.Open;
+        chart.model.series[0].xName = "XValue";
+        chart.model.series[0].yName = "YValue";
+        var dt1 = new Date();                                                   // render start time
+        $("#container").ejChart("redraw");
+        var dt2 = new Date();                                                  //render end time
+        var elapsed = dt2.getTime() - dt1.getTime();
+        $("#timeTaken").text(elapsed + " ms");                                 // time taken for rendering is displayed  
+    }
+    function GetData(option) {
+        var series1 = [];
+        var value = 0;
+        for (var i = 0; i < option; i++) {
+            value += (Math.random() * 10 - 5);
+            var point1 = { XValue: i, YValue: value };
+            series1.push(point1);
+        }
+
+        var data = { Open: series1 };
+        return data;
+    }
+    $("#controlarea").css("visibility", "visible");
+    $("#sampleProperties").ejPropertiesPanel();
+</script>
+
+
+
+

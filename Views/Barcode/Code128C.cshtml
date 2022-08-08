@@ -1,0 +1,20 @@
+@section SampleHeading{ <span class="sampleName">Barcode-Code 128 C-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+
+    <div>
+        <div>
+            @Html.EJ().Barcode("128CBarcode").Text("01234567").SymbologyType(BarcodeSymbolType.Code128C).DisplayText(true).QuietZone(qz=> {qz.All(30);})
+        </div>
+    </div>
+    <script>
+    
+    </script>
+}
+@section StyleSection{
+
+}
+@section MetaTags{
+   <meta name="description" content="Essential Studio Javascript Code128C barcode">
+}
+

@@ -1,0 +1,43 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to populate a items based on the selection on another ComboBox in ASP.NET MVC ComboBox control.">
+}
+
+@section SampleHeading{
+    <span class="sampleName">ComboBox-Cascading-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+       <div class="row">
+                    <div class="col-xs-8 col-sm-4">
+            <span class="txt">Select Group</span>
+            @Html.EJ().ComboBox("groupsList").Datasource((IEnumerable<groups>)ViewBag.datasource).ComboBoxFields(f => f.Value("parentId").Text("text")).ClientSideEvents(e => e.Change("onChange")).Placeholder("Select")
+         </div>
+                    <div class="col-xs-8 col-sm-4" >
+            <span class="txt">Select Country</span>
+            @Html.EJ().ComboBox("countryList").Datasource((IEnumerable<Countries>)ViewBag.datasource1).ComboBoxFields(f=>f.Text("text")).Enabled(false)
+        </div>
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        function onChange(e) {
+            var ctry = $('#countryList').data("ejComboBox");
+            if (e.model.value == null) ctry.option({ enabled: false });
+            else ctry.option({ enabled: true, query: new ej.Query().where('parentId', 'equal', e.model.value), value: null });
+        }
+    </script>
+}
+@section StyleSection{
+    <style class="cssStyles">
+        .frame {
+            height: 70px;
+            width: 50%;
+        }
+
+        .txt {
+            display: block;
+            margin-bottom: 12px;
+        }
+    </style>
+}
+

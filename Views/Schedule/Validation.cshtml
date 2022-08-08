@@ -1,0 +1,41 @@
+@section MetaTags{
+    <meta name="description" content="This example shows how to set up validations in appointment window fields in the ASP.NET MVC Scheduler.">
+}
+@section SampleHeading{<span class="sampleName">Schedule-Validation-ASP.NET MVC-SYNCFUSION</span>}
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")"></script>
+}
+@section ControlsSection{
+    <div>
+        @(Html.EJ().Schedule("Schedule1")
+        .Width("100%")
+        .Height("525px")
+        .CurrentDate(new DateTime(2017, 6, 5))
+        .ShowLocationField(true)
+        .CategorizeSettings(fields => fields.Datasource((IEnumerable)ViewBag.categorize).Enable(true).AllowMultiple(false).Id("id").Text("text").Color("color").FontColor("fontColor"))
+        .AppointmentSettings(fields => fields.Datasource((IEnumerable)ViewBag.datasource)
+            .Id("Id")
+            .Subject(subject => subject.Field("Subject").ValidationRules(v => v.AddRule("required", true)))
+            .Location(location => location.Field("Location").ValidationRules(v => v.AddRule("required", true).AddRule("customRule", "/^[a-zA-Z0-9- ]*$/")))
+            .StartTime("StartTime")
+            .EndTime("EndTime")
+            .Description(des => des.Field("Description").ValidationRules(v => v.AddRule("required", true).AddRule("minlength", 5).AddRule("maxlength", 500)))
+            .AllDay("AllDay")
+            .Recurrence("Recurrence")
+            .RecurrenceRule("RecurrenceRule")
+            .Categorize(categorize => categorize.Field("Categorize").ValidationRules(v => v.AddRule("required", true).AddRule("messages", new Dictionary<string, object>() { { "required", "Categories are required." } }))))
+        )
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        $(function () {
+            $.validator.addMethod("customRule", function (value, element, options) {
+                var ptn = /^[a-zA-Z0-9- ]*$/;
+                return ptn.test(value);
+            }, "Special character(s) not allowed in Location field");
+        });
+    </script>
+}
+

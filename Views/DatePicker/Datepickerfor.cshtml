@@ -1,0 +1,37 @@
+@section MetaTags{
+   <meta name="description" content="DatePicker for ASP.NET MVC with the strongly typed extension support. Value is set from the code behind by invoking DatePickerFor helper">
+}
+
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+
+@section SampleHeading{
+    <span class="sampleName">DatePicker-DatePickerFor-ASP.NET MVC-SYNCFUSION</span>}
+
+@model MVCSampleBrowser.Models.datepicker
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true) 
+                    
+                @Html.EJ().DatePickerFor(model => model.datepicker1, (Syncfusion.JavaScript.Models.DatePickerProperties)ViewData["date"]).Width("100%")
+                @Html.ValidationMessageFor(model => model.datepicker1)
+
+                @Html.EJ().Button("btn").Size(ButtonSize.Small).Text("Post").Type(ButtonType.Submit)
+            }
+        </div>
+    </div>
+}
+@section StyleSection{
+    <style>
+        #btn {
+            margin-left: 30px;
+            margin-top: 20px;
+        }
+    </style>
+}
+

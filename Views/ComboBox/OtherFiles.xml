@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Category>
+  <Samples url="/ComboBox/Api">
+    <DependentFiles displayname="Model" url="/Models/Flowers.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/ComboBox/Cascading">
+    <DependentFiles displayname="Group Model" url="/Models/groups.cs"></DependentFiles>
+    <DependentFiles displayname="Countries Model" url="/Models/Countries.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/ComboBox/DatabindingJson">
+    <DependentFiles displayname="Model" url="/Models/States.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/ComboBox/Default">
+    <DependentFiles displayname="Model" url="/Models/CarsList.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/ComboBox/Events">
+    <DependentFiles displayname="Model" url="/Models/Colors.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/ComboBox/Filtering">
+    <DependentFiles displayname="Model" url="/Models/Countries.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/ComboBox/Grouping">
+    <DependentFiles displayname="Model" url="/Models/Countries.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/ComboBox/Icons">
+    <DependentFiles displayname="Model" url="/Models/IconCss.cs"></DependentFiles>
+  </Samples>
+ <Samples url="/ComboBox/Rtl">
+    <DependentFiles displayname="Model" url="/Models/CarsList.cs"></DependentFiles>
+  </Samples>
+<Samples url="/ComboBox/Template">
+    <DependentFiles displayname="Model" url="/Models/empList.cs"></DependentFiles>
+  </Samples>
+</Category>

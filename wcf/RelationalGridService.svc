@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="MvcSampleBrowser.RelationalGridService" CodeBehind="RelationalGridService.svc.cs" %>

@@ -1,0 +1,108 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to localize the pager in a ASP.NET MVC DatePicker">
+}
+
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.de-DE.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.fr-FR.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.vi-VN.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.zh-CN.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName">Pager-Localization-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @{Html.EJ().Rotator("content").ShowPager(false).Items(itemElement =>
+                {
+                itemElement.Add().ContentTemplate(@<div>
+                <img class="image" src="@Url.Content("~/Images/rotator/nature.jpg")" />
+            </div>);
+                itemElement.Add().ContentTemplate(@<div>
+                <img class="image" src="@Url.Content("~/Images/rotator/bird.jpg" )" />
+            </div>);
+                itemElement.Add().ContentTemplate(@<div>
+                <img class="image" src="@Url.Content("~/Images/rotator/sculpture.jpg")" />
+            </div>);
+                itemElement.Add().ContentTemplate(@<div>
+                <img class="image" src="@Url.Content("~/Images/rotator/seaview.jpg")" />
+            </div>);
+                itemElement.Add().ContentTemplate(@<div>
+                <img class="image" src="@Url.Content("~/Images/rotator/snowfall.jpg")" />
+            </div>);
+                }).SlideWidth("100%").SlideHeight("350px").IsResponsive(true).ShowPlayButton(false).ShowNavigateButton(false).Render();}
+            @Html.EJ().Pager("pager").PageCount(5).PageSize(1).IsResponsive(true).TotalRecordsCount(5).ClientSideEvents(e => e.Change("pagerChange"))
+        </div>
+    </div>
+}
+<div id="droplist">
+    <ul>
+        <li>en-US</li>
+        <li>de-DE</li>
+        <li>es-ES</li>
+    </ul>
+</div>
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            <span>Select Culture</span>
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("drop").TargetID("droplist").Width("110px").SelectedItemIndex(0).ClientSideEvents(s => s.Change("onchange"))
+        </div>
+    </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+
+        function onchange(args) {
+            var pagerObject = $("#pager").data("ejPager");
+            pagerObject.setModel({ locale: args.text });
+        }
+
+        function pagerChange(args) {
+            slider_obj = $("#content").ejRotator("instance");
+            slider_obj.gotoIndex(args.currentPage - 1);
+        }
+
+        $("#sampleProperties").ejPropertiesPanel();
+
+        ej.Pager.Locale["es-ES"] = {
+            pagerInfo: "{0} de {1} páginas ({2} artículos)",
+            firstPageTooltip: "Ir a la primera página",
+            lastPageTooltip: "Ir a la última página",
+            nextPageTooltip: "Ir a la página siguiente",
+            previousPageTooltip: "Ir a la página anterior",
+            nextPagerTooltip: "Ir al siguiente Pager",
+            previousPagerTooltip: "Ir a Pager anterior"
+        };
+
+        ej.Pager.Locale["de-DE"] = {
+            pagerInfo: "{0} von {1} Seiten ({2} Beiträge)",
+            firstPageTooltip: "Zur ersten Seite",
+            lastPageTooltip: "Zur letzten Seite",
+            nextPageTooltip: "Zur nächsten Seite",
+            previousPageTooltip: "Zurück zur letzten Seite",
+            nextPagerTooltip: "Zum nächsten Pager",
+            previousPagerTooltip: "Zum vorherigen Pager"
+        };
+
+    </script>
+}
+
+
+@section StyleSection{
+    <style type="text/css" class="cssStyles">
+        .frame {
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        #content > li .image {
+            width: 100%;
+            height: 350px;
+        }
+    </style>
+}
+

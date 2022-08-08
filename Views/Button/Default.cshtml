@@ -1,0 +1,57 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates the default functionalities of the Button control and its properties like size, contenttype and showroundedcorner in a ASP.NET MVC.">
+}
+
+@section SampleHeading{
+    <span class="sampleName">Button-Default Functionalities-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            <table>
+                <tr>
+                    <td>Button Normal
+                    </td>
+                    <td class="btnsht">
+                        @Html.EJ().Button("button11").Text("Login").Size(ButtonSize.Normal).ShowRoundedCorner(true).ContentType(ContentType.ImageOnly).PrefixIcon("e-icon e-handup")
+                    </td>
+                </tr>
+                <tr>
+                    <td>Button Mini
+                    </td>
+                    <td class="btnsht">
+                        @Html.EJ().Button("button21").Text("Login").ShowRoundedCorner(true).Size(ButtonSize.Mini)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Button Small
+                    </td>
+                    <td class="btnsht">
+                        @Html.EJ().Button("button31").Text("Login").ShowRoundedCorner(true).Size(ButtonSize.Small)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Button Medium
+                    </td>
+                    <td class="btnsht">
+                        @Html.EJ().Button("button41").Text("Login").ShowRoundedCorner(true).Size(ButtonSize.Medium)
+                    </td>
+                </tr>
+                <tr>
+                    <td>Button Large
+                    </td>
+                    <td class="btnsht">
+                        @Html.EJ().Button("button51").Text("Login").ShowRoundedCorner(true).Size(ButtonSize.Large).ContentType(ContentType.TextAndImage).PrefixIcon("e-icon e-handup")
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+}
+@section StyleSection{
+    <style>
+        .frame {
+            width: 30%;
+        }
+    </style>
+}
+
