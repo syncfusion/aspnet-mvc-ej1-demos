@@ -1,0 +1,24 @@
+@section MetaTags{
+    <meta name="description" content="This example shows how to add and edit appointments inline on the ASP.NET MVC Scheduler.">
+}
+@section SampleHeading{<span class="sampleName">Schedule-Inline Add & Edit-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+<div>
+    @(Html.EJ().Schedule("Schedule1")
+    .Width("100%")
+    .Height("525px")
+    .CurrentDate(new DateTime(2017,6,5))
+    .AllowInline(true)
+    .AppointmentSettings(fields => fields.Datasource((IEnumerable)ViewBag.datasource)
+    .Id("Id")
+    .Subject("Subject")
+    .StartTime("StartTime")
+    .EndTime("EndTime")
+    .Description("Description")
+    .AllDay("AllDay")
+    .Recurrence("Recurrence")
+    .RecurrenceRule("RecurrenceRule"))
+    )
+</div>
+}
+

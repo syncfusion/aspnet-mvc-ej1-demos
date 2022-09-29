@@ -1,0 +1,45 @@
+@section MetaTags{
+    <meta name="description" content="This example shows how the ASP.NET MVC Scheduler exports appointments to an Excel file.">
+}
+@section SampleHeading{
+    <span class="sampleName">Schedule-Excel Export-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+    <div>
+        @(Html.EJ().Schedule("Schedule1")
+        .Width("100%")
+        .Height("525px")
+        .CurrentDate(new DateTime(2017, 6, 5))
+        .AppointmentSettings(fields => fields.Datasource((IEnumerable)ViewBag.datasource)
+            .Id("Id")
+            .Subject("Subject")
+            .StartTime("StartTime")
+            .EndTime("EndTime")
+            .Description("Description")
+            .AllDay("AllDay")
+            .Recurrence("Recurrence")
+            .RecurrenceRule("RecurrenceRule"))
+        )
+    </div>
+}
+
+@section PropertiesSection{
+    <div class="row">
+        <p>To export the Schedule appointments in an excel file, click the below button.</p>
+        <div class="col-md-3">
+            @Html.EJ().Button("btnExport").Text("Export to Excel").Height("30px").ClientSideEvents(cli => cli.Click("onExportClick"))
+        </div>
+    </div>
+}
+
+@section ScriptSection{
+    <script type="text/javascript">
+        $(document).ready(function () { $("#sampleProperties").ejPropertiesPanel(); });
+
+        function onExportClick(args) {
+            var proxy = $("#Schedule1").data("ejSchedule");
+            proxy.exportToExcel("ExportAsExcel", null, false);
+        }
+    </script>
+}
+

@@ -1,0 +1,27 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to upload a file and save it using a web api service in Syncfusion ASP.NET MVC Upload control."  >
+}
+
+@section SampleHeading{
+    <span class="sampleName">Upload-Web API Service-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            <div class="posupload">Select a file to upload</div>
+            @Html.EJ().Uploadbox("UploadDefault").SaveUrl("//js.syncfusion.com/ejServices/api/uploadbox/Save").RemoveUrl("//js.syncfusion.com/ejServices/api/uploadbox/Remove").UploadName("Uploadbox")
+        </div>
+    </div>
+}
+@section StyleSection{
+    <style class="cssStyles">
+        .posupload {
+            padding: 10px;
+            text-align: center;
+        }
+
+        #UploadDefault {
+            margin: 0 auto;
+        }
+    </style>
+}
+

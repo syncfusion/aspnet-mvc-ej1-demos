@@ -1,0 +1,31 @@
+@section SampleHeading{ <span class="sampleName">Diagram-Team-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This sample illustrates visualizing team management organizational chart with custom templates and ASP.NET MVC diagram's organizational chart layout algorithm.">
+}
+@section ControlsSection{
+    <div id="main">
+        @Html.EJ().Diagram("TeamChart", ViewData["diagramModel"] as Syncfusion.JavaScript.DataVisualization.Models.DiagramProperties)
+    </div>
+    
+    <script type="text/javascript">
+        function nodeTemplate(diagram, node) {
+            node.source = node.ImageUrl;
+            node.labels[0].text = node.Name;
+            node.labels[1].text = node.Designation;
+        }
+    </script>
+    <script src="@Url.Content("~/Scripts/DiagramScripts/DiagramCommon.js")"></script>
+}
+
+<style>
+    .svg-rotate-ie:hover
+    {
+        cursor: url("../../Content/ejthemes/common-images/diagram/Rotate.cur"),default;
+    }
+
+    .svg-rotate
+    {
+        cursor: url("../../Content/ejthemes/common-images/diagram/Rotate.cur"),default;
+    }
+</style>
+

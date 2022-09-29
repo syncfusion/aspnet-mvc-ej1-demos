@@ -1,0 +1,38 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+@section SampleHeading{<span class="sampleName">Chart-Pyramid-ASP.NET MVC-SYNCFUSION</span>}
+
+@section MetaTags{
+    <meta name="description" content="This sample demonstrates how to render pyramid series using Syncfusion ASP.NET MVC Chart Control">
+}
+
+@section ControlsSection{
+    <div>
+        @(Html.EJ().Chart("container")
+              .Series(sr =>
+                              {
+                                  sr.Points(pt =>
+                                       {
+                                           pt.X("India").Y(24).Text("India 28%").Add();
+                                           pt.X("Japan").Y(25).Text("Japan 10%").Add();
+                                           pt.X("Australia").Y(20).Text("Australia 20%").Add();
+                                           pt.X("USA").Y(35).Text("USA 15%").Add();
+                                           pt.X("China").Y(23).Text("China 23%").Add();
+                                           pt.X("Germany").Y(27).Text("Germany 17%").Add();
+                                           pt.X("France").Y(22).Text("France 12%").Add();
+                                       }).Marker(mr => mr.DataLabel(dl => dl.Visible(true).EnableContrastColor(true).Shape(ChartShape.Rectangle).Font(br => br.Size("15px").FontWeight(ChartFontWeight.Lighter))))
+                                          .Name("Newyork").Type(SeriesType.Pyramid)
+                                          .LabelPosition(ChartLabelPosition.Outside).Add();
+                              })
+                  .Load("loadTheme")
+                  .IsResponsive(true)
+                  .Title(title => title.Text("Sales Distribution of Car by Region"))
+                  .Size(sz => sz.Height("600"))
+                  .Legend(lg => { lg.Visible(true).Position(LegendPosition.Top); })
+        )
+        <script>
+            $("#controlarea").css("visibility", "visible");
+        </script>
+    </div>
+}
+

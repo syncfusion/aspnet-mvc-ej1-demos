@@ -1,0 +1,106 @@
+@using Syncfusion.JavaScript.DataVisualization
+
+
+@section SampleHeading{<span class="sampleName">XlsIO-Excel To PDF-ASP.NET MVC-SYNCFUSION</span>}
+
+ @section ControlsSection{                                
+	      @{ViewBag.Title = "    Essential XlsIO (Excel) :Excel To PDF Conversion : Syncfusion";}
+
+
+@{ Html.BeginForm("ExcelToPDF", "XlsIO", FormMethod.Post);
+ {
+    <div class="Common">
+        <div class="tablediv">
+            <div class="rowdiv">
+                This sample illustrates the conversion of Microsoft Excel document to PDF.
+                <br />
+                <br />Essential XlsIO allows to export Excel document to PDF by using the <b>Convert</b> method of <b>ExcelToPDFConverter</b> class.
+                <br />
+                <br /><b>Features:</b>
+                <br />
+                <br />
+                <ul>
+                    <li>Supports conversion of Excel document to PDF document with cell values, cell styles, tables, charts, autoshapes, pictures, etc.</li>
+                </ul>
+                <br />
+                <b>Note:</b> Installation of Essential PDF and ExcelChartToImageConverter is necessary to run this sample
+            </div>
+            <br />
+            <div class="rowdiv">
+                Clicking the 'Convert to PDF' button will convert the Excel document to PDF. PDF viewer is needed to view the converted PDF document.
+            </div>
+            <br />
+            <div class="rowdiv">
+                <label>
+                    PDF Page Setup options
+                </label>
+            </div>
+            <br />
+            <div class="rowdiv">
+                <div class="celldiv">
+                    &nbsp; &nbsp; &nbsp;
+                    <input type="radio" id="noScaleRadioBtn" name="Group1" value="NoScaling" />
+                    <label for="noScaleRadioBtn">
+                        NoScaling
+                    </label>
+                    &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;&nbsp;
+                    <input type="radio" id="allRowsRadioBtn" name="Group1" value="FitAllRowsOnOnePage" />
+                    <label for="allRowsRadioBtn">
+                        FitAllRowsOnOnePage
+                    </label>
+                </div>
+                <br />
+                <div class="celldiv">
+                    &nbsp; &nbsp; &nbsp;
+                    <input type="radio" id="allColumnRadioBtn" name="Group1" value="FitAllColumnsOnOnePage" />
+                    <label for="allColumnRadioBtn">
+                        FitAllColumnsOnOnePage
+                    </label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" id="fitSheetRadioBtn" name="Group1" value="FitSheetOnOnePage" checked="checked" />
+                    <label for="fitSheetRadioBtn">
+                        FitSheetOnOnePage
+                    </label>
+                </div>
+            </div>
+            <br />
+            <div class="rowdiv">
+                <label>  Substitute Fonts </label>
+            </div>
+            <br />
+            <div class="rowdiv">
+                <div class="celldiv">
+                    &nbsp; &nbsp; &nbsp;
+                    <input type="checkbox" id="checkfontName" name="checkboxName" value="Font Name" />
+                    <label for="checkfontName">
+                        Font Name
+                    </label>
+                    <H6>&nbsp; &nbsp; &nbsp;&nbsp;Missing fonts in the device will be substituted to Calibri.</H6>
+                    &nbsp; &nbsp; &nbsp;
+                    <input type="checkbox" id="checkfontStream" name="checkboxStream" value="Font Stream" />
+                    <label for="checkfontStream">
+                        Font Stream
+                    </label>                   
+                    <H6>&nbsp; &nbsp; &nbsp;&nbsp;Missing fonts in the device will be substituted from embedded resource.</H6>
+                </div>
+                <br />
+                <div class="celldiv">
+                    <table>
+                        <tr>
+                            <td>
+                                <input id="viewtemplate" class="buttonStyle" type="submit" name="button" value="Input Template" style="width:140px;" />
+                            </td>
+                            <td style="width:10px;"></td>&nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                            <td>
+                                <input class="buttonStyle" type="submit" value="Convert to PDF" name="button" style="width:140px" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+     Html.EndForm();
+ } }               
+              }
+

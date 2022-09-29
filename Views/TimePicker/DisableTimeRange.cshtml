@@ -1,0 +1,27 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how the timepicker supports the keyboard navigation (Keyboard shortcuts) in a ASP.NET MVC">
+}
+
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+}
+
+@section SampleHeading{<span class="sampleName">TimePicker-Disable Time Ranges-ASP.NET MVC-SYNCFUSION</span>}
+
+@model  Syncfusion.JavaScript.Models.TimePickerProperties
+
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().TimePicker("TimePick",Model)
+        </div>
+    </div>
+    <style>
+        .office-365 .e-timewidget{
+            width:100%
+        }
+        </style>
+}
+
+
+

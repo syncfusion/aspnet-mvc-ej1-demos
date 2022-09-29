@@ -1,0 +1,82 @@
+@section SampleHeading{
+    <span class="sampleName">ListBox-Template-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to customize the list of items in the Syncfusion ASP.NET MVC ListBox component.">
+}
+@section ControlsSection{
+    <div class="control frame">
+        <div class="ctrllabel">
+            Select an expert
+        </div>
+        @Html.EJ().ListBox("selectExperts").Datasource((IEnumerable<EmployeeSpecialists>)ViewBag.datasource).Template("<img class='eimg' src='../images/Employee/${eimg}.png' alt='employee' height='50px' width='50px'/><div class='ename'> ${text} </div><div class='desig'> ${desig} </div><div class='cont'> ${country} </div>")
+    </div>
+}
+@section StyleSection{
+    <style type="text/css">
+        .ctrllabel {
+            padding: 0px 0px 12px 3px;
+            font-weight: 600;
+        }
+
+        .e-ddl-popup {
+            margin: 0 auto;
+        }
+
+        .eimg {
+            margin: 0;
+            padding: 3px 10px 3px 3px;
+            border: 0 none;
+            width: 60px;
+            height: 60px;
+            float: left;
+        }
+
+        .ename {
+            font-weight: bold;
+            padding: 3px 3px 1px 3px;
+        }
+
+        .desig, .cont {
+            font-size: smaller;
+            padding: 3px 3px -1px 0px;
+        }
+
+        #selectExperts li {
+            height: 70px;
+            padding: 5px;
+        }
+        .htmljssamplebrowser.office-365 #selectExperts li {
+			height: 98px;
+			width: 250px;
+			padding: 0 !important;
+            border-bottom: 1px solid #eaeaea; 
+		}
+
+        .htmljssamplebrowser.office-365 .ename, .htmljssamplebrowser.office-365 .cont, .htmljssamplebrowser.office-365 .desig {
+			line-height: normal;
+		}
+		
+		.htmljssamplebrowser.office-365 .ename {
+			color: #333333;
+			font-size: 21px;
+			font-weight: lighter;
+			padding: 12px 0 6px;
+		}
+		
+		.htmljssamplebrowser.office-365 .desig, .htmljssamplebrowser.office-365 .cont {
+			color: #666666;
+			font-size: 13px;
+		}
+		
+		.htmljssamplebrowser.office-365 .cont {
+			padding-top: 12px;
+		}
+		
+		.htmljssamplebrowser.office-365 .eimg{
+			height: 50px;
+			width: 50px;
+			padding: 10px 10px 20px;
+		}
+    </style>
+}
+

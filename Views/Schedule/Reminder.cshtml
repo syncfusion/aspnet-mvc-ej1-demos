@@ -1,0 +1,136 @@
+﻿@section SampleHeading{<span class="sampleName"> Schedule / Reminder</span>}
+@section ControlsSection{
+    <!-- Reminder list div elements-->
+    <div id="reminder" class="media" data-content=" ">
+        <a class="pull-left" href="#" style="margin-top: 9px; outline: medium none;">
+            <div class="reminder-icon">
+            </div>
+            <span id="reminderCount" class="badge badge-success pull-right">0</span>
+        </a>
+    </div>
+    <!-- Notification div element-->
+    <div class='notifications bottom-right'>
+    </div>
+    <div>
+        @(Html.EJ().Schedule("Schedule1")
+        .Width("100%")
+        .Height("525px")
+        .ReminderSettings(rem => rem.Enable(true).AlertBefore(6))
+        .ScheduleClientSideEvents(eve => eve.Reminder("ongetReminderList").Create("onCreate"))
+        .AppointmentSettings(fields => fields.Datasource((IEnumerable)ViewBag.datasource)
+            .Id("Id")
+            .Subject("Subject")
+            .StartTime("StartTime")
+            .EndTime("EndTime")
+            .Description("Description")
+            .AllDay("AllDay")
+            .Recurrence("Recurrence")
+            .RecurrenceRule("RecurrenceRule"))
+        )
+    </div>
+}
+
+@section StyleSection{
+    <link href="@Url.Content("~/Content/bootstrap-notify.css")" rel="stylesheet" />
+    <style>
+        #reminderCount {
+            position: relative;
+            min-width: 6px;
+            top: -36px;
+            left: 10px;
+            background-color: #FF0000;
+        }
+
+        #reminder {
+            width: 50px;
+            height: 40px;
+            margin-top: 1px;
+            float: right;
+        }
+
+        .reminder-icon {
+            background: url("../images/schedule/bell.png") no-repeat scroll 8px 6px;
+            border: 1px solid #BBBCBB;
+            height: 28px;
+            width: 28px;
+            border-radius: 6px;
+        }
+
+        .popover.bottom .arrow {
+            margin-top: 0px;
+        }
+
+        .popover {
+            width: 300px;
+        }
+
+        .outerDiv {
+            border-bottom: 1px solid #BBBCBB;
+            padding-bottom: 5px;
+        }
+
+        .notifications {
+            position: absolute;
+        }
+
+        .notifications.bottom-right {
+            z-index: 9999;
+            bottom: 25% !important;
+        }
+    </style>
+}
+@section ScriptSection{
+    <script src="@Url.Content("~/Scripts/bootstrap-notify.js")"></script>
+    <script src="@Url.Content("~/Scripts/bootstrap.min.js")"></script>
+    <script type="text/javascript">
+        function onCreate() {
+            //Append the reminder list to the Schedule header
+            $("#Schedule1").find("tr.e-scheduleheader td").first().append($("#reminder"));
+            // Reminder list load to the popover control
+            $("#reminder").popover({ placement: 'bottom' });
+            //popover content has been updated
+            $('#reminder').on('shown.bs.popover', function () {
+                if (parseInt($("#reminderCount").text()) == 0)
+                    return false;
+                $(".popover-content").html($_remList);
+                $(".outerDiv .close").on("click", function () {
+                    $(this).parents(".outerDiv").remove();
+                    $_remList = $(".popover-content").html();
+                    $("#reminderCount").html(parseInt($("#reminderCount").text()) - 1);
+                    checkList();
+                });
+                $(".outerDiv").on("mouseover", function () {
+                    $(this).find(".close").show();
+                });
+                $(".outerDiv").on("mouseout", function () {
+                    $(this).find(".close").hide();
+                });
+            });
+        }
+        function checkList() {
+            if (parseInt($("#reminderCount").text()) == 0)
+                $("#reminderCount").hide();
+            else
+                $("#reminderCount").show();
+        }
+        var $_remList = "";
+        function ongetReminderList(args) {
+            $("#reminderCount").html(parseInt($("#reminderCount").text()) + 1);
+            checkList();
+            $_remList += "<div class='outerDiv'><div><span class='e-quicksubject'>" + args.reminderAppointment.Subject +
+                            "</span><a class='close pull-right' href='#' style='display:none;'>×</a></div><div class='e-quickstartendtime'>" + args.reminderAppointment.StartTime +
+                            "</div></div>";
+            var notifiList = "<div><span class='e-quicksubject'>" + args.reminderAppointment.Subject +
+                            "</span><div class='e-quickstartendtime'>" + args.reminderAppointment.StartTime +
+                            "</div></div>";
+            // Show the notification div
+            $('.bottom-right').notify({
+                message: { html: notifiList },
+                type: "info",
+                fadeOut: {
+                    enabled: false
+                }
+            }).show();
+        }
+    </script>
+}

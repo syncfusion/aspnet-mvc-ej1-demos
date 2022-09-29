@@ -1,0 +1,49 @@
+
+@section SampleHeading{ <span class="sampleName">Diagram-Overview-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This sample demonstrates ASP.NET MVC diagram's overview panel behavior which is used to improve the navigation experience when exploring large diagrams.">
+}
+@section ControlsSection{
+    <div>
+        @Html.EJ().Diagram("Diagram1", ViewData["diagramModel"] as Syncfusion.JavaScript.DataVisualization.Models.DiagramProperties)
+    </div>
+    }
+    @section PropertiesSection{
+             <div class="row">
+                  <div class="col-md-3">
+                            Overview
+                   </div>
+             <div class="row">
+          @Html.EJ().Overview("Overview", ViewData["overview"] as Syncfusion.JavaScript.DataVisualization.Models.OverviewProperties)
+               </div>
+            </div>
+}
+@section ScriptSection{
+    <script type="text/javascript">
+        function create(args) {
+            $("#sampleProperties").ejPropertiesPanel();
+            if (!(ej.browserInfo().name === "msie" && Number(ej.browserInfo().version) < 9)) {
+                var diagram = $("#Diagram1").ejDiagram("instance");
+                diagram.activateTool("panTool");
+            }
+            else {
+                alert("Diagram will not be supported in IE Version < 9");
+            }
+        }
+    </script>
+}
+
+
+
+<style>
+    .svg-rotate-ie:hover
+    {
+        cursor: url("../../Content/ejthemes/common-images/diagram/Rotate.cur"),default;
+    }
+
+    .svg-rotate
+    {
+        cursor: url("../../Content/ejthemes/common-images/diagram/Rotate.cur"),default;
+    }
+</style>
+

@@ -1,0 +1,115 @@
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.en-US.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.de-DE.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.fr-FR.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.vi-VN.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/cultures/ej.culture.zh-CN.min.js")"></script>
+}
+@section SampleHeading{<span class="sampleName">Editor-Localization-ASP.NET MVC-SYNCFUSION</span>}
+
+@section ControlsSection{
+  <div class="frame">
+     <div class="row">
+            <div class="col-xs-6 col-sm-5">
+                            <span>Numeric TextBox</span>
+                        </div>
+            <div class="col-xs-6 col-sm-4">
+                            @Html.EJ().NumericTextbox("numeric").Value("1000.56").Locale("de-DE").DecimalPlaces(2).Width("100%")
+                        </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-5">
+                            <span>Percentage TextBox</span>
+                       </div>
+            <div class="col-xs-6 col-sm-4">
+                            @Html.EJ().PercentageTextbox("percent").Value("100.24").Locale("de-DE").DecimalPlaces(2).Width("100%")
+                        </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-6 col-sm-5">
+                            <span>Currency TextBox</span>
+                        </div>
+            <div class="col-xs-6 col-sm-4">
+                            @Html.EJ().CurrencyTextbox("currency").Value("50.65").Locale("de-DE").DecimalPlaces(2).Width("100%")
+                        </div>
+        </div>
+      <div class="row">
+          <div class="col-xs-6 col-sm-5">
+              <span>MaskEdit TextBox</span>
+          </div>
+          <div class="col-xs-6 col-sm-4">
+              @(Html.EJ().MaskEdit("maskedit").InputMode(InputMode.Text).MaskFormat("$999,999.99").Width("100%").Locale("de-DE"))
+          </div>
+      </div>
+    </div>
+}
+<div id="droplist">
+    <ul>
+        <li>en-US</li>
+        <li>de-DE</li>
+        <li>fr-FR</li>
+        <li>zh-CN</li>
+    </ul>
+</div>
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            <span>Select Culture</span>
+        </div>
+        <div class="col-md-3">
+            @Html.EJ().DropDownList("drop").TargetID("droplist").Width("120px").SelectedItemIndex(1).ClientSideEvents(s => s.Change("onchange"))
+
+        </div>
+    </div>}
+@section ScriptSection{
+
+    <script>
+        var numobject, percentobject, currencyobject,maskobject;
+        function onchange(args) {
+            var maskFormat;
+            args.text == "de-DE" || args.text == "fr-FR" ? maskFormat = "99,999.99$" : maskFormat = "$99,999.99";
+            numobject = $("#numeric").data("ejNumericTextbox");
+            percentobject = $("#percent").data("ejPercentageTextbox");
+            currencyobject = $("#currency").data("ejCurrencyTextbox");
+            maskobject = $("#maskedit").data("ejMaskEdit");
+            numobject.option("locale", args.text);
+            percentobject.option("locale", args.text);
+            currencyobject.option("locale", args.text);
+            maskobject.option({ "maskFormat": maskFormat, "locale": args.text });
+        }
+        $("#sampleProperties").ejPropertiesPanel();
+        ej.NumericTextbox.Locale['de-DE'] = ej.PercentageTextbox.Locale['de-DE'] = ej.CurrencyTextbox.Locale['de-DE'] = {
+            watermarkText: "Geben Sie Wert"
+        };
+        ej.NumericTextbox.Locale['fr-FR'] = ej.PercentageTextbox.Locale['fr-FR'] = ej.CurrencyTextbox.Locale['fr-FR'] = {
+            watermarkText: "Entrer la valeur"
+        };
+        ej.NumericTextbox.Locale['zh-CN'] = ej.PercentageTextbox.Locale['zh-CN'] = ej.CurrencyTextbox.Locale['zh-CN'] = {
+            watermarkText: "輸入值"
+        };
+    </script>
+}
+@section StyleSection{
+
+    <style type="text/css" class="cssStyles">
+        #text5 {
+            width: 124px;
+        }
+
+        .frame {
+            width: 50%;
+        }
+
+        .control {
+            color: gray;
+            font-size: medium;
+        }
+       .col-xs-6.col-sm-5 {
+            margin-top: 10px;
+        }
+       .col-xs-6.col-sm-4 {
+            padding-top: 7px;
+        }
+    </style>
+}
+

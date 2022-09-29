@@ -1,0 +1,53 @@
+@section SampleHeading{<span class="sampleName">Grid-Custom Summary-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This demo explains how to show custom summary values for numeric columns in Syncfusion ASP.NET MVC DataGrid control.">
+}
+@section ControlsSection{
+    @(Html.EJ().Grid<EditableOrder>("Summary")
+          .Datasource((IEnumerable<object>)ViewBag.datasource)
+                .ShowSummary()
+
+                .AllowPaging()
+
+                .PageSettings(page => { page.PageSize(5); })
+
+                .SummaryRow(row =>
+                {
+
+                    row.Title("Currency").SummaryColumns(col => { col.SummaryType(SummaryType.Custom).CustomSummaryValue("currency").DisplayColumn("Freight").Format("{0:C2}").Add(); }).Add();
+
+                })
+
+                .Columns(col =>
+                {
+
+                    col.Field("OrderID").HeaderText("Order ID").TextAlign(TextAlign.Right).Width(70).Add();
+
+                    col.Field("CustomerID").HeaderText("Customer ID").Width(70).Add();
+
+                    col.Field("EmployeeID").HeaderText("Employee ID").TextAlign(TextAlign.Right).Width(70).Add();
+
+                    col.Field("ShipCity").HeaderText("Ship City").Width(70).Add();
+
+                    col.Field("Freight").HeaderText("Freight").TextAlign(TextAlign.Right).Width(70).Format("{0:C}").Add();
+
+                })
+
+
+    )
+}
+
+@section ScriptSection{
+
+    <script type="text/javascript">
+
+        function currency() {
+            var gridObj = $("#Summary").ejGrid("instance")
+            var rs=ej.sum(gridObj.model.dataSource, "Freight")
+            var dol = 0.017;
+            return (rs * dol);
+        }
+    </script>
+
+}
+
