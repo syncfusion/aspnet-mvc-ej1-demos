@@ -1,0 +1,306 @@
+@section SampleHeading{
+    <span class="sampleName">BulletGraph-API's-ASP.NET MVC-SYNCFUSION</span>
+}
+@section ControlsSection{
+
+    @(Html.EJ().BulletGraph("BulletGraph1").Height(600).QualitativeRangeSize(32).QuantitativeScaleLength(475)
+            .TooltipSettings(t => t.Visible(true)).Orientation(Orientation.Horizontal).FlowDirection(Syncfusion.JavaScript.DataVisualization.FlowDirection.Forward)
+            .QuantitativeScaleSettings(qs =>
+            {
+                qs.Location(l => l.x(110).y(150))
+                    .Minimum(0)
+                    .Maximum(10)
+                    .Interval(1)
+                    .MinorTicksPerInterval(4)
+                    .MajorTickSettings(mat => mat.Size(13).Width(1).Stroke(System.Drawing.Color.Gray))
+                    .MinorTickSettings(mit => mit.Size(5).Width(1).Stroke(System.Drawing.Color.Gray))
+                    .LabelSettings(la => { la.Position(Syncfusion.JavaScript.DataVisualization.LabelPosition.Below).Offset(14)
+                    .Size(10); })
+                    .TickPosition(Syncfusion.JavaScript.DataVisualization.TickPosition.Far)
+                    .FeaturedMeasureSettings(fm => fm.Width(6))
+                    .ComparativeMeasureSettings(cm => cm.Width(5))
+                    .FeatureMeasure(fm => { fm.ComparativeMeasureValue(6.7).Value(8).Category("").Add(); });
+
+            })
+            .QualitativeRanges(qr =>
+            {
+                qr.RangeEnd(4.3).Add();
+                qr.RangeEnd(7.3).Add();
+                qr.RangeEnd(10).Add();
+            })
+            .CaptionSettings(cs => cs.EnableTrim(false).TextPosition(BulletTextPosition.Left).TextAlignment(BulletTextAlignment.Center).TextAngle(0).Text("Sales Review").Location(ls => ls.x(17).y(160))
+            .Font(f => f.FontFamily("Sagoe UI").FontStyle(BulletFontStyle.Normal.ToString())
+            .FontSize("12px").FontWeight("Normal").Opacity(1))
+                    .SubTitle(so => so.TextPosition(BulletTextPosition.Left).TextAlignment(BulletTextAlignment.Center).TextAngle(0).Text("$ in Thousands").Location(l => l.x(10).y(175))
+            .Font(f => f.FontFamily("Segoe UI").FontStyle(BulletFontStyle.Italic.ToString())
+            .FontSize("12px").FontWeight("Normal").Opacity(1))))
+            )
+    <div id="Tooltip" style="display: none; width: 125px; padding-top: 10px; padding-bottom: 10px">
+        <div align="center" style="font-weight: bold">
+            Sales
+        </div>
+        <table>
+            <tr>
+                <td>Current
+                </td>
+                <td>: {{:currentValue}}
+                </td>
+
+            </tr>
+            <tr>
+                <td>Target
+                </td>
+                <td>: {{:targetValue}}
+                </td>
+            </tr>
+        </table>
+    </div>
+
+}
+@section PropertiesSection{
+    <div class="row">
+        <div class="col-md-3">
+            Label Prefix
+        </div>
+        <div class="col-md-3 aligntop">
+            <input type="text" autocomplete="off" id="labelprefix" onchange="AddPrefix(this)" 
+                style="width: 100px; height: 22px;" value="" />
+        </div>
+        <div class="col-md-3">
+            Label Suffix
+        </div>
+        <div class="col-md-3 aligntop">
+            <input type="text" autocomplete="off" id="labelsuffix" onchange="AddSuffix(this)" 
+                style="width: 100px; height: 22px;" value="" />
+        </div>
+        <div class="col-md-3">
+            Range Stroke to Ticks
+        </div>
+        <div class="col-md-3 aligntop">
+            @Html.EJ().CheckBox("chkStrokeToTicks").ClientSideEvents(client => { client.Change("onTickStroke"); })
+        </div>
+
+        <div class="col-md-3">
+            Range Stroke to Labels
+        </div>
+        <div class="col-md-3 aligntop">
+            @Html.EJ().CheckBox("chkStrokeToLabels").ClientSideEvents(client => { client.Change("onLabelStroke"); })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            Enable Animation
+        </div>
+        <div class="col-md-3 aligntop">
+            @Html.EJ().CheckBox("chkEnableAnimation").Checked(true).ClientSideEvents(client => { client.Change("onAnimateClick"); })
+        </div>
+        <div class="col-md-3">
+            Featured Measure
+        </div>
+        <div class="col-md-3 aligntop">
+            @Html.EJ().Slider("featureMeasureValue").SliderType(SlideType.MinRange).Value("8").Height("10").Width("120").MinValue(0).MaxValue(10).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange").Slide("onchange"); })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            Comparative Measure
+        </div>
+        <div class="col-md-3 aligntop">
+            @Html.EJ().Slider("comparativeMeasureValue").SliderType(SlideType.MinRange).Value("6.7").Height("10").Width("120").MinValue(0).MaxValue(10).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange").Slide("onchange"); })
+        </div>
+        <div class="col-md-3">
+            Range1 Stroke
+        </div>
+        <div class="col-md-3 aligntop">
+            @Html.EJ().DropDownList("range1Stroke").Datasource((IEnumerable<BulletGraphProperties>)ViewBag.datasourceStroke).DropDownListFields(df => df.ID("RangeStroke").Text("RangeStroke").Value("RangeStroke")).SelectedItemIndex(0).Width("110").ClientSideEvents(cli => { cli.Select("onchange"); })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            Range2 Stroke
+        </div>
+        <div class="col-md-3 aligntop">
+            @Html.EJ().DropDownList("range2Stroke").Datasource((IEnumerable<BulletGraphProperties>)ViewBag.datasourceStroke).DropDownListFields(df => df.ID("RangeStroke").Text("RangeStroke").Value("RangeStroke")).SelectedItemIndex(0).Width("110").ClientSideEvents(cli => { cli.Select("onchange"); })
+        </div>
+        <div class="col-md-3">
+            Range3 Stroke
+        </div>
+        <div class="col-md-3 aligntop">
+            @Html.EJ().DropDownList("range3Stroke").Datasource((IEnumerable<BulletGraphProperties>)ViewBag.datasourceStroke).DropDownListFields(df => df.ID("RangeStroke").Text("RangeStroke").Value("RangeStroke")).SelectedItemIndex(0).Width("110").ClientSideEvents(cli => { cli.Select("onchange"); })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            Orientation
+        </div>
+        <div class="col-md-3 aligntop">
+            @Html.EJ().DropDownList("orientation").Datasource((IEnumerable<BulletGraphProperties>)ViewBag.datasourceOrientation).DropDownListFields(df => df.ID("Orientation").Text("Orientation").Value("Orientation")).SelectedItemIndex(0).Width("110").ClientSideEvents(cli => { cli.Select("onchange"); })
+        </div>
+        <div class="col-md-3">
+            Flow Direction
+        </div>
+        <div class="col-md-3 aligntop">
+            @Html.EJ().DropDownList("flowDirection").Datasource((IEnumerable<BulletGraphProperties>)ViewBag.datasourceDirection).DropDownListFields(df => df.ID("Direction").Text("Direction").Value("Direction")).SelectedItemIndex(0).Width("110").ClientSideEvents(cli => { cli.Select("onchange"); })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            MajorTick Stroke
+        </div>
+        <div class="col-md-3 aligntop">
+            @Html.EJ().DropDownList("majorTickStroke").Datasource((IEnumerable<BulletGraphProperties>)ViewBag.datasourceStroke).DropDownListFields(df => df.ID("RangeStroke").Text("RangeStroke").Value("RangeStroke")).SelectedItemIndex(0).Width("110").ClientSideEvents(cli => { cli.Select("onchange"); })
+        </div>
+        <div class="col-md-3">
+            MinorTick Stroke
+        </div>
+        <div class="col-md-3 aligntop">
+            @Html.EJ().DropDownList("minorTickStroke").Datasource((IEnumerable<BulletGraphProperties>)ViewBag.datasourceStroke).DropDownListFields(df => df.ID("RangeStroke").Text("RangeStroke").Value("RangeStroke")).SelectedItemIndex(0).Width("110").ClientSideEvents(cli => { cli.Select("onchange"); })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            FeatureMeasure Stroke
+        </div>
+        <div class="col-md-3 aligntop">
+            @Html.EJ().DropDownList("featureMeasureStroke").Datasource((IEnumerable<BulletGraphProperties>)ViewBag.datasourceStroke).DropDownListFields(df => df.ID("RangeStroke").Text("RangeStroke").Value("RangeStroke")).SelectedItemIndex(0).Width("110").ClientSideEvents(cli => { cli.Select("onchange"); })
+        </div>
+        <div class="col-md-3">
+            Comparative Symbol Stroke
+        </div>
+        <div class="col-md-3 aligntop">
+            @Html.EJ().DropDownList("comparativeSymbolStroke").Datasource((IEnumerable<BulletGraphProperties>)ViewBag.datasourceStroke).DropDownListFields(df => df.ID("RangeStroke").Text("RangeStroke").Value("RangeStroke")).SelectedItemIndex(0).Width("110").ClientSideEvents(cli => { cli.Select("onchange"); })
+        </div>
+    </div>
+}
+@section StyleSection{
+    <style>
+        .aligntop .e-ddl .e-input {
+            line-height: 20px;
+        }
+    </style>
+}
+
+@section ScriptSection{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#sampleProperties").ejPropertiesPanel();
+        });
+        function onTickStroke(args) {
+            if (args.isChecked)
+                $("#BulletGraph1").ejBulletGraph("option", "applyRangeStrokeToTicks", true);
+            else
+                $("#BulletGraph1").ejBulletGraph("option", "applyRangeStrokeToTicks", false);
+        }
+        function onLabelStroke(args) {
+            if (args.isChecked)
+                $("#BulletGraph1").ejBulletGraph("option", "applyRangeStrokeToLabels", true);
+            else
+                $("#BulletGraph1").ejBulletGraph("option", "applyRangeStrokeToLabels", false);
+        }
+        function onAnimateClick(args) {
+            if (args.isChecked)
+                $("#BulletGraph1").ejBulletGraph("option", "enableAnimation", true);
+            else
+                $("#BulletGraph1").ejBulletGraph("option", "enableAnimation", false);
+        }
+        function onchange(args) {
+            bulletValue = $("#BulletGraph1").data("ejBulletGraph")
+            if (this._id == "featureMeasureValue") {
+
+                var dat = $("#BulletGraph1").data("ejBulletGraph");
+                if (dat) {
+                    if (args.id == "featureMeasureValue")
+                        dat.setFeatureMeasureBarValue(0, args.value);
+                    else if (args.id == "comparativeMeasureValue")
+                        dat.setComparativeMeasureSymbol(0, args.value);
+                }
+
+            }
+            else if (this._id == "comparativeMeasureValue") {
+
+                var dat = $("#BulletGraph1").data("ejBulletGraph");
+                if (dat) {
+                    if (args.id == "featureMeasureValue")
+                        dat.setFeatureMeasureBarValue(0, args.value);
+                    else if (args.id == "comparativeMeasureValue")
+                        dat.setComparativeMeasureSymbol(0, args.value);
+                }
+            }
+            if (this._id == "range1Stroke") {
+                if (args.itemId != 0)
+                    $("#BulletGraph1").ejBulletGraph("option", "qualitativeRanges", [{ rangeStroke: args.value }]);
+            }
+            else if (this._id == "range2Stroke") {
+                if (args.itemId != 0)
+                    $("#BulletGraph1").ejBulletGraph("option", "qualitativeRanges", [{}, { rangeStroke: args.value }]);
+            }
+            else if (this._id == "range3Stroke") {
+                if (args.itemId != 0)
+                    $("#BulletGraph1").ejBulletGraph("option", "qualitativeRanges", [{}, {}, { rangeStroke: args.value }]);
+            }
+            else if (this._id == "orientation") {
+                if (args.itemId != 0) {
+                    var dat = $("#BulletGraph1").data("ejBulletGraph");
+                    if (dat) {
+                        $("#BulletGraph1").ejBulletGraph("option", "orientation", args.value);
+                        if (args.value == "vertical") {
+                            $("#BulletGraph1").ejBulletGraph("option", "height", 595);
+                            $("#BulletGraph1").ejBulletGraph("option", "width", 400);
+                        }
+                        else {
+                            $("#BulletGraph1").ejBulletGraph("option", "height", 400);
+                            $("#BulletGraph1").ejBulletGraph("option", "width", 595);
+                        }
+                    }
+                }
+            }
+            else if (this._id == "flowDirection") {
+                if (args.itemId != 0) {
+                    var dat = $("#BulletGraph1").data("ejBulletGraph");
+                    if (dat)
+                        $("#BulletGraph1").ejBulletGraph("option", "flowDirection", args.value);
+                }
+            }
+            else if (this._id == "majorTickStroke") {
+                if (args.itemId != 0)
+                    $("#BulletGraph1").ejBulletGraph("option", "quantitativeScaleSettings.majorTickSettings", { stroke: args.value });
+            }
+            else if (this._id == "minorTickStroke") {
+                if (args.itemId != 0)
+                    $("#BulletGraph1").ejBulletGraph("option", "quantitativeScaleSettings.minorTickSettings", { stroke: args.value });
+            }
+            else if (this._id == "featureMeasureStroke") {
+                if (args.itemId != 0)
+                    $("#BulletGraph1").ejBulletGraph("option", "quantitativeScaleSettings.featuredMeasureSettings",
+                        { stroke: args.value });
+            }
+            else if (this._id == "comparativeSymbolStroke") {
+                if (args.itemId != 0)
+                    $("#BulletGraph1").ejBulletGraph("option", "quantitativeScaleSettings.comparativeMeasureSettings",
+                        { stroke: args.value });
+            }
+        }
+
+        function AddPrefix(sender) {
+            $("#BulletGraph1").ejBulletGraph("option", "quantitativeScaleSettings.labelSettings", { labelPrefix: sender.value });
+        }
+
+        function AddSuffix(sender) {
+            $("#BulletGraph1").ejBulletGraph("option", "quantitativeScaleSettings.labelSettings", { labelSuffix: sender.value });
+        }
+    </script>
+}
+@section MetaTags{
+   <meta name="description" content="This sample demonstrates the API’s used for customization in the Syncfusion ASP.NET Web Forms Bullet graph control.">
+}
+
+
+
+
+

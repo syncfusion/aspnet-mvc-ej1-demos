@@ -1,0 +1,28 @@
+@section SampleHeading{
+    <span class="sampleName">KanbanBoard-Print-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to print the whole kanban board layout in the Syncfusion ASP.NET MVC Kanban component.">
+}
+@using Syncfusion.JavaScript.Models;
+    @section ControlsSection{
+    @(Html.EJ().Kanban("Kanban")
+                   .DataSource((IEnumerable<object>)ViewBag.datasource)
+                   .Columns(col =>
+                   {
+                       col.HeaderText("Backlog").Key("Open").Add();
+                       col.HeaderText("In Progress").Key("InProgress").Add();
+                       col.HeaderText("Testing").Key("Testing").Add();
+                       col.HeaderText("Done").Key("Close").Add();
+                   })
+                  .KeyField("Status")
+                  .AllowTitle(true)
+                  .AllowPrinting(true)
+                  .Fields(field =>
+                  {
+                      field.Content("Summary")
+                           .PrimaryKey("Id");                           
+                  })
+    )}
+
+
+

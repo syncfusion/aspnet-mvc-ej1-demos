@@ -1,0 +1,22 @@
+@section SampleHeading{<span class="sampleName">Grid-Remote Paging-ASP.NET MVC-SYNCFUSION</span>}
+@section MetaTags{
+    <meta name="description" content="This demo explains how to load data on-demand basis when paging action is performed in Syncfusion ASP.NET MVC DataGrid control.">
+}
+@section ControlsSection{
+    @(Html.EJ().Grid<OrdersView>("Paging")
+        .Datasource(ds => {
+            ds.URL("VirtualDataSource");
+            ds.Adaptor(AdaptorType.UrlAdaptor);
+        })
+        .AllowPaging()
+        .Columns(col =>
+        {
+            col.Field("OrderID").HeaderText("Order ID").TextAlign(TextAlign.Right).Add();
+            col.Field("CustomerID").HeaderText("Customer ID").Add();
+            col.Field("Freight").HeaderText("Freight").TextAlign(TextAlign.Right).Format("{0:C}").Add();
+            col.Field("ShipCity").HeaderText("Ship City").Add();
+            col.Field("ShipName").HeaderText("Ship Name").Add();
+        })
+    )
+}
+

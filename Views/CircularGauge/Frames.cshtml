@@ -1,0 +1,201 @@
+@section ScriptReferenceSection{
+    <script src="@Url.Content("~/Scripts/excanvas.min.js")"></script>
+}
+@section SampleHeading{
+    <span class="sampleName">CircularGauge-Frame and Angles-ASP.NET MVC-SYNCFUSION</span>
+}
+
+
+
+@section ControlsSection{
+    <div id="gradientFrame" align="center">
+        @(Html.EJ().CircularGauge("FrameCircularGauge").EnableAnimation(false).BackgroundColor("transparent").Width(500)
+        .ClientSideEvents(cli=>cli.Load("loadGaugeTheme"))
+                .Scales(scl =>
+                {
+                    scl.ShowRanges(true).StartAngle(122).SweepAngle(296).Radius(130).ShowScaleBar(true)
+                        .Size(1).Maximum(120).MajorIntervalValue(20).MinorIntervalValue(10)
+                        .Border(bor => bor.Width(0.5))
+
+
+                        .Pointers(poi => { poi.Value(60).ShowBackNeedle(true).BackNeedleLength(5).Length(95).Width(7).Add(); })
+                        .PointerCap(pc => pc.Radius(12))
+                        .Ticks(tic =>
+                        {
+                            tic.Type(CircularTickTypes.Major).DistanceFromScale(2).Height(16).Width(1).Color("#8c8c8c").Add();
+                            tic.Type(CircularTickTypes.Minor).DistanceFromScale(2).Height(8).Width(1).Color("#8c8c8c").Add();
+                        })
+                        .Labels(lbl => { lbl.Color("#8c8c8c").Add(); })
+                        .Ranges(rng => { 
+                            rng.StartValue(0).EndValue(40).StartWidth(10).EndWidth(20).Placement(RangePlacement.Far).DistanceFromScale(10).BackgroundColor("Green").Border(bor => bor.Color("Green").Width(0)).Add();
+                            rng.StartValue(40).EndValue(80).StartWidth(20).EndWidth(30).Placement(RangePlacement.Far).DistanceFromScale(10).BackgroundColor("Yellow").Border(bor => bor.Color("Yellow").Width(0)).Add();
+                            rng.StartValue(80).EndValue(120).StartWidth(30).EndWidth(35).Placement(RangePlacement.Far).DistanceFromScale(10).BackgroundColor("Red").Border(bor => bor.Color("Red").Width(0)).Add();
+                        
+                        })
+                        .Add();
+        })
+        
+        
+        )
+    </div>
+}
+
+
+
+@section PropertiesSection{
+
+    <div class="row">
+        <div class="col-md-3">
+            Frame Type
+        </div>
+        <div class="col-md-3" style="margin-top: 8px;">
+            @(Html.EJ().DropDownList("frameType").TargetID("types").SelectedItemIndex(0).Width("120").ClientSideEvents(cli => { cli.Select("onchange"); }))
+            <div id="types">
+                <ul>
+                    <li>Full - Circular</li>
+                    <li>Semi - Circular</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-3">
+            Range Placement
+        </div>
+        <div class="col-md-3" style="margin-top: 8px;">
+            @(Html.EJ().DropDownList("rangePlacement").Width("110").TargetID("placements").SelectedItemIndex(0).ClientSideEvents(cli => { cli.Select("onchange"); }))
+            <div id="placements">
+                <ul>
+                    <li>Far</li>
+                    <li>Near</li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            Start Angle
+        </div>
+        <div class="col-md-3 aligntop">
+            @(Html.EJ().Slider("startAngle").SliderType(SlideType.MinRange).Value("122").Height("10").Width("110").MinValue(0).MaxValue(360).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange").Slide("onchange"); }))
+        </div>
+        <div class="col-md-3">
+            Sweep Angle
+        </div>
+        <div class="col-md-3 aligntop">
+            @(Html.EJ().Slider("sweepAngle").SliderType(SlideType.MinRange).Value("296").Height("10").Width("110").MinValue(90).MaxValue(360).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange").Slide("onchange"); }))
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            Frame Start Angle
+        </div>
+        <div class="col-md-3 aligntop">
+            @(Html.EJ().DropDownList("frameStartAngle").Width("110").TargetID("angles").SelectedItemIndex(2).ClientSideEvents(cli => { cli.Select("onchange"); }).Enabled(false))
+            <div id="angles">
+                <ul>
+                    <li>0</li>
+                    <li>90</li>
+                    <li>180</li>
+                    <li>270</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-3">
+            clockwise direction
+        </div>
+        <div class="col-md-3 aligntop">
+            @(Html.EJ().CheckBox("chkclockwise").Checked(true).ClientSideEvents(events => { events.Change("onchange"); }))
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            Range Distance
+        </div>
+        <div class="col-md-3 aligntop">
+            @(Html.EJ().Slider("rangeDistance").SliderType(SlideType.MinRange).Value("10").Height("10").Width("110").MinValue(0).MaxValue(15).EnableAnimation(true).ClientSideEvents(events => { events.Change("onchange").Slide("onchange"); }))
+        </div>
+
+
+    </div>
+
+}
+
+
+@section StyleSection{
+
+    <style>
+        .col-md-3 .e-ddl .e-input
+        {
+            line-height: 20px;
+        }
+        #gradientFrame
+        {
+            background:none;
+        }
+    </style>
+}
+@section MetaTags{
+   <meta name="description" content="This sample demonstrates the frame and angle in the Syncfusion ASP.NET Web Forms Circular gauge control.">
+}
+
+@*@section ScriptSection{*@
+<script>
+    $(document).ready(function () {
+        $("#sampleProperties").ejPropertiesPanel();
+    });
+
+    function onchange(args) {
+        if (args.type == "select" && args.text == "Semi - Circular") {
+            $("#frameStartAngle").ejDropDownList("option", "enabled", true);
+            $("#frameStartAngle").ejDropDownList("option", "selectedItemIndex", 2);
+            $("#FrameCircularGauge").ejCircularGauge("option", "frame", { frameType: "halfcircle", halfCircleFrameStartAngle: 180 });
+            $("#FrameCircularGauge").ejCircularGauge("option", "scales", [{ startAngle: 180, sweepAngle: 180 }]);
+            $("#startAngle").ejSlider("option", "enabled", false);
+            $("#startAngle").ejSlider("option", "value", 180);
+            $("#sweepAngle").ejSlider("option", "maxValue", 180);
+            $("#sweepAngle").ejSlider("option", "value", 180);
+        }
+        else if (args.type == "select" && args.text == "Full - Circular") {
+            $("#frameStartAngle").ejDropDownList("option", "enabled", false);
+            $("#FrameCircularGauge").ejCircularGauge("option", "frame", { frameType: "fullcircle" });
+            $("#FrameCircularGauge").ejCircularGauge("option", "scales", [{ startAngle: 122, sweepAngle: 296 }]);
+            $("#startAngle").ejSlider("option", "enabled", true);
+            $("#startAngle").ejSlider("option", "value", 122);
+            $("#sweepAngle").ejSlider("option", "value", 296);
+            $("#sweepAngle").ejSlider("option", "maxValue", 360);
+        }
+        else if (args.type == "select" && args.text == "Far") {
+            $("#FrameCircularGauge").ejCircularGauge("option", "scales", [{ ranges: [{ placement: "far" }, { placement: "far" }, { placement: "far" }] }]);
+        }
+        else if (args.type == "select" && args.text == "Near") {
+            $("#FrameCircularGauge").ejCircularGauge("option", "scales", [{ ranges: [{ placement: "near" }, { placement: "near" }, { placement: "near" }] }]);
+        }
+        else if (args.type == "select") {
+            $("#FrameCircularGauge").ejCircularGauge("option", "frame", { halfCircleFrameStartAngle: parseInt(args.text), halfCircleFrameEndAngle: parseInt(args.text) + 180 });
+            $("#FrameCircularGauge").ejCircularGauge("option", "scales", [{ startAngle: parseInt(args.text), sweepAngle: 180 }]);
+            $("#startAngle").ejSlider("option", "value", parseInt(args.text));
+            $("#sweepAngle").ejSlider("option", "value", 180);
+        }
+        else if (!ej.isNullOrUndefined(args.isChecked)) {
+            $("#FrameCircularGauge").ejCircularGauge("option", "scales", [{ direction: args.isChecked ? "clockwise" : "counterclockwise" }]);
+        }
+        else if (args.id == "rangeDistance") {
+            $("#FrameCircularGauge").ejCircularGauge("option", "scales", [{ ranges: [{ distanceFromScale: args.value }, { distanceFromScale: args.value }, { distanceFromScale: args.value }] }]);
+        }
+        else if (args.id == "startAngle") {
+            $("#FrameCircularGauge").ejCircularGauge("option", "scales", [{ startAngle: args.value }]);
+        }
+        else if (args.id == "sweepAngle") {
+            $("#FrameCircularGauge").ejCircularGauge("option", "scales", [{ sweepAngle: args.value }]);
+        }
+    }
+
+   
+</script>
+
+
+

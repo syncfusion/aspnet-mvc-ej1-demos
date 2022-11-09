@@ -1,0 +1,37 @@
+
+
+@section SampleHeading{
+	<span class="sampleName">PDF-Text Extraction-ASP.NET MVC-SYNCFUSION</span>}
+	
+    @section ControlsSection{
+    @{Html.BeginForm("TextExtraction", "Pdf", FormMethod.Post);
+      { 
+    <div class="Common">
+        <div style = "font-size: 17px;font-weight: 400;">
+			       	This sample demonstrates how to extract the text from the PDF document.
+
+
+	</div>
+	<br/>
+        <div class="rowdiv"><br />
+        <input type="submit" name="Extract" id="Button" value="Extract Text" />
+            </div><br />
+        <b>Extracted Text</b>
+        <div class="rowdiv">
+            <textarea id="ExtractedText" name="ExtractedText" rows="5" cols="45">@ViewData["ExtractedText"]</textarea>
+        </div>
+		<br/>
+			<div style = "font-size: 17px;font-weight: 400;">
+		
+				
+	This feature can be used to extract information such as user data, billing information from invoice, address, and so on from the PDF document for indexing and archiving.
+More information about the text extraction can be found in this documentation <a href="https://help.syncfusion.com/file-formats/pdf/working-with-text-extraction">section.</a>
+           </div>
+    </div>
+    Html.EndForm();
+        }}}
+@section MetaTags{
+   <meta name="description" content="Example [C#] to extract the text from the PDF in ASP.NET MVC using Syncfusion .NET PDF library.">
+}
+
+

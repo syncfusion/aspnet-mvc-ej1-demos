@@ -1,0 +1,81 @@
+﻿        #menu
+        {
+            margin-left: 50px;
+        }
+        .e-menu li > ul > li > a
+        {
+            padding: 0 18px 0 28px;
+        }
+         .frame {
+            width: 80%;
+        }
+
+        [class^="sprite-"], [class*="sprite-"]
+        {
+            background-image: url("../../images/mail/mailicons.png");
+            height: 25px;
+            left: 2px;
+            top: 4px;
+            width: 24px;
+        }
+       .sprite-calendar
+        {
+            background-position: -25px -255px;
+        }
+
+        .sprite-contacts
+        {
+            background-position: -26px -429px;
+        }
+
+        .sprite-deleted
+        {
+            background-position: -24px -152px;
+        }
+
+        .sprite-drafts
+        {
+            background-position:-24px -83px;
+        }
+
+        .sprite-folder
+        {
+            background-position: -24px -464px;
+        }
+
+        .sprite-folders
+        {
+            background-position: -24px -222px;
+        }
+
+        .sprite-inbox
+        {
+            background-position: -25px -13px;
+        }
+
+        .sprite-junk
+        {
+            background-position: -23px -187px;
+        }
+
+        .sprite-notes
+        {
+            background-position: -26px -394px;
+        }
+
+        .sprite-outbox
+        {
+            background-position: 0 -414px;
+            width: 16px;
+            height: 16px;
+        }
+
+        .sprite-root
+        {
+            background-position: -25px -49px;
+        }
+
+        .sprite-sentitems
+        {
+            background-position: -26px -118px;
+        }
