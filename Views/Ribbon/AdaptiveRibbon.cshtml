@@ -1,0 +1,794 @@
+﻿@using Syncfusion.JavaScript.Models
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/ejthemes/ej.widgets.core.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/ejthemes/flat-saffron/ej.theme.min.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/ejthemes/responsive-css/ej.responsive.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/ejthemes/ribbon-css/ej.icons.css")" rel="stylesheet" />
+    <link href="@Url.Content("~/Content/ejthemes/responsive-css/ej.responsive.css")" rel="stylesheet" />
+    <!--[if lt IE 9]>
+    <script src="@Url.Content("~/Scripts/jquery-1.11.3.min.js")"></script>
+    <![endif]-->
+    <!--[if gte IE 9]><!-->
+    <script src="@Url.Content("~/Scripts/jquery-3.4.1.min.js")"></script>
+    <!--<![endif]-->
+    <script src="@Url.Content("~/Scripts/jquery.easing-1.3.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jsrender.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.globalize.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/ej.web.all.min.js")"></script>
+    <script type="text/javascript">
+    $(function () {
+        var browserDetails = ej.browserInfo();
+        if (!(browserDetails.name == "msie" && parseInt(browserDetails.version, 10) < 9)) {
+            window.addEventListener('message', function (e) {
+                if (typeof e.data != "boolean") {
+                    var links = $(document.head || document.getElementsByTagName('head')[0]).find("link");
+                    for (var i = 0; i < links.length; i++) {
+                        if (links[i].href.indexOf("ej.theme.min.css") != -1) {
+                            var cssref = links[i].href,
+                                serverconfig = cssref.substr(0, cssref.indexOf("Content") - 1),
+                                fileref = $('<link rel="stylesheet" type="text/css" href="' + serverconfig + window.parent.themes[e.data.split('_')[1]] + '" />');
+                            $(fileref).insertAfter(links[i]);
+                            $(links[i]).remove();
+                            break;
+                        }
+                    }
+
+                }
+            });
+        }
+    });
+    </script>
+
+    <style>
+      
+	    .e-ribbon .e-icon.e-Print:before {
+            font-family: 'ej-ribbonfont';
+            content: "\e93b";
+            font-size: 32px !important;
+            text-indent: -5px;
+            top: 4px !important;
+        }
+
+        .e-ribbon .e-icon.e-Equation:before {
+            font-family: 'ej-ribbonfont';
+            content: "\e90a";
+            font-size: 32px;
+            text-indent: -6px;
+        }
+  .e-ribbon .e-icon.e-Table:before {
+            font-family: 'ej-ribbonfont';
+			font-size: 24px !important;
+            content: "\e913";
+            text-indent: 1px;
+			top :9px !important;
+        }
+        .e-ribbon .e-icon.e-Hyperlink:before {
+            font-family: 'ej-ribbonfont';
+            content: "\e909";
+            font-size: 32px;
+            text-indent: -6px;
+        }
+
+        .e-ribbon .e-icon.e-Comments:before {
+            font-family: 'ej-ribbonfont';
+            content: "\e908";
+            font-size: 32px;
+            text-indent: -6px;
+        }
+
+        .e-ribbon .e-icon.e-Illustrations:before {
+            font-family: 'ej-ribbonfont';
+            content: "\e93f";
+            font-size: 32px;
+            text-indent: -6px;
+        }
+
+        .e-ribbon.e-responsive .e-Clipboard:before {
+            font-family: 'ej-ribbonfont';
+            content: "\e90c";
+            font-size: 32px !important;
+            text-indent: -6px;
+            top: 5px !important;
+        }
+
+        .e-ribbon.e-responsive .e-Alignment:before {
+            font-family: 'ej-ribbonfont';
+            content: "\e910";
+            font-size: 32px;
+            text-indent: -1px;
+            top:10px !important;
+        }
+    .e-ribbon .e-Font:before {
+         font-family: 'ej-ribbonfont';
+         content: "\e90e";
+		top:7px !important;
+		 text-indent: -2px;
+		}
+		  .e-ribbon .e-Actions:before {
+            font-family: 'ej-ribbonfont';
+            content: "\e949";
+            font-size: 28px;
+            line-height: 32px;
+            text-indent: -1.5px;
+        }
+
+        .e-ribbon .e-New:before {
+            font-family: 'ej-ribbonfont';
+            content: "\e90b";
+            font-size: 32px !important;
+            line-height: 32px;
+            text-indent: -5.5px !important;
+        }
+
+        .e-blank {
+            background-image: url("../content/ejthemes/common-images/ribbon/blank.png");
+        }
+
+        .e-project {
+            background-image: url("../content/ejthemes/common-images/ribbon/Project.png");
+        }
+
+        .e-gantt {
+            background-image: url("../content/ejthemes/common-images/ribbon/Gantt.png");
+        }
+
+        .e-diet {
+            background-image: url("../content/ejthemes/common-images/ribbon/Diet.png");
+        }
+
+        .e-sales {
+            background-image: url("../content/ejthemes/common-images/ribbon/Sales.png");
+        }
+
+        .e-infopageicon {
+            background-repeat: no-repeat;
+            height: 150px;
+            width: 198px;
+        }
+
+        .e-accuser {
+            background-image: url("../content/ejthemes/common-images/ribbon/User.jpg");
+        }
+
+        .e-protect {
+            background-image: url("../content/ejthemes/common-images/ribbon/Protect.png");
+        }
+
+        .e-browser {
+            background-image: url("../content/ejthemes/common-images/ribbon/Browser.png");
+        }
+
+        .e-check {
+            background-image: url("../content/ejthemes/common-images/ribbon/Check.png");
+        }
+
+        .e-version {
+            background-image: url("../content/ejthemes/common-images/ribbon/Version.png");
+        }
+
+        .e-newpageicon {
+            background-repeat: no-repeat;
+            height: 42px;
+            width: 42px;
+        }
+
+        .e-ribbon .e-ribbonbackstagepage .e-bsinfobtnstyle {
+            font-family: segoe ui;
+            border: 1px solid #c9c9c9;
+            background: #fdfdfd;
+            color: #212121;
+        }
+
+        .e-ribbon .e-ribbonbackstagepage .e-bsnewbtnstyle {
+            font-family: segoe ui;
+            color: #212121;
+            background: #fdfdfd;
+            margin-top: 20px;
+        }
+
+            .e-ribbon .e-ribbonbackstagepage .e-bsinfobtnstyle:hover,
+            .e-ribbon .e-ribbonbackstagepage .e-bsnewbtnstyle:hover {
+                color: black;
+            }
+
+        .e-bssplbtn1 .e-split-btn-div {
+            text-indent: 40px;
+            top: 64px;
+        }
+
+        .e-bssplbtn2 .e-split-btn-div {
+            text-indent: 26px;
+            top: 64px;
+        }
+
+        .e-bssplbtn3 .e-split-btn-div {
+            text-indent: 34px;
+            top: 64px;
+        }
+
+        .e-bsinfobtnstyle .e-btntxt {
+            font-size: 14px;
+        }
+
+        .e-bssplbtn1 .e-btntxt, .e-bssplbtn2 .e-btntxt {
+            position: relative;
+            left: -6px;
+        }
+
+        .e-bssplbtn3 .e-btntxt {
+            position: relative;
+            left: -8px;
+        }
+
+        .e-suggestsearch a {
+            padding-left: 7px;
+        }
+
+        .e-author {
+            color: #939393;
+        }
+
+        .e-ribbonbackstagepage, .e-inspectcon {
+            color: #565656;
+        }
+
+        .e-bsptitle {
+            color: #000000;
+        }
+
+        .e-infoprop {
+            color: #0072c6;
+        }
+
+        .e-inspectli {
+            color: #aaaaaa;
+        }
+
+        .e-bssplbtn2 .e-newpageicon, .e-bssplbtn3 .e-newpageicon {
+            position: relative;
+            left: -5px;
+        }
+
+        .darktheme .e-ribbon .e-bsinfobtnstyle {
+            font-family: segoe ui;
+            border: 1px solid #303030;
+            background: #1f1f1f;
+            color: #c1c1c1;
+        }
+
+        .darktheme .e-ribbon .e-bsnewbtnstyle {
+            font-family: segoe ui;
+            background: #1f1f1f;
+            color: #c1c1c1;
+        }
+
+        .e-openCon table tr {
+            height: 50px;
+            border-bottom: 1px solid #c8c8c8;
+        }
+
+        #accountCon {
+            padding: 0 10px;
+        }
+
+        .e-contenteditor {
+            width: 100%;
+            height: 180px;
+            border: 0px solid #D9DFDE;
+            border-top: 0;
+            overflow: auto;
+        }
+
+            .e-contenteditor p {
+                margin: 20px;
+            }
+        </style>
+    <body>
+        @(Html.EJ().Ribbon("defaultRibbon").IsResponsive(true).ShowQAT(true)
+     .Width("100%")
+     .ApplicationTab(apptab =>
+     {
+         apptab.Type(ApplicationTabType.Backstage).BackstageSettings(bsSettings =>
+         {
+             bsSettings.Text("FILE").Height("350").Width("1000").HeaderWidth("120").Pages(bsPage =>
+             {
+                 bsPage.Id("open").Text("Open").ContentID("openCon").ItemType(ItemType.Tab).Add();
+                 bsPage.Id("new").Text("New").ContentID("newCon").Add();
+                 bsPage.Id("close").Text("Close").EnableSeparator(true).ItemType(ItemType.Button).Add();
+                 bsPage.Id("account").Text("Office Account").ContentID("accountCon").Add();
+             });
+         });
+     })
+    .RibbonTabs(tab =>
+    {
+        tab.Id("home").Text("HOME").TabGroups(tabgrp =>
+        {
+            tabgrp.Text("Clipboard").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("paste").Text("Paste").ButtonSettings(new ButtonProperties()
+                    {
+                        Width = "48",
+                        Height="72",
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-respaste",
+                        Click = "executeAction"
+                    }).Add();
+                    cntgrp.Id("cut").Text("Cut").ButtonSettings(new ButtonProperties()
+                    {
+                        Width = "60",
+                        Height = "72",
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-rescut",
+                        Click = "executeAction"
+                    }).Add();
+                    cntgrp.Id("copy").Text("Copy").ButtonSettings(new ButtonProperties()
+                    {
+                        Width = "60",
+                        Height = "72",
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-rescopy",
+                        Click = "executeAction"
+                    }).Add();
+                    cntgrp.Id("clear").Text("Clear").ButtonSettings(new ButtonProperties()
+                    {
+                        Width = "60",
+                        Height = "72",
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-icon e-ribbon e-resclearAll",
+                        Click = "executeAction"
+                    }).Add();
+                }).Add();
+            }).Add();
+            tabgrp.Text("Font").AlignType(RibbonAlignType.Rows).EnableGroupExpander(true).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("bold").Text("Bold").Type(RibbonButtonType.ToggleButton).IsMobileOnly(true).ToggleButtonSettings(new ToggleButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        DefaultText = "Bold",
+                        ActiveText = "Bold",
+                        DefaultPrefixIcon = "e-icon e-ribbon e-resbold",
+                        ActivePrefixIcon = "e-icon e-ribbon e-resbold",
+                        Click = "executeAction"
+                    }).Add();
+                    cntgrp.Id("italic").Text("Italic").Type(RibbonButtonType.ToggleButton).IsMobileOnly(true).ToggleButtonSettings(new ToggleButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        DefaultText = "Italic",
+                        ActiveText = "Italic",
+                        DefaultPrefixIcon = "e-icon e-ribbon e-resitalic",
+                        ActivePrefixIcon = "e-icon e-ribbon e-resitalic",
+                        Click = "executeAction"
+                    }).Add();
+                    cntgrp.Id("underline").Text("Underline").Type(RibbonButtonType.ToggleButton).IsMobileOnly(true).ToggleButtonSettings(new ToggleButtonProperties()
+                    {
+
+                        ContentType = ContentType.ImageOnly,
+                        DefaultText = "Underline",
+                        ActiveText = "Underline",
+                        DefaultPrefixIcon = "e-icon e-ribbon e-resunderline",
+                        ActivePrefixIcon = "e-icon e-ribbon e-resunderline",
+                        Click = "executeAction"
+                    }).Add();
+                    cntgrp.Id("strikethrough").Type(RibbonButtonType.ToggleButton).IsMobileOnly(true).ToggleButtonSettings(new ToggleButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        DefaultText = "Strikethrough",
+                        ActiveText = "Strikethrough",
+                        DefaultPrefixIcon = "e-icon e-ribbon strikethrough",
+                        ActivePrefixIcon = "e-icon e-ribbon strikethrough",
+                        Click = "executeAction"
+                    }).Add();
+                    cntgrp.Id("superscript").Text("Superscript").IsMobileOnly(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-superscripticon",
+                        Click = "executeAction"
+                    }).Add();
+                }).ContentDefaults(df => df.IsBig(false).Width("48px").Height("48px")).Add();
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("fontfamily").ToolTip("Font").DropdownSettings(new DropDownListProperties()
+                    {
+                        DataSource = (IEnumerable<FontFamily>)ViewBag.datasource,
+                        Text = "Segoe UI",
+                        Select = "executeAction",
+                        Width = "150px"
+                    }).Add();
+                    cntgrp.Id("fontsize").ToolTip("FontSize").DropdownSettings(new DropDownListProperties()
+                    {
+                        DataSource = (IEnumerable<FontPoint>)ViewBag.datasource1,
+                        Text = "1pt",
+                        Select = "executeAction",
+                        Width = "65px"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.DropDownList).Height("28px")).Add();
+            }).Add();
+            tabgrp.Text("Actions").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("redo").Text("Redo").QuickAccessMode(QuickAccessMode.ToolBar).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-ribbon e-icon e-resredo"
+                    }).Add();
+                    cntgrp.Id("undo").Text("Undo").QuickAccessMode(QuickAccessMode.ToolBar).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-ribbon e-icon e-resundo"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("74px").Height("72px") ).Add();
+            }).Add();
+        }).Add();
+        tab.Id("layout").Text("LAYOUT").TabGroups(tabgrp =>
+        {
+            tabgrp.Text("Alignment").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("bullet").Text("Bullet Format").IsMobileOnly(true).EnableSeparator(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-ribbon e-icon e-resbullet"
+                    }).Add();
+                    cntgrp.Id("textindent").Text("Text Indent").IsMobileOnly(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-ribbon e-icon e-resindent"
+                    }).Add();
+                    cntgrp.Id("textoudent").Text("Text Outdent").IsMobileOnly(true).EnableSeparator(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-ribbon e-icon e-resoutdent"
+                    }).Add();
+                    cntgrp.Id("alignleft").Text("JustifyLeft").IsMobileOnly(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-resalignleft",
+                        Click = "executeAction"
+                    }).Add();
+                    cntgrp.Id("aligncenter").Text("JustifyCenter").IsMobileOnly(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-resaligncenter",
+                        Click = "executeAction"
+                    }).Add();
+                    cntgrp.Id("sortascending").Text("Sort").ToolTip("Sort").EnableSeparator(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-icon e-ribbon e-sort",
+                        Click = "executeAction"
+                    }).Add();
+                    cntgrp.Id("border").Text("Border").ToolTip("Border").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.ImageOnly,
+                        PrefixIcon = "e-ribbon e-icon e-border",
+                        Click = "executeAction"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).IsBig(false).Width("48px").Height("48px")).Add();
+            }).Add();
+            tabgrp.Text("Print Layout").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("printlayout").Text("Print Layout").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-ribbon e-icon e-resprintlayout"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("115px").Height("72px")).Add();
+            }).Add();
+            tabgrp.Text("Table Style Options").Type("custom").ContentID("design").Add();
+        }).Add();
+        tab.Id("insert").Text("INSERT").TabGroups(tabgrp =>
+        {
+            tabgrp.Text("Illustrations").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("pictures").Text("Pictures").IsMobileOnly(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-ribbon e-icon e-respicture"
+                    }).Add();
+                    cntgrp.Id("videos").Text("Videos").IsMobileOnly(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-ribbon e-icon e-resvideo"
+                    }).Add();
+                    cntgrp.Id("shapes").Text("Shapes").IsMobileOnly(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-ribbon e-icon e-resshape"
+                    }).Add();
+                    cntgrp.Id("charts").Text("Charts").IsMobileOnly(true).ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-ribbon e-icon e-reschart"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("90px").Height("72px")).Add();
+            }).Add();
+            tabgrp.Text("Comments").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("comments").Text("Comments").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-ribbon e-icon e-comment"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("110px").Height("72px")).Add();
+            }).Add();
+            tabgrp.Text("Hyperlink").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("hyperlink").Text("Hyperlink").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-ribbon e-icon e-reshyperlink"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("95px").Height("72px")).Add();
+            }).Add();
+            tabgrp.Text("Equation").AlignType(RibbonAlignType.Rows).Content(cnt =>
+            {
+                cnt.ContentGroups(cntgrp =>
+                {
+                    cntgrp.Id("equation").Text("Equation").ButtonSettings(new ButtonProperties()
+                    {
+                        ContentType = ContentType.TextAndImage,
+                        ImagePosition = ImagePosition.ImageTop,
+                        PrefixIcon = "e-ribbon e-icon e-resequation"
+                    }).Add();
+                }).ContentDefaults(df => df.Type(RibbonButtonType.Button).Width("90px").Height("72px")).Add();
+            }).Add();
+        }).Add();
+    })
+                .ClientSideEvents(evt => evt.Create("createControl").GroupClick("groupClickControl"))
+        )
+        @Html.EJ().ScriptManager()
+        <table id="design" class="e-designtablestyle">
+            <tr>
+                <td style="width:87px">
+                    <input type="checkbox" id="check1" /><label for="check1">Header Row</label>
+                </td>
+                <td>
+                    <input type="checkbox" id="Check2" checked="checked" /><label for="Check2">First Column</label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="checkbox" id="check4" checked="checked" /><label for="check4">Total Row</label>
+                </td>
+                <td>
+                    <input type="checkbox" id="Check5" /><label for="Check5">Last Column</label>
+                </td>
+            </tr>
+        </table>
+
+         <div id="openCon" class="e-openCon">
+            <div>
+                <table style="width: 100%">
+                    <tr>
+                        <td style="vertical-align: middle; padding: 10px">
+                            <div style="font-size: 16px;">
+                                Workbook 01
+                                <span style="display: table-cell; font-size: 10px;">15/04/2016 2:30 pm</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: middle; padding: 10px; padding-top: 10px">
+                            <div style="font-size: 16px;">
+                                Workbook 02
+                                <span style="display: table-cell; font-size: 10px;">15/04/2016 2:30 pm</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: middle; padding: 10px; padding-top: 10px">
+                            <div style="font-size: 16px;">
+                                Workbook 03
+                                <span style="display: table-cell; font-size: 10px;">15/04/2016 2:30 pm</span>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="vertical-align: middle; padding: 10px; padding-top: 10px">
+                            <div style="font-size: 16px;">
+                                Workbook 04
+                                <span style="display: table-cell; font-size: 10px;">15/04/2016 2:30 pm</span>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div id="newCon">
+            <table style="width: 100%">
+                <tr>
+                    <td>
+                        <button id="btn1" class="e-bsnewbtnstyle">Blank WorkBook</button></td>
+                </tr>
+                <tr>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+
+        <div id="accountCon">
+            <div style="padding-top: 20px">
+                <span style="font-size: 17px">User Information</span>
+                <div>
+                    <div class="e-accuser e-newpageicon" style="display: table-cell"></div>
+                    <div style="display: table-cell; vertical-align: middle">
+                        <div>user</div>
+                        <div>xyz@syncfusion.com</div>
+                    </div>
+                </div>
+            </div>            
+            <div style="padding-top: 20px; padding-bottom: 10px">Background:</div>
+            <input type="text" id="background" />
+            <div id="backgroundList">
+                <ul>
+                    <li>No Background</li>
+                    <li>Calligraphy</li>
+                    <li>Doodle Circles</li>
+                    <li>Geometry</li>
+                    <li>Stars</li>
+                </ul>
+            </div>
+            <div style="padding-top: 20px; padding-bottom: 10px">Theme:</div>
+            <input type="text" id="theme" />
+            <div id="themeList">
+                <ul>
+                    <li>White</li>
+                    <li>Light Gray</li>
+                    <li>Dark Gray</li>
+                </ul>
+            </div>
+        </div>
+
+    </body>
+</html>
+
+    <script>
+        function groupClickControl(args) {
+            if ($(args.target).hasClass("e-ribGroupContent") && args.targetElement == "resizedGroup")
+                this.goToMainContent();
+        }
+        function createControl(args) {
+            var languages = [
+                    "ActionScript", "AppleScript", "ASP", "BASIC",
+                    "C", "C++", "Clojure", "COBOL", "ColdFusion",
+                    "Erlang", "Fortran", "Groovy", "Haskell",
+                    "Java", "JavaScript", "Lisp", "Perl", "PHP",
+                    "Python", "Ruby", "Scala", "Scheme"
+            ];
+            $("#spltbutton1").ejSplitButton({
+                size: "large",
+                showRoundedCorner: false,
+                targetID: "Ul51",
+                buttonMode: "dropdown",
+                contentType: "textandimage",
+                imagePosition: "imagetop",
+                prefixIcon: "e-protect e-newpageicon",
+                arrowPosition: "bottom",
+                height: 90,
+                width: 100
+            });
+            $('#autocomplete').ejAutocomplete({
+                showPopupButton: true,
+                width: 450,
+                watermarkText: "Search for online templates",
+                dataSource: languages
+            });
+            $("#spltbutton2").ejSplitButton({
+                size: "large",
+                showRoundedCorner: false,
+                targetID: "Ul52",
+                contentType: "textandimage",
+                imagePosition: "imagetop",
+                prefixIcon: "e-check e-newpageicon",
+                buttonMode: "dropdown",
+                arrowPosition: "bottom",
+                height: 90,
+                width: 100
+            });
+            $("#spltbutton3").ejSplitButton({
+                size: "large",
+                showRoundedCorner: false,
+                targetID: "Ul53",
+                contentType: "textandimage",
+                imagePosition: "imagetop",
+                prefixIcon: "e-version e-newpageicon",
+                buttonMode: "dropdown",
+                arrowPosition: "bottom",
+                height: 90,
+                width: 100
+            });
+            $("#btnlast").ejButton({
+                size: "large",
+                showRoundedCorner: false,
+                contentType: "textandimage",
+                imagePosition: "imagetop",
+                prefixIcon: "e-browser e-newpageicon",
+                arrowPosition: "bottom",
+                height: 100,
+                width: 100
+            });
+            $("#btn1").ejButton({
+                size: "large",
+                height: 200,
+                width: 225,
+                contentType: "textandimage",
+                imagePosition: "imagetop",
+                prefixIcon: "e-blank e-infopageicon"
+            });
+            $("#btn2").ejButton({
+                size: "large",
+                height: 200,
+                width: 225,
+                contentType: "textandimage",
+                imagePosition: "imagetop",
+                prefixIcon: "e-project e-infopageicon"
+            });
+            $("#btn3").ejButton({
+                size: "lerge",
+                height: 200,
+                width: 225,
+                contentType: "textandimage",
+                imagePosition: "imagetop",
+                prefixIcon: "e-gantt e-infopageicon"
+            });
+            $("#btn4").ejButton({
+                size: "large",
+                height: 200,
+                width: 225,
+                contentType: "textandimage",
+                imagePosition: "imagetop",
+                prefixIcon: "e-diet e-infopageicon"
+            });
+            $("#btn5").ejButton({
+                size: "lerge",
+                height: 200,
+                width: 225,
+                contentType: "textandimage",
+                imagePosition: "imagetop",
+                prefixIcon: "e-sales e-infopageicon"
+            });
+
+            $('#background').ejDropDownList({
+                targetID: "backgroundList",
+                width: "200px",
+                text: "No Background"
+            });
+            $('#theme').ejDropDownList({
+                targetID: "themeList",
+                width: "200px",
+                text: "White"
+            });
+        }
+    </script>
+    

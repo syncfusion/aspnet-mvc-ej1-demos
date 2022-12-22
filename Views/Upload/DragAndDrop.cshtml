@@ -1,0 +1,41 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates how to drag the files and upload it using Syncfusion ASP.NET MVC Upload control."  >
+}
+
+@section SampleHeading{
+    <span class="sampleName">Upload-Drag And Drop-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div class="frame">
+        <div class="control">
+            @Html.EJ().Uploadbox("Draganddrop").SaveUrl(@Url.Action("SaveDraganddrop")).RemoveUrl(@Url.Action("RemoveDraganddrop")).AllowDragAndDrop(true).MultipleFilesSelection(true)
+        </div>
+    </div>
+}
+@section StyleSection{
+    <style class="cssStyles">
+        .frame {
+            width: 500px;
+            height: 100px;
+        }
+
+        .control {
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+}
+@section ScriptSection{
+ <script>
+document.addEventListener('dragover',function(event){
+    event.preventDefault();
+    event.dataTransfer.dropEffect = 'none';
+    return false;
+	},false);
+	document.addEventListener('drop',function(event){
+    event.dataTransfer.dropEffect = 'none';
+    event.preventDefault();
+    return false;
+  },false);
+ </script>
+} 
+

@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "Essential Studio for ASP.NET MVC : Project Tracker";
+}
+@{
+    Layout = "~/Areas/Projecttracker/Views/Shared/_Layout.cshtml";
+}
+
+@using MVCSampleBrowser.Controllers
+@using Syncfusion.JavaScript
+@using Syncfusion.JavaScript.Models
+@using Syncfusion.MVC.EJ
+
+@(Html.EJ().Gantt("ganttsample")
+
+    .TaskIdMapping("TaskID")
+    .TaskNameMapping("TaskName")
+    .StartDateMapping("StartDate")
+    .EndDateMapping("EndDate")
+    .DurationMapping("Duration")
+    .ProgressMapping("Progress")
+    .ScheduleStartDate("02/01/2017")
+    .ScheduleEndDate("03/14/2017")
+    .DateFormat("MM/dd/yyyy")
+    .AllowDragAndDrop(true)
+    .ShowColumnChooser(true)
+    .ShowColumnOptions(true)
+    .HighlightWeekends(true)
+    .TreeColumnIndex(1)
+    .ShowGridCellTooltip(true)
+    .ChildMapping("SubTasks")
+    .AllowSelection(true)
+    .AllowGanttChartEditing(true)
+    .PredecessorMapping("Predecessors")
+    .AllowColumnResize(true)
+    .AllowSorting(true)
+    .IncludeWeekend(false)
+    .ResourceInfoMapping("ResourceID")
+    .ResourceNameMapping("ResourceName")
+    .ResourceIdMapping("ResourceID")
+    .ShowResourceNames(true)
+    .EnableContextMenu(true)
+    .NotesMapping("Notes")
+    .EditSettings(edit =>
+    {
+        edit.AllowAdding(true);
+        edit.AllowDeleting(true);
+        edit.AllowEditing(true);
+        edit.AllowIndent(true);
+        edit.EditMode("cellEditing");
+    })
+    .IsResponsive(true)
+    .EnableVirtualization(false)
+    .ToolbarSettings(toolbar =>
+    {
+        toolbar.ShowToolbar(true);
+        toolbar.ToolbarItems(new List<GanttToolBarItems>()
+        {
+            GanttToolBarItems.Add,
+            GanttToolBarItems.Search,
+            GanttToolBarItems.Edit,
+            GanttToolBarItems.Delete,
+            GanttToolBarItems.Update,
+            GanttToolBarItems.Cancel,
+            GanttToolBarItems.Indent,
+            GanttToolBarItems.Outdent,
+            GanttToolBarItems.ExpandAll,
+            GanttToolBarItems.CollapseAll,
+            GanttToolBarItems.CriticalPath,
+			GanttToolBarItems.PrevTimeSpan,
+            GanttToolBarItems.NextTimeSpan
+        });
+    })
+    .SizeSettings(ss => ss.Width("100%").Height("100%"))
+    .DragTooltip(tooltip =>
+    {
+        tooltip.ShowTooltip(true);
+    })
+
+    .StripLines(sl =>
+    {
+        sl.Day("02/06/2017").Label("Project Start").LineStyle("dotted").LineColor("Darkblue").LineWidth(2).Add();
+    })
+    .Resources(ViewBag.datasource1)
+    .Datasource(ViewBag.datasource)
+)
+

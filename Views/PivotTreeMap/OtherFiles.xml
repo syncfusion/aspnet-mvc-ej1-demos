@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Category>
+  <Samples url="/PivotTreeMap/WCF">
+    <DependentFiles displayname="WCF" url="wcf/OlapTreeMapService.svc.cs"></DependentFiles>
+  </Samples>
+  <Samples url="/PivotTreeMap/WebAPI">
+    <DependentFiles displayname="Web API" url="WebAPI/OlapTreeMapController.cs"></DependentFiles>
+  </Samples>
+</Category>

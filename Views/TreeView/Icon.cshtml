@@ -1,0 +1,17 @@
+@section MetaTags{
+   <meta name="description" content="This example demonstrates customozing the nodes with icons in ASP.NET MVC TreeView." >
+}
+
+@section SampleHeading{<span class="sampleName">TreeView-Icons-ASP.NET MVC-SYNCFUSION</span>}
+@section ControlsSection{
+    <div style="width: 250px">
+
+        @(Html.EJ().TreeView("treeView").TreeViewFields(s => s.Datasource((IEnumerable<loadondemand>)ViewBag.datasource).Id("id")
+                   .ParentId("pid").Text("name").HasChild("hasChild").Expanded("expanded").SpriteCssClass("spriteCss")))
+
+    </div>
+}
+@section StyleSection{
+    <link href="@Url.Content("~/Content/Samples/TreeViewIcons.css")" rel="stylesheet" />
+}
+
